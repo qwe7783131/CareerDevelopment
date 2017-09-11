@@ -20,6 +20,6 @@
 target/
 
 # Eclipse
-*/.settings/
+.settings/*
 .classpath
 .project
