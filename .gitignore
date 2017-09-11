@@ -1,6 +1,6 @@
-careerdevelopment/target/
-careerdevelopment/.classpath
-careerdevelopment/.project
-careerdevelopment/careerdevelopment.iml
-careerdevelopment/.idea/
-careerdevelopment/.settings/
+target/
+.classpath
+.project
+careerdevelopment.iml
+.idea/
+.settings/
