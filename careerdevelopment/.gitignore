@@ -1,1 +1,6 @@
 /target/
+.classpath
+.project
+careerdevelopment.iml
+/.idea
+/.settings
