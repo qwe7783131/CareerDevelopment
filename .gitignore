@@ -1,6 +1,21 @@
-target/
-.classpath
-.project
-careerdevelopment.iml
+# Java class files
+*.class
+
+# Generated files
+*/bin/
+*/gen/
+*/out/
+
+# Intellij
+*.iml
+*/*.iml
+
+#some local files
+*/.settings/
+*/.DS_Store
+.DS_Store
+*/.idea/
 .idea/
-.settings/
+
+# maven generated files
+target/
