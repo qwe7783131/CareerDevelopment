@@ -20,4 +20,10 @@ public class StudentController {
 		model.put("selectAllStudent", selectAllStudent);
 		return "index";
 	}
+	
+	@RequestMapping("a.do")
+ 	public String test1controller(ModelMap model) {
+		
+		return "admin/admin";
+	}
 }
