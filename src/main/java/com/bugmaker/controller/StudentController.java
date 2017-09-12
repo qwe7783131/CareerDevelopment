@@ -26,6 +26,26 @@ public class StudentController {
 		
 		return "admin/admin";
 	}
+	@RequestMapping("counselor.do")
+ 	public String counselor(ModelMap model) {
+		
+		return "counselor/counselor";
+	}
+	@RequestMapping("leader.do")
+ 	public String leader(ModelMap model) {
+		
+		return "leader/leader";
+	}
+	@RequestMapping("outteacher.do")
+ 	public String outteacher(ModelMap model) {
+		
+		return "outteacher/outteacher";
+	}
+	@RequestMapping("professionTeacher.do")
+ 	public String professionTeacher(ModelMap model) {
+		
+		return "professionTeacher/professionTeacher";
+	}
 	@RequestMapping("teacher.do")
  	public String teacher(ModelMap model) {
 		
