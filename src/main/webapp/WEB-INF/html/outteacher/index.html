@@ -2,20 +2,14 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <#include "html/template/head.html" />
     <title>职业发展规划</title>
-    <link rel="stylesheet" href="frame/layui/css/layui.css" media="all">
-    <link rel="stylesheet" href="frame/build/css/app.css" media="all">
-    <link rel="stylesheet" href="frame/build/css/themes/blue.css" media="all">
-    <!--下面的为光亮风格
-    	<!--<link rel="stylesheet" href="./build/css/themes/light.css" media="all">-->
 </head>
 
 <body  class="kit-theme">
     <div class="layui-layout layui-layout-admin kit-layout-admin">
         <div class="layui-header">
-            <div class="layui-logo">学生</div>
+            <div class="layui-logo">企业教师</div>
             <div class="layui-logo kit-logo-mobile">K</div>
             <ul class="layui-nav layui-layout-left kit-nav">
                 <li class="layui-nav-item"><a href="javascript:;">首页</a></li>
@@ -98,43 +92,9 @@
             <div style="padding: 15px;">主体内容加载中,请稍等...</div>
         </div>
 
-        <div class="layui-footer">
-            <!-- 底部固定区域 -->
-            2017 &copy;
-            <a href="http://kit.zhengjinfan.cn/">kit.zhengjinfan.cn/</a> MIT license
-
-        </div>
+        <#include "html/template/foot.html" />
     </div>
-    <script type="text/javascript">
-        var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-        document.write(unescape("%3Cspan id='cnzz_stat_icon_1264021086'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1264021086%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
-    </script>
-    <script src="frame/layui/layui.js"></script>
-    <script>
-        var message;
-        layui.config({
-        	base: 'frame/build/js/'
-        }).use(['app', 'message'], function() {
-            var app = layui.app,
-                $ = layui.jquery,
-                layer = layui.layer;
-            //将message设置为全局以便子页面调用
-            message = layui.message;
-            //主入口
-            app.set({
-                type: 'iframe'
-            }).init();
-            $('#pay').on('click', function() {
-                layer.open({
-                    title: false,
-                    type: 1,
-                    content: '<img src="/build/images/pay.png" />',
-                    area: ['500px', '250px'],
-                    shadeClose: true
-                });
-            });
-        });
-    </script>
+    <#include "html/template/common_js.html" />
 </body>
 
 </html>

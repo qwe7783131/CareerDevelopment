@@ -26,7 +26,8 @@
 		<property name="requestContextAttribute" value="request" />
 
 	</bean>
-	
+
+
 	<bean id="freemarkerConfig"   
         class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">  
         <!--配置视图根目录  -->

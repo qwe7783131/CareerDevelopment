@@ -1,0 +1,16 @@
+package com.bugmaker.controller.teacher;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+/**
+ * Created by wurenjie on 2017/9/12.
+ */
+@Controller
+@RequestMapping("/teacher")
+public class TeacherController {
+    @RequestMapping("index.do")
+    public String indexView(){
+        return "teacher/index";
+    }
+}

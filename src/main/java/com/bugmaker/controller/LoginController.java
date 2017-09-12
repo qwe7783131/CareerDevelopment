@@ -9,8 +9,4 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class LoginController{
 
-    @RequestMapping("index.do")
-    public String indexView(){
-        return "login";
-    }
 }

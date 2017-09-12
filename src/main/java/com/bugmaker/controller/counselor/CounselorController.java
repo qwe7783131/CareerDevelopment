@@ -1,4 +1,4 @@
-package com.bugmaker.controller;
+package com.bugmaker.controller.counselor;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,12 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Created by wurenjie on 2017/9/12.
  */
 @Controller
-@RequestMapping("/admin")
-public class AdminController {
-
+@RequestMapping("/counselor")
+public class CounselorController {
     @RequestMapping("index.do")
     public String indexView(){
-        return "admin/index";
+        return "counselor/index";
     }
-
 }

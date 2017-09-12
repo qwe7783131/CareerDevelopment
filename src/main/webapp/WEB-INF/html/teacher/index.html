@@ -2,20 +2,14 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <#include "html/template/head.html" />
     <title>职业发展规划</title>
-    <link rel="stylesheet" href="frame/layui/css/layui.css" media="all">
-    <link rel="stylesheet" href="frame/build/css/app.css" media="all">
-    <link rel="stylesheet" href="frame/build/css/themes/blue.css" media="all">
-    <!--下面的为光亮风格
-    	<!--<link rel="stylesheet" href="./build/css/themes/light.css" media="all">-->
 </head>
 
 <body  class="kit-theme">
     <div class="layui-layout layui-layout-admin kit-layout-admin">
         <div class="layui-header">
-            <div class="layui-logo">辅导员</div>
+            <div class="layui-logo">教师</div>
             <div class="layui-logo kit-logo-mobile">K</div>
             <ul class="layui-nav layui-layout-left kit-nav">
                 <li class="layui-nav-item"><a href="javascript:;">首页</a></li>
@@ -93,19 +87,31 @@
                         <dl class="layui-nav-child">
                             <dd>
                                 <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'查询跟岗实习项目',id:'8'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 查询实习项目</span></a>
+                                    <i class="layui-icon">&#xe6c6;</i><span> 查询跟岗实习项目</span></a>
                             </dd>
                             <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看跟岗实习情况登记表',id:'9'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 查看实习情况登记表</span></a>
+                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'完成跟岗实习手册',id:'10'}">
+                                    <i class="layui-icon">&#xe6c6;</i><span> 完成跟岗实习手册</span></a>
                             </dd>
                             <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查询所有存档资料',id:'10'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 查询所有存档资料</span></a>
+                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看实习状态表',id:'11'}">
+                                    <i class="layui-icon">&#xe6c6;</i><span> 查看实习状态表</span></a>
                             </dd>
                             <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看住宿安排表',id:'11'}">
+                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'跟岗实习手册完成进度统计表',id:'12'}">
+                                    <i class="layui-icon">&#xe6c6;</i><span> 实习手册完成进度统计表</span></a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看学生实习成绩,id:'13'}">
+                                    <i class="layui-icon">&#xe6c6;</i><span> 查看学生实习成绩</span></a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看住宿安排表',id:'14'}">
                                     <i class="layui-icon">&#xe6c6;</i><span> 查看住宿安排表</span></a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查寻所有存档资料',id:'15'}">
+                                    <i class="layui-icon">&#xe6c6;</i><span> 查询所有存档资料</span></a>
                             </dd>
                         </dl>
                     </li>
@@ -113,15 +119,31 @@
                         <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 顶岗实习</span></a>
                         <dl class="layui-nav-child">
                             <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'查询顶岗实习项目',id:'12'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 查询实习项目</span></a>
+                                <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'查询顶岗实习项目',id:'16'}">
+                                    <i class="layui-icon">&#xe6c6;</i><span> 查询顶岗实习项目</span></a>
                             </dd>
                             <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看顶岗实习情况登记表',id:'13'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 查看实习情况登记表</span></a>
+                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'指导教师分配',id:'17'}">
+                                    <i class="layui-icon">&#xe6c6;</i><span> 指导教师分配</span></a>
                             </dd>
                             <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查询所有存档资料',id:'14'}">
+                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'完成顶岗实习手册',id:'18'}">
+                                    <i class="layui-icon">&#xe6c6;</i><span> 完成顶岗实习手册</span></a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看所有学生顶岗实习情况统计表',id:'19'}">
+                                    <i class="layui-icon">&#xe6c6;</i><span> 查看所有学生顶岗实习情况统计表</span></a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'顶岗实习手册完成进度统计表(待定)',id:'20'}">
+                                    <i class="layui-icon">&#xe6c6;</i><span> 实习手册完成进度统计表(待定)</span></a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看学生实习成绩,id:'21'}">
+                                    <i class="layui-icon">&#xe6c6;</i><span> 查看学生实习成绩</span></a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查寻所有存档资料',id:'22'}">
                                     <i class="layui-icon">&#xe6c6;</i><span> 查询所有存档资料</span></a>
                             </dd>
                         </dl>
@@ -130,11 +152,11 @@
                         <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 就业信息调查</span></a>
                         <dl class="layui-nav-child">
                             <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'调查表管理',id:'15'}">
+                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'调查表管理',id:'23'}">
                                     <i class="layui-icon">&#xe6c6;</i><span> 调查表管理</span></a>
                             </dd>
                             <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看调查统计结果',id:'16'}">
+                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看调查统计结果',id:'24'}">
                                     <i class="layui-icon">&#xe6c6;</i><span> 查看调查统计结果</span></a>
                             </dd>
                         </dl>
@@ -147,43 +169,9 @@
             <div style="padding: 15px;">主体内容加载中,请稍等...</div>
         </div>
 
-        <div class="layui-footer">
-            <!-- 底部固定区域 -->
-            2017 &copy;
-            <a href="http://kit.zhengjinfan.cn/">kit.zhengjinfan.cn/</a> MIT license
-
-        </div>
+        <#include "html/template/foot.html" />
     </div>
-    <script type="text/javascript">
-        var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-        document.write(unescape("%3Cspan id='cnzz_stat_icon_1264021086'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1264021086%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
-    </script>
-    <script src="frame/layui/layui.js"></script>
-    <script>
-        var message;
-        layui.config({
-        	base: 'frame/build/js/'
-        }).use(['app', 'message'], function() {
-            var app = layui.app,
-                $ = layui.jquery,
-                layer = layui.layer;
-            //将message设置为全局以便子页面调用
-            message = layui.message;
-            //主入口
-            app.set({
-                type: 'iframe'
-            }).init();
-            $('#pay').on('click', function() {
-                layer.open({
-                    title: false,
-                    type: 1,
-                    content: '<img src="/build/images/pay.png" />',
-                    area: ['500px', '250px'],
-                    shadeClose: true
-                });
-            });
-        });
-    </script>
+    <#include "html/template/common_js.html" />
 </body>
 
 </html>
