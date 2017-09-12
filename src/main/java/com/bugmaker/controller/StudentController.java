@@ -21,9 +21,14 @@ public class StudentController {
 		return "index";
 	}
 	
-	@RequestMapping("a.do")
- 	public String test1controller(ModelMap model) {
+	@RequestMapping("admin.do")
+ 	public String admin(ModelMap model) {
 		
 		return "admin/admin";
+	}
+	@RequestMapping("teacher.do")
+ 	public String teacher(ModelMap model) {
+		
+		return "teacher/teacher";
 	}
 }
