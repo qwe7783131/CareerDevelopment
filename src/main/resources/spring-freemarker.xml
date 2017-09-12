@@ -15,11 +15,16 @@
 		<property name="suffix">
 			<value>.html</value>
 		</property>
+
 		<property name="contentType" value="text/html; charset=UTF-8"/>
 		<property name="exposeRequestAttributes" value="false"/>
 		<property name="exposeSessionAttributes" value="false"/>
 		<property name="exposeSpringMacroHelpers" value="true"/>
 		<property name="cache" value="false"></property>
+
+		<!-- 获取request -->
+		<property name="requestContextAttribute" value="request" />
+
 	</bean>
 	
 	<bean id="freemarkerConfig"   
