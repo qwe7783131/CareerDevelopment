@@ -1,25 +1,23 @@
 package com.bugmaker.bean;
 
-/**
- * Created by guan on 2017/9/13.
- */
 public class Student {
-    private Integer id;
-    private String password;
+    private String id;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    private String classId;
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public String getPassword() {
-        return password;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
+    }
+
+    public String getClassId() {
+        return classId;
+    }
+
+    public void setClassId(String classId) {
+        this.classId = classId == null ? null : classId.trim();
     }
 }

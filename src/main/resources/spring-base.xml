@@ -13,9 +13,9 @@
 		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-3.1.xsd">
 
 
-	<!-- 自动扫描 --> 
+	<!-- 自动扫描 -->
 	<context:component-scan base-package="com.bugmaker.*" />
-	<!-- 引入配置文件 -->  
+	<!-- 引入配置文件 -->
 	<bean id="propertyConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="location">
@@ -29,17 +29,17 @@
 		<property name="jdbcUrl" value="${db.url}" />
 		<property name="user" value="${db.username}" />
 		<property name="password" value="${db.password}" />
-		<!--连接池中保留的最大连接数。Default: 15 --> 
+		<!--连接池中保留的最大连接数。Default: 15 -->
 		<property name="maxPoolSize" value="150" />
-		<!--连接池中保留的最小连接数。--> 
+		<!--连接池中保留的最小连接数。-->
 		<property name="minPoolSize" value="1"></property>
 		<!-- 初始化时创建的连接数，应在minPoolSize与maxPoolSize之间取值。默认为3； -->
 		<property name="initialPoolSize" value="3" />
-		<!--最大空闲时间,60秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 --> 
+		<!--最大空闲时间,60秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 -->
 		<property name="maxIdleTime" value="60" />
-		<!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 --> 
+		<!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
 		<property name="acquireIncrement" value="1" />
-		<!--每60秒检查所有连接池中的空闲连接。Default: 0 --> 
+		<!--每60秒检查所有连接池中的空闲连接。Default: 0 -->
 		<property name="idleConnectionTestPeriod" value="60" />
 	</bean>
 	<!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
@@ -50,7 +50,7 @@
 		<!-- 自动扫描需要定义类别名的包，将包内的JAVA类的类名作为类别名 -->
 		<property name="typeAliasesPackage" value="com.bugmaker.bean" />
 	</bean>
-	
+
 	<!-- DAO接口所在包名，Spring会自动查找其下的类-->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.bugmaker.mapper" />
@@ -64,8 +64,8 @@
 		<property name="dataSource" ref="mySqldataSource" />
 	</bean>
 	<tx:annotation-driven transaction-manager="transactionManager" />
-	<!-- 支持上传文件 -->  
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>  
+	<!-- 支持上传文件 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 	<!-- 注册处理器 -->
 	<context:component-scan base-package="com.bugmaker.controller" />
    <!-- 注册拦截器 -->
@@ -76,6 +76,6 @@
 <!-- 		</mvc:interceptor> -->
 
 <!-- 	</mvc:interceptors> -->
-	<!-- 开启注解 -->  
-    <context:annotation-config/>  
+	<!-- 开启注解 -->
+    <context:annotation-config/>
 </beans>
