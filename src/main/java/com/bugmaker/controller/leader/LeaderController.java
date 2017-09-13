@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LeaderController {
     @RequestMapping("index.do")
     public String indexView(){
-        return "leader/index";
+        return "leader/index1";
     }
 }

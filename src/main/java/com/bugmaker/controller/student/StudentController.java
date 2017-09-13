@@ -24,6 +24,6 @@ public class StudentController {
 
 	@RequestMapping("index.do")
 	public String indexView(){
-		return "student/index";
+		return "student/index1";
 	}
 }
