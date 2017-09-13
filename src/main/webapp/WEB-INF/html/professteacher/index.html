@@ -3,191 +3,192 @@
 
 <head>
     <#include "html/template/head.html" />
-    <title>职业发展规划</title>
+    <title>首页</title>
 </head>
 
-<body  class="kit-theme">
-    <div class="layui-layout layui-layout-admin kit-layout-admin">
-        <div class="layui-header">
-            <div class="layui-logo">专业负责人</div>
-            <div class="layui-logo kit-logo-mobile">K</div>
-            <ul class="layui-nav layui-layout-left kit-nav">
-                <li class="layui-nav-item"><a href="javascript:;">首页</a></li>
-                <li class="layui-nav-item"><a href="javascript:;">商品管理</a></li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">其它系统</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">邮件管理</a></dd>
-                        <dd><a href="javascript:;">消息管理</a></dd>
-                        <dd><a href="javascript:;">授权管理</a></dd>
-                    </dl>
-                </li>
-            </ul>
-            <ul class="layui-nav layui-layout-right kit-nav">
-                <li class="layui-nav-item">
-                    <a href="javascript:;">
-                        <img src="http://m.zhengjinfan.cn/images/0.jpg" class="layui-nav-img"> Van
-                    </a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">基本资料</a></dd>
-                        <dd><a href="javascript:;">安全设置</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item"><a href="javascript:;"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a></li>
-            </ul>
-        </div>
-
-        <div class="layui-side layui-bg-black kit-side">
-            <div class="layui-side-scroll">
-                <div class="kit-side-fold"><i class="fa fa-navicon" aria-hidden="true"></i></div>
-                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-                <ul class="layui-nav layui-nav-tree" lay-filter="kitNavbar" kit-navbar>
-                    <li class="layui-nav-item">
-                    	 <!--layui-nav-itemed-->
-                        <a class="" href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 基础数据管理</span></a>
-                        <dl class="layui-nav-child">
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'查看学生信息',id:'1'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 查看学生信息</span></a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'查询教师信息',id:'2'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 查询教师信息</span></a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'查询企业教师信息',id:'3'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 查询企业教师信息</span></a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'查询专业负责人名单',id:'4'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 查询专业负责人名单</span></a>
-                            </dd>
-                            
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item">
-                        <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 学生职业方向选择</span></a>
-                        <dl class="layui-nav-child">
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'发布专业方向',id:'5'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 发布本人专业方向</span></a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'发布本专业方向',id:'6'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 发布本专业方向</span></a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看学生志愿填报',id:'7'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 查看学生志愿填报</span></a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'选人与分班',id:'8'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 选人与分班</span></a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看分班名单',id:'9'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 查看分班名单</span></a>
-                            </dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item">
-                        <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 跟岗实习</span></a>
-                        <dl class="layui-nav-child">
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'查询跟岗实习项目',id:'10'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 查询跟岗实习项目</span></a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'完成跟岗实习手册',id:'11'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 完成跟岗实习手册</span></a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看实习状态表',id:'12'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 查看实习状态表</span></a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'跟岗实习手册完成进度统计表',id:'13'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 实习手册完成进度统计表</span></a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看学生实习成绩,id:'14'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 查看学生实习成绩</span></a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看住宿安排表',id:'15'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 查看住宿安排表</span></a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查寻所有存档资料',id:'16'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 查询所有存档资料</span></a>
-                            </dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item">
-                        <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 顶岗实习</span></a>
-                        <dl class="layui-nav-child">
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'查询顶岗实习项目',id:'17'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 查询顶岗实习项目</span></a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'管理选导师权限',id:'18'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 管理选导师权限</span></a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'指导教师分配',id:'19'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 指导教师分配</span></a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'完成顶岗实习手册',id:'20'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 完成顶岗实习手册</span></a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看本专业学生顶岗实习情况统计表',id:'21'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 本专业学生顶岗实习手册</span></a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看所有学生顶岗实习情况统计表',id:'22'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 本专业学生顶岗实习情况统计表</span></a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'顶岗实习手册完成进度统计表(待定)',id:'23'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 本专业实习手册完成进度统计表(待定)</span></a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看学生实习成绩,id:'24'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 本专业学生实习成绩</span></a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查寻所有存档资料',id:'25'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 查询所有存档资料</span></a>
-                            </dd>
-                        </dl>
-                    </li>
-                    <li class="layui-nav-item">
-                        <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 就业信息调查</span></a>
-                        <dl class="layui-nav-child">
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'调查表管理',id:'26'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 调查表管理</span></a>
-                            </dd>
-                            <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看调查统计结果',id:'27'}">
-                                    <i class="layui-icon">&#xe6c6;</i><span> 查看调查统计结果</span></a>
-                            </dd>
-                        </dl>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="layui-body" id="container">
-            <!-- 内容主体区域 -->
-            <div style="padding: 15px;">主体内容加载中,请稍等...</div>
-        </div>
-
-        <#include "html/template/foot.html" />
+<body>
+<div class="layui-layout layui-layout-admin kit-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">专业负责人</div>
+        <div class="layui-logo kit-logo-mobile">K</div>
+        <!--<ul class="layui-nav layui-layout-left kit-nav">
+            <li class="layui-nav-item"><a href="javascript:;">控制台</a></li>
+            <li class="layui-nav-item"><a href="javascript:;">商品管理</a></li>
+            <li class="layui-nav-item"><a href="javascript:;" id="pay"><i class="fa fa-gratipay" aria-hidden="true"></i> 捐赠我</a></li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">其它系统</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">邮件管理</a></dd>
+                    <dd><a href="javascript:;">消息管理</a></dd>
+                    <dd><a href="javascript:;">授权管理</a></dd>
+                </dl>
+            </li>
+        </ul>-->
+        <ul class="layui-nav layui-layout-right kit-nav">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="http://m.zhengjinfan.cn/images/0.jpg" class="layui-nav-img"> Van
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;" kit-target data-options="{url:'basic.html',icon:'&#xe658;',title:'基本资料',id:'966'}"><span>基本资料</span></a></dd>
+                    <dd><a href="javascript:;">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="javascript:;"><i class="fa fa-sign-out" aria-hidden="true"></i> 注销</a></li>
+        </ul>
     </div>
-    <#include "html/template/common_js.html" />
+
+    <div class="layui-side layui-bg-black kit-side">
+        <div class="layui-side-scroll">
+            <div class="kit-side-fold"><i class="fa fa-navicon" aria-hidden="true"></i></div>
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="kitNavbar" kit-navbar>
+                <li class="layui-nav-item">
+                    <!--layui-nav-itemed-->
+                    <a class="" href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 基础数据管理</span></a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'查看学生信息',id:'1'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 查看学生信息</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'查询教师信息',id:'2'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 查询教师信息</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'查询企业教师信息',id:'3'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 查询企业教师信息</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'查询专业负责人名单',id:'4'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 查询专业负责人名单</span></a>
+                        </dd>
+
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 学生职业方向选择</span></a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'发布专业方向',id:'5'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 发布本人专业方向</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'发布本专业方向',id:'6'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 发布本专业方向</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看学生志愿填报',id:'7'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 查看学生志愿填报</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'选人与分班',id:'8'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 选人与分班</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看分班名单',id:'9'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 查看分班名单</span></a>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 跟岗实习</span></a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'查询跟岗实习项目',id:'10'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 查询跟岗实习项目</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'完成跟岗实习手册',id:'11'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 完成跟岗实习手册</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看实习状态表',id:'12'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 查看实习状态表</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'跟岗实习手册完成进度统计表',id:'13'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 实习手册完成进度统计表</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看学生实习成绩,id:'14'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 查看学生实习成绩</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看住宿安排表',id:'15'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 查看住宿安排表</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查寻所有存档资料',id:'16'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 查询所有存档资料</span></a>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 顶岗实习</span></a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'查询顶岗实习项目',id:'17'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 查询顶岗实习项目</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'管理选导师权限',id:'18'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 管理选导师权限</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'指导教师分配',id:'19'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 指导教师分配</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'完成顶岗实习手册',id:'20'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 完成顶岗实习手册</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看本专业学生顶岗实习情况统计表',id:'21'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 本专业学生顶岗实习手册</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看所有学生顶岗实习情况统计表',id:'22'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 本专业学生顶岗实习情况统计表</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'顶岗实习手册完成进度统计表(待定)',id:'23'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 本专业实习手册完成进度统计表(待定)</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看学生实习成绩,id:'24'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 本专业学生实习成绩</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查寻所有存档资料',id:'25'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 查询所有存档资料</span></a>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 就业信息调查</span></a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'调查表管理',id:'26'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 调查表管理</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看调查统计结果',id:'27'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 查看调查统计结果</span></a>
+                        </dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="layui-body" id="container">
+        <!-- 内容主体区域 -->
+        <div style="padding: 15px;"><i class="layui-icon layui-anim layui-anim-rotate layui-anim-loop">&#xe63e;</i> 请稍等...</div>
+    </div>
+
+    <#include "html/template/foot.html" />
+</div>
+<#include "html/template/common_js.html" />
 </body>
 
 </html>

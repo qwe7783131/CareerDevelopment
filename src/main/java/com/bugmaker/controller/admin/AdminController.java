@@ -15,9 +15,4 @@ public class AdminController {
         return "admin/index";
     }
 
-    @RequestMapping("index1.do")
-    public String index1View(){
-        return "admin/index1";
-    }
-
 }

@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ProfessTeacherController {
     @RequestMapping("index.do")
     public String indexView(){
-        return "professteacher/index1";
+        return "professteacher/index";
     }
 }
