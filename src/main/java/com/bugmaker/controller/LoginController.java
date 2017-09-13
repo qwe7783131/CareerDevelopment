@@ -8,5 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class LoginController{
-
+	@RequestMapping("xuxu.do")
+    public String indexView(){
+        return "teacher/selectStu";
+    }
+	@RequestMapping("xuxu2.do")
+    public String indexView2(){
+        return "teacher/updateStu";
+    }
 }
