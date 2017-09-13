@@ -161,11 +161,11 @@
 			<scope>provided</scope>
 		</dependency>
 		<!-- 解决了javabean的问题 -->
-		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
-			<version>7.0</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>javax</groupId>-->
+			<!--<artifactId>javaee-api</artifactId>-->
+			<!--<version>7.0</version>-->
+		<!--</dependency>-->
 
 	</dependencies>
 	<properties>
@@ -204,51 +204,15 @@
 					</webApp>
 				</configuration>
 			</plugin>
-			<!-- Hibernate生成实体配置 start -->
-			<!--<plugin>-->
-			<!--<groupId>org.codehaus.mojo</groupId>-->
-			<!--<artifactId>hibernate3-maven-plugin</artifactId>-->
-			<!--<version>2.2</version>-->
-
-			<!--<dependencies>-->
-				<!--<dependency>-->
-					<!--<groupId>mysql</groupId>-->
-					<!--<artifactId>mysql-connector-java</artifactId>-->
-					<!--<version>5.1.21</version>-->
-				<!--</dependency>-->
-				<!--<dependency>-->
-					<!--<groupId>cglib</groupId>-->
-					<!--<artifactId>cglib</artifactId>-->
-					<!--<version>2.2</version>-->
-				<!--</dependency>-->
-			<!--</dependencies>-->
-
-			<!--<configuration>-->
-				<!--<components>-->
-					<!--<component>-->
-						<!--<name>hbm2java</name>-->
-						<!--<outputDirectory>src/main/java/com/bugmaker/</outputDirectory>-->
-						<!--&lt;!&ndash; 主要用于反向控制数据库引擎通过JDBC连接数据 &ndash;&gt;-->
-						<!--<implementation>jdbcconfiguration</implementation>-->
-					<!--</component>-->
-				<!--</components>-->
-				<!--<componentProperties>-->
-					<!--&lt;!&ndash; Hibernate配置文件 &ndash;&gt;-->
-					<!--<configurationfile>src/main/resources/hibernate.cfg.xml</configurationfile>-->
-					<!--&lt;!&ndash;-->
-                    <!--如果设为true将会生成JPA的元素注解-->
-                    <!--使用annotations from-->
-                    <!--javax.persistence and org.hibernate.annotations-->
-                    <!--默认值是false-->
-                    <!--&ndash;&gt;-->
-					<!--<ejb3>true</ejb3>-->
-					<!--&lt;!&ndash; 指明生成java类的包名 &ndash;&gt;-->
-					<!--<packagename>bean</packagename>-->
-				<!--</componentProperties>-->
-			<!--</configuration>-->
-		<!--</plugin>-->
-		<!-- Hibernate生成实体配置 end -->
-
+			<plugin>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-maven-plugin</artifactId>
+				<version>1.3.2</version>
+				<configuration>
+					<verbose>true</verbose>
+					<overwrite>true</overwrite>
+				</configuration>
+			</plugin>
 	</plugins>
 	</build>
 </project>

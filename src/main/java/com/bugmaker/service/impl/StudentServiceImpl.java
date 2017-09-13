@@ -4,10 +4,10 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.bugmaker.bean.Student;
 import com.bugmaker.service.StudentService;
 import org.springframework.stereotype.Service;
 
-import com.bugmaker.bean.Student;
 import com.bugmaker.mapper.StudentMapper;
 
 @Service

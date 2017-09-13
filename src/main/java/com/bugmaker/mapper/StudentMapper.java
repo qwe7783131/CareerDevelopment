@@ -1,8 +1,8 @@
 package com.bugmaker.mapper;
 
-import java.util.List;
-
 import com.bugmaker.bean.Student;
+
+import java.util.List;
 
 public interface StudentMapper {
 	

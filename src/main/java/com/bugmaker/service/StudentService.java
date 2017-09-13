@@ -1,8 +1,8 @@
 package com.bugmaker.service;
 
-import java.util.List;
-
 import com.bugmaker.bean.Student;
+
+import java.util.List;
 
 
 public interface StudentService {
