@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<#include "html/template/head.html" />
+<title>查询分班及导出</title>
+</head>
+
+	<body>
+		<div style="margin: 15px;">
+			<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+				<legend>分班名单</legend>
+			</fieldset>
+			</br>
+			</br>
+			</br>
+			<div style="padding-left: 30px;padding-right: 50px;">
+				<table class="layui-table">
+					<colgroup>
+						<col width="150">
+						<col width="150">
+						<col width="200">
+						<col>
+					</colgroup>
+					<thead>
+						<tr>
+							<td>学生姓名</td>
+							<th>班级</th>
+							<th>所属企业</th>
+							<th>专业方向</th>
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>xuxu</td>
+							<td>东软班</td>
+							<td>东软</td>
+							<td>java开发</td>
+							<td style="color: red;">无权限</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			</br>
+			<div style="float: right;padding-right: 50px;">
+				<button class="layui-btn layui-btn-normal layui-btn layui-btn-normal">导出</button>
+			</div>
+			<div id="demo1" style='padding-left:30px;width: 100%;height: 50px;position: fixed;bottom: 0;'></div>
+		</div>
+		<script src="${base}/frame/layui/layui.js"></script>
+		
+		<script>
+			layui.use(['laypage', 'layer','form'], function() {
+				var form = layui.form;
+				
+				var laypage = layui.laypage,
+					layer = layui.layer;
+
+				laypage.render({
+					elem: 'demo1',
+					count: 70 ,
+					jump: function(obj) {
+						console.log(obj)
+					}
+				});
+			});
+		</script>
+	</body>
+</html>

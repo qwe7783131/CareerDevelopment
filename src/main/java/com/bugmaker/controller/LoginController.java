@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoginController{
 	@RequestMapping("xuxu.do")
     public String indexView(){
-        return "teacher/selectStu";
+        return "teacher/selectVoluntaryReport";
     }
 	@RequestMapping("xuxu2.do")
     public String indexView2(){
-        return "teacher/updateStu";
+        return "teacher/releaseDirect";
     }
 }
