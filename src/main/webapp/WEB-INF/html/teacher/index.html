@@ -3,6 +3,7 @@
 
 <head>
     <#include "html/template/head.html" />
+    <#assign urlbase=base + "/teacher" />
     <title>首页</title>
 </head>
 
@@ -48,19 +49,19 @@
                     <a class="" href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 基础数据管理</span></a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'查看学生信息',id:'1'}">
+                            <a href="javascript:;" kit-target data-options="{url:'${urlbase}/selectStu.do',icon:'&#xe6c6;',title:'查看学生信息',id:'1'}">
                                 <i class="layui-icon">&#xe6c6;</i><span> 查看学生信息</span></a>
                         </dd>
                         <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'查询教师信息',id:'2'}">
+                            <a href="javascript:;" kit-target data-options="{url:'${urlbase}/selectTea.do',icon:'&#xe6c6;',title:'查询教师信息',id:'2'}">
                                 <i class="layui-icon">&#xe6c6;</i><span> 查询教师信息</span></a>
                         </dd>
                         <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'查询企业教师信息',id:'3'}">
+                            <a href="javascript:;" kit-target data-options="{url:'${urlbase}/selectOut.do',icon:'&#xe6c6;',title:'查询企业教师信息',id:'3'}">
                                 <i class="layui-icon">&#xe6c6;</i><span> 查询企业教师信息</span></a>
                         </dd>
                         <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'查询专业负责人名单',id:'4'}">
+                            <a href="javascript:;" kit-target data-options="{url:'${urlbase}/selectProfessTea.do',icon:'&#xe6c6;',title:'查询专业负责人名单',id:'4'}">
                                 <i class="layui-icon">&#xe6c6;</i><span> 查询专业负责人名单</span></a>
                         </dd>
 
@@ -70,15 +71,15 @@
                     <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 学生职业方向选择</span></a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'发布专业方向',id:'5'}">
+                            <a href="javascript:;" kit-target data-options="{url:'${urlbase}/releaseDirect.do',icon:'&#xe6c6;',title:'发布专业方向',id:'5'}">
                                 <i class="layui-icon">&#xe6c6;</i><span> 发布专业方向</span></a>
                         </dd>
                         <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看学生志愿填报',id:'6'}">
+                            <a href="javascript:;" kit-target data-options="{url:'${urlbase}/selectVoluntaryReport.do',icon:'&#xe6c6;',title:'查看学生志愿填报',id:'6'}">
                                 <i class="layui-icon">&#xe6c6;</i><span> 查看学生志愿填报</span></a>
                         </dd>
                         <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看分班名单',id:'7'}">
+                            <a href="javascript:;" kit-target data-options="{url:'${urlbase}/selectClassDivide.do',icon:'&#xe6c6;',title:'查看分班名单',id:'7'}">
                                 <i class="layui-icon">&#xe6c6;</i><span> 查看分班名单</span></a>
                         </dd>
                     </dl>
