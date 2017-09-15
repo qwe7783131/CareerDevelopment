@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<#include "html/template/head.html" />
+<title>更改宿舍申请列表</title>
+</head>
+
+	<body>
+		<div style="padding-left: 20px;padding-right: 20px;margin-top: 10px;">
+		<blockquote class="layui-elem-quote ">
+			申请更换宿舍列表
+		</blockquote>
+		<table class="layui-table">
+			<thead>
+				<tr>
+					<td>学生姓名</td>
+					<td>原宿舍</td>
+					<td>申请更换宿舍</td>
+					<td>操作</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>xuxu</td>
+					<td>F2-133</td>
+					<td>F1-666</td>
+					<td>
+						<button class="layui-btn layui-btn-normal layui-btn-small">同意</button>
+						<button class="layui-btn layui-btn-primary layui-btn-small">驳回</button>
+					</td>
+				</tr>
+				<tr>
+					<td>xuxu</td>
+					<td>F2-133</td>
+					<td>F1-666</td>
+					<td>
+						<button class="layui-btn layui-btn-normal layui-btn-small">同意</button>
+						<button class="layui-btn layui-btn-primary layui-btn-small">驳回</button>
+					</td>
+				</tr>
+				<tr>
+					<td>xuxu</td>
+					<td>F2-133</td>
+					<td>F1-666</td>
+					<td>
+						<button class="layui-btn layui-btn-normal layui-btn-small">同意</button>
+						<button class="layui-btn layui-btn-primary layui-btn-small">驳回</button>
+					</td>
+				</tr>
+			</tbody>
+			<div id="demo1" style="100%;height: 50px;position: fixed;bottom: 0; "></div>
+		</table>
+		</div>
+		<script src="${base}/frame/layui/layui.js"></script>
+
+		<script>
+			layui.use(['laypage', 'layer', 'form'], function() {
+				var form = layui.form;
+
+				var laypage = layui.laypage,
+					layer = layui.layer;
+
+				laypage.render({
+					elem: 'demo1',
+					count: 70,
+					jump: function(obj) {
+						console.log(obj)
+					}
+				});
+			});
+		</script>
+	</body>
+
+</html>

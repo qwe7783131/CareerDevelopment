@@ -1,0 +1,4 @@
+xuxu:
+dormitory.html	住宿管理
+changeDorm.html	更改宿舍（dormitory用）
+changeDormApply.html	审批住宿变更（dormitory用）

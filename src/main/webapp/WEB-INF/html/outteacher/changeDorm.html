@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<#include "html/template/head.html" />
+<title>更改宿舍</title>
+</head>
+
+	<body>
+		<div style="padding: 10px;margin: 10px;">
+			<blockquote class="layui-elem-quote ">
+				更换宿舍
+			</blockquote>
+			<form class="layui-form">
+				<div class="layui-form-item">
+					<div class="layui-form-item">选择调换后的宿舍</div>
+					<div class="layui-input-inline">
+						<select name="quiz1">
+							<option value="">请选择宿舍楼</option>
+							<option value="F1" selected="">F1</option>
+							<option value="F2">F2</option>
+							<option value="G1">G1</option>
+						</select>
+					</div>
+					<div class="layui-input-inline">
+						<select name="quiz2">
+							<option value="">请选择宿舍号</option>
+							<option value="111">111</option>
+							<option value="112">112</option>
+							<option value="113">113</option>
+							<option value="114">114</option>
+							<option value="115">115</option>
+						</select>
+					</div>
+				</div>
+				<button class="layui-btn">确定</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+			</form>
+		</div>
+		<script src="${base}/frame/layui/layui.js"></script>
+
+		<script>
+			layui.use(['laypage', 'layer', 'form'], function() {
+				var form = layui.form;
+
+				var laypage = layui.laypage,
+					layer = layui.layer;
+
+				laypage.render({
+					elem: 'demo1',
+					count: 70,
+					jump: function(obj) {
+						console.log(obj)
+					}
+				});
+			});
+		</script>
+	</body>
+
+</html>
