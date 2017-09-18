@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>转指导老师</title>
+		<link rel="stylesheet" href="layui/css/layui.css">
+	</head>
+	<body>
+		
+		
+		
+		<form class="layui-form" action="">
+			<div class="layui-form-item">
+		    <label class="layui-form-label">选择框</label>
+		    <div class="layui-input-block">
+		      <select name="city" lay-verify="required">
+		        <option value=""></option>
+		        <option value="0">刘大飞</option>
+		        <option value="1">刘二飞</option>
+		        <option value="2">刘三飞</option>
+		        <option value="3">刘四飞</option>
+		        <option value="4">刘五飞</option>
+		      </select>
+		    </div>
+  			</div>
+  			
+  			<div class="layui-form-item">
+			    <div class="layui-input-block">
+			      <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+			      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+			    </div>
+			  </div>
+		</form>
+		<script src="layui/layui.js"></script>
+		<script>
+		//Demo
+		layui.use('form', function(){
+		  var form = layui.form;
+		  
+		  //监听提交
+		  form.on('submit(formDemo)', function(data){
+		    layer.msg(JSON.stringify(data.field));
+		    return false;
+		  });
+		});
+		</script>
+	</body>
+</html>
