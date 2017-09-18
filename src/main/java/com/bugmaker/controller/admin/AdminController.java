@@ -17,12 +17,12 @@ public class AdminController {
 
     @RequestMapping("studentManage.do")
     public String studentManageView() {
-        return "admin/adminRight/studentManage";
+        return "admin/studentManage";
     }
 
     @RequestMapping("addStudent.do")
     public String addStudent() {
-        return "admin/adminRight/addStudent";
+        return "admin/addStudent";
     }
 
 }
