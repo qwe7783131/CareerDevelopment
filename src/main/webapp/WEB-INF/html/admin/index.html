@@ -3,6 +3,7 @@
 
 <head>
     <#include "html/template/head.html" />
+    <#assign urlbase=base + "/admin" />
     <title>首页</title>
 </head>
 
@@ -48,16 +49,12 @@
                     <a class="" href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 用户管理</span></a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'学生管理',id:'1'}">
+                            <a href="javascript:;" kit-target data-options="{url:'${urlbase}/studentManage.do',icon:'&#xe6c6;',title:'学生管理',id:'1'}">
                                 <i class="layui-icon">&#xe6c6;</i><span> 学生管理</span></a>
                         </dd>
                         <dd>
                             <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'教师管理',id:'2'}">
                                 <i class="layui-icon">&#xe6c6;</i><span> 教师管理</span></a>
-                        </dd>
-                        <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'课程管理',id:'3'}">
-                                <i class="layui-icon">&#xe6c6;</i><span> 课程管理(待定)</span></a>
                         </dd>
                     </dl>
                 </li>

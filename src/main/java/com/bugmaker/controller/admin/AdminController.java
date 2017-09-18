@@ -15,4 +15,14 @@ public class AdminController {
         return "admin/index";
     }
 
+    @RequestMapping("studentManage.do")
+    public String studentManageView() {
+        return "admin/adminRight/studentManage";
+    }
+
+    @RequestMapping("addStudent.do")
+    public String addStudent() {
+        return "admin/adminRight/addStudent";
+    }
+
 }
