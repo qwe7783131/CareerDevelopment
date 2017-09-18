@@ -3,6 +3,7 @@
 
 <head>
     <#include "html/template/head.html" />
+    <#assign urlbase=base + "/student" />
     <title>首页</title>
 </head>
 
@@ -78,11 +79,15 @@
                     <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 顶岗实习</span></a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'选择指导老师',id:'6'}">
+                            <a href="javascript:;" kit-target data-options="{url:'${urlbase}/voluntaryReporting.do',icon:'&#xe6c6;',title:'填报项目',id:'11'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 填报项目</span></a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'${urlbase}/teacherRU.do',icon:'&#xe6c6;',title:'选择指导老师',id:'6'}">
                                 <i class="layui-icon">&#xe6c6;</i><span> 选择指导老师</span></a>
                         </dd>
                         <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'完成顶岗实习手册',id:'7'}">
+                            <a href="javascript:;" kit-target data-options="{url:'${urlbase}/documentUpload.do',icon:'&#xe6c6;',title:'完成顶岗实习手册',id:'7'}">
                                 <i class="layui-icon">&#xe6c6;</i><span> 完成顶岗实习手册</span></a>
                         </dd>
                         <dd>
@@ -90,7 +95,7 @@
                                 <i class="layui-icon">&#xe6c6;</i><span> 填写顶岗实习情况登记表</span></a>
                         </dd>
                         <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看实习成绩',id:'9'}">
+                            <a href="javascript:;" kit-target data-options="{url:'${urlbase}/selectScoreStu.do',icon:'&#xe6c6;',title:'查看实习成绩',id:'9'}">
                                 <i class="layui-icon">&#xe6c6;</i><span> 查看实习成绩</span></a>
                         </dd>
                     </dl>
@@ -99,7 +104,7 @@
                     <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 就业信息调查</span></a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'填写就业信息',id:'10'}">
+                            <a href="javascript:;" kit-target data-options="{url:'${urlbase}/employmentSurvey.do',icon:'&#xe6c6;',title:'填写就业信息',id:'10'}">
                                 <i class="layui-icon">&#xe6c6;</i><span> 填写就业信息</span></a>
                         </dd>
                     </dl>

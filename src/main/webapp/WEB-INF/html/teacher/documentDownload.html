@@ -2,8 +2,9 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<#include "html/template/head.html" />
 		<title>资料下载</title>
-		<link rel="stylesheet" href="layui/css/layui.css" >
+		<!-- <link rel="stylesheet" href="layui/css/layui.css" > -->
 	</head>
 	<body>
 		<fieldset class="layui-elem-field " style="margin-top: 20px;">
@@ -76,7 +77,8 @@
 		
 		
 		
-		<script src="layui/layui.js"></script>
+		<!-- <script src="layui/layui.js"></script> -->
+		<script src="${base}/frame/layui/layui.js"></script>
 		<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 		<script>
 			layui.use('layer', function() { 

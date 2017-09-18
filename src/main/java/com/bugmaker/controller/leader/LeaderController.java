@@ -13,4 +13,20 @@ public class LeaderController {
     public String indexView(){
         return "leader/index";
     }
+    /**
+     * 系领导管理顶岗项目页面
+     * @return
+     */
+	@RequestMapping("internshipCRUD.do")
+	public String teacherRU(){
+		return "leader/internshipCRUD";
+	}
+	 /**
+     * 添加顶岗页面
+     * @return
+     */
+	@RequestMapping("addInternship.do")
+	public String addInternship(){
+		return "leader/addInternship";
+	}
 }

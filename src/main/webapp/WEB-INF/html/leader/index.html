@@ -3,6 +3,7 @@
 
 <head>
     <#include "html/template/head.html" />
+    <#assign urlbase=base + "/leader" />
     <title>首页</title>
 </head>
 
@@ -140,7 +141,7 @@
                     <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 顶岗实习</span></a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'查询顶岗实习项目',id:'20'}">
+                            <a href="javascript:;" kit-target data-options="{url:'${urlbase}/internshipCRUD.do',icon:'&#xe6c6;',title:'查询顶岗实习项目',id:'20'}">
                                 <i class="layui-icon">&#xe6c6;</i><span> 管理顶岗实习项目</span></a>
                         </dd>
                         <dd>
