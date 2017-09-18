@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<#include "html/template/head.html" />
+		<#assign urlbase=base + "/teacher" />
+		<title>指导项目分配</title>
+
+	</head>
+
+	<body>
+		<div class="layui-tab">
+			<ul class="layui-tab-title">
+				<li class="layui-this">老师选择方向</li>
+				<li>查看学生志愿</li>
+			</ul>
+			<div class="layui-tab-content">
+				<div class="layui-tab-item layui-show">
+					<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+						<legend>数据</legend>
+					</fieldset>
+					<div style="padding-left: 50px; padding-right: 50px;">
+						<table class="layui-table">
+							<colgroup>
+								<col width="150">
+								<col width="150">
+								<col width="150">
+								<col width="200">
+							</colgroup>
+							<thead>
+								<tr>
+									<th>项目名</th>
+									<th>第一志愿</th>
+									<th>第二志愿</th>
+									<th>第三志愿</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>201424133221</td>
+									<td colspan="3">
+										<form class="layui-form" action="">
+											<div class="layui-form-item">
+												<div class="layui-input-block">
+													<input type="radio" name="sex" value="男" title="男">
+													<input type="radio" name="sex" value="女" title="女" checked>
+													<input type="radio" name="sex" value="女" title="女" checked>
+												</div>
+											</div>
+										</form>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="layui-tab-item">
+					<div style="margin: 15px;">
+						<div class="layui-inline">
+							<label class="layui-form-label">学生姓名</label>
+							<div class="layui-input-inline">
+								<input type="stuName" name="name" lay-verify="name" autocomplete="off" class="layui-input">
+							</div>
+
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">学生学号</label>
+							<div class="layui-input-inline">
+								<input type="stuName" name="name" lay-verify="name" autocomplete="off" class="layui-input">
+							</div>
+
+						</div>
+						<div class="layui-inline">
+							<button class="layui-btn">只看本人指导</button>
+							<button class="layui-btn">下载本人指导的学生名单</button>
+
+						</div>
+						<div class="layui-inline">
+							<div class="layui-input-block">
+								<button class="layui-btn layui-btn-normal layui-btn layui-btn-normal" lay-submit="" lay-filter="demo1">查询</button>
+								<button type="reset" class="layui-btn layui-btn-primary">清空</button>
+							</div>
+						</div>
+					</div>
+					<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+						<legend>数据</legend>
+					</fieldset>
+					<div style="padding-left: 50px; padding-right: 50px;">
+						<table class="layui-table">
+							<colgroup>
+								<col width="150">
+								<col width="150">
+								<col width="150">
+								<col width="200">
+								<col width="100">
+							</colgroup>
+							<thead>
+								<tr>
+									<th>学号</th>
+									<th>姓名</th>
+									<th>志愿一</th>
+									<th>志愿二</th>
+									<th>志愿三</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>201424133221</td>
+									<td>xuxu</td>
+									<td>东软</td>
+									<td>东软</td>
+									<td>东软</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="${base}/frame/layui/layui.js"></script>
+		<script>
+			//注意：选项卡 依赖 element 模块，否则无法进行功能性操作
+			layui.use(['element', 'form'], function() {
+				var element = layui.element;
+				var form = layui.form;
+			});
+		</script>
+	</body>
+
+</html>

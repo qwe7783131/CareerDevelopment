@@ -81,4 +81,37 @@ public class TeacherController {
     public String selectClassDivideView(){
         return "teacher/selectClassDivide";
     }
+
+    /**
+     * 查看和完成跟岗实习手册
+     */
+    @RequestMapping("selectOnJobBook.do")
+    public String selectOnJobBookView(){
+        return "teacher/selectOnJobBook";
+    }
+
+    /**
+     * 指导老师分配
+     */
+    @RequestMapping("teacherAssign")
+    public String teacherAssignView(){
+        return "teacher/zhidaofenpei";
+    }
+
+    /**
+     * 查看和完成顶岗实习手册
+     * @return
+     */
+    @RequestMapping("selectOutJobBook")
+    public String selectOutJobBookView(){
+        return "teacher/selectOutJobBook";
+    }
+
+    /**
+     * 查看跟岗实习进度
+     */
+    @RequestMapping("seeLoading.do")
+    public String seeLoadingView(){
+        return "teacher/intership_load";
+    }
 }

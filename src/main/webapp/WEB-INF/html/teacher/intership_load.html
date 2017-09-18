@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<#include "html/template/head.html" />
+		<#assign urlbase=base + "/teacher" />
+		<title>查看实习完成进度</title>
+
+	<body>
+		<div style="margin: 15px;">
+		<div class="layui-inline">
+			<label class="layui-form-label">学生姓名</label>
+			<div class="layui-input-inline">
+				<input type="stuName" name="name" lay-verify="name"
+					autocomplete="off" class="layui-input">
+			</div>
+			
+		</div>	
+		<div class="layui-inline">
+			<label class="layui-form-label">学生学号</label>
+			<div class="layui-input-inline">
+				<input type="stuName" name="name" lay-verify="name"
+					autocomplete="off" class="layui-input">
+			</div>
+			
+		</div>
+		<div class="layui-inline">
+			<div class="layui-input-block">
+				<button
+					class="layui-btn layui-btn-normal layui-btn layui-btn-normal"
+					lay-submit="" lay-filter="demo1">查询</button>
+				<button type="reset" class="layui-btn layui-btn-primary">清空</button>
+			</div>
+		</div>
+	</div>
+	<fieldset class="layui-elem-field layui-field-title"
+		style="margin-top: 20px;">
+		<legend>数据</legend>
+	</fieldset>
+	<div style="padding-left: 50px; padding-right: 50px;">
+		<table class="layui-table">
+			<colgroup>
+				<col width="150">
+				<col width="150">
+				<col width="150">
+				<col width="200">
+				<col width="100">
+				<col>
+			</colgroup>
+			<thead>
+				<tr>
+					<th>学号</th>
+					<th>姓名</th>
+					<th>任务书</th>
+					<th>跟岗实习协议</th>
+					<th>日志</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>201424133221</td>
+					<td>xuxu</td>
+					<td>计算机学院</td>
+					<td>打钩</td>
+					<td>打钩</td>
+					<td>
+						<div class="site-demo-button" id="layerDemo"
+							style="margin-bottom: 0;">
+							<button data-method="offset" data-type="t"
+								class="layui-btn layui-btn-normal layui-btn layui-btn-mini">修改</button>
+							<button data-method="confirmTrans"
+								class="layui-btn layui-btn-normal layui-btn layui-btn-mini">删除</button>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	</body>
+</html>
