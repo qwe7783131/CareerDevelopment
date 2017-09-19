@@ -1,6 +1,8 @@
 package com.bugmaker.bean;
 
 import java.util.Date;
+import java.util.List;
+
 /**
  *      用户基表
  */
@@ -11,7 +13,7 @@ public class User {
 
     private String password;
 
-    private String sex;
+    private Integer sex;
 
     private Integer age;
 
@@ -23,9 +25,9 @@ public class User {
 
     private Integer type;
 
-    private String roleId;
+    private List<Role> role;
 
-    private String deptId;
+    private Dept dept;
 
     private Date creatTime;
 
@@ -34,7 +36,7 @@ public class User {
     }
 
     public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+        this.id = id;
     }
 
     public String getUsername() {
@@ -42,7 +44,7 @@ public class User {
     }
 
     public void setUsername(String username) {
-        this.username = username == null ? null : username.trim();
+        this.username = username;
     }
 
     public String getPassword() {
@@ -50,14 +52,14 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+        this.password = password;
     }
 
-    public String getSex() {
+    public Integer getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
 
@@ -74,7 +76,7 @@ public class User {
     }
 
     public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
+        this.phone = phone;
     }
 
     public String getEmail() {
@@ -82,7 +84,7 @@ public class User {
     }
 
     public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
+        this.email = email;
     }
 
     public Integer getEnable() {
@@ -101,20 +103,20 @@ public class User {
         this.type = type;
     }
 
-    public String getRoleId() {
-        return roleId;
+    public List<Role> getRole() {
+        return role;
     }
 
-    public void setRoleId(String roleId) {
-        this.roleId = roleId == null ? null : roleId.trim();
+    public void setRole(List<Role> role) {
+        this.role = role;
     }
 
-    public String getDeptId() {
-        return deptId;
+    public Dept getDept() {
+        return dept;
     }
 
-    public void setDeptId(String deptId) {
-        this.deptId = deptId == null ? null : deptId.trim();
+    public void setDept(Dept dept) {
+        this.dept = dept;
     }
 
     public Date getCreatTime() {
