@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>项目crud</title>
-		<link rel="stylesheet" href="layui/css/layui.css" >
+		<#include "html/template/head.html" />
 	</head>
 	<body>
        <fieldset class="layui-elem-field " style="margin-top: 20px;">
@@ -85,7 +85,7 @@
 		
 		
 		
-		<script src="layui/layui.js"></script>
+		<#include "html/template/common_js.html" />
 		<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 		<script>
 			layui.use('layer', function() { 
@@ -127,8 +127,8 @@
 					 shadeClose: true,
 					  shade: false,
 					  maxmin: true, //开启最大化最小化按钮
-					  area: ['893px', '600px'],
-					  content: 'addInternship.html'
+					  area: ['893px', '300px'],
+					  content: 'careerdevelopment/leader/addInternship.do'
 					});
 					      
 				}

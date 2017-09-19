@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>查看或申请转指导老师</title>
-		<link rel="stylesheet" href="layui/css/layui.css">
+		<#include "html/template/head.html" />
 	</head>
 	<body>
 		<fieldset class="layui-elem-field " style="margin-top: 50px;">
@@ -124,7 +124,7 @@
 	    </div>
 		<div id="demo1" style='padding-left:50px;width: 100%;height: 50px;'></div>
 	</fieldset>
-		 <script src="layui/layui.js"></script>
+		<#include "html/template/common_js.html" />
 		 <script>
 		//Demo
 		layui.use('form', function(){
@@ -168,8 +168,8 @@
 					 shadeClose: true,
 					  shade: false,
 					  maxmin: true, //开启最大化最小化按钮
-					  area: ['893px', '600px'],
-					  content: 'teacherU.html'
+					  area: ['600px', '300px'],
+					  content: 'careerdevelopment/student/teacherU.do'
 					});
 					      
 				}
