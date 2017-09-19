@@ -2,26 +2,26 @@ package com.bugmaker.bean;
 
 public class Student {
     private String id;
-    private String classId;
-    private String direc_class_id;
-    private User user;
+    private ProfessionClass professionClass;	//专业班级
+    private DirectionClass directionClass;		//方向班级
+    private User user;							//基表
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getClassId() {
-		return classId;
+	public ProfessionClass getProfessionClass() {
+		return professionClass;
 	}
-	public void setClassId(String classId) {
-		this.classId = classId;
+	public void setProfessionClass(ProfessionClass professionClass) {
+		this.professionClass = professionClass;
 	}
-	public String getDirec_class_id() {
-		return direc_class_id;
+	public DirectionClass getDirectionClass() {
+		return directionClass;
 	}
-	public void setDirec_class_id(String direc_class_id) {
-		this.direc_class_id = direc_class_id;
+	public void setDirectionClass(DirectionClass directionClass) {
+		this.directionClass = directionClass;
 	}
 	public User getUser() {
 		return user;
@@ -31,7 +31,8 @@ public class Student {
 	}
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", classId=" + classId
-				+ ", direc_class_id=" + direc_class_id + ", user=" + user + "]";
+		return "Student [id=" + id + ", professionClass=" + professionClass
+				+ ", directionClass=" + directionClass + ", user=" + user + "]";
 	}
+    
 }
