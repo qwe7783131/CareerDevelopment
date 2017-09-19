@@ -23,11 +23,11 @@ public class User {
 
     private Integer type;
 
-    private String roleId;
+    private Role role;
 
-    private String deptId;
+    private Dept dept;
 
-    private Date creatTime;
+    private Date createTime;
 
     public String getId() {
         return id;
@@ -101,27 +101,27 @@ public class User {
         this.type = type;
     }
 
-    public String getRoleId() {
-        return roleId;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoleId(String roleId) {
-        this.roleId = roleId == null ? null : roleId.trim();
+    public void setRoleId(Role role) {
+        this.role = role;
     }
 
-    public String getDeptId() {
-        return deptId;
+    public Dept getDept() {
+        return dept;
     }
 
-    public void setDeptId(String deptId) {
-        this.deptId = deptId == null ? null : deptId.trim();
+    public void setDeptId(Dept dept) {
+        this.dept = dept;
     }
 
-    public Date getCreatTime() {
-        return creatTime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatTime(Date creatTime) {
-        this.creatTime = creatTime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }
