@@ -19,7 +19,7 @@ public class User {
 
     private String email;
 
-    private Integer enable;
+    private Integer enable; // 0为注销,1为正常
 
     private Integer type;
 
