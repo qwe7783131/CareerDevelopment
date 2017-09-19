@@ -11,7 +11,7 @@ public class User {
 
     private String password;
 
-    private Integer sex;
+    private String sex;
 
     private Integer age;
 
@@ -23,11 +23,11 @@ public class User {
 
     private Integer type;
 
-    private Role role;
+    private String roleId;
 
-    private Dept dept;
+    private String deptId;
 
-    private Date createTime;
+    private Date creatTime;
 
     public String getId() {
         return id;
@@ -53,11 +53,11 @@ public class User {
         this.password = password == null ? null : password.trim();
     }
 
-    public Integer getSex() {
+    public String getSex() {
         return sex;
     }
 
-    public void setSex(Integer sex) {
+    public void setSex(String sex) {
         this.sex = sex;
     }
 
@@ -101,27 +101,27 @@ public class User {
         this.type = type;
     }
 
-    public Role getRole() {
-        return role;
+    public String getRoleId() {
+        return roleId;
     }
 
-    public void setRoleId(Role role) {
-        this.role = role;
+    public void setRoleId(String roleId) {
+        this.roleId = roleId == null ? null : roleId.trim();
     }
 
-    public Dept getDept() {
-        return dept;
+    public String getDeptId() {
+        return deptId;
     }
 
-    public void setDeptId(Dept dept) {
-        this.dept = dept;
+    public void setDeptId(String deptId) {
+        this.deptId = deptId == null ? null : deptId.trim();
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getCreatTime() {
+        return creatTime;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setCreatTime(Date creatTime) {
+        this.creatTime = creatTime;
     }
 }
