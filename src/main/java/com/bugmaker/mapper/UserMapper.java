@@ -11,12 +11,12 @@ public interface UserMapper {
      * @param user
      * @return
      */
-    public boolean insertUser(User user);
+    int insertUser(User user);
 
     /**
      * 批量插入用户基表数据
      * @param users
      * @return
      */
-    public boolean insertUsers(List<User> users);
+    int insertUsers(List<User> users);
 }

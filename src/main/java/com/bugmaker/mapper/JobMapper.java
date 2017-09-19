@@ -8,5 +8,5 @@ public interface JobMapper {
      * @param job
      * @return
      */
-    boolean insertJob(Job job);
+    int insertJob(Job job);
 }

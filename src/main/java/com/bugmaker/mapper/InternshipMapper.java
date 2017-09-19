@@ -10,6 +10,6 @@ public interface InternshipMapper {
      * @param ship
      * @return
      */
-    public boolean insertInternship(Internship ship);
+    int insertInternship(Internship ship);
 
 }

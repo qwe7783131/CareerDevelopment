@@ -16,12 +16,12 @@ public interface StudentMapper {
      * @param student
      * @return
      */
-    public boolean insertStudent(Student student);
+    public int insertStudent(Student student);
 
     /**
      * 批量插入学生
      * @param students
      * @return
      */
-    public boolean insertStudents(List<Student> students);
+    public int insertStudents(List<Student> students);
 }

@@ -9,5 +9,5 @@ public interface CompanyMapper {
      * @param company
      * @return
      */
-    boolean insertCompany(Company company);
+    int insertCompany(Company company);
 }
