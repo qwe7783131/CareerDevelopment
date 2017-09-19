@@ -8,7 +8,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from student
 	</select>
 
-	<select id="insertStudent" parameterType="student">
-		insert student()
-	</select>
+	<insert id="insertStudent" parameterType="student">
+		insert into student (
+		id, class_id, direc_class_id)
+		values
+		(#{id}, #{professionClass.id}, #{directionClass.id})
+	</insert>
+
+	<insert id="insertStudents" parameterType="java.util.List" >
+		insert into student (
+		id, class_id, direc_class_id)
+		values
+		<foreach collection="list" item="item" index="index" separator ="," >
+			(#{item.id}, #{item.professionClass.id}, #{item.directionClass.id})
+		</foreach>
+	</insert>
 </mapper>
