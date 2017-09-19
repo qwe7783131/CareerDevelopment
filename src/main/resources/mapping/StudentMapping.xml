@@ -7,5 +7,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectAllStudent" resultType="student">
 		select * from student
 	</select>
-	
+
+	<select id="insertStudent" parameterType="student">
+		insert student()
+	</select>
 </mapper>
