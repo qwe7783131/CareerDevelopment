@@ -93,7 +93,7 @@ public class TeacherController {
     /**
      * 指导老师分配
      */
-    @RequestMapping("teacherAssign")
+    @RequestMapping("teacherAssign.do")
     public String teacherAssignView(){
         return "teacher/zhidaofenpei";
     }
@@ -102,7 +102,7 @@ public class TeacherController {
      * 查看和完成顶岗实习手册
      * @return
      */
-    @RequestMapping("selectOutJobBook")
+    @RequestMapping("selectOutJobBook.do")
     public String selectOutJobBookView(){
         return "teacher/selectOutJobBook";
     }
