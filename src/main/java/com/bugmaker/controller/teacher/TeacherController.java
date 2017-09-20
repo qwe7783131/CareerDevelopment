@@ -114,4 +114,13 @@ public class TeacherController {
     public String seeLoadingView(){
         return "teacher/intership_load";
     }
+
+
+    /**
+     * 发布专业方向信息跳转用
+     */
+    @RequestMapping("addDirect.do")
+    public String addDirectView(){
+        return "teacher/addDirect";
+    }
 }

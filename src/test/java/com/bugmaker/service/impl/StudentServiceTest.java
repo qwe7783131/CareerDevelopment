@@ -24,9 +24,4 @@ public class StudentServiceTest {
         System.out.println(selectAllStudent);
 
     }
-
-    @Test
-    public void te() {
-
-    }
 }

@@ -9,3 +9,4 @@ selectStu.html	查看学生(模板)
 selectTea.html	查看老师
 selectVoluntaryReport.html	查看志愿填报
 updateStu.html	修改学生信息（selectStu用）
+addDirect.html  发布专业方向用（releasDirect）

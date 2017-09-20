@@ -31,6 +31,29 @@
         r.id rid,role_name,role_permiss,d.id,dept_name FROM user u,role r,user_role ur,dept d
         WHERE u.id = #{id} AND ur.user_id = u.id AND ur.role_id = r.id
     </select>
+    <insert id="insertUser" parameterType="user">
+        insert into user (
+        id, username, password,
+        sex, age, phone, email,
+        enable, type, dept_id, create_time)
+        values
+        (#{id}, #{username}, #{password},
+        #{sex}, #{age}, #{phone}, #{email},
+        #{enable}, #{type}, #{dept.id}, #{creatTime})
+    </insert>
+
+    <insert id="insertUsers" parameterType="java.util.List">
+        insert into user (
+        id, username, password,
+        sex, age, phone, email,
+        enable, type, dept_id, create_time)
+        values
+        <foreach collection="list" item="item" index="index" separator ="," >
+            (#{item.id}, #{item.username}, #{item.password},
+            #{item.sex}, #{item.age}, #{item.phone}, #{item.email},
+            #{item.enable}, #{item.type}, #{item.dept.id}, #{item.creatTime})
+        </foreach>
+    </insert>
 
 </mapper>
 

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <#include "html/template/head.html" />
+    <title>发布专业方向</title>
+</head>
+<body>
+    <blockquote class="layui-elem-quote layui-text">
+        请编辑方向信息
+    </blockquote>
+<div class="layui-form-item layui-form-text">
+    <div class="layui-inline">
+        <form class="layui-form" action="">
+            <div class="layui-form-item" style="width: 450px;">
+                <label class="layui-form-label">方向名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" required lay-verify="required" placeholder="请输入方向名称" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item" style="width: 450px;">
+                <label class="layui-form-label">选择专业</label>
+                <div class="layui-input-block">
+                    <select name="interest" lay-filter="aihao">
+                        <option value=""></option>
+                        <option value="0">计算机</option>
+                        <option value="1">音乐</option>
+                        <option value="2">美术</option>
+                        <option value="3">旅游</option>
+                        <option value="4">化工</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item" style="width: 450px;">
+                <label class="layui-form-label">方向简介</label>
+                <div class="layui-input-block">
+                    <textarea placeholder="请输入简介" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="*">发布</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+    <script src="${base}/frame/layui/layui.js"></script>
+
+    <script>
+			layui.use(['laypage', 'layer','form'], function() {
+				var form = layui.form;
+
+				var laypage = layui.laypage,
+					layer = layui.layer;
+
+				laypage.render({
+					elem: 'demo1',
+					count: 70 ,
+					jump: function(obj) {
+						console.log(obj)
+					}
+				});
+			});
+		</script>
+</body>
+</html>

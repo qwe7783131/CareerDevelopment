@@ -10,18 +10,25 @@
  
 <!-- 你的HTML代码 -->
  
-<form class="layui-form" action="">
+<form class="layui-form" action="careerdevelopment/leader/addinternships.do" method="post">
   <div class="layui-form-item">
     <label class="layui-form-label">项目名称</label>
     <div class="layui-input-block">
-      <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+      <input type="text" name="internship.name" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
      
     </div>
-  </div>
+  </div> 
+  <div class="layui-form-item">
+    <label class="layui-form-label">项目类型</label>
+    <div class="layui-input-block">
+      <input type="text" name="internship.type" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+     
+    </div>
+  </div> 
   <div class="layui-form-item">
     <label class="layui-form-label">公司名称</label>
     <div class="layui-input-block">
-      <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+      <input type="text" name="company.name" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
      
     </div>
   </div>
@@ -29,37 +36,37 @@
     <div class="layui-inline">
       <label class="layui-form-label">顾问</label>
       <div class="layui-input-inline">
-        <input type="tel" name="advisor" lay-verify="required" autocomplete="off" class="layui-input">
+        <input type="tel" name="company.advisor" lay-verify="required" autocomplete="off" class="layui-input">
       </div>
     </div>
     <div class="layui-inline">
       <label class="layui-form-label">联系电话</label>
       <div class="layui-input-inline">
-        <input type="tel" name="phone" lay-verify="phone" autocomplete="off" class="layui-input">
+        <input type="tel" name="company.phone" lay-verify="phone" autocomplete="off" class="layui-input">
       </div>
     </div>
   </div>
  <div class="layui-form-item">
     <label class="layui-form-label">公司地址</label>
     <div class="layui-input-block">
-      <input type="text" name="address" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+      <input type="text" name="company.address" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
      
     </div>
   </div>
-  <div class="layui-form-item">
+   <div class="layui-form-item">
     <div class="layui-inline">
       <label class="layui-form-label">岗位名称</label>
       <div class="layui-input-inline">
-        <input type="tel" name="job" lay-verify="required" autocomplete="off" class="layui-input">
+        <input type="tel" name="job.name" lay-verify="required" autocomplete="off" class="layui-input">
       </div>
     </div>
     <div class="layui-inline">
       <label class="layui-form-label">薪水</label>
       <div class="layui-input-inline">
-        <input type="tel" name="salary" lay-verify="required" autocomplete="off" class="layui-input">
+        <input type="tel" name="job.salary" lay-verify="required" autocomplete="off" class="layui-input">
       </div>
     </div>
-  </div>
+  </div>  
   
   <div class="layui-form-item">
     <div class="layui-input-block">
@@ -78,7 +85,7 @@ layui.use('form', function(){
   //监听提交
   form.on('submit(formDemo)', function(data){
     layer.msg(JSON.stringify(data.field));
-    return false;
+      /* return false; */ 
   });
 });
 </script>
