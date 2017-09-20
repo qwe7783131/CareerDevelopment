@@ -20,9 +20,20 @@ public class AdminController {
         return "admin/studentManage";
     }
 
+    @RequestMapping("teacherManage.do")
+    public String teacherManageView() {
+        return "admin/teacherManage";
+    }
+
+
     @RequestMapping("addStudent.do")
     public String addStudent() {
         return "admin/addStudent";
+    }
+
+    @RequestMapping("addTeacher.do")
+    public String addTeacher(){
+        return "admin/addTeacher";
     }
 
 }
