@@ -3,8 +3,13 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bugmaker.mapper.DeptMapper">
-	
-	<select id="selectAllDept" resultType="dept">
-		select * from dept
+
+	<resultMap type="com.bugmaker.bean.Dept" id="deptResult">
+		<id column="id" property="id"/>
+		<result column="dept_name" property="deptName"/>
+	</resultMap>
+
+	<select id="selectAllDept" resultMap="deptResult">
+		select id, dept_name from dept
 	</select>
 </mapper>
