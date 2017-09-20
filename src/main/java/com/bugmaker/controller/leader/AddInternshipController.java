@@ -3,7 +3,9 @@ package com.bugmaker.controller.leader;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.bugmaker.bean.InternshipBean;
 import com.bugmaker.service.InternshipService;
@@ -22,12 +24,16 @@ public class AddInternshipController {
      * @return
      */
     @RequestMapping("addinternships.do")
-    public String addinternship(InternshipBean ib){
+    public ModelAndView addinternship(InternshipBean ib){
     	internshipService.insertCompany(ib.getCompany());
     	internshipService.insertJob(ib.getJob());
-    	internshipService.insertInternship(ib.getInternship());
+    	boolean insertInternship = internshipService.insertInternship(ib.getInternship());
+    	ModelAndView modelAndView = new ModelAndView();
+    	modelAndView.addObject("insertInternship", insertInternship);
+    	modelAndView.setViewName("leader/addInternship");
     	/*System.out.println(ib.getInternship().getType());*/
-        return "leader/index";
+        return modelAndView;
+    	
     }
     
 	
