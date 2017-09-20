@@ -101,7 +101,7 @@ public class XslResolveUtil {
 
 	// 读取输出流数据返回教师列表
 	public static List<User> getTeachersFromXSL(InputStream inputStream,
-			List<ProfessionClass> classes, List<Dept> depts) {
+			 List<Dept> depts) {
 		List<User> teachers = new ArrayList<User>();
 		try {
 			HSSFWorkbook hssfWorkbook = new HSSFWorkbook(inputStream);
