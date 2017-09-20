@@ -17,18 +17,18 @@
         <h1>后台登录</h1>
     </header>
     <div class="beg-login-main">
-        <form action="/manage/login" class="layui-form" method="post"><input name="__RequestVerificationToken" type="hidden" value="fkfh8D89BFqTdrE2iiSdG_L781RSRtdWOH411poVUWhxzA5MzI8es07g6KPYQh9Log-xf84pIR2RIAEkOokZL3Ee3UKmX0Jc8bW8jOdhqo81" />
+        <form action="login.do" method="post" class="layui-form">
             <div class="layui-form-item">
                 <label class="beg-login-icon">
                     <i class="layui-icon">&#xe612;</i>
                 </label>
-                <input type="text" name="userName" lay-verify="userName" autocomplete="off" placeholder="这里输入登录名" class="layui-input">
+                <input type="text" name="userName" lay-verify="userName" required="required" autocomplete="off" placeholder="这里输入登录名" class="layui-input">
             </div>
             <div class="layui-form-item">
                 <label class="beg-login-icon">
                     <i class="layui-icon">&#xe642;</i>
                 </label>
-                <input type="password" name="password" lay-verify="password" autocomplete="off" placeholder="这里输入密码" class="layui-input">
+                <input type="password" name="password" lay-verify="password" required="required" autocomplete="off" placeholder="这里输入密码" class="layui-input">
             </div>
             <div class="layui-form-item">
                 <div class="beg-pull-left beg-login-remember">
@@ -40,57 +40,25 @@
                         <i class="layui-icon">&#xe650;</i> 登录
                     </button>
                 </div>
-                <div class="beg-clear"></div>
             </div>
-
-
         </form>
-        <div class="layui-form-item">
-            <button class="layui-btn layui-btn-primary" >
-                <a href="student/index.do"><i>学生</i></a>
-            </button>
-            <button class="layui-btn layui-btn-primary">
-                <a href="counselor/index.do"><i>辅导员</i></a>
-            </button>
-            <button class="layui-btn layui-btn-primary" >
-                <a href="leader/index.do"><i>系领导</i></a>
-            </button>
-
-        </div>
-
-        <div class="layui-form-item">
-            <button class="layui-btn layui-btn-primary" >
-                <a href="professteacher/index.do"><i>专业负责人</i></a>
-            </button>
-            <button class="layui-btn layui-btn-primary" >
-                <a href="outteacher/index.do"><i>企业教师</i></a>
-            </button>
-            <button class="layui-btn layui-btn-primary" >
-                <a href="teacher/index.do"><i>教师</i></a>
-            </button>
-            <button class="layui-btn layui-btn-primary">
-                <a href="admin/index.do"><i>管理员</i></a>
-            </button>
-        </div>
     </div>
     <footer>
-        <p>Beginner © www.zhengjinfan.cn</p>
+        <p>bugmarker © www.******.cn</p>
     </footer>
 </div>
 <script type="text/javascript" src="frame/layui/layui.js"></script>
-<script>
-			layui.use(['layer', 'form'], function() {
-				var layer = layui.layer,
-					$ = layui.jquery,
-					form = layui.form();
+<script type="text/javascript">
 
-				form.on('submit(login)',function(data){
+    <#if map.message == "1">
+        alert("账号或者密码不能为空！");
+        <#elseif map.message == "2">
+        alert("账号不存在！");
+        <#else>
+        alert("密码错误了！");
+    </#if>
 
-					location.href='index.html';
-					return false;
-				});
-			});
-		</script>
+</script>
 </body>
 
 </html>

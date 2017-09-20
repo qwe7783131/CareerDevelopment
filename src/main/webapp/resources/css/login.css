@@ -1,5 +1,4 @@
 .beg-login-bg {
-	background: url(../Images/login-bg-1.jpg) no-repeat center center fixed;
 	background-color: #393D49;
 }
 
@@ -25,7 +24,6 @@
 }
 
 .beg-login-box .beg-login-main {
-	height: 185px;
 	padding: 30px 90px 0;
 }
 

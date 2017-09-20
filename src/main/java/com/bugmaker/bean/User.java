@@ -25,7 +25,7 @@ public class User {
 
     private Integer type;
 
-    private List<Role> role;
+    private List<Role> roles;
 
     private Dept dept;
 
@@ -103,12 +103,12 @@ public class User {
         this.type = type;
     }
 
-    public List<Role> getRole() {
-        return role;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(List<Role> role) {
-        this.role = role;
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     public Dept getDept() {
