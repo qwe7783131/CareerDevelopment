@@ -5,7 +5,7 @@ package com.bugmaker.bean;
 public class Outteacher {
     private String id;
 
-    private String companyId;
+    private Company company;
 
     public String getId() {
         return id;
@@ -15,11 +15,19 @@ public class Outteacher {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getCompanyId() {
-        return companyId;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setCompanyId(String companyId) {
-        this.companyId = companyId == null ? null : companyId.trim();
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    @Override
+    public String toString() {
+        return "Outteacher{" +
+                "id='" + id + '\'' +
+                ", company=" + company +
+                '}';
     }
 }

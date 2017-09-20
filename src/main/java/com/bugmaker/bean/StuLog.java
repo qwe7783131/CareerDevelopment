@@ -7,13 +7,13 @@ import java.util.Date;
 public class StuLog {
     private String id;
 
-    private String stuId;
+    private Student student;
 
     private String content;
 
     private Date writeDate;
 
-    private String teacId;
+    private User teacher;
 
     private String schoolTeacWriteback;
 
@@ -35,12 +35,20 @@ public class StuLog {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getStuId() {
-        return stuId;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setStuId(String stuId) {
-        this.stuId = stuId == null ? null : stuId.trim();
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public User getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(User teacher) {
+        this.teacher = teacher;
     }
 
     public String getContent() {
@@ -59,13 +67,7 @@ public class StuLog {
         this.writeDate = writeDate;
     }
 
-    public String getTeacId() {
-        return teacId;
-    }
 
-    public void setTeacId(String teacId) {
-        this.teacId = teacId == null ? null : teacId.trim();
-    }
 
     public String getSchoolTeacWriteback() {
         return schoolTeacWriteback;
@@ -113,5 +115,22 @@ public class StuLog {
 
     public void setOutSchoolWritebackDate(Date outSchoolWritebackDate) {
         this.outSchoolWritebackDate = outSchoolWritebackDate;
+    }
+
+    @Override
+    public String toString() {
+        return "StuLog{" +
+                "id='" + id + '\'' +
+                ", student=" + student +
+                ", content='" + content + '\'' +
+                ", writeDate=" + writeDate +
+                ", teacher=" + teacher +
+                ", schoolTeacWriteback='" + schoolTeacWriteback + '\'' +
+                ", schoolTeacSign='" + schoolTeacSign + '\'' +
+                ", schoolWritebackDate=" + schoolWritebackDate +
+                ", outSchoolTeacWriteback='" + outSchoolTeacWriteback + '\'' +
+                ", outSchoolTeacSign='" + outSchoolTeacSign + '\'' +
+                ", outSchoolWritebackDate=" + outSchoolWritebackDate +
+                '}';
     }
 }

@@ -8,16 +8,16 @@ public class Classroom {
 
     private String name;
 
-    private String deptId;
+    private Dept dept;
 
-    private String direcId;
+    private Direction direction;
 
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+        this.id = id;
     }
 
     public String getName() {
@@ -25,22 +25,32 @@ public class Classroom {
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
-    public String getDeptId() {
-        return deptId;
+    public Dept getDept() {
+        return dept;
     }
 
-    public void setDeptId(String deptId) {
-        this.deptId = deptId == null ? null : deptId.trim();
+    public void setDept(Dept dept) {
+        this.dept = dept;
     }
 
-    public String getDirecId() {
-        return direcId;
+    public Direction getDirection() {
+        return direction;
     }
 
-    public void setDirecId(String direcId) {
-        this.direcId = direcId == null ? null : direcId.trim();
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
+    @Override
+    public String toString() {
+        return "Classroom{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", dept=" + dept +
+                ", direction=" + direction +
+                '}';
     }
 }

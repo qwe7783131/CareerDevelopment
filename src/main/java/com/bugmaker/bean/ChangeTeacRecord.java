@@ -1,22 +1,29 @@
 package com.bugmaker.bean;
+
+import java.util.Date;
+
 /**
- *      实习分配情况表
+ *  转导师申请记录
+ * Created by guan on 2017/9/20.
  */
-public class InternshipDetail {
+public class ChangeTeacRecord {
+
     private String id;
 
     private Student student;
 
-    private Internship  internship ;
-
     private User teacher;
+
+    private Date createTime;
+
+    private Integer status;
 
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+        this.id = id;
     }
 
     public Student getStudent() {
@@ -27,14 +34,6 @@ public class InternshipDetail {
         this.student = student;
     }
 
-    public Internship getInternship() {
-        return internship;
-    }
-
-    public void setInternship(Internship internship) {
-        this.internship = internship;
-    }
-
     public User getTeacher() {
         return teacher;
     }
@@ -43,13 +42,30 @@ public class InternshipDetail {
         this.teacher = teacher;
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
-        return "InternshipDetail{" +
+        return "ChangeTeacRecord{" +
                 "id='" + id + '\'' +
                 ", student=" + student +
-                ", internship=" + internship +
                 ", teacher=" + teacher +
+                ", createTime=" + createTime +
+                ", status=" + status +
                 '}';
     }
 }

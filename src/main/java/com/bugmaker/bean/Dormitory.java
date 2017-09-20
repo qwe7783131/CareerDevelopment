@@ -5,7 +5,7 @@ package com.bugmaker.bean;
 public class Dormitory {
     private String id;
 
-    private String companyId;
+    private Company company;
 
     private Integer total;
 
@@ -19,12 +19,12 @@ public class Dormitory {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getCompanyId() {
-        return companyId;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setCompanyId(String companyId) {
-        this.companyId = companyId == null ? null : companyId.trim();
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public Integer getTotal() {
@@ -41,5 +41,15 @@ public class Dormitory {
 
     public void setPersonNum(Integer personNum) {
         this.personNum = personNum;
+    }
+
+    @Override
+    public String toString() {
+        return "Dormitory{" +
+                "id='" + id + '\'' +
+                ", company=" + company +
+                ", total=" + total +
+                ", personNum=" + personNum +
+                '}';
     }
 }

@@ -52,4 +52,15 @@ public class Company {
     public void setAdvisor(String advisor) {
         this.advisor = advisor == null ? null : advisor.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
+                ", advisor='" + advisor + '\'' +
+                '}';
+    }
 }

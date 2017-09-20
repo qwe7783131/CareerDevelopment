@@ -5,9 +5,9 @@ package com.bugmaker.bean;
 public class RolePermiss {
     private String id;
 
-    private String roleId;
+    private Role role;
 
-    private String permissId;
+    private Permiss permiss;
 
     public String getId() {
         return id;
@@ -17,19 +17,28 @@ public class RolePermiss {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getRoleId() {
-        return roleId;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoleId(String roleId) {
-        this.roleId = roleId == null ? null : roleId.trim();
+    public void setRole(Role role) {
+        this.role = role;
     }
 
-    public String getPermissId() {
-        return permissId;
+    public Permiss getPermiss() {
+        return permiss;
     }
 
-    public void setPermissId(String permissId) {
-        this.permissId = permissId == null ? null : permissId.trim();
+    public void setPermiss(Permiss permiss) {
+        this.permiss = permiss;
+    }
+
+    @Override
+    public String toString() {
+        return "RolePermiss{" +
+                "id='" + id + '\'' +
+                ", role=" + role +
+                ", permiss=" + permiss +
+                '}';
     }
 }

@@ -17,7 +17,7 @@ public class Protocol {
 
     private String internshipApplication;
 
-    private Integer stuId;
+    private Student student;
 
     private String type;
 
@@ -77,12 +77,12 @@ public class Protocol {
         this.internshipApplication = internshipApplication == null ? null : internshipApplication.trim();
     }
 
-    public Integer getStuId() {
-        return stuId;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setStuId(Integer stuId) {
-        this.stuId = stuId;
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public String getType() {
@@ -91,5 +91,20 @@ public class Protocol {
 
     public void setType(String type) {
         this.type = type == null ? null : type.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "Protocol{" +
+                "id='" + id + '\'' +
+                ", safeProtocal='" + safeProtocal + '\'' +
+                ", internshipRecord='" + internshipRecord + '\'' +
+                ", acceptProve='" + acceptProve + '\'' +
+                ", internshipAssess='" + internshipAssess + '\'' +
+                ", report='" + report + '\'' +
+                ", internshipApplication='" + internshipApplication + '\'' +
+                ", student=" + student +
+                ", type='" + type + '\'' +
+                '}';
     }
 }
