@@ -24,21 +24,25 @@ public class InternshipServiceImpl implements InternshipService{
 	@Resource
 	private JobMapper jobMapper;
 	
-	String companyId = UUID.randomUUID().toString().replace("-", "");
-	String jobId = UUID.randomUUID().toString().replace("-", "");
-	String interId = UUID.randomUUID().toString().replace("-", "");
-
+	String companyId =null;
+	
+	String jobId = null;
+	String interId = null;
+   
 	@Override
 	public boolean insertInternship(Internship internship) {
+		interId = getID();
 		internship.setId(interId);
 		internship.setJobId(jobId);
 		internshipMapper.insertInternship(internship);
+		
 		return true;
 	}
 
 	@Override
 	public boolean insertCompany(Company company) {
 		
+		companyId = getID();
 		
 		company.setId(companyId);
 		companyMapper.insertCompany(company);
@@ -49,6 +53,7 @@ public class InternshipServiceImpl implements InternshipService{
 
 	@Override
 	public boolean insertJob(Job job) {
+		jobId = getID();
 		job.setId(jobId);
 		job.setCompanyId(companyId);
 		job.setOutteacId("1");
@@ -56,6 +61,10 @@ public class InternshipServiceImpl implements InternshipService{
 		return true;
 	}
 
-	
+	 public static String getID(){  
+	        
+	        String uuid = UUID.randomUUID().toString().replace("-", "");  
+	        return uuid;  
+	    }  
 
 }
