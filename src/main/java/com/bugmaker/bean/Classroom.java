@@ -8,7 +8,7 @@ public class Classroom {
 
     private String name;
 
-    private Dept dept;
+//    private Dept dept;
 
     private Direction direction;
 
@@ -28,14 +28,6 @@ public class Classroom {
         this.name = name;
     }
 
-    public Dept getDept() {
-        return dept;
-    }
-
-    public void setDept(Dept dept) {
-        this.dept = dept;
-    }
-
     public Direction getDirection() {
         return direction;
     }
@@ -49,7 +41,6 @@ public class Classroom {
         return "Classroom{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", dept=" + dept +
                 ", direction=" + direction +
                 '}';
     }
