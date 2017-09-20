@@ -4,7 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bugmaker.mapper.JobMapper">
 
-	
+	<!-- 添加工作岗位 -->
 	<insert id="insertJob" parameterType="com.bugmaker.bean.Job">
 	  insert into job values (#{id},#{companyId},#{name},#{salary},#{outteacId})
 	</insert>

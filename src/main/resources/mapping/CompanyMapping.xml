@@ -4,6 +4,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bugmaker.mapper.CompanyMapper">
 
+	<!-- 添加企业 -->
 	<insert id="insertCompany" parameterType="com.bugmaker.bean.Company">
 	  insert into company values (#{id},#{name},#{address},#{phone},#{advisor})
 	</insert>
