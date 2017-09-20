@@ -9,37 +9,45 @@ public class Profession {
 
     private String describe;
 
-    private String deptId;
+    private Dept dept;
 
-    public String getId() {
-        return id;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getDescribe() {
-        return describe;
-    }
+	public String getDescribe() {
+		return describe;
+	}
 
-    public void setDescribe(String describe) {
-        this.describe = describe == null ? null : describe.trim();
-    }
+	public void setDescribe(String describe) {
+		this.describe = describe;
+	}
 
-    public String getDeptId() {
-        return deptId;
-    }
+	public Dept getDept() {
+		return dept;
+	}
 
-    public void setDeptId(String deptId) {
-        this.deptId = deptId == null ? null : deptId.trim();
-    }
+	public void setDept(Dept dept) {
+		this.dept = dept;
+	}
+
+	@Override
+	public String toString() {
+		return "Profession [id=" + id + ", name=" + name + ", describe="
+				+ describe + ", dept=" + dept + "]";
+	}
+
+    
 }
