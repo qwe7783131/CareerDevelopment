@@ -42,4 +42,14 @@ public class Permiss {
     public void setDescribe(String describe) {
         this.describe = describe == null ? null : describe.trim();
     }
+
+    @Override
+    public String toString() {
+        return "Permiss{" +
+                "id='" + id + '\'' +
+                ", parentId='" + parentId + '\'' +
+                ", url='" + url + '\'' +
+                ", describe='" + describe + '\'' +
+                '}';
+    }
 }

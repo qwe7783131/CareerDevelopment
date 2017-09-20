@@ -5,31 +5,40 @@ package com.bugmaker.bean;
 public class DormArrange {
     private String id;
 
-    private String stuId;
+    private Student student;
 
-    private String dormId;
+    private Dormitory dormitory;
 
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+        this.id = id;
     }
 
-    public String getStuId() {
-        return stuId;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setStuId(String stuId) {
-        this.stuId = stuId == null ? null : stuId.trim();
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    public String getDormId() {
-        return dormId;
+    public Dormitory getDormitory() {
+        return dormitory;
     }
 
-    public void setDormId(String dormId) {
-        this.dormId = dormId == null ? null : dormId.trim();
+    public void setDormitory(Dormitory dormitory) {
+        this.dormitory = dormitory;
+    }
+
+    @Override
+    public String toString() {
+        return "DormArrange{" +
+                "id='" + id + '\'' +
+                ", student=" + student +
+                ", dormitory=" + dormitory +
+                '}';
     }
 }

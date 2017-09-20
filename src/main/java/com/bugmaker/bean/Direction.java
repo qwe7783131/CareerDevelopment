@@ -7,7 +7,7 @@ public class Direction {
 
     private String name;
 
-    private String professId;
+    private Profession profession;
 
     private String describe;
 
@@ -27,12 +27,13 @@ public class Direction {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getProfessId() {
-        return professId;
+
+    public Profession getProfession() {
+        return profession;
     }
 
-    public void setProfessId(String professId) {
-        this.professId = professId == null ? null : professId.trim();
+    public void setProfession(Profession profession) {
+        this.profession = profession;
     }
 
     public String getDescribe() {
@@ -41,5 +42,15 @@ public class Direction {
 
     public void setDescribe(String describe) {
         this.describe = describe == null ? null : describe.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "Direction{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", profession=" + profession +
+                ", describe='" + describe + '\'' +
+                '}';
     }
 }

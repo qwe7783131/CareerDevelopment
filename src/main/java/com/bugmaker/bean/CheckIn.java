@@ -8,9 +8,9 @@ import java.util.Date;
 public class CheckIn {
     private String id;
 
-    private String insId;
+    private Internship  internship;
 
-    private String stuId;
+    private Student student;
 
     private String state;
 
@@ -23,23 +23,23 @@ public class CheckIn {
     }
 
     public void setId(String id) {
-        this.id = id == null ? null : id.trim();
+        this.id = id;
     }
 
-    public String getInsId() {
-        return insId;
+    public Internship getInternship() {
+        return internship;
     }
 
-    public void setInsId(String insId) {
-        this.insId = insId == null ? null : insId.trim();
+    public void setInternship(Internship internship) {
+        this.internship = internship;
     }
 
-    public String getStuId() {
-        return stuId;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setStuId(String stuId) {
-        this.stuId = stuId == null ? null : stuId.trim();
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public String getState() {
@@ -47,7 +47,7 @@ public class CheckIn {
     }
 
     public void setState(String state) {
-        this.state = state == null ? null : state.trim();
+        this.state = state;
     }
 
     public Date getCheckAm() {
@@ -64,5 +64,17 @@ public class CheckIn {
 
     public void setCheckPm(Date checkPm) {
         this.checkPm = checkPm;
+    }
+
+    @Override
+    public String toString() {
+        return "CheckIn{" +
+                "id='" + id + '\'' +
+                ", internship=" + internship +
+                ", student=" + student +
+                ", state='" + state + '\'' +
+                ", checkAm=" + checkAm +
+                ", checkPm=" + checkPm +
+                '}';
     }
 }

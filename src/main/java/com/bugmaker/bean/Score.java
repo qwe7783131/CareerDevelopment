@@ -6,9 +6,9 @@ package com.bugmaker.bean;
 public class Score {
     private String id;
 
-    private String stuId;
+    private Student student;
 
-    private String teacId;
+    private User teacher;
 
     private Double teacScore;
 
@@ -24,20 +24,20 @@ public class Score {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getStuId() {
-        return stuId;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setStuId(String stuId) {
-        this.stuId = stuId == null ? null : stuId.trim();
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    public String getTeacId() {
-        return teacId;
+    public User getTeacher() {
+        return teacher;
     }
 
-    public void setTeacId(String teacId) {
-        this.teacId = teacId == null ? null : teacId.trim();
+    public void setTeacher(User teacher) {
+        this.teacher = teacher;
     }
 
     public Double getTeacScore() {
@@ -62,5 +62,17 @@ public class Score {
 
     public void setNo(Integer no) {
         this.no = no;
+    }
+
+    @Override
+    public String toString() {
+        return "Score{" +
+                "id='" + id + '\'' +
+                ", student=" + student +
+                ", teacher=" + teacher +
+                ", teacScore=" + teacScore +
+                ", outteacScore=" + outteacScore +
+                ", no=" + no +
+                '}';
     }
 }

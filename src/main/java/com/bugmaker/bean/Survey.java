@@ -1,80 +1,26 @@
 package com.bugmaker.bean;
+
+import java.util.Date;
+
 /**
  *      就业调查表
  */
 public class Survey {
     private String id;
 
-    private String stuId;
-
-    private String professName;
-
-    private String unitName;
-
-    private String unitPerson;
-
-    private String unitPhone;
-
-    private String stuPhone;
 
     private String status;
 
-    private String situation;
+    private String enable;
+
+    private Date createTime;
 
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
-        this.id = id == null ? null : id.trim();
-    }
-
-    public String getStuId() {
-        return stuId;
-    }
-
-    public void setStuId(String stuId) {
-        this.stuId = stuId == null ? null : stuId.trim();
-    }
-
-    public String getProfessName() {
-        return professName;
-    }
-
-    public void setProfessName(String professName) {
-        this.professName = professName == null ? null : professName.trim();
-    }
-
-    public String getUnitName() {
-        return unitName;
-    }
-
-    public void setUnitName(String unitName) {
-        this.unitName = unitName == null ? null : unitName.trim();
-    }
-
-    public String getUnitPerson() {
-        return unitPerson;
-    }
-
-    public void setUnitPerson(String unitPerson) {
-        this.unitPerson = unitPerson == null ? null : unitPerson.trim();
-    }
-
-    public String getUnitPhone() {
-        return unitPhone;
-    }
-
-    public void setUnitPhone(String unitPhone) {
-        this.unitPhone = unitPhone == null ? null : unitPhone.trim();
-    }
-
-    public String getStuPhone() {
-        return stuPhone;
-    }
-
-    public void setStuPhone(String stuPhone) {
-        this.stuPhone = stuPhone == null ? null : stuPhone.trim();
+        this.id = id;
     }
 
     public String getStatus() {
@@ -82,14 +28,32 @@ public class Survey {
     }
 
     public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
+        this.status = status;
     }
 
-    public String getSituation() {
-        return situation;
+    public String getEnable() {
+        return enable;
     }
 
-    public void setSituation(String situation) {
-        this.situation = situation == null ? null : situation.trim();
+    public void setEnable(String enable) {
+        this.enable = enable;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Survey{" +
+                "id='" + id + '\'' +
+                ", status='" + status + '\'' +
+                ", enable='" + enable + '\'' +
+                ", createTime=" + createTime +
+                '}';
     }
 }

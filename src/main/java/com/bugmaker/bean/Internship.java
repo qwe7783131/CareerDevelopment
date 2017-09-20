@@ -7,7 +7,7 @@ public class Internship {
 
     private String type;
 
-    private String jobId;
+    private Job job;
     
     private String name;
 
@@ -27,12 +27,12 @@ public class Internship {
 		this.type = type;
 	}
 
-	public String getJobId() {
-		return jobId;
+	public Job getJob() {
+		return job;
 	}
 
-	public void setJobId(String jobId) {
-		this.jobId = jobId;
+	public void setJob(Job job) {
+		this.job = job;
 	}
 
 	public String getName() {
@@ -43,6 +43,13 @@ public class Internship {
 		this.name = name;
 	}
 
-   
-   
+	@Override
+	public String toString() {
+		return "Internship{" +
+				"id='" + id + '\'' +
+				", type='" + type + '\'' +
+				", job=" + job +
+				", name='" + name + '\'' +
+				'}';
+	}
 }
