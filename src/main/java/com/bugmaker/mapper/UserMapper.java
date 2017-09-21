@@ -1,6 +1,8 @@
 package com.bugmaker.mapper;
 
 import com.bugmaker.bean.User;
+import com.bugmaker.bean.UserRole;
+
 import java.util.List;
 /**
  * Created by guan on 2017/9/19.
@@ -30,6 +32,13 @@ public interface UserMapper {
      * @return
      */
     int deleteUserById(String userId);
+
+    /**
+     * 插入用户角色
+     * @param userRole
+     * @return
+     */
+    int insertUserRole(UserRole userRole);
 
     /**
      * 插入用户基表数据

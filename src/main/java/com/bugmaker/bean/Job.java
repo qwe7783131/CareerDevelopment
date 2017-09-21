@@ -12,7 +12,7 @@ public class Job {
 
     private Double salary;
 
-    private String outteacId;
+    private Outteacher outteacher;
 
     public String getId() {
         return id;
@@ -46,12 +46,12 @@ public class Job {
         this.salary = salary;
     }
 
-    public String getOutteacId() {
-        return outteacId;
+    public Outteacher getOutteacher() {
+        return outteacher;
     }
 
-    public void setOutteacId(String outteacId) {
-        this.outteacId = outteacId == null ? null : outteacId.trim();
+    public void setOutteacher(Outteacher outteacher) {
+        this.outteacher = outteacher;
     }
 
     @Override
@@ -61,7 +61,7 @@ public class Job {
                 ", company=" + company +
                 ", name='" + name + '\'' +
                 ", salary=" + salary +
-                ", outteacId='" + outteacId + '\'' +
+                ", outteacher=" + outteacher +
                 '}';
     }
 }
