@@ -3,6 +3,7 @@ package com.bugmaker.controller.admin;
 import com.bugmaker.bean.Dept;
 import com.bugmaker.bean.User;
 import com.bugmaker.service.AddTeacherService;
+import com.bugmaker.service.TeacherService;
 import com.bugmaker.utils.XslResolveUtil;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -29,6 +30,12 @@ public class AddTeacherController {
     @Autowired
     @Qualifier("teaService")
     AddTeacherService teacherService;
+
+    @Autowired
+    @Qualifier("selectTeaService")
+    TeacherService teacherService2;
+
+
 //    public User test(){
 //        User user1 = new User();
 //        user1.setId("201424133221");
@@ -36,6 +43,16 @@ public class AddTeacherController {
 //        return user1;
 //    }
 
+    @RequestMapping("/admin/teacherManage.do")
+    public String teacherManageView(ModelMap model) {
+        System.out.println("1");
+        List<User> selectAllTea = teacherService2.selectAllTea();
+//        for(User user : selectAllTea){
+//            System.out.println(user);
+//        }
+        model.put("selectAllTea",selectAllTea);
+        return "admin/teacherManage";
+    }
     /**
      *添加单个教师的控制器
 
