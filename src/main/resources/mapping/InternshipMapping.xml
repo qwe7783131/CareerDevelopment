@@ -26,7 +26,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	</resultMap>
 
-
+	<!-- 修改实习项目 -->
+	<update id="updateInternshipById"  parameterType="com.bugmaker.bean.Internship">
+		UPDATE internship SET job_id = #{job.id}, NAME=#{name} WHERE id = #{id}
+	</update>
 
 	<!-- 添加实习项目 -->
 	<insert id="insertInternship" parameterType="com.bugmaker.bean.Internship">

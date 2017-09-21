@@ -6,6 +6,12 @@ import com.bugmaker.bean.Internship;
 import java.util.List;
 
 public interface InternshipMapper {
+    /**
+     * 修改实习项目
+     * @param internship
+     * @return
+     */
+    int updateInternshipById(Internship internship);
 
     /**
      * 添加实习项目
