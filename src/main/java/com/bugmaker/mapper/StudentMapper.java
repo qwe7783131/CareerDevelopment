@@ -1,6 +1,7 @@
 package com.bugmaker.mapper;
 
 import com.bugmaker.bean.Student;
+import com.bugmaker.bean.User;
 
 import java.util.List;
 
@@ -24,4 +25,11 @@ public interface StudentMapper {
      * @return
      */
     public int insertStudents(List<Student> students);
+
+    /**
+     * 多条件查询学生
+     * @param student
+     * @return
+     */
+    List<User> selectStudentByParams(Student student);
 }
