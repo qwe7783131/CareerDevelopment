@@ -25,13 +25,30 @@
             <result column="role_permiss" property="rolePermiss" />
         </collection>
     </resultMap>
-    <!-- 查询登录的用户 -->
+    <!-- 根据id删除对应的用户 -->
+    <delete id="deleteUserById" parameterType="string">
+        delete from user where id = #{id}
+    </delete>
+    <!--根据id修改对应的用户信息 -->
+    <update id="updateUserById" parameterType="user">
+        UPDATE USER SET username=#{username}, PASSWORD=#{password}, sex=#{sex}, age=#{age}, phone=#{phone},
+        email=#{email},ENABLE=#{enable}, TYPE=#{type},dept_id=#{dept.id} WHERE id = #{id}
+    </update>
+
+    <!-- 根据id查询登录的用户 -->
     <select id="getUserByUserName" resultMap="userMap">
-        SELECT u.id uid,username,password,sex,age,phone,email,enable,type,u.create_time,
+        SELECT u.id uid,username,password,sex,age,phone,email,enable,type,u.create_time ucreateTime,
         r.id rid,role_name,role_permiss,d.id,dept_name FROM user u,role r,user_role ur,dept d
-        WHERE u.id = #{id} AND ur.user_id = u.id AND ur.role_id = r.id
+        WHERE u.id = #{id} AND ur.user_id = u.id AND ur.role_id = r.id AND u.dept_id = d.id
     </select>
-    <!-- 添加用户基表数据 -->
+
+    <!-- 查询所有的教师(type = 2) -->
+    <select id="getAllTeacher" resultMap="userMap">
+        SELECT u.id uid,username,password,sex,age,phone,email,enable,type,u.create_time ucreateTime,
+        r.id rid,role_name,role_permiss,d.id,dept_name FROM user u,role r,user_role ur,dept d
+        WHERE ur.user_id = u.id AND ur.role_id = r.id AND u.dept_id = d.id AND TYPE = #{type}
+    </select>
+    <!-- 添加用户基表数据,插入用户前必须要先插入角色 -->
 	<insert id="insertUser" parameterType="user">
 		insert into user (
 			id, username, password,
