@@ -7,6 +7,12 @@ import java.util.List;
 
 public interface InternshipMapper {
     /**
+     * 通过项目名称模糊查询项目
+     * @param name
+     * @return
+     */
+    List<Internship> selectInternshipByName(String name);
+    /**
      * 修改实习项目
      * @param internship
      * @return
