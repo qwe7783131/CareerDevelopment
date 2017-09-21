@@ -1,5 +1,8 @@
 package com.bugmaker.mapper;
 
+import java.util.List;
+
+
 import com.bugmaker.bean.Job;
 
 import java.util.List;
@@ -11,6 +14,7 @@ public interface JobMapper {
      * @return
      */
     int insertJob(Job job);
+    public  List<Job> getJobByCompanyId(String id);
 
     /**
      * 根据公司id查询对应的岗位

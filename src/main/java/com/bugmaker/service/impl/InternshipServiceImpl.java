@@ -1,5 +1,6 @@
 package com.bugmaker.service.impl;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -24,7 +25,7 @@ public class InternshipServiceImpl implements InternshipService{
 	@Resource
 	private JobMapper jobMapper;
 	
-	String companyId =null;
+	/*String companyId =null;
 	
 	String jobId = null;
 	String interId = null;
@@ -65,6 +66,18 @@ public class InternshipServiceImpl implements InternshipService{
 	        
 	        String uuid = UUID.randomUUID().toString().replace("-", "");  
 	        return uuid;  
-	    }  
+	    }*/
+
+	@Override
+	public List<Company> getAllCompany() {
+		List<Company> companys = companyMapper.getAllCompany();
+		return companys;
+	}
+
+	@Override
+	public List<Job> getJobByCompanyId(String id) {
+		List<Job> jobs = jobMapper.getJobByCompanyId(id);
+		return jobs;
+	}  
 
 }
