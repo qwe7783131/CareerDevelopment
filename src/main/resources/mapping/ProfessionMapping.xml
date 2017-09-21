@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bugmaker.mapper.ProfessionMapper">
+
+	<resultMap type="com.bugmaker.bean.Profession" id="professionResult">
+		<id column="profess_id" property="id"/>
+		<result column="profess_name" property="name"/>
+		<result column="profess_describe" property="describe"/>
+		<association property="dept" javaType="Profession" resultMap="com.bugmaker.mapper.DeptMapper.deptResult"/>
+	</resultMap>
+
+	<select id="getAllProfessions" resultMap="professionResult">
+		select id profess_id, name profess_name, describe profess_describe from profession
+	</select>
+</mapper>

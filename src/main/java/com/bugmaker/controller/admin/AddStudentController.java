@@ -26,7 +26,6 @@ public class AddStudentController {
 	@ResponseBody
 	@RequestMapping(value = "addOneStu.do", method = RequestMethod.POST)
 	public String addOneStu(@RequestBody Student student){
-		
 		return ""+addStudentService.addOneStudent(student);
 	}
 	
@@ -37,7 +36,7 @@ public class AddStudentController {
 	 * @throws Exception 
 	 */
 	@ResponseBody
-	@RequestMapping(value = "addMulyiStus", method = RequestMethod.POST)
+	@RequestMapping(value = "addMulyiStus.do", method = RequestMethod.POST)
 	public String addMulyiStus(HttpServletRequest request) throws Exception{
 		return ""+addStudentService.addMulyiStus(request);
 	}
