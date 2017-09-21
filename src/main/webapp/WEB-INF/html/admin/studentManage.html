@@ -2,8 +2,8 @@
 <html>
 
 <head>
-	<#include "html/template/head.html" />
-	<#assign urlbase=base + "/admin" />
+<#include "html/template/head.html" /> <#assign urlbase=base + "/admin"
+/>
 <title>查询学生</title>
 </head>
 
@@ -56,14 +56,15 @@
 	</fieldset>
 	<div class="layui-row">
 		<div class="site-demo-button" id="layerDemo">
-		<div class="layui-col-md4 layui-col-md-offset8">
-			<button data-method="add" data-type="t" class="layui-btn">
-				<i class="layui-icon">&#xe608;</i> 单个添加
-			</button>
-			<button type="button" class="layui-btn" id="test1">
-				<i class="layui-icon">&#xe67c;</i>批量添加
-			</button>
-		</div>
+			<div class="layui-col-md4 layui-col-md-offset8">
+				<button data-method="add" data-type="t" class="layui-btn">
+					<i class="layui-icon">&#xe608;</i> 单个添加
+				</button>
+				<button type="button" class="layui-btn" id="test1">
+					<i class="layui-icon">&#xe67c;</i>批量添加
+				</button>
+				<button class="layui-hide" id="uploadbtn"></button>
+			</div>
 		</div>
 	</div>
 	<div style="padding-left: 50px; padding-right: 50px;">
@@ -106,18 +107,50 @@
 	<script src="${base}/frame/layui/layui.js"></script>
 	<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 	<script>
-			layui.use('upload', function(){
-			  var upload = layui.upload;
-
+			layui.use(['upload','layer','jquery'], function(){
+			  var upload = layui.upload, layer = layui.layer, jquery = layui.jquery;
+			  var layerIndex;
 			  //执行实例
 			  var uploadInst = upload.render({
 				elem: '#test1' //绑定元素
-				,url: '/upload/' //上传接口
-				,done: function(res){
-				  //上传完毕回调
+				,url: '/addMulyiStus.do' //上传接口
+				,accept: 'file'//上传文件类型
+				,auto: false //选择文件后不自动上传
+				,bindAction: '#uploadbtn'//指向一个按钮触发上传
+				,choose: function(obj){//选择文件后的回调函数
+				    //预读本地文件，如果是多文件，则会遍历。(不支持ie8/9)
+				    obj.preview(function(index, file, result){
+				    	console.log(index); //得到文件索引
+				    	console.log(file); //得到文件对象
+				    	//console.log(result); //得到文件base64编码，比如图片
+				      
+				    	//这里还可以做一些 append 文件列表 DOM 的操作
+				      
+				    	//obj.upload(index, file); //对上传失败的单个文件重新上传，一般在某个事件中使用
+				    	//delete files[index]; //删除列表中对应的文件，一般在某个事件中使用
+				    	var index=file.name.lastIndexOf(".");
+				    	var suffix=file.name.substring(index,file.name.length);
+	                	if(suffix != ".xls"){
+	                    	layer.msg("只支持.xls格式，请重新选择！");
+	                	}else{
+	                		jquery("#uploadbtn").click();
+	                	}
+				    });
+				}
+			    ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+			    	layerIndex = layer.load(); //上传loading
+				}
+				,done: function(response){
+					layer.close(layerIndex);
+					if(response == '0' || response == '-1'){
+						layer.msg("上传失败！",{icon: 2});
+					}else{
+						layer.msg("上传成功！",{icon: 1});
+					}
 				}
 				,error: function(){
-				  //请求异常回调
+					layer.close(layerIndex);
+					layer.msg("上传失败！",{icon: 2});
 				}
 			  });
 			});
