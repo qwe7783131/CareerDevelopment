@@ -16,6 +16,7 @@ import com.bugmaker.bean.Dept;
 import com.bugmaker.bean.ProfessionClass;
 import com.bugmaker.bean.Student;
 import com.bugmaker.bean.User;
+import com.bugmaker.constant.UserConstant;
 
 public class XslResolveUtil {
 
@@ -32,7 +33,7 @@ public class XslResolveUtil {
 					continue;
 				}
 				// 循环行
-				for (int row = 1; row <= hssfSheet.getLastRowNum(); row++) {
+				for (int row = 4; row <= hssfSheet.getLastRowNum(); row++) {
 					HSSFRow hssfRow = hssfSheet.getRow(row);
 					if (hssfRow == null) {
 						continue;
@@ -58,10 +59,15 @@ public class XslResolveUtil {
 							user.setDept(dept);
 						}
 					}
+					//密码加密
 					String password = new Md5Hash(user.getId(),
 							getCellValue(hssfRow.getCell(9))).toString();
 					user.setPassword(password);
+					user.setEnable(1);
+					user.setType(UserConstant.StudentType);
+					user.setCreatTime(new Date());
 					student.setUser(user);
+					student.setId(user.getId());
 					students.add(student);
 				}
 			}
@@ -112,7 +118,7 @@ public class XslResolveUtil {
 					continue;
 				}
 				// 循环行
-				for (int row = 1; row <= hssfSheet.getLastRowNum(); row++) {
+				for (int row = 4; row <= hssfSheet.getLastRowNum(); row++) {
 					HSSFRow hssfRow = hssfSheet.getRow(row);
 					if (hssfRow == null) {
 						continue;
@@ -131,9 +137,13 @@ public class XslResolveUtil {
 							teacher.setDept(dept);
 						}
 					}
+					//密码加密
 					String password = new Md5Hash(teacher.getId(),
 							getCellValue(hssfRow.getCell(9))).toString();
 					teacher.setPassword(password);
+					teacher.setEnable(1);
+					teacher.setType(UserConstant.TeacherType);
+					teacher.setCreatTime(new Date());
 					teachers.add(teacher);
 				}
 			}
