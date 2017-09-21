@@ -25,6 +25,7 @@ public class InternshipServiceImpl implements InternshipService{
 	@Resource
 	private JobMapper jobMapper;
 	
+	
 	/*String companyId =null;
 	
 	String jobId = null;
@@ -78,6 +79,22 @@ public class InternshipServiceImpl implements InternshipService{
 	public List<Job> getJobByCompanyId(String id) {
 		List<Job> jobs = jobMapper.getJobByCompanyId(id);
 		return jobs;
+	}
+
+	@Override
+	public Boolean insertInternship(Internship internship) {
+		//生成项目UUID
+		String interId = null;
+		interId = UUID.randomUUID().toString().replace("-", "");
+		internship.setId(interId);
+		int test = internshipMapper.insertInternship(internship);
+		if(test>0)
+		{
+			return true;
+		}else{
+			return false;
+		}
+		
 	}  
 
 }

@@ -18,6 +18,11 @@ public class StudentMapperTest extends BaseTest {
     private StudentMapper studentMapper;
 
     @Test
+    public void testSelectAll(){
+        List<Student> students = studentMapper.selectAllStudent();
+        System.out.println(students);
+    }
+    @Test
     public void testInsert(){
         // 仅测试在student表里插入数据
         // 不会在基表里面插入其他信息
@@ -28,7 +33,7 @@ public class StudentMapperTest extends BaseTest {
         directionClass.setId("3333");
 
         Student student = new Student();
-        student.setId("2011111111");
+        student.setId("20111119111");
         student.setProfessionClass(professionClass);
         student.setDirectionClass(directionClass);
 
@@ -51,7 +56,6 @@ public class StudentMapperTest extends BaseTest {
             Student student = new Student();
 
             student.setId("aasa" + i);
-
             student.setDirectionClass(directionClass);
             student.setProfessionClass(professionClass);
 
@@ -60,5 +64,10 @@ public class StudentMapperTest extends BaseTest {
 
 
         System.out.println(studentMapper.insertStudents(students));
+    }
+
+    @Test
+    public void testSelectParams(){
+        //待测试
     }
 }

@@ -5,14 +5,13 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-
+import com.bugmaker.bean.Internship;
 import com.bugmaker.bean.Job;
 import com.bugmaker.service.InternshipService;
 
@@ -42,11 +41,28 @@ public class AddInternshipController {
         return modelAndView
     	
     }*/
+	/***
+	 * 通过公司的ID获取岗位信息
+	 * @param id
+	 * @return
+	 */
     @RequestMapping("getjobs.do")
     public @ResponseBody List<Job> getjobs(@RequestParam String id){
     	//System.out.println(id);
     	List<Job> jobs = internshipService.getJobByCompanyId(id);
     	return jobs;
     }
-	
+    /**
+     * 添加项目信息
+     * @param internship
+     * @return
+     */
+	@RequestMapping("addOneInternship.do")
+	public ModelAndView addOneInternship(Internship internship){
+		boolean insertInternship = internshipService.insertInternship(internship);
+		ModelAndView modelAndView = new ModelAndView();
+    	modelAndView.addObject("insertInternship", insertInternship);
+    	modelAndView.setViewName("leader/addInternship");
+		return modelAndView;
+	}
 }

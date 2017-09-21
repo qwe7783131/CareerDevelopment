@@ -3,6 +3,7 @@ package com.bugmaker.controller.admin;
 import com.bugmaker.bean.Dept;
 import com.bugmaker.bean.User;
 import com.bugmaker.service.AddTeacherService;
+import com.bugmaker.service.TeacherService;
 import com.bugmaker.utils.XslResolveUtil;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -29,6 +30,12 @@ public class AddTeacherController {
     @Autowired
     @Qualifier("teaService")
     AddTeacherService teacherService;
+
+    @Autowired
+    @Qualifier("selectTeaService")
+    TeacherService teacherService2;
+
+
 //    public User test(){
 //        User user1 = new User();
 //        user1.setId("201424133221");
@@ -36,6 +43,16 @@ public class AddTeacherController {
 //        return user1;
 //    }
 
+    @RequestMapping("/admin/teacherManage.do")
+    public String teacherManageView(ModelMap model) {
+        System.out.println("1");
+        List<User> selectAllTea = teacherService2.selectAllTea();
+//        for(User user : selectAllTea){
+//            System.out.println(user);
+//        }
+        model.put("selectAllTea",selectAllTea);
+        return "admin/teacherManage";
+    }
     /**
      *添加单个教师的控制器
 
@@ -89,5 +106,51 @@ public class AddTeacherController {
         model.put("selectAllDept",selectAllDept);
         return "admin/addTeacher";
     }
+    /**
+     * 获取学院（修改教师时)
+     */
+    @RequestMapping("/admin/selectDept2.do")
+    public  String selectDept2(ModelMap model){
+        List<Dept> selectAllDept = teacherService.selectAllDept();
+        model.put("selectAllDept",selectAllDept);
+        return "admin/modifyTeacher";
+    }
 
+    //修改教师信息
+    @RequestMapping(value = "admin/modifyTeacherImpl.do", method = RequestMethod.POST)
+    @ResponseBody
+    public String modifyTeacherImpl(@RequestBody String userString) throws IOException {
+        System.out.println("执行修改controller");
+        System.out.println(userString);
+        ObjectMapper mapper = new ObjectMapper();
+        Map userMap = mapper.readValue(userString, Map.class);
+        System.out.println(userMap);
+        Dept dept = new Dept();
+        dept.setId(userMap.get("dept").toString());
+        com.bugmaker.bean.User user = new User();
+        user.setId(userMap.get("id").toString());
+        user.setUsername(userMap.get("username").toString());
+        user.setPassword(userMap.get("password").toString());
+        user.setSex(userMap.get("sex").toString());
+        user.setAge(Integer.valueOf(userMap.get("age").toString()));
+        user.setPhone(userMap.get("phone").toString());
+        user.setEmail(userMap.get("email").toString());
+        user.setDept(dept);
+        user.setCreatTime(new Date());
+        user.setEnable(Integer.parseInt(userMap.get("enable").toString()));
+        user.setType(2);
+
+        return "" + teacherService2.updateTea(user);
+    }
+
+
+    @RequestMapping(value = "admin/deleteTeacher.do", method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteTeacher(@RequestBody String id){
+        System.out.println("执行删除controller");
+        System.out.println(id.substring(3));
+        teacherService2.deleteTea(id.substring(3));
+
+        return "123";
+    }
 }
