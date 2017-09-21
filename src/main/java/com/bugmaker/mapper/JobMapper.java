@@ -1,5 +1,8 @@
 package com.bugmaker.mapper;
 
+import java.util.List;
+
+
 import com.bugmaker.bean.Job;
 
 public interface JobMapper {
@@ -9,4 +12,5 @@ public interface JobMapper {
      * @return
      */
     int insertJob(Job job);
+    public  List<Job> getAllJob();
 }
