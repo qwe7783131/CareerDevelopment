@@ -8,10 +8,9 @@ import java.util.List;
 public interface UserMapper {
     /**
      * 查询所有的教师
-     * @param type
      * @return
      */
-    List<User> getAllTeacher(int type);
+    List<User> getAllTeacher();
     /**
      * 根据id修改用户信息
      * @param user  传入需要修改的用户信息
