@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +25,7 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public ModelAndView doLogin(String userName, String password) throws IOException {
+    public ModelAndView doLogin(String userName, String password, String rememberMe, HttpServletResponse response) throws IOException {
         ModelAndView modelAndView = new ModelAndView("login");
         Map<String, String> map = new HashMap<String, String>();
 //        System.out.println(userName+"  "+password);
@@ -44,6 +46,14 @@ public class UserServiceImpl implements UserService {
         } else {
             if (user.getPassword().equals(password.trim())) { // 判断密码是否正确
                 RequestUtil.loginUserInfo(user);
+//                System.out.println(rememberMe);
+                if(rememberMe == "true") {
+                    String userInfo = userName + "," + password;
+                    Cookie userCookie = new Cookie("userInfo", userInfo);
+                    userCookie.setMaxAge(30 * 24 * 60 * 60);
+                    userCookie.setPath("/");
+                    response.addCookie(userCookie);
+                }
                 if(user.getType() == 0) {
                     return new ModelAndView("admin/index");
                 } else if(user.getType() == 1) {

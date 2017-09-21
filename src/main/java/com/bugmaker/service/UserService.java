@@ -2,6 +2,7 @@ package com.bugmaker.service;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -14,7 +15,7 @@ public interface UserService {
      * @param password  密码
      * @return
      */
-    public ModelAndView doLogin(String userName, String password) throws IOException;
+    public ModelAndView doLogin(String userName, String password,String rememberMe, HttpServletResponse response) throws IOException;
 
     public void doLogout();
 }

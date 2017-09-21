@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 添加实习项目 -->
 	<insert id="insertInternship" parameterType="com.bugmaker.bean.Internship">
-	  insert into internship values (#{id},#{type},#{jobId},#{name})
+	  insert into internship values (#{id},#{type},#{job.id},#{name})
 	</insert>
-	
+
 </mapper>

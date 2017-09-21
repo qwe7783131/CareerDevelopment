@@ -33,7 +33,7 @@ public class AddInternshipController {
     	modelAndView.setViewName("leader/addInternship");
     	/*System.out.println(ib.getInternship().getType());*/
         return modelAndView;
-    	
+
     }
     
 	
