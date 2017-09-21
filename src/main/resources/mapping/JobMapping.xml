@@ -9,8 +9,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  insert into job values (#{id},#{companyId},#{name},#{salary},#{outteacId})
 	</insert>
 	
-	<select id="getAllJob" resultType="Job">
-	  select * from job
+	<select id="getJobByCompanyId" parameterType="String" resultType="Job">
+	  select * from job where company_id=#{id}
 	</select>
 	
 </mapper>

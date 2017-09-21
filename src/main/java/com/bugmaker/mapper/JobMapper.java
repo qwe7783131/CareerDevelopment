@@ -12,5 +12,5 @@ public interface JobMapper {
      * @return
      */
     int insertJob(Job job);
-    public  List<Job> getAllJob();
+    public  List<Job> getJobByCompanyId(String id);
 }
