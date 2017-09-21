@@ -77,4 +77,21 @@
 <!-- 	</mvc:interceptors> -->
 	<!-- 开启注解 -->
     <context:annotation-config/>
+    <!-- 此处乃进行json数据传输的关键 -->
+	<bean id="jsonMapping"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>application/json;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="jsonMapping" />
+			</list>
+		</property>
+	</bean>
 </beans>

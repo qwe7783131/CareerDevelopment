@@ -1,7 +1,13 @@
 package com.bugmaker.controller.admin;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.bugmaker.service.AdminService;
 
 /**
  * Created by wurenjie on 2017/9/12.
@@ -9,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+	
+	@Resource
+	private AdminService adminService;
 
     @RequestMapping("index.do")
     public String indexView(){
@@ -20,20 +29,12 @@ public class AdminController {
         return "admin/studentManage";
     }
 
-    @RequestMapping("teacherManage.do")
-    public String teacherManageView() {
-        return "admin/teacherManage";
-    }
-
-
+    /**
+     * 单个添加
+     */
     @RequestMapping("addStudent.do")
-    public String addStudent() {
-        return "admin/addStudent";
-    }
-
-    @RequestMapping("addTeacher.do")
-    public String addTeacher(){
-        return "admin/addTeacher";
+    public ModelAndView addStudent(@RequestParam(required=false) String deptId) {
+        return adminService.toAddOneStudentPage(deptId);
     }
 
 }
