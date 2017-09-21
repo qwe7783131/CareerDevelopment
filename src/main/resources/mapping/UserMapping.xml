@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bugmaker.mapper.UserMapper">
     <!-- 配置映射字段 -->
-    <resultMap type="com.bugmaker.bean.User" id="user">
+    <resultMap type="com.bugmaker.bean.User" id="userMap">
         <id property="id" column="uid"/>
         <result property="username" column="username" />
         <result property="password" column="password" />
@@ -25,36 +25,51 @@
             <result column="role_permiss" property="rolePermiss" />
         </collection>
     </resultMap>
-    <!-- 查询登录的用户 -->
-    <select id="getUserByUserName" resultMap="user">
-        SELECT u.id uid,username,password,sex,age,phone,email,enable,type,u.create_time,
+    <!-- 根据id删除对应的用户 -->
+    <delete id="deleteUserById" parameterType="string">
+        delete from user where id = #{id}
+    </delete>
+    <!--根据id修改对应的用户信息 -->
+    <update id="updateUserById" parameterType="user">
+        UPDATE USER SET username=#{username}, PASSWORD=#{password}, sex=#{sex}, age=#{age}, phone=#{phone},
+        email=#{email},ENABLE=#{enable}, TYPE=#{type},dept_id=#{dept.id} WHERE id = #{id}
+    </update>
+
+    <!-- 根据id查询登录的用户 -->
+    <select id="getUserByUserName" resultMap="userMap">
+        SELECT u.id uid,username,password,sex,age,phone,email,enable,type,u.create_time ucreateTime,
         r.id rid,role_name,role_permiss,d.id,dept_name FROM user u,role r,user_role ur,dept d
-        WHERE u.id = #{id} AND ur.user_id = u.id AND ur.role_id = r.id
+        WHERE u.id = #{id} AND ur.user_id = u.id AND ur.role_id = r.id AND u.dept_id = d.id
     </select>
-    <insert id="insertUser" parameterType="user">
-        insert into user (
-        id, username, password,
-        sex, age, phone, email,
-        enable, type, dept_id, create_time)
-        values
-        (#{id}, #{username}, #{password},
-        #{sex}, #{age}, #{phone}, #{email},
-        #{enable}, #{type}, #{dept.id}, #{creatTime})
-    </insert>
 
-    <insert id="insertUsers" parameterType="java.util.List">
-        insert into user (
-        id, username, password,
-        sex, age, phone, email,
-        enable, type, dept_id, create_time)
-        values
-        <foreach collection="list" item="item" index="index" separator ="," >
-            (#{item.id}, #{item.username}, #{item.password},
-            #{item.sex}, #{item.age}, #{item.phone}, #{item.email},
-            #{item.enable}, #{item.type}, #{item.dept.id}, #{item.creatTime})
-        </foreach>
-    </insert>
-
+    <!-- 查询所有的教师(type = 2) -->
+    <select id="getAllTeacher" resultMap="userMap">
+        SELECT u.id uid,username,password,sex,age,phone,email,enable,type,u.create_time ucreateTime,
+        r.id rid,role_name,role_permiss,d.id,dept_name FROM user u,role r,user_role ur,dept d
+        WHERE ur.user_id = u.id AND ur.role_id = r.id AND u.dept_id = d.id AND TYPE = 2
+    </select>
+    <!-- 添加用户基表数据,插入用户前必须要先插入角色 -->
+	<insert id="insertUser" parameterType="user">
+		insert into user (
+			id, username, password,
+			sex, age, phone, email,
+			enable, type, dept_id, create_time)
+		values
+			(#{id}, #{username}, #{password},
+			 #{sex}, #{age}, #{phone}, #{email},
+			 #{enable}, #{type}, #{dept.id}, #{creatTime})
+	</insert>
+    <!-- 批量添加用户基表数据 -->
+	<insert id="insertUsers" parameterType="java.util.List">
+		insert into user (
+		id, username, password,
+		sex, age, phone, email,
+		enable, type, dept_id, create_time)
+		values
+		<foreach collection="list" item="item" index="index" separator ="," >
+			(#{item.id}, #{item.username}, #{item.password},
+			#{item.sex}, #{item.age}, #{item.phone}, #{item.email},
+			#{item.enable}, #{item.type}, #{item.dept.id}, #{item.creatTime})
+		</foreach>
+	</insert>
 </mapper>
-
-

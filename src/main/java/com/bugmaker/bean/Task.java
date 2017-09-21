@@ -11,7 +11,7 @@ public class Task {
 
     private String content;
 
-    private String jobId;
+    private Job job;
 
     private Date startTime;
 
@@ -41,12 +41,12 @@ public class Task {
         this.content = content == null ? null : content.trim();
     }
 
-    public String getJobId() {
-        return jobId;
+    public Job getJob() {
+        return job;
     }
 
-    public void setJobId(String jobId) {
-        this.jobId = jobId == null ? null : jobId.trim();
+    public void setJob(Job job) {
+        this.job = job;
     }
 
     public Date getStartTime() {
@@ -63,5 +63,17 @@ public class Task {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", job=" + job +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                '}';
     }
 }

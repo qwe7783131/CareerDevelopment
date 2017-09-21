@@ -8,9 +8,9 @@ public class DirectionClass {
 
     private String name;
 
-    private String deptId;
+    private Dept dept;
 
-    private String direcId;
+    private Direction direction;
 
     public String getId() {
         return id;
@@ -28,19 +28,29 @@ public class DirectionClass {
         this.name = name == null ? null : name.trim();
     }
 
-    public String getDeptId() {
-        return deptId;
+    public Dept getDept() {
+        return dept;
     }
 
-    public void setDeptId(String deptId) {
-        this.deptId = deptId == null ? null : deptId.trim();
+    public void setDept(Dept dept) {
+        this.dept = dept;
     }
 
-    public String getDirecId() {
-        return direcId;
+    public Direction getDirection() {
+        return direction;
     }
 
-    public void setDirecId(String direcId) {
-        this.direcId = direcId == null ? null : direcId.trim();
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
+    @Override
+    public String toString() {
+        return "DirectionClass{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", dept=" + dept +
+                ", direction=" + direction +
+                '}';
     }
 }

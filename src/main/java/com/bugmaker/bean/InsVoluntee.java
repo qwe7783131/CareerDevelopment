@@ -1,15 +1,15 @@
 package com.bugmaker.bean;
 /**
- *
+ *   学生志愿表
  */
 public class InsVoluntee {
     private String id;
 
-    private String stuId;
+    private Student student;
 
-    private String teacId;
+    private User teacher;
 
-    private String insId;
+    private Internship internship ;
 
     public String getId() {
         return id;
@@ -19,27 +19,37 @@ public class InsVoluntee {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getStuId() {
-        return stuId;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setStuId(String stuId) {
-        this.stuId = stuId == null ? null : stuId.trim();
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
-    public String getTeacId() {
-        return teacId;
+    public User getTeacher() {
+        return teacher;
     }
 
-    public void setTeacId(String teacId) {
-        this.teacId = teacId == null ? null : teacId.trim();
+    public void setTeacher(User teacher) {
+        this.teacher = teacher;
     }
 
-    public String getInsId() {
-        return insId;
+    public Internship getInternship() {
+        return internship;
     }
 
-    public void setInsId(String insId) {
-        this.insId = insId == null ? null : insId.trim();
+    public void setInternship(Internship internship) {
+        this.internship = internship;
+    }
+
+    @Override
+    public String toString() {
+        return "InsVoluntee{" +
+                "id='" + id + '\'' +
+                ", student=" + student +
+                ", teacher=" + teacher +
+                ", internship=" + internship +
+                '}';
     }
 }

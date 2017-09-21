@@ -5,7 +5,7 @@ package com.bugmaker.bean;
 public class ProfessVolunteer {
     private String id;
 
-    private String stuId;
+    private Student student;
 
     private String direcId1;
 
@@ -21,12 +21,12 @@ public class ProfessVolunteer {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getStuId() {
-        return stuId;
+    public Student getStudent() {
+        return student;
     }
 
-    public void setStuId(String stuId) {
-        this.stuId = stuId == null ? null : stuId.trim();
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public String getDirecId1() {
@@ -51,5 +51,16 @@ public class ProfessVolunteer {
 
     public void setDirecId3(String direcId3) {
         this.direcId3 = direcId3 == null ? null : direcId3.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "ProfessVolunteer{" +
+                "id='" + id + '\'' +
+                ", student=" + student +
+                ", direcId1='" + direcId1 + '\'' +
+                ", direcId2='" + direcId2 + '\'' +
+                ", direcId3='" + direcId3 + '\'' +
+                '}';
     }
 }
