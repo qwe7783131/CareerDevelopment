@@ -136,10 +136,13 @@
 					type : 'POST',
 					success: function(response){
 						if(response == '0' || response == '-1'){
-							layer.msg("上传失败！",{icon: 2});
+							layer.msg("添加失败！",{icon: 2});
 						}else{
-							layer.msg("上传成功！",{icon: 1});
+							layer.msg("添加成功！",{icon: 1});
 						}
+					},
+					error: function(){
+						layer.msg("添加失败！",{icon: 2});
 					}
 				});
 				/* console.log(data.elem) //被执行事件的元素DOM对象，一般为button对象
