@@ -14,4 +14,6 @@ public interface CompanyMapper {
     int insertCompany(Company company);
     
     public List<Company> getAllCompany();
+    
+    
 }
