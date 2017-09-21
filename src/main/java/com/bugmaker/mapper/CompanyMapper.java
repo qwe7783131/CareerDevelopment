@@ -1,8 +1,8 @@
 package com.bugmaker.mapper;
 
-import java.util.List;
-
 import com.bugmaker.bean.Company;
+
+import java.util.List;
 
 public interface CompanyMapper {
 
@@ -12,8 +12,10 @@ public interface CompanyMapper {
      * @return
      */
     int insertCompany(Company company);
-    
-    public List<Company> getAllCompany();
-    
-    
+
+    /**
+     * 查询所有公司
+     * @return
+     */
+    List<Company> selectAllCompany();
 }

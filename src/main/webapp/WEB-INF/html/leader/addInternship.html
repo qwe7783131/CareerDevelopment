@@ -8,23 +8,17 @@
 </head>
 <body>
  
-<!-- 你的HTML代码 -->
+
  
 <form class="layui-form" action="careerdevelopment/leader/addinternships.do" method="post">
   <div class="layui-form-item">
     <label class="layui-form-label">项目名称</label>
     <div class="layui-input-block">
-      <input type="text" name="internship.name" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+      <input type="text" name="name" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
      
     </div>
   </div> 
- <!--  <div class="layui-form-item">
-    <label class="layui-form-label">项目类型</label>
-    <div class="layui-input-block">
-      <input type="text" name="internship.type" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
-     
-    </div>
-  </div>  -->
+ 
    <div class="layui-form-item">
     <label class="layui-form-label">项目类型</label>
     <div class="layui-input-block">
@@ -32,73 +26,29 @@
       <input type="radio" name="type" value="顶岗" title="顶岗" checked>
     </div>
   </div>
-  <!-- <div class="layui-form-item">
-    <label class="layui-form-label">公司名称</label>
-    <div class="layui-input-block">
-      <input type="text" name="company.name" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
-     
-    </div>
-  </div> -->
+ 
   <div class="layui-form-item">
     <label class="layui-form-label">公司名称</label>
     <div class="layui-input-block">
       <select name="" lay-filter="comp">
         <option value=""></option>
         <#list map.companys as company>
-			
-			
-			
 			<option value="${company.id}">${company.name}</option> 
 			
 		</#list>
       </select>
     </div>
   </div>
-  <!--  <div class="layui-form-item">
-    <div class="layui-inline">
-      <label class="layui-form-label">顾问</label>
-      <div class="layui-input-inline">
-        <input type="tel" name="company.advisor" lay-verify="required" autocomplete="off" class="layui-input">
-      </div>
-    </div>
-    <div class="layui-inline">
-      <label class="layui-form-label">联系电话</label>
-      <div class="layui-input-inline">
-        <input type="tel" name="company.phone" lay-verify="phone" autocomplete="off" class="layui-input">
-      </div>
-    </div>
-  </div>
- <div class="layui-form-item">
-    <label class="layui-form-label">公司地址</label>
-    <div class="layui-input-block">
-      <input type="text" name="company.address" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
-     
-    </div>
-  </div> -->
+  
   <div class="layui-form-item">
     <label class="layui-form-label">岗位</label>
     <div class="layui-input-block">
-      <select id="jobinfo" name=""  lay-ignore>
-        
-        
+      <select id="jobinfo" name="job.id"  lay-ignore>
+      
       </select>
     </div>
   </div>
-  <!--  <div class="layui-form-item">
-    <div class="layui-inline">
-      <label class="layui-form-label">岗位名称</label>
-      <div class="layui-input-inline">
-        <input type="tel" name="job.name" lay-verify="required" autocomplete="off" class="layui-input">
-      </div>
-    </div>
-     <div class="layui-inline">
-      <label class="layui-form-label">薪水</label>
-      <div class="layui-input-inline">
-        <input type="tel" name="job.salary" lay-verify="required" autocomplete="off" class="layui-input">
-      </div>
-    </div> 
-  </div>  
-   -->
+  
   <div class="layui-form-item">
     <div class="layui-input-block">
       <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
@@ -129,27 +79,13 @@ layui.use(['form','layer'], function(){
 	          data: {"id":ids},
 	          dataType: "json",
 	          success: function(data){
-	                        /*  $('#resText').empty();   //清空resText里面的所有内容
-	                      var html = ''; 
-	                      $.each(data, function(commentIndex, comment){
-	                            html += '<div class="comment"><h6>' + comment['username']
-	                                      + ':</h6><p class="para"' + comment['content']
-	                                      + '</p></div>';
-	                      });
-	                      $('#resText').html(html);   */
-	                     
 	                      $("#jobinfo").empty();
 	                      $("#jobinfo").append("<option value='-1'>--请选择岗位--</option>");
 	                      $.each(data, function (i, item) {
 	                          $("#jobinfo").append("<option value='" + item.id + "'>" + item.name + "</option>");
-	                      }); 
-	                      
-	                        
-	        	  
-	                      
+	                      }); 	                      
 	                   }
-	      });    
-		  
+	      });    		  
 		});      
   
   

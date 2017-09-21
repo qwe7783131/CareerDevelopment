@@ -48,14 +48,44 @@
     </footer>
 </div>
 <script type="text/javascript" src="frame/layui/layui.js"></script>
+<script type="text/javascrtpt" src="resources/js/jquery-2.1.4.js"></script>
 <script type="text/javascript">
 
+   $(".layui-btn").click( function() {
+        alert("sss");
+   });
+
+    <!--$(document).ready(function(){-->
+    <!--alert("ddd");-->
+        <!--//记住密码功能-->
+        <!--var str = getCookie("userInfo");-->
+        <!--str = str.substring(1,str.length-1);-->
+        <!--var username = str.split(",")[0];-->
+        <!--var password = str.split(",")[1];-->
+        <!--//自动填充用户名和密码-->
+        <!--$("#userName").val(username);-->
+        <!--$("#password").val(password);-->
+    <!--});-->
+
+    <!--//获取cookie-->
+    <!--function getCookie($) {-->
+         <!--alert("Ddd");-->
+        <!--layer.msg("ok");-->
+        <!--var name = cname + "=";-->
+        <!--var ca = document.cookie.split(';');-->
+        <!--for(var i=0; i<ca.length; i++) {-->
+            <!--var c = ca[i];-->
+            <!--while (c.charAt(0)==' ') c = c.substring(1);-->
+            <!--if (c.indexOf(name) != -1) return c.substring(name.length, c.length);-->
+        <!--}-->
+        <!--return "";-->
+    <!--};-->
     <#if map.message == "1">
         alert("账号或者密码不能为空！");
         <#elseif map.message == "2">
-        alert("账号不存在！");
-        <#else>
-        alert("密码错误了！");
+        alert("账号不存在！")
+        <#else>;
+        alert("密码错误了！")
     </#if>
 
 </script>

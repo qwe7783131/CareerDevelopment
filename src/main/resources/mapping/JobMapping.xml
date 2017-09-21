@@ -1,16 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bugmaker.mapper.JobMapper">
+	<!-- 配置映射字段 -->
+	<resultMap type="com.bugmaker.bean.Job" id="jobMap">
+		<id property="id" column="id"/>
+		<result property="name" column="name" />
+		<result property="salary" column="salary" />
+		<association property="company" javaType="com.bugmaker.bean.Company">
+			<id property="id" column="company_id" />
+			<result property="name" column="name" />
+			<result property="address" column="address" />
+			<result property="phone" column="phone" />
+			<result property="advisor" column="advisor" />
+		</association>
+		<association property="outteacher" javaType="com.bugmaker.bean.Outteacher">
+			<id property="id" column="outteac_id" />
+		</association>
+	</resultMap>
 
-	
-	<insert id="insertJob" parameterType="com.bugmaker.bean.Job">
-	  insert into job values (#{id},#{companyId},#{name},#{salary},#{outteacId})
-	</insert>
-	
-	<select id="getJobByCompanyId" parameterType="String" resultType="Job">
-	  select * from job where company_id=#{id}
+	<!-- 根据公司id查询对应的岗位 -->
+	<select id="selectJobByCompanyId" parameterType="string" resultMap="jobMap">
+		SELECT id,company_id, name, salary, outteac_id
+		FROM job WHERE company_id = #{companyId}
 	</select>
-	
+
+
+    <insert id="insertJob" parameterType="com.bugmaker.bean.Job">
+        insert into job values (#{id},#{companyId},#{name},#{salary},#{outteacId})
+    </insert>
+
+    <select id="getAllJob" resultType="Job">
+        select * from job
+    </select>
 </mapper>

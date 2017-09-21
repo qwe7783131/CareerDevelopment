@@ -26,6 +26,22 @@
         </collection>
     </resultMap>
 
+    <!-- 模糊查询教师信息 -->
+    <select id="selectTeacherByParams" parameterType="user" resultMap="userMap">
+        SELECT u.id uid,username,password,sex,age,phone,email,enable,type,u.create_time ucreateTime,
+        r.id rid,role_name,role_permiss,d.id,dept_name FROM user u,role r,user_role ur,dept d
+        WHERE ur.user_id = u.id AND ur.role_id = r.id AND u.dept_id = d.id AND TYPE = 2
+        <if test="id != null and id != ''">
+            AND u.id = #{id}
+        </if>
+        <if test="username != null and username != ''">
+            AND username LIKE '%' #{id} '%'
+        </if>
+        <if test="dept.id != null and dept.id != ''">
+            AND u.dept_id = #{deptId}
+        </if>
+    </select>
+
     <!-- 根据id删除对应的用户 -->
     <delete id="deleteUserById" parameterType="string">
         delete from user where id = #{id}

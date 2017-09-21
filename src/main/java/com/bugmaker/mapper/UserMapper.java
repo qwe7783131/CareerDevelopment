@@ -9,6 +9,12 @@ import java.util.List;
  */
 public interface UserMapper {
     /**
+     * 多条件查询教师
+     * @param user
+     * @return
+     */
+    List<User> selectTeacherByParams(User user);
+    /**
      * 查询所有的教师
      * @return
      */
