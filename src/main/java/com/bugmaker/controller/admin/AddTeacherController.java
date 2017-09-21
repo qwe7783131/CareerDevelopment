@@ -106,5 +106,51 @@ public class AddTeacherController {
         model.put("selectAllDept",selectAllDept);
         return "admin/addTeacher";
     }
+    /**
+     * 获取学院（修改教师时)
+     */
+    @RequestMapping("/admin/selectDept2.do")
+    public  String selectDept2(ModelMap model){
+        List<Dept> selectAllDept = teacherService.selectAllDept();
+        model.put("selectAllDept",selectAllDept);
+        return "admin/modifyTeacher";
+    }
 
+    //修改教师信息
+    @RequestMapping(value = "admin/modifyTeacherImpl.do", method = RequestMethod.POST)
+    @ResponseBody
+    public String modifyTeacherImpl(@RequestBody String userString) throws IOException {
+        System.out.println("执行修改controller");
+        System.out.println(userString);
+        ObjectMapper mapper = new ObjectMapper();
+        Map userMap = mapper.readValue(userString, Map.class);
+        System.out.println(userMap);
+        Dept dept = new Dept();
+        dept.setId(userMap.get("dept").toString());
+        com.bugmaker.bean.User user = new User();
+        user.setId(userMap.get("id").toString());
+        user.setUsername(userMap.get("username").toString());
+        user.setPassword(userMap.get("password").toString());
+        user.setSex(userMap.get("sex").toString());
+        user.setAge(Integer.valueOf(userMap.get("age").toString()));
+        user.setPhone(userMap.get("phone").toString());
+        user.setEmail(userMap.get("email").toString());
+        user.setDept(dept);
+        user.setCreatTime(new Date());
+        user.setEnable(Integer.parseInt(userMap.get("enable").toString()));
+        user.setType(2);
+
+        return "" + teacherService2.updateTea(user);
+    }
+
+
+    @RequestMapping(value = "admin/deleteTeacher.do", method = RequestMethod.POST)
+    @ResponseBody
+    public String deleteTeacher(@RequestBody String id){
+        System.out.println("执行删除controller");
+        System.out.println(id.substring(3));
+        teacherService2.deleteTea(id.substring(3));
+
+        return "123";
+    }
 }
