@@ -170,7 +170,7 @@
 			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<!-- shiro start -->
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
@@ -189,12 +189,20 @@
 			<artifactId>jackson-databind</artifactId>
 			<version>2.5.1</version>
 		</dependency>
-		<dependency>  
-            <groupId>com.fasterxml.jackson.core</groupId>  
-            <artifactId>jackson-annotations</artifactId>  
-            <version>2.5.1</version> 
-        </dependency>  
-        <!-- spring-json end -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+		<!-- spring-json end -->
+
+		<!-- pagehelper start -->
+		<dependency>
+			<groupId>com.github.pagehelper</groupId>
+			<artifactId>pagehelper</artifactId>
+			<version>5.1.2</version>
+		</dependency>
+		<!-- pagehelper end -->
 
 	</dependencies>
 	<properties>
@@ -233,6 +241,6 @@
 					</webApp>
 				</configuration>
 			</plugin>
-	</plugins>
+		</plugins>
 	</build>
 </project>
