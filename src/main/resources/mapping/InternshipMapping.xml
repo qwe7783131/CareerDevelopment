@@ -3,10 +3,50 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bugmaker.mapper.InternshipMapper">
+	<!-- 配置映射字段 -->
+	<resultMap type="com.bugmaker.bean.Internship" id="internshipMap">
+		<id property="id" column="iid"/>
+		<result property="type" column="itype" />
+		<result property="name" column="iname" />
+		<association property="job" javaType="com.bugmaker.bean.Job">
+			<id column="jid" property="id" />
+			<result column="jname" property="name" />
+			<result column="jsalary" property="salary" />
+			<association property="outteacher" javaType="com.bugmaker.bean.Outteacher">
+				<id column="joutteacherid" property="id" />
+			</association>
+			<association property="company" javaType="com.bugmaker.bean.Company">
+				<id column="cid" property="id" />
+				<result column="cname" property="name" />
+				<result column="caddress" property="address" />
+				<result column="cphone" property="phone" />
+				<result column="cadvisor" property="advisor" />
+			</association>
+		</association>
+
+	</resultMap>
+
+
 
 	<!-- 添加实习项目 -->
 	<insert id="insertInternship" parameterType="com.bugmaker.bean.Internship">
-	  insert into internship values (#{id},#{type},#{job.id},#{name})
+		insert into internship values (#{id},#{type},#{job.id},#{name})
 	</insert>
+
+	<!-- 查询所有的实习项目 -->
+	<select id="selectAllInternship" resultMap="internshipMap">
+		SELECT i.id iid, i.type itype,
+		j.id jid,
+		c.id cid, c.name cname, c.address caddress, c.phone cphone, c.advisor cadvisor,
+		j.name jname, j.salary jsalary, j.outteac_id joutteacherid,
+		i.name iname
+		FROM internship i, job j, company c
+		WHERE i.job_id = j.id AND j.company_id = c.id
+	</select>
+
+	<!--根据id删除实习项目 -->
+	<delete id="deleteInternshipById" parameterType="string">
+		delete from internship where id = #{id}
+	</delete>
 
 </mapper>
