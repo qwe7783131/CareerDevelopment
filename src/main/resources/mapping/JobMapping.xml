@@ -21,9 +21,8 @@
 	</resultMap>
 
 	<!-- 根据公司id查询对应的岗位 -->
-	<select id="selectJobByCompanyId" parameterType="string" resultMap="jobMap">
-		SELECT id,company_id, name, salary, outteac_id
-		FROM job WHERE company_id = #{companyId}
+	<select id="getJobByCompanyId" parameterType="String" resultType="Job">
+	  select * from job where company_id=#{id}
 	</select>
 
 

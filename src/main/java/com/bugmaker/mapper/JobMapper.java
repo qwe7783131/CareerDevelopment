@@ -14,12 +14,13 @@ public interface JobMapper {
      * @return
      */
     int insertJob(Job job);
-    public  List<Job> getJobByCompanyId(String id);
 
     /**
      * 根据公司id查询对应的岗位
      * @param companyId 公司的id
      * @return 返回job的列表
      */
-    List<Job> selectJobByCompanyId(String companyId);
+    public  List<Job> getJobByCompanyId(String id);
+
+    
 }

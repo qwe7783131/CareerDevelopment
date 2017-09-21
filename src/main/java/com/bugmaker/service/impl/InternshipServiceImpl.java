@@ -70,7 +70,7 @@ public class InternshipServiceImpl implements InternshipService{
 
 	@Override
 	public List<Company> getAllCompany() {
-		List<Company> companys = companyMapper.getAllCompany();
+		List<Company> companys = companyMapper.selectAllCompany();
 		return companys;
 	}
 

@@ -10,7 +10,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  insert into company values (#{id},#{name},#{address},#{phone},#{advisor})
 	</insert>
 	
-	<select id="getAllCompany" resultType="Company">
+	<select id="selectAllCompany" resultType="Company">
 	   select * from company
 	</select>
 	
