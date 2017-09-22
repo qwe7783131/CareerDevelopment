@@ -16,4 +16,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insertOneDept">
 		insert into dept values(replace(uuid(),"-",""),#{deptName})
 	</insert>
+	
+	<update id="modifyDept">
+		update dept set dept_name=#{deptName} where id=#{id}
+	</update>
+	
+	<delete id="deleteDept">
+		delete from dept where id=#{deptId}
+	</delete>
 </mapper>
