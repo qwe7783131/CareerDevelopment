@@ -5,8 +5,9 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
-
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,22 +26,7 @@ public class AddInternshipController {
 	@Resource
 	public InternshipService internshipService;
 
-	/**
-     * 系领导添加顶岗项目页面
-     * @return
-     */
-   /* @RequestMapping("addinternships.do")
-    public ModelAndView addinternship(InternshipBean ib){
-    	internshipService.insertCompany(ib.getCompany());
-    	internshipService.insertJob(ib.getJob());
-    	boolean insertInternship = internshipService.insertInternship(ib.getInternship());
-    	ModelAndView modelAndView = new ModelAndView();
-    	modelAndView.addObject("insertInternship", insertInternship);
-    	modelAndView.setViewName("leader/addInternship");
-    	System.out.println(ib.getInternship().getType());
-        return modelAndView
-    	
-    }*/
+	
 	/***
 	 * 通过公司的ID获取岗位信息
 	 * @param id
@@ -64,5 +50,27 @@ public class AddInternshipController {
     	modelAndView.addObject("insertInternship", insertInternship);
     	modelAndView.setViewName("leader/addInternship");
 		return modelAndView;
+	}
+	/**
+     * 添加项目信息
+     * @param internship
+     * @return
+     */
+	@RequestMapping(value = "delInternship.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String delInternship(@RequestBody String id){
+		
+		internshipService.deleteInternshipById(id.substring(3));
+		return "123";
+	}
+	/**
+     * 添加项目信息
+     * @param internship
+     * @return
+     */
+	@RequestMapping("updateOneInternship.do")
+	public String updateOneInternship(Internship internship){
+		internshipService.updateInternshipById(internship);
+		return "leader/InternshipCRUD";
 	}
 }
