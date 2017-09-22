@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bugmaker.mapper.ScoreMapper">
+
+	<!-- 动态插入sql片段 -->
+	<sql id="key">
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				id,
+			</if>
+			<if test="type != null and type != ''">
+				type,
+			</if>
+			<if test="student != null and student.id != null ">
+				stu_id,
+			</if>
+			<if test="no != null and no != ''">
+				no,
+			</if>
+			<if test="teacher != null and teacher.id != null">
+				teac_id,
+				teac_score,
+			</if>
+		</trim>
+	</sql>
+
+
+	<!-- 定义第二个sql片段，第二个对应?，key属性值任意并且唯一 -->
+	<sql id="value">
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id},
+			</if>
+			<if test="type != null and type != ''">
+				#{type},
+			</if>
+			<if test="student != null and student.id != null ">
+				#{student.id},
+			</if>
+			<if test="no != null and no != ''">
+				#{no},
+			</if>
+			<if test="teacher != null and teacher.id != null">
+				#{teacher.id},
+				#{teacScore},
+			</if>
+		</trim>
+	</sql>
+	<!-- 添加或更新成绩-->
+	<insert id="insertOrUpdateScore" parameterType="score">
+		<!-- 查询是否存在该条记录 -->
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			SELECT count(*)
+			FROM score
+			WHERE id = #{id}
+		</selectKey>
+		<if test="count > 0">
+			 <!--只有指定了岗位类型和学生id才可以更新-->
+			<if test="type != null and type != '' and student != null and student.id != null and no != null">
+				update score
+				<trim prefix="set" suffixOverrides=",">
+					<if test="teacher != null and teacher.id != null">
+						teac_id = #{teacher.id},
+						teac_score = #{teacScore},
+					</if>
+				</trim>
+				where id = #{id} AND type = #{type} AND stu_id = #{student.id} AND no = #{no}
+			</if>
+		</if>
+		 <!--若无存在记录，则插入一条记录-->
+		<if test="count==0">
+			<!-- 只有指定了岗位类型和学生id才可以插入 -->
+			<if test="type != null and type != '' and student != null and student.id != null and no != null">
+				insert into score(<include refid="key"/>) values(<include refid="value"/>);
+			</if>
+		</if>
+	</insert>
+
+
+	<resultMap id="scoreMap" type="com.bugmaker.bean.Score">
+		<id property="id" column="id" />
+		<result property="teacScore" column="teac_score" />
+		<result property="outteacScore" column="outteac_score" />
+		<result property="no" column="no" />
+		<result property="type" column="type" />
+		<association property="student" javaType="com.bugmaker.bean.Student">
+			<association property="user" javaType="com.bugmaker.bean.User">
+				<id property="id" column="u_id" />
+				<result property="username" column="u_name" />
+			</association>
+		</association>
+		<association property="teacher" javaType="com.bugmaker.bean.User">
+
+			<id property="id" column="t_id" />
+			<result property="username" column="t_name" />
+
+		</association>
+	</resultMap>
+	<!-- 多条件查询protocol表 -->
+	<!-- 还要连接User表 -->
+	<select id="selectScoreByParam" resultMap="scoreMap">
+		SELECT p.*, user.username u_name, user.id u_id, teacher.username t_name, teacher.id t_id
+		from score p, user user, user teacher
+		where p.stu_id = user.id and p.teac_id = teacher.id
+		<!-- jobType = 1 为跟岗 -->
+		<if test="param1 != null and param1 == 1">
+			and p.type = '跟岗'
+		</if>
+		<!-- jobType = 2 为顶岗 -->
+		<if test="param1 != null and param1 == 2">
+			and p.type = '顶岗'
+		</if>
+		<!-- 学生的筛选条件 -->
+		<if test="param2 != null and param2.user != null">
+			<if test="param2.user.id != null">
+				and user.id = #{param2.user.id}
+			</if>
+
+			<if test="param2.user.username != null">
+				and user.username LIKE '%' #{param2.user.username} '%'
+			</if>
+		</if>
+	</select>
+</mapper>

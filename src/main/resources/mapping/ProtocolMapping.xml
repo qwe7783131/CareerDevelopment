@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bugmaker.mapper.ProtocolMapper">
+
+	<!-- 动态插入sql片段 -->
+	<sql id="key">
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				id,
+			</if>
+			<if test="type != null and type != ''">
+				type,
+			</if>
+			<if test="student != null and student.id != null ">
+				stu_id,
+			</if>
+			<if test="safeProtocal != null and safeProtocal != ''">
+				safe_protocal,
+			</if>
+			<!-- 实习记录表 -->
+			<if test="internshipRecord != null and internshipRecord != ''">
+				internship_record,
+			</if>
+			<!-- 实习单位接收证明 -->
+			<if test="acceptProve != null and acceptProve != ''">
+				accept_prove,
+			</if>
+			<!-- 实习考核表 -->
+			<if test="internshipAssess != null and internshipAssess != ''">
+				internship_assess,
+			</if>
+			<!-- 实习报告 -->
+			<if test="report != null and report != ''">
+				report,
+			</if>
+			<!-- 实习申请表 -->
+			<if test="internshipApplication != null and internshipApplication != ''">
+				internship_application,
+			</if>
+		</trim>
+	</sql>
+
+
+	<!-- 定义第二个sql片段，第二个对应?，key属性值任意并且唯一 -->
+	<sql id="value">
+		<trim suffixOverrides=",">
+			<if test="id != null and id != ''">
+				#{id},
+			</if>
+			<if test="type != null and type != ''">
+				#{type},
+			</if>
+			<if test="student != null and student.id != null ">
+				#{student.id},
+			</if>
+			<if test="safeProtocal != null and safeProtocal != ''">
+				#{safeProtocal},
+			</if>
+			<!-- 实习记录表 -->
+			<if test="internshipRecord != null and internshipRecord != ''">
+				#{internshipRecord},
+			</if>
+			<!-- 实习单位接收证明 -->
+			<if test="acceptProve != null and acceptProve != ''">
+				#{acceptProve},
+			</if>
+			<!-- 实习考核表 -->
+			<if test="internshipAssess != null and internshipAssess != ''">
+				#{internshipAssess},
+			</if>
+			<!-- 实习报告 -->
+			<if test="report != null and report != ''">
+				#{report},
+			</if>
+			<!-- 实习申请表 -->
+			<if test="internshipApplication != null and internshipApplication != ''">
+				#{internshipApplication},
+			</if>
+		</trim>
+	</sql>
+	<!-- 添加或更新存储各种文件链接的记录 -->
+	<insert id="insertOrUpdateDocument" parameterType="protocol">
+		<!-- 查询是否存在该条记录 -->
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			SELECT count(*)
+			FROM protocol
+			WHERE id = #{id}
+		</selectKey>
+		<if test="count > 0">
+			<!-- 只有指定了岗位类型和学生id才可以更新 -->
+			<if test="type != null and type != '' and student != null and student.id != null">
+				update protocol
+				<trim prefix="set" suffixOverrides=",">
+					<!-- 实习安全协议书 -->
+					<if test="safeProtocal != null and safeProtocal != ''">
+						safe_protocal = #{safeProtocal},
+					</if>
+					<!-- 实习记录表 -->
+					<if test="internshipRecord != null and internshipRecord != ''">
+						internship_record = #{internshipRecord},
+					</if>
+					<!-- 实习单位接收证明 -->
+					<if test="acceptProve != null and acceptProve != ''">
+						accept_prove = #{acceptProve},
+					</if>
+					<!-- 实习考核表 -->
+					<if test="internshipAssess != null and internshipAssess != ''">
+						internship_assess = #{internshipAssess},
+					</if>
+					<!-- 实习报告 -->
+					<if test="report != null and report != ''">
+						report = #{report},
+					</if>
+					<!-- 实习申请表 -->
+					<if test="internshipApplication != null and internshipApplication != ''">
+						internship_application = #{internshipApplication},
+					</if>
+				</trim>
+				where id = #{id} AND type = #{type} AND stu_id = #{student.id}
+			</if>
+		</if>
+		<!-- 若无存在记录，则插入一条记录 -->
+		<if test="count==0">
+		<!-- 只有指定了岗位类型和学生id才可以插入 -->
+			<if test="type != null and type != '' and student != null and student.id != null">
+				insert into protocol(<include refid="key"/>) values(<include refid="value"/>);
+			</if>
+		</if>
+	</insert>
+
+	<resultMap id="proMap" type="com.bugmaker.bean.Protocol">
+		<id property="id" column="id" />
+		<result property="safeProtocal" column="safe_protocal" />
+		<result property="internshipRecord" column="internship_record" />
+		<result property="acceptProve" column="accept_prove" />
+		<result property="internshipAssess" column="internship_assess" />
+		<result property="report" column="report" />
+		<result property="internshipApplication" column="internship_application" />
+		<result property="type" column="type" />
+		<association property="student" javaType="com.bugmaker.bean.Student">
+			<association property="user" javaType="com.bugmaker.bean.User">
+				<id property="id" column="u_id" />
+				<result property="username" column="username" />
+			</association>
+		</association>
+	</resultMap>
+	<!-- 多条件查询protocol表 -->
+	<!-- 还要连接User表 -->
+	<select id="selectProtocolByParam" resultMap="proMap">
+		SELECT p.*, u.username, u.id u_id
+		from protocol p, user u
+		where p.stu_id = u.id
+		<!-- jobType = 1 为跟岗 -->
+		<if test="param1 != null and param1 == 1">
+			and p.type = '跟岗'
+		</if>
+		<!-- jobType = 2 为顶岗 -->
+		<if test="param1 != null and param1 == 2">
+			and p.type = '顶岗'
+		</if>
+		<!-- 学生的筛选条件 -->
+		<if test="param2 != null and param2.user != null">
+			<if test="param2.user.id != null">
+				and u.id = #{param2.user.id}
+			</if>
+
+			<if test="param2.user.username != null">
+				and u.username LIKE '%' #{param2.user.username} '%'
+			</if>
+		</if>
+	</select>
+</mapper>
