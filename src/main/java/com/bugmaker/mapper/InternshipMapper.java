@@ -7,6 +7,16 @@ import java.util.List;
 
 public interface InternshipMapper {
     /**
+     * 根据项目名称模糊查询所有的项目（包含所有的指导教师）
+     * @return
+     */
+    List<Internship> selectInternshipAndTeacByName(String name);
+    /**
+     * 查询所有的项目（包含所有的指导教师）
+     * @return
+     */
+    List<Internship> selectAllInternshipAndTeac();
+    /**
      * 通过项目名称模糊查询项目
      * @param name
      * @return
