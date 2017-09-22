@@ -7,7 +7,7 @@ public class TeacIns {
 
     private User teacher;
 
-    private String insId;
+    private Internship internship;
 
     public String getId() {
         return id;
@@ -25,12 +25,12 @@ public class TeacIns {
         this.teacher = teacher;
     }
 
-    public String getInsId() {
-        return insId;
+    public Internship getInternship() {
+        return internship;
     }
 
-    public void setInsId(String insId) {
-        this.insId = insId == null ? null : insId.trim();
+    public void setInternship(Internship internship) {
+        this.internship = internship;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class TeacIns {
         return "TeacIns{" +
                 "id='" + id + '\'' +
                 ", teacher=" + teacher +
-                ", insId='" + insId + '\'' +
+                ", internship=" + internship +
                 '}';
     }
 }

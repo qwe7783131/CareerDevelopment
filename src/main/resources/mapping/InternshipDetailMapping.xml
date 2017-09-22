@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bugmaker.mapper.InternshipDetailMapper">
+	<!-- 配置映射字段 -->
+	<resultMap type="com.bugmaker.bean.InternshipDetail" id="internshipDetailMap">
+		<id property="id" column="id_id"/>
+		<association property="student" javaType="com.bugmaker.bean.Student">
+			<id column="id_stu_id" property="id" />
+		</association>
+		<association property="internship" javaType="com.bugmaker.bean.Internship">
+			<id column="i_id" property="id" />
+		</association>
+		<collection property="teachers" ofType="com.bugmaker.bean.User">
+			<id property="id" column="teac1"  />
+		</collection>
+	</resultMap>
+
+    <!--根据学生id 查询对应的指导老师 -->
+    <select id="selectInsTeacherByStuId" resultMap="internshipDetailMap">
+		SELECT id.id id_id, id.stu_id id_stu_id, i.id i_id,
+		SUBSTRING_INDEX(teac_id , ',', 1) teac1,
+		SUBSTRING_INDEX(SUBSTRING_INDEX(teac_id , ',', 2),",",-1) teac2,
+		SUBSTRING_INDEX(SUBSTRING_INDEX(teac_id , ',', 3),",",-1) teac3
+		FROM internship_detail id, user u, internship i
+		WHERE stu_id = #{id} AND i.id = id.ins_id AND u.id=stu_id
+</select>
+
+</mapper>

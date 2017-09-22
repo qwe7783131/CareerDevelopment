@@ -1,11 +1,30 @@
 package com.bugmaker.mapper;
 
 
+import com.bugmaker.bean.InsVoluntee;
 import com.bugmaker.bean.Internship;
+import com.bugmaker.bean.TeacIns;
 
 import java.util.List;
 
 public interface InternshipMapper {
+    /**
+     * 根据teac_ins的id修改指导老师
+     * @param teacIns
+     * @return
+     */
+    int updateTeacherByTeacInsId(TeacIns teacIns);
+    /**
+     * 根据项目id查询所有的指导教师
+     * @param internshipId
+     * @return
+     */
+    List<Internship> selectAllTeacherByInternshipId(String internshipId);
+    /**
+     * 根据学生id查询项目志愿
+     * @return
+     */
+    Internship selectInsVolunteerByStuId(String id);
     /**
      * 根据项目名称模糊查询所有的项目（包含所有的指导教师）
      * @return

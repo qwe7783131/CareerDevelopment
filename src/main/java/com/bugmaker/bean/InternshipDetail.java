@@ -1,4 +1,7 @@
 package com.bugmaker.bean;
+
+import java.util.List;
+
 /**
  *      实习分配情况表
  */
@@ -9,7 +12,7 @@ public class InternshipDetail {
 
     private Internship  internship ;
 
-    private User teacher;
+    private List<User> teachers;
 
     public String getId() {
         return id;
@@ -35,12 +38,12 @@ public class InternshipDetail {
         this.internship = internship;
     }
 
-    public User getTeacher() {
-        return teacher;
+    public List<User> getTeacher() {
+        return teachers;
     }
 
-    public void setTeacher(User teacher) {
-        this.teacher = teacher;
+    public void setTeacher(List<User> teachers) {
+        this.teachers = teachers;
     }
 
     @Override
@@ -49,7 +52,7 @@ public class InternshipDetail {
                 "id='" + id + '\'' +
                 ", student=" + student +
                 ", internship=" + internship +
-                ", teacher=" + teacher +
+                ", teachers=" + teachers +
                 '}';
     }
 }

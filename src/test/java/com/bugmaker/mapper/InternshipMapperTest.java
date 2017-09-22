@@ -1,8 +1,7 @@
 package com.bugmaker.mapper;
 
 import com.bugmaker.BaseTest;
-import com.bugmaker.bean.Internship;
-import com.bugmaker.bean.Job;
+import com.bugmaker.bean.*;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,6 +13,31 @@ import java.util.List;
 public class InternshipMapperTest extends BaseTest {
     @Autowired
     InternshipMapper internshipMapper;
+
+    @Test
+    public void updateTeacherByTeacInsIdTest(){
+        TeacIns teacIns = new TeacIns();
+        User teacher = new User();
+        teacher.setId("5");
+        teacIns.setTeacher(teacher);
+        teacIns.setId("1");
+        internshipMapper.updateTeacherByTeacInsId(teacIns);
+    }
+
+    @Test
+    public void selectAllTeacherByInternshipIdTest() {
+        List<Internship> internships = internshipMapper.selectAllTeacherByInternshipId("4a741aead1834415be26fe71e1ce9c53");
+        for (Internship internship :
+                internships) {
+            System.out.println(internship);
+        }
+    }
+
+    @Test
+    public void selectInsVolunteerByStuIdTest() {
+        Internship internship = internshipMapper.selectInsVolunteerByStuId("201424133223");
+        System.out.println(internship);
+    }
 
     @Test
     public void selectInternshipAndTeacByNameTest() {
