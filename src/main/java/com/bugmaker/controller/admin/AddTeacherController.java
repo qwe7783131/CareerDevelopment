@@ -51,7 +51,7 @@ public class AddTeacherController {
     //模糊查询
     @RequestMapping("/admin/teacherManage2.do")
     public String teacherManage2View(ModelMap model,String username,String sex ,String dept){
-        //System.out.println("username"+username + "sex" + sex + "dept" + dept);
+        System.out.println("username"+username + "sex" + sex + "dept" + dept);
         User user = new User();
         user.setUsername(username);
         Dept dept1 = new Dept();
