@@ -11,4 +11,10 @@ public interface DeptMapper {
 
     //插入一条学院的数据
 	int insertOneDept(Dept dept);
+
+	//修改学院信息
+	int modifyDept(Dept dept);
+
+	//删除学院
+	int deleteDept(String deptId);
 }
