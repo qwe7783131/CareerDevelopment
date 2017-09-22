@@ -16,6 +16,23 @@ public class Score {
 
     private Integer no;
 
+    private String type;
+
+    // 用于查询使用，并非是数据库表的字段
+    private int count;
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getId() {
         return id;
     }
