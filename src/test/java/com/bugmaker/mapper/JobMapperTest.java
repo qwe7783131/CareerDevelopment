@@ -17,6 +17,15 @@ public class JobMapperTest extends BaseTest{
     private JobMapper jobMapper;
 
     @Test
+    public void getAllJobTest() {
+        List<Job> allJob = jobMapper.getAllJob();
+        for (Job job :
+                allJob) {
+            System.out.println(job);
+        }
+    }
+
+    @Test
     public void selectJobByCompanyId() {
         List<Job> jobs = jobMapper.getJobByCompanyId("2");
         for (Job job: jobs) {

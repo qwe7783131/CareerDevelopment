@@ -22,5 +22,7 @@ public interface JobMapper {
      */
     public  List<Job> getJobByCompanyId(String id);
 
-    
+    List<Job> getAllJob();
+
+
 }
