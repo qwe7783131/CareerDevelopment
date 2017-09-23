@@ -11,9 +11,40 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	   <result column="create_time" property="createTime" />
    </resultMap>
 
+	<resultMap id="surveyResultMap" type="com.bugmaker.bean.SurveyResult">
+		<id column="id" property="id" />
+		<result column="unit_name" property="unitName" />
+		<result column="unit_person" property="unitPerson" />
+		<result column="unit_phone" property="unitPhone" />
+		<result column="create_time" property="createTime" />
+		<association property="survey" javaType="com.bugmaker.bean.Survey">
+			<id column="id" property="id" />
+			<result column="status" property="status" />
+			<result column="enable" property="enable" />
+			<result column="create_time" property="createTime" />
+		</association>
+		<association property="student" javaType="com.bugmaker.bean.Student">
+			<id column="id" property="id" />
+		</association>
+	</resultMap>
+
 	<!-- 判断调查表是否可用，查找最新的那一个调查表 -->
 	<select id="isUseForSurvey" resultMap="surveyMap">
 		SELECT * FROM survey ORDER BY create_time DESC LIMIT 1
 	</select>
+
+	<!--插入一条调查结果-->
+	<insert id="insertSurveyResult" parameterType="surveyResult" >
+		INSERT INTO survey_result (id, survey_id, stu_id, unit_name, unit_person,unit_phone,create_time)
+		VALUE (#{id}, #{survey.id}, #{student.id}, #{unitName}, #{unitPerson}, #{unitPhone}, #{createTime})
+	</insert>
+
+	<!--如果学生已经填写了调查表，根据学生id查询他已填写的调查表。-->
+	<select id="selectSurveyByStuId" parameterType="student" resultMap="surveyResultMap">
+		SELECT * FROM survey_result sr,
+		(SELECT id FROM survey_result WHERE stu_id = #{id}) stuSurveyResult
+		WHERE stuSurveyResult.id = sr.id
+	</select>
+
 	
 </mapper>

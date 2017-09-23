@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Created by guan on 2017/9/20.
  */
-public class surveyResult {
+public class SurveyResult {
     private String id;
 
     private Survey survey;
@@ -78,7 +78,7 @@ public class surveyResult {
 
     @Override
     public String toString() {
-        return "surveyResult{" +
+        return "SurveyResult{" +
                 "id='" + id + '\'' +
                 ", survey=" + survey +
                 ", student=" + student +
