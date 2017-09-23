@@ -79,6 +79,12 @@ public class InternshipServiceImpl implements InternshipService{
 	public int updateInternshipById(Internship internship) {
 		
 		return internshipMapper.updateInternshipById(internship);
+	}
+
+	@Override
+	public List<Internship> getInternshipByName(String name) {
+		List<Internship> internships = internshipMapper.selectInternshipByName(name);
+		return internships;
 	}  
 
 }

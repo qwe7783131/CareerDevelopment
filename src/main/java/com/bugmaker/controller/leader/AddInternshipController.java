@@ -5,6 +5,8 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.bugmaker.bean.Internship;
 import com.bugmaker.bean.Job;
 import com.bugmaker.service.InternshipService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 /**
  * Created by NY on 2017/9/19.
@@ -73,4 +77,18 @@ public class AddInternshipController {
 		internshipService.updateInternshipById(internship);
 		return "leader/InternshipCRUD";
 	}
+	 /**
+     * 系领导管理顶岗项目页面
+     * @return
+     */
+	@RequestMapping("getInternshipByName.do")
+	public String getInternshipByName(ModelMap model,String name){
+		//System.out.println(name);
+		List<Internship> ship = internshipService.getInternshipByName(name);
+		
+		
+		model.put("ship",ship);
+		return "leader/InternshipCRUD";
+	}
+	
 }

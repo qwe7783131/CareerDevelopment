@@ -11,10 +11,11 @@
 			
 			
 			<div class="layui-row">
+			<form class="layui-form" action="careerdevelopment/leader/getInternshipByName.do"  method="post">
 			    <div class="layui-col-md10">
 			       <label class="layui-form-label">项目名称</label>
 					<div class="layui-input-inline">
-						<input type="text" name="teacher" lay-verify="required" placeholder="支持模糊查询" autocomplete="off" class="layui-input">
+						<input type="text" name="name" lay-verify="required" placeholder="支持模糊查询" autocomplete="off" class="layui-input">
 					</div>
 					<div class="layui-input-inline">
 						<button class="layui-btn" lay-submit lay-filter="formDemo"><i class="layui-icon">&#xe615;</i>查询</button>
@@ -22,6 +23,7 @@
 					</div> 
 					
 			    </div>
+			 </form>
 			    <div class="layui-col-md2">
 			     
 			      <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
@@ -87,6 +89,32 @@
 						</td>						
 					</tr>
 					</#list>
+					<#list ship as p>
+					<tr>					
+						<td>1</td>						
+						<td>${p.name}</td>
+						<td>${p.type}</td>
+						<td>${p.job.company.name}</td>
+						<td>${p.job.company.address}</td>
+						<td>${p.job.company.phone}</td>
+						<td>${p.job.company.advisor}</td>
+						<td>${p.job.name}</td>
+						<td>${p.job.salary}</td>
+						<td>
+							<div class="layui-inline">
+								<div class="site-demo-button" id="modify" style="margin-bottom: 0;">
+									<button data-method="modify" data-type=${p.id} class="layui-btn layui-btn-normal layui-btn layui-btn-mini">修改</button>
+								</div>
+					        </div>
+							<div class="layui-inline">
+								<div class="site-demo-button" id="delete" style="margin-bottom: 0;">
+									<button data-method="del" data-type=${p.id} class="layui-btn layui-btn-danger layui-btn layui-btn-mini">删除</button>
+								</div>
+							</div>
+					
+						</td>						
+					</tr>
+					</#list>
 				</tbody>
 			</table>
 		</div>
@@ -106,6 +134,15 @@
                  
 			});
 			
+			layui.use('form', function(){
+				  var form = layui.form;
+
+				  form.on('submit(formDemo)', function(data){
+					    //layer.msg(JSON.stringify(data.field));
+					   			      /* return false; */ 
+					  });
+				  
+				});
 			
 			layui.use(['laypage', 'layer'], function() {
 				var laypage = layui.laypage,

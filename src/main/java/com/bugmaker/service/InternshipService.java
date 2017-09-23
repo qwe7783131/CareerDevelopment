@@ -28,6 +28,9 @@ public interface InternshipService {
 	
 	//修改项目名称、岗位
 	public int updateInternshipById(Internship internship);
+	
+	//通过项目名称模糊查询项目
+	public List<Internship> getInternshipByName(String name);
 
 
 }
