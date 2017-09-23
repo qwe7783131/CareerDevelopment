@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>任务书</title>
+		<link rel="stylesheet" href="../css/layui.css">
+
+		<style>
+			.margin {
+				margin-top: 20px;
+			}
+			.myContainer{
+				width: 70%;
+				margin-left: auto;
+				margin-right: auto;
+			}
+		</style>
+	</head>
+
+	<body>
+		<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+			<legend>任务书</legend>
+		</fieldset>
+		<div class="myContainer">
+			<div class="layui-collapse margin" lay-filter="test">
+				<div class="layui-colla-item">
+					<h2 class="layui-colla-title">1、2017-9-1至2017-9-1</h2>
+					<div class="layui-colla-content layui-show">
+						<p>按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课</p>
+					</div>
+				</div>
+			</div>
+			<div class="layui-collapse margin" lay-filter="test">
+				<div class="layui-colla-item">
+					<h2 class="layui-colla-title">1、2017-9-1至2017-9-1</h2>
+					<div class="layui-colla-content layui-show">
+						<p>按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课</p>
+					</div>
+				</div>
+			</div>
+			<div class="layui-collapse margin" lay-filter="test">
+				<div class="layui-colla-item">
+					<h2 class="layui-colla-title">1、2017-9-1至2017-9-1</h2>
+					<div class="layui-colla-content layui-show">
+						<p>按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课</p>
+					</div>
+				</div>
+			</div>
+			<div class="layui-collapse margin" lay-filter="test">
+				<div class="layui-colla-item">
+					<h2 class="layui-colla-title">1、2017-9-1至2017-9-1</h2>
+					<div class="layui-colla-content layui-show">
+						<p>按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课</p>
+					</div>
+				</div>
+			</div>
+			<div class="layui-collapse margin" lay-filter="test">
+				<div class="layui-colla-item">
+					<h2 class="layui-colla-title">1、2017-9-1至2017-9-1</h2>
+					<div class="layui-colla-content layui-show">
+						<p>按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课按时上课</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="layui-row">
+			<div class="layui-col-xs6 layui-col-sm6 layui-col-md6 layui-col-md-offset4">
+				<div id="layPage"></div>
+			</div>
+		</div>
+
+		<script src="../layui.js"></script>
+		<script>
+			layui.use(['element', 'laypage'], function() {
+				var laypage = layui.laypage;
+				//执行一个分页
+				laypage.render({
+					elem: 'layPage', //注意，这里的 test1 是 ID，不用加 # 号
+					count: 100, //数据总数，从服务端得到
+					limit: 10, //每页条数
+					groups: 5
+				});
+			});
+		</script>
+	</body>
+
+</html>
