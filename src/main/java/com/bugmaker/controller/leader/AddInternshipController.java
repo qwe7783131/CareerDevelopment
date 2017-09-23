@@ -56,7 +56,7 @@ public class AddInternshipController {
 		return modelAndView;
 	}
 	/**
-     * 添加项目信息
+     * 删除项目信息
      * @param internship
      * @return
      */
@@ -68,7 +68,7 @@ public class AddInternshipController {
 		return "123";
 	}
 	/**
-     * 添加项目信息
+     * 更新项目信息
      * @param internship
      * @return
      */
@@ -78,7 +78,7 @@ public class AddInternshipController {
 		return "leader/InternshipCRUD";
 	}
 	 /**
-     * 系领导管理顶岗项目页面
+     * 通过名称获取项目信息
      * @return
      */
 	@RequestMapping("getInternshipByName.do")

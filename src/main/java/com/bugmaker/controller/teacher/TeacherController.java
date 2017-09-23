@@ -1,7 +1,20 @@
 package com.bugmaker.controller.teacher;
 
+import java.util.List;
+
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.bugmaker.bean.Internship;
+import com.bugmaker.bean.Student;
+import com.bugmaker.service.StudentService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 /**
  * Created by wurenjie on 2017/9/12.
@@ -9,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/teacher")
 public class TeacherController {
+	
+	@Resource
+	public StudentService studentService;
 
     /**
      * 教师首页
@@ -22,12 +38,20 @@ public class TeacherController {
     /**
      * 查看学生信息的页面
      * @return
-     */
+     */ 
+  
     @RequestMapping("selectStu.do")
-    public String selectStuView(){
+    public String selectStuView(Model model,
+			@RequestParam(defaultValue="1") String currentPage){
+    	Integer currPage = Integer.valueOf(currentPage);
+    	PageHelper.startPage(currPage, 5);	
+    	List<Student> students = studentService.selectAllStudent();
+    	PageInfo page = new PageInfo(students, 5);
+		page.getNavigatePages();
+		model.addAttribute("page",page);
         return "teacher/selectStu";
     }
-
+   
     /**
      * 查看教师信息的页面
      * @return
@@ -122,5 +146,15 @@ public class TeacherController {
     @RequestMapping("addDirect.do")
     public String addDirectView(){
         return "teacher/addDirect";
+    }
+    /**
+     * 通过学生姓名、班级或院系查找学生信息
+     */
+    @RequestMapping("getStudentInfo.do")
+    public String getStudentInfo(ModelMap model,Student student){
+    	
+    	List<Student> students = studentService.selectStudentByParams(student);
+    	model.put("students", students);
+        return "teacher/selectStu";
     }
 }

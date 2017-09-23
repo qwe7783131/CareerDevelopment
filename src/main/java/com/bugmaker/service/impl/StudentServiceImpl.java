@@ -21,4 +21,10 @@ public class StudentServiceImpl implements StudentService {
 		return students;
 	}
 
+	@Override
+	public List<Student> selectStudentByParams(Student student) {
+		List<Student> students = studentMapper.selectStudentByParams(student);
+		return students;
+	}
+
 }
