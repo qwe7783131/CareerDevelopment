@@ -68,6 +68,14 @@ public class StudentMapperTest extends BaseTest {
 
     @Test
     public void testSelectParams(){
-        //待测试
+        Student student = new Student();
+        User user = new User();
+//        user.setUsername("伟");
+//        user.setId("201424");
+        ProfessionClass professionClass = new ProfessionClass();
+//        professionClass.setClassName("2");
+        student.setUser(user);
+        List<Student> students = studentMapper.selectStudentByParams(student);
+        System.out.println(students);
     }
 }

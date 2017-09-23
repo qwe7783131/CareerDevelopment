@@ -7,6 +7,8 @@ public class Outteacher {
 
     private Company company;
 
+    private User user;		//基表
+
     public String getId() {
         return id;
     }
@@ -23,11 +25,20 @@ public class Outteacher {
         this.company = company;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "Outteacher{" +
                 "id='" + id + '\'' +
                 ", company=" + company +
+                ", user=" + user +
                 '}';
     }
 }

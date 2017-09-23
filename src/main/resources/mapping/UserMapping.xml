@@ -26,21 +26,25 @@
         </collection>
     </resultMap>
 
-    <!-- 模糊查询教师信息 -->
-    <select id="selectTeacherByParams" parameterType="user" resultMap="userMap">
+    <!--查询所需要显示的信息 -->
+    <sql id="selectUser">
         SELECT u.id uid,username,password,sex,age,phone,email,enable,type,u.create_time ucreateTime,
         r.id rid,role_name,role_permiss,d.id,dept_name FROM user u,role r,user_role ur,dept d
-        WHERE ur.user_id = u.id AND ur.role_id = r.id AND u.dept_id = d.id AND TYPE = 2
+        WHERE ur.user_id = u.id AND ur.role_id = r.id AND u.dept_id = d.id
+    </sql>
+
+    <!--模糊查询所需要的条件，多条件查询 -->
+    <sql id="condition" >
         <if test="id != null and id != ''">
             AND u.id = #{id}
         </if>
         <if test="username != null and username != ''">
             AND username LIKE '%' #{username} '%'
         </if>
-        <if test="dept.id != null and dept.id != ''">
+        <if test="dept != null and dept != ''">
             AND u.dept_id = #{dept.id}
         </if>
-    </select>
+    </sql>
 
     <!-- 根据id删除对应的用户 -->
     <delete id="deleteUserById" parameterType="string">
@@ -59,12 +63,32 @@
         WHERE u.id = #{id} AND ur.user_id = u.id AND ur.role_id = r.id AND u.dept_id = d.id
     </select>
 
+    <!-- 查询所有的专业负责人信息(type = 6) -->
+    <select id="getAllProfessPrincipal" resultMap="userMap">
+        <include refid="selectUser" />
+        AND TYPE = 6
+    </select>
+
+    <!-- 模糊查询专业负责人信息 -->
+    <select id="selectProfessPrincipalByParams" parameterType="user" resultMap="userMap">
+        <include refid="selectUser" />
+        AND TYPE = 6
+        <include refid="condition" />
+    </select>
+
     <!-- 查询所有的教师(type = 2) -->
     <select id="getAllTeacher" resultMap="userMap">
-        SELECT u.id uid,username,password,sex,age,phone,email,enable,type,u.create_time ucreateTime,
-        r.id rid,role_name,role_permiss,d.id,dept_name FROM user u,role r,user_role ur,dept d
-        WHERE ur.user_id = u.id AND ur.role_id = r.id AND u.dept_id = d.id AND TYPE = 2
+        <include refid="selectUser" />
+        AND TYPE = 2
     </select>
+
+    <!-- 模糊查询教师信息 -->
+    <select id="selectTeacherByParams" parameterType="user" resultMap="userMap">
+        <include refid="selectUser" />
+        AND TYPE = 2
+        <include refid="condition" />
+    </select>
+
     <!-- 插入用户角色 -->
     <insert id="insertUserRole" parameterType="userRole">
         insert into user_role (id, user_id, role_id)

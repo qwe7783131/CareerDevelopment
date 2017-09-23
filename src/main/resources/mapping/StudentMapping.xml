@@ -22,11 +22,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 		<association property="professionClass" javaType="com.bugmaker.bean.ProfessionClass">
 			<id property="id" column="pc_id"/>
-			<result property="class_name" column="className"/>
+			<result property="className" column="class_name"/>
 			<association property="profession" javaType="com.bugmaker.bean.Profession">
-				<id property="p_id" column="id" />
-				<result property="p_name" column="name" />
-				<result property="p_describe" column="describe" />
+				<id property="id" column="p_id" />
+				<result property="name" column="p_name" />
+				<result property="describe" column="p_describe" />
 				<association property="dept" javaType="com.bugmaker.bean.Dept">
 					<id property="id" column="d_id" />
 					<result property="deptName" column="dept_name" />
@@ -41,10 +41,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				<id property="id" column="direct_id" />
 				<result property="name" column="direct_name" />
 				<result property="describe" column="direct_describe" />
-				<association property="dept" javaType="com.bugmaker.bean.Dept">
-					<id property="id" column="d_id" />
-					<result property="deptName" column="dept_name" />
-				</association>
 			</association>
 		</association>
 	</resultMap>
@@ -53,7 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectAllStudent" resultMap="stuMap">
 		SELECT u.id u_id,username,password,sex,age,phone,email,enable,type,u.create_time,
 			pc.id pc_id, pc.class_name,
-			p.id p_id,p.name p_name,p.describe p_describe,
+			p.id p_id,p.name p_name,p.profess_describe p_describe,
 			dc.id dc_id, dc.name dc_name,
 			d.id d_id,d.dept_name,
 			direct.id direct_id,direct.name direct_name,direct.describe direct_describe
@@ -68,7 +64,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectStudentByParams" parameterType="student" resultMap="stuMap">
 		SELECT u.id u_id,username,password,sex,age,phone,email,enable,type,u.create_time,
 		pc.id pc_id, pc.class_name,
-		p.id p_id,p.name p_name,p.describe p_describe,
+		p.id p_id,p.name p_name,p.profess_describe p_describe,
 		dc.id dc_id, dc.name dc_name,
 		d.id d_id,d.dept_name,
 		direct.id direct_id,direct.name direct_name,direct.describe direct_describe
@@ -78,17 +74,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND pc.profession_id = p.id AND dc.direc_id = direct.id
 		AND direct.profess_id = p.id AND p.dept_id = d.id
 
-		<if test="user.id != null and user.id != ''">
+		<if test="user != null and user.id != null and user.id != ''">
 			AND u.id = #{user.id}
 		</if>
-		<if test="user.username != null and user.username != ''">
+		<if test="user != null and user.username != null and user.username != ''">
 			AND username LIKE '%' #{user.username} '%'
 		</if>
-		<if test="user.dept.id != null and user.dept.id != ''">
-			AND u.dept_id = #{user.dept.id}
+		<if test="user != null and user.dept != null and user.dept != ''">
+			AND u.dept_id = #{user.dept_id}
 		</if>
-		<if test="professionClass.id != null and professionClass.id != ''">
-			AND u.dept_id = #{professionClass.id}
+		<if test="professionClass != null and professionClass.id != null and professionClass.id != ''">
+			AND pc.id = #{professionClass.id}
 		</if>
 	</select>
 

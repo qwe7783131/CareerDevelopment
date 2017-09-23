@@ -20,7 +20,17 @@ public class UserMapperTest extends BaseTest{
     @Test
     public void selectTeacherByParamsTest() {
         User user = new User();
-        user.setId("21");
+        user.setUsername("花");
+        List<User> users = userMapper.selectTeacherByParams(user);
+        for (User user1 :
+                users) {
+            System.out.println(user1);
+        }
+    }
+    @Test
+    public void selectStudentByParamsTest() {
+        User user = new User();
+        user.setUsername("花");
         List<User> users = userMapper.selectTeacherByParams(user);
         for (User user1 :
                 users) {
@@ -40,6 +50,23 @@ public class UserMapperTest extends BaseTest{
         userRole.setRole(role);
         int i = userMapper.insertUserRole(userRole);
         System.out.println(i);
+    }
+
+    @Test
+    public void selectProfessPrincipalByParams(){
+        User user = new User();
+        user.setUsername("7");
+        List<User> users = userMapper.selectProfessPrincipalByParams(user);
+        System.out.println(users);
+    }
+
+    @Test
+    public void getAllProfessPrincipalTest() {
+        List<User> allTeacher = userMapper.getAllProfessPrincipal();
+        for (User user :
+                allTeacher) {
+            System.out.println(user);
+        }
     }
 
     @Test

@@ -9,11 +9,26 @@ import java.util.List;
  */
 public interface UserMapper {
     /**
+     * 多条件查询专业负责人
+     * @param user
+     * @return
+     */
+    List<User> selectProfessPrincipalByParams(User user);
+
+    /**
      * 多条件查询教师
      * @param user
      * @return
      */
     List<User> selectTeacherByParams(User user);
+
+
+    /**
+     * 查询所有的专业负责人
+     * @return
+     */
+    List<User> getAllProfessPrincipal();
+
     /**
      * 查询所有的教师
      * @return
@@ -59,4 +74,5 @@ public interface UserMapper {
      * @return
      */
     int insertUsers(List<User> users);
+
 }

@@ -27,9 +27,9 @@ public interface StudentMapper {
     public int insertStudents(List<Student> students);
 
     /**
-     * 多条件查询学生
+     * 多条件查询学生， 可通过学生id，模糊姓名，学院，班级查询
      * @param student
      * @return
      */
-    List<User> selectStudentByParams(Student student);
+    List<Student> selectStudentByParams(Student student);
 }
