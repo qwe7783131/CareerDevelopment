@@ -2,8 +2,7 @@
 <html>
 
 <head>
-<#include "html/template/head.html" /> <#assign urlbase=base + "/admin"
-/>
+<#include "html/template/head.html" />
 <title>学院管理</title>
 </head>
 
@@ -25,7 +24,7 @@
 				</div>
 				<div class="layui-inline">
 					<div class="layui-input-block">
-						<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+						<button class="layui-btn" lay-submit lay-filter="formDemo">添加</button>
 					</div>
 				</div>
 			</div>
@@ -89,7 +88,7 @@
 					btn: ['删除', '取消'],
 					yes: function(){
 						$.ajax({
-							url: '/deleteDept.do',
+							url: '${base}/deleteDept.do',
 							data: {deptId : deptId},
 							type: 'POST',
 							success: function(data){
@@ -115,7 +114,7 @@
 						dept.id = deptId;
 						dept.deptName = value;
 						$.ajax({
-							url: '/modifyDept.do',
+							url: '${base}/modifyDept.do',
 							type: 'POST',
 							contentType: 'application/json;charset=utf-8',
 							data: JSON.stringify(dept),
@@ -165,7 +164,7 @@
 					var dept = {};
 					dept.deptName = data.field.deptName;
 					jquery.ajax({
-						url: '/addOneDept.do',
+						url: '${base}/addOneDept.do',
 						contentType: "application/json;charset=utf-8",
 						data: JSON.stringify(dept),
 						type: 'POST',

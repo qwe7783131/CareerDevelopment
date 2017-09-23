@@ -11,7 +11,7 @@
 		<blockquote class="layui-elem-quote ">添加学生</blockquote>
 	</div>
 
-	<form id="hideform" action="/admin/addStudent.do" method="POST" class="layui-hide">
+	<form id="hideform" action="${base}/admin/addStudent.do" method="POST" class="layui-hide">
 		<input type="submit" value="确定" class="layui-hide" id="toChange" />
 	</form>
 
@@ -130,7 +130,7 @@
 				student.user.dept = {};
 				student.user.dept.id = data.field.deptId;
 				$.ajax({
-					url: "/addOneStu.do",
+					url: "${base}/addOneStu.do",
 					contentType: "application/json;charset=utf-8",
 					data: JSON.stringify(student),
 					type : 'POST',

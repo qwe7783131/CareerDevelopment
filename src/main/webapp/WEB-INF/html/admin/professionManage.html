@@ -13,7 +13,7 @@
 			style="margin-top: 20px;">
 			<legend>创建专业</legend>
 		</fieldset>
-		<form action="/toprofessionManagePage.do" id="hideform" class="layui-hide">
+		<form action="${base}/toprofessionManagePage.do" id="hideform" class="layui-hide">
 			<input type="submit" id="hidesubmit"/>
 		</form>
 		<form class="layui-form" action="" id="stuform" method="post">
@@ -106,7 +106,7 @@
 					btn: ['删除', '取消'],
 					yes: function(){
 						$.ajax({
-							url: '/deleteProfession.do',
+							url: '${base}/deleteProfession.do',
 							data: {professId : professid},
 							type: 'POST',
 							success: function(data){
@@ -134,7 +134,7 @@
 						profession.dept = {};
 						profession.dept.id=$("#deptId").val();
 						$.ajax({
-							url: '/modifyProfession.do',
+							url: '${base}/modifyProfession.do',
 							type: 'POST',
 							contentType: 'application/json;charset=utf-8',
 							data: JSON.stringify(profession),
@@ -185,7 +185,7 @@
 					profession.dept = {};
 					profession.dept.id = jquery("#deptId").val();
 					jquery.ajax({
-						url: '/addProfession.do',
+						url: '${base}/addProfession.do',
 						contentType: "application/json;charset=utf-8",
 						data: JSON.stringify(profession),
 						type: 'POST',
