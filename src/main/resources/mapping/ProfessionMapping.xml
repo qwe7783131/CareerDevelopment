@@ -12,6 +12,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 	<select id="getAllProfessions" resultMap="professionResult">
-		select id profess_id, name profess_name, describe profess_describe from profession
+		select id profess_id, name profess_name, profess_describe from profession
 	</select>
+	
+	<select id="getAllProfessionsAndDept" resultMap="professionResult">
+		select p.id profess_id, name profess_name, profess_describe,
+			d.id, dept_name
+		from profession p, dept d
+		where p.dept_id=d.id
+	</select>
+	
+	<select id="getProfessionsByDeptID" resultMap="professionResult">
+		select p.id profess_id, name profess_name, profess_describe,
+			d.id, dept_name
+		from profession p, dept d
+		where p.dept_id=d.id and d.id=#{deptId}
+	</select>
+	
+	<insert id="insertProfession">
+		insert into profession 
+		values(replace(uuid(),"-",""),#{name},#{profess_describe},#{dept.id})
+	</insert>
+	
+	<update id="modifyProfession">
+		update profession set name=#{name}, 
+		profess_describe=#{profess_describe}, dept_id=#{dept.id}
+		where id=#{id}
+	</update>
+	
+	<delete id="deleteProfession">
+		delete from profession where id=#{professId}
+	</delete>
 </mapper>
