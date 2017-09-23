@@ -25,62 +25,21 @@ public class InternshipServiceImpl implements InternshipService{
 	@Resource
 	private JobMapper jobMapper;
 	
-	
-	/*String companyId =null;
-	
-	String jobId = null;
-	String interId = null;
-   
-	@Override
-	public boolean insertInternship(Internship internship) {
-		interId = getID();
-		internship.setId(interId);
-		internship.setJobId(jobId);
-		internshipMapper.insertInternship(internship);
-		
-		return true;
-	}
-
-	@Override
-	public boolean insertCompany(Company company) {
-		
-		companyId = getID();
-		
-		company.setId(companyId);
-		companyMapper.insertCompany(company);
-		
-		
-		return true;
-	}
-
-	@Override
-	public boolean insertJob(Job job) {
-		jobId = getID();
-		job.setId(jobId);
-		job.setCompanyId(companyId);
-		job.setOutteacId("1");
-		jobMapper.insertJob(job);
-		return true;
-	}
-
-	 public static String getID(){  
-	        
-	        String uuid = UUID.randomUUID().toString().replace("-", "");  
-	        return uuid;  
-	    }*/
-
+	//获取所有公司
 	@Override
 	public List<Company> getAllCompany() {
 		List<Company> companys = companyMapper.selectAllCompany();
 		return companys;
 	}
 
+	//通过公司ID获取岗位
 	@Override
 	public List<Job> getJobByCompanyId(String id) {
 		List<Job> jobs = jobMapper.getJobByCompanyId(id);
 		return jobs;
 	}
 
+	//添加实习项目
 	@Override
 	public Boolean insertInternship(Internship internship) {
 		//生成项目UUID
@@ -95,6 +54,31 @@ public class InternshipServiceImpl implements InternshipService{
 			return false;
 		}
 		
+	}
+
+	//获取所有实习项目信息
+	@Override
+	public List<Internship> getAllInternship() {
+		List<Internship> internships= internshipMapper.selectAllInternship();
+		return internships;
+	}
+
+	@Override
+	public int deleteInternshipById(String internshipId) {
+		
+		return internshipMapper.deleteInternshipById(internshipId);
+	}
+
+	@Override
+	public List<Job> getAllJob() {
+		List<Job> jobs=jobMapper.getAllJob();
+		return jobs;
+	}
+
+	@Override
+	public int updateInternshipById(Internship internship) {
+		
+		return internshipMapper.updateInternshipById(internship);
 	}  
 
 }

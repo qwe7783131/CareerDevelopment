@@ -10,7 +10,21 @@
  
 
  
-<form class="layui-form" action="careerdevelopment/leader/addOneInternship.do" method="post">
+<form class="layui-form" action="careerdevelopment/leader/updateOneInternship.do" method="post">
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">项目代号</label>
+    <div class="layui-input-block">
+      <select id="" name="id" >
+      <option value=""></option>
+      
+			<option value="${map.internshipID}">${map.internshipID}</option> 
+			
+		
+      </select>
+    </div>
+  </div>
+
   <div class="layui-form-item">
     <label class="layui-form-label">项目名称</label>
     <div class="layui-input-block">
@@ -19,15 +33,15 @@
     </div>
   </div> 
  
-   <div class="layui-form-item">
+   <!-- <div class="layui-form-item">
     <label class="layui-form-label">项目类型</label>
     <div class="layui-input-block">
       <input type="radio" name="type" value="跟岗" title="跟岗">
       <input type="radio" name="type" value="顶岗" title="顶岗" checked>
     </div>
-  </div>
+  </div> -->
  
-  <div class="layui-form-item">
+  <!-- <div class="layui-form-item">
     <label class="layui-form-label">公司名称</label>
     <div class="layui-input-block">
       <select name="" lay-filter="comp">
@@ -38,16 +52,20 @@
 		</#list>
       </select>
     </div>
-  </div>
+  </div> -->
   
-  <div class="layui-form-item">
+   <div class="layui-form-item">
     <label class="layui-form-label">岗位</label>
     <div class="layui-input-block">
-      <select id="jobinfo" name="job.id"  lay-ignore>
-      
+      <select id="" name="job.id" >
+      <option value=""></option>
+       <#list map.jobs as job>
+			<option value="${job.id}">${job.name}</option> 
+			
+		</#list>
       </select>
     </div>
-  </div>
+  </div> 
   
   <div class="layui-form-item">
     <div class="layui-input-block">
@@ -66,37 +84,11 @@
 layui.use(['form','layer'], function(){
   var form = layui.form;
   
-  form.on('select(comp)', function(companyid){
-	  
-		 //console.log(companyid);
-		  
-	        
-		  //layer.msg(companyid.value);
-		   var ids=companyid.value;
-		   $.ajax({
-	          type: "POST",
-	          url: "careerdevelopment/leader/getjobs.do",
-	          data: {"id":ids},
-	          dataType: "json",
-	          success: function(data){
-	                      $("#jobinfo").empty();
-	                      $("#jobinfo").append("<option value='-1'>--请选择岗位--</option>");
-	                      $.each(data, function (i, item) {
-	                          $("#jobinfo").append("<option value='" + item.id + "'>" + item.name + "</option>");
-	                      }); 	                      
-	                   }
-	      });    		  
-		});      
   
-  
-/*   <#if insertInternship == true>
-  layer.msg("项目添加成功");
- 
-  </#if> */
-  //监听提交
+
   form.on('submit(formDemo)', function(data){
     //layer.msg(JSON.stringify(data.field));
-   parent.layer.msg("添加成功");
+   parent.layer.msg("修改成功");
       var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
     parent.layer.close(index); //再执行关闭    
     parent.window.location.href = 'careerdevelopment/leader/internshipCRUD.do';

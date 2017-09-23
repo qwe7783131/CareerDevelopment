@@ -12,21 +12,22 @@
 			
 			<div class="layui-row">
 			    <div class="layui-col-md10">
-			      <label class="layui-form-label">项目名称</label>
+			       <label class="layui-form-label">项目名称</label>
 					<div class="layui-input-inline">
 						<input type="text" name="teacher" lay-verify="required" placeholder="支持模糊查询" autocomplete="off" class="layui-input">
 					</div>
 					<div class="layui-input-inline">
 						<button class="layui-btn" lay-submit lay-filter="formDemo"><i class="layui-icon">&#xe615;</i>查询</button>
 								      
-					</div>
+					</div> 
+					
 			    </div>
 			    <div class="layui-col-md2">
 			     
 			      <div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
 				
 					<button data-method="setIfram" class="layui-btn layui-btn-normal" ><i class="layui-icon">&#xe608;</i>添加</button>
-				</div>
+				  </div>
 			    </div>
 			</div>
 			
@@ -37,6 +38,7 @@
 		</fieldset>
 
 		<div style="padding-left: 50px;padding-right: 50px;">
+		
 			<table class="layui-table">
 				<colgroup>
 					<col width="150">
@@ -47,7 +49,7 @@
 				<thead>
 					<tr>
 						<th>序号</th>
-						
+						<th lay-data="{field:'internshipName'}">项目名称</th>
 						<th>项目类型</th>
 						<th>公司名称</th>
 						<th>地址</th>
@@ -59,23 +61,32 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>职业发展系统</td>
-						<td>东软睿道</td>
-						<td>肇庆</td>
-						<td>11111</td>
-						<td>刘小飞</td>
-						<td>java开发</td>
-						<td>10000</td>
+				<#list page.list as p>
+					<tr>					
+						<td>1</td>						
+						<td>${p.name}</td>
+						<td>${p.type}</td>
+						<td>${p.job.company.name}</td>
+						<td>${p.job.company.address}</td>
+						<td>${p.job.company.phone}</td>
+						<td>${p.job.company.advisor}</td>
+						<td>${p.job.name}</td>
+						<td>${p.job.salary}</td>
 						<td>
-							<button class="layui-btn layui-btn-warm" lay-submit ><i class="layui-icon">&#xe642;</i>编辑</button>
-							<button class="layui-btn layui-btn-warm" lay-submit ><i class="layui-icon">&#xe640;</i>删除</button>
-							
+							<div class="layui-inline">
+								<div class="site-demo-button" id="modify" style="margin-bottom: 0;">
+									<button data-method="modify" data-type=${p.id} class="layui-btn layui-btn-normal layui-btn layui-btn-mini">修改</button>
+								</div>
+					        </div>
+							<div class="layui-inline">
+								<div class="site-demo-button" id="delete" style="margin-bottom: 0;">
+									<button data-method="del" data-type=${p.id} class="layui-btn layui-btn-danger layui-btn layui-btn-mini">删除</button>
+								</div>
+							</div>
 					
-						</td>
-						
+						</td>						
 					</tr>
+					</#list>
 				</tbody>
 			</table>
 		</div>
@@ -86,13 +97,13 @@
 		
 		
 		<#include "html/template/common_js.html" />
+		<script src="${base}/resources/js/jquery-2.1.4.js"></script>
 		<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 		<script>
 			layui.use('layer', function() { 
 				//独立版的layer无需执行这一句
-				var $ = layui.jquery,
-					layer = layui.layer; //独立版的layer无需执行这一句
-
+				var layer = layui.layer; //独立版的layer无需执行这一句
+                 
 			});
 			
 			
@@ -103,10 +114,14 @@
 				//总页数大于页码总数
 				laypage.render({
 					elem: 'demo1',
-					count: 70 //数据总数
-						,
-					jump: function(obj) {
-						console.log(obj)
+					count: ${page.total} ,//数据总数
+				    curr: ${page.pageNum},
+				    limit:${page.pageSize},
+					jump: function(obj,first) {
+						//console.log(obj);
+						if(first!=true){
+							 window.location.href ="careerdevelopment/leader/internshipCRUD.do?currentPage="+obj.curr;  
+						}
 					}
 				});
 			});
@@ -129,8 +144,46 @@
 					  maxmin: true, //开启最大化最小化按钮
 					  area: ['893px', '300px'],
 					  content: 'careerdevelopment/leader/addInternship.do'
-					});
-					      
+					});					      
+				},
+				del: function(othis) {
+					//layer.msg(othis.data('type'))
+					//配置一个透明的询问框
+					 layer.msg('确定删除？', {
+						btn: ['删除', '取消'],
+						btn1: function() {
+							$.ajax({
+								url: 'careerdevelopment/leader/delInternship.do',
+								contentType: "application/json",
+								data: { "id": othis.data('type') },
+								type: 'post',
+								dataType: 'json',
+								success: function(data) {
+									parent.layer.msg("删除" +  "成功");
+									//alert("删除" +  "成功");
+									window.location.href = 'careerdevelopment/leader/internshipCRUD.do';
+								},
+								error: function(err) {
+									layer.msg("失败");
+								}
+							});
+							return false;
+						}
+					}); 
+				},
+				modify: function(othis) {
+					  var id = othis.data('type');
+					  //layer.msg(id);
+						/* text = othis.text();  */
+					 layer.open({
+						type: 2,
+						title: '修改项目信息',
+						shadeClose: true,
+						  shade: false,
+						  maxmin: true, //开启最大化最小化按钮
+						  area: ['893px', '300px'],
+						content: 'careerdevelopment/leader/updateInternship.do?internshipID='+id
+					});  
 				}
 					    
 			};
@@ -139,8 +192,22 @@
 				var othis = $(this), method = othis.data('method');
 				active[method] ? active[method].call(this, othis) : '';
 				});
+			$('#modify .layui-btn').on('click', function() {
+				var othis = $(this),
+					method = othis.data('method');
+				active[method] ? active[method].call(this, othis) : '';
+			});
+			$('#delete .layui-btn').on('click', function() {
+				var othis = $(this),
+					method = othis.data('method');
+				active[method] ? active[method].call(this, othis) : '';
+			});
+			
 					  
 		});
+			
+			
 	    </script>
+	    
 	</body>
 </html>
