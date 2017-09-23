@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>查看住宿安排</title>
+		<link rel="stylesheet" href="../css/layui.css">
+	</head>
+
+	<body>
+		<div class="layui-tab">
+			<ul class="layui-tab-title">
+				<li class="layui-this">跟岗</li>
+				<li>顶岗</li>
+			</ul>
+			<div class="layui-tab-content">
+				<div class="layui-tab-item layui-show">
+					<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+						<legend>条件选择</legend>
+					</fieldset>
+					<form class="layui-form" action="">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">班级</label>
+								<div class="layui-input-inline">
+									<select name="city" lay-verify="" lay-search>
+										<option value="">按班级查询</option>
+										<option value="0">14软件1班</option>
+										<option value="1">14软件2班</option>
+										<option value="2">14科技1班</option>
+										<option value="3">14科技2班</option>
+										<option value="4">14物联网</option>
+										<option value="4">14网络工程</option>
+									</select>
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">项目</label>
+								<div class="layui-input-inline">
+									<select name="city" lay-verify="" lay-search>
+										<option value="">按项目查询</option>
+										<option value="0">跟岗项目一</option>
+										<option value="1">跟岗项目二</option>
+										<option value="2">跟岗项目三</option>
+										<option value="3">跟岗项目四</option>
+										<option value="4">跟岗项目五</option>
+										<option value="4">跟岗项目六</option>
+									</select>
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">学生	</label>
+								<div class="layui-input-inline">
+									<input type="text" name="title" required lay-verify="required" placeholder="学号或姓名" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<div class="layui-input-inline">
+									<button class="layui-btn">导出查询的数据</button>
+								</div>
+							</div>
+						</div>
+					</form>
+					<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+						<legend>实习登记情况</legend>
+					</fieldset>
+					<table class="layui-table">
+						<colgroup>
+							<col width="150">
+							<col width="200">
+							<col>
+						</colgroup>
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>学号</th>
+								<th>姓名</th>
+								<th>班级</th>
+								<th>学院</th>
+								<th>岗位</th>
+								<th>单位</th>
+								<th>宿舍</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>201424133223</td>
+								<td>郭伟强</td>
+								<td>14软件2班</td>
+								<td>软件学院</td>
+								<td>java实习生</td>
+								<td>东软睿道</td>
+								<td>F2-134</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>201424133223</td>
+								<td>郭伟强</td>
+								<td>14软件2班</td>
+								<td>软件学院</td>
+								<td>java实习生</td>
+								<td>东软睿道</td>
+								<td>F2-134</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>201424133223</td>
+								<td>郭伟强</td>
+								<td>14软件2班</td>
+								<td>软件学院</td>
+								<td>java实习生</td>
+								<td>东软睿道</td>
+								<td>F2-134</td>
+							</tr>
+							<tr>
+								<td>4</td>
+								<td>201424133223</td>
+								<td>郭伟强</td>
+								<td>14软件2班</td>
+								<td>软件学院</td>
+								<td>java实习生</td>
+								<td>东软睿道</td>
+								<td>F2-134</td>
+							</tr>
+							<tr>
+								<td>5</td>
+								<td>201424133223</td>
+								<td>郭伟强</td>
+								<td>14软件2班</td>
+								<td>软件学院</td>
+								<td>java实习生</td>
+								<td>东软睿道</td>
+								<td>F2-134</td>
+							</tr>
+							<tr>
+								<td>6</td>
+								<td>201424133223</td>
+								<td>郭伟强</td>
+								<td>14软件2班</td>
+								<td>软件学院</td>
+								<td>java实习生</td>
+								<td>东软睿道</td>
+								<td>F2-134</td>
+							</tr>
+							<tr>
+								<td>7</td>
+								<td>201424133223</td>
+								<td>郭伟强</td>
+								<td>14软件2班</td>
+								<td>软件学院</td>
+								<td>java实习生</td>
+								<td>东软睿道</td>
+								<td>F2-134</td>
+							</tr>
+							<tr>
+								<td>8</td>
+								<td>201424133223</td>
+								<td>郭伟强</td>
+								<td>14软件2班</td>
+								<td>软件学院</td>
+								<td>java实习生</td>
+								<td>东软睿道</td>
+								<td>F2-134</td>
+							</tr>
+							<tr>
+								<td>9</td>
+								<td>201424133223</td>
+								<td>郭伟强</td>
+								<td>14软件2班</td>
+								<td>软件学院</td>
+								<td>java实习生</td>
+								<td>东软睿道</td>
+								<td>F2-134</td>
+							</tr>
+							<tr>
+								<td>10</td>
+								<td>201424133223</td>
+								<td>郭伟强</td>
+								<td>14软件2班</td>
+								<td>软件学院</td>
+								<td>java实习生</td>
+								<td>东软睿道</td>
+								<td>F2-134</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="layui-row">
+						<div class="layui-col-xs6 layui-col-sm6 layui-col-md6 layui-col-md-offset4">
+							<div id="layPage1"></div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-tab-item">
+					<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+						<legend>条件选择</legend>
+					</fieldset>
+					<form class="layui-form" action="">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">班级</label>
+								<div class="layui-input-inline">
+									<select name="city" lay-verify="" lay-search>
+										<option value="">按班级查询</option>
+										<option value="0">14软件1班</option>
+										<option value="1">14软件2班</option>
+										<option value="2">14科技1班</option>
+										<option value="3">14科技2班</option>
+										<option value="4">14物联网</option>
+										<option value="4">14网络工程</option>
+									</select>
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">项目</label>
+								<div class="layui-input-inline">
+									<select name="city" lay-verify="" lay-search>
+										<option value="">按项目查询</option>
+										<option value="0">跟岗项目一</option>
+										<option value="1">跟岗项目二</option>
+										<option value="2">跟岗项目三</option>
+										<option value="3">跟岗项目四</option>
+										<option value="4">跟岗项目五</option>
+										<option value="4">跟岗项目六</option>
+									</select>
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">学生	</label>
+								<div class="layui-input-inline">
+									<input type="text" name="title" required lay-verify="required" placeholder="学号或姓名" autocomplete="off" class="layui-input">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<div class="layui-input-inline">
+									<button class="layui-btn">导出查询的数据</button>
+								</div>
+							</div>
+						</div>
+					</form>
+					<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+						<legend>住宿登记情况</legend>
+					</fieldset>
+					<table class="layui-table">
+						<colgroup>
+							<col width="150">
+							<col width="200">
+							<col>
+						</colgroup>
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>学号</th>
+								<th>姓名</th>
+								<th>班级</th>
+								<th>学院</th>
+								<th>岗位</th>
+								<th>单位</th>
+								<th>宿舍</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>201424133223</td>
+								<td>郭伟强</td>
+								<td>14软件2班</td>
+								<td>软件学院</td>
+								<td>java实习生</td>
+								<td>东软睿道</td>
+								<td>F2-134</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>201424133223</td>
+								<td>郭伟强</td>
+								<td>14软件2班</td>
+								<td>软件学院</td>
+								<td>java实习生</td>
+								<td>东软睿道</td>
+								<td>F2-134</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>201424133223</td>
+								<td>郭伟强</td>
+								<td>14软件2班</td>
+								<td>软件学院</td>
+								<td>java实习生</td>
+								<td>东软睿道</td>
+								<td>F2-134</td>
+							</tr>
+							<tr>
+								<td>4</td>
+								<td>201424133223</td>
+								<td>郭伟强</td>
+								<td>14软件2班</td>
+								<td>软件学院</td>
+								<td>java实习生</td>
+								<td>东软睿道</td>
+								<td>F2-134</td>
+							</tr>
+							<tr>
+								<td>5</td>
+								<td>201424133223</td>
+								<td>郭伟强</td>
+								<td>14软件2班</td>
+								<td>软件学院</td>
+								<td>java实习生</td>
+								<td>东软睿道</td>
+								<td>F2-134</td>
+							</tr>
+							<tr>
+								<td>6</td>
+								<td>201424133223</td>
+								<td>郭伟强</td>
+								<td>14软件2班</td>
+								<td>软件学院</td>
+								<td>java实习生</td>
+								<td>东软睿道</td>
+								<td>F2-134</td>
+							</tr>
+							<tr>
+								<td>7</td>
+								<td>201424133223</td>
+								<td>郭伟强</td>
+								<td>14软件2班</td>
+								<td>软件学院</td>
+								<td>java实习生</td>
+								<td>东软睿道</td>
+								<td>F2-134</td>
+							</tr>
+							<tr>
+								<td>8</td>
+								<td>201424133223</td>
+								<td>郭伟强</td>
+								<td>14软件2班</td>
+								<td>软件学院</td>
+								<td>java实习生</td>
+								<td>东软睿道</td>
+								<td>F2-134</td>
+							</tr>
+							<tr>
+								<td>9</td>
+								<td>201424133223</td>
+								<td>郭伟强</td>
+								<td>14软件2班</td>
+								<td>软件学院</td>
+								<td>java实习生</td>
+								<td>东软睿道</td>
+								<td>F2-134</td>
+							</tr>
+							<tr>
+								<td>10</td>
+								<td>201424133223</td>
+								<td>郭伟强</td>
+								<td>14软件2班</td>
+								<td>软件学院</td>
+								<td>java实习生</td>
+								<td>东软睿道</td>
+								<td>F2-134</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="layui-row">
+						<div class="layui-col-xs6 layui-col-sm6 layui-col-md6 layui-col-md-offset4">
+							<div id="layPage2"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="../layui.js"></script>
+		<script>
+			layui.use(['form', 'laypage', 'element'], function() {
+				var laypage = layui.laypage;
+				//执行一个分页
+				laypage.render({
+					elem: 'layPage1', //注意，这里的 test1 是 ID，不用加 # 号
+					count: 100, //数据总数，从服务端得到
+					limit: 10, //每页条数
+					groups: 5,
+					layout: ['prev', 'page', 'next', 'count']
+				});
+				laypage.render({
+					elem: 'layPage2', //注意，这里的 test1 是 ID，不用加 # 号
+					count: 100, //数据总数，从服务端得到
+					limit: 10, //每页条数
+					groups: 5,
+					layout: ['prev', 'page', 'next', 'count']
+				});
+			});
+		</script>
+	</body>
+
+</html>
