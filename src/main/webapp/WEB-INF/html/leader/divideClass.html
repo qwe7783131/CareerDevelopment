@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>选人分班</title>
+		<link rel="stylesheet" href="../css/layui.css">
+	</head>
+
+	<body>
+		<div class="layui-tab">
+			<ul class="layui-tab-title">
+				<li class="layui-this">填报详情</li>
+				<li>分班</li>
+			</ul>
+			<div class="layui-tab-content">
+				<div class="layui-tab-item layui-show">
+					<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+						<legend>选择专业</legend>
+					</fieldset>
+					<form class="layui-form" action="">
+						<div class="layui-form-item">
+							<div class="layui-inline">
+								<label class="layui-form-label">专业</label>
+								<div class="layui-input-inline">
+									<select name="city" lay-verify="" lay-search>
+										<option value="">请选择专业</option>
+										<option value="0">软件工程</option>
+										<option value="1">物联网工程</option>
+										<option value="2">网络工程</option>
+										<option value="3">计算机科学与技术</option>
+									</select>
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">视图</label>
+								<div class="layui-input-inline">
+									<select name="city" lay-verify="" lay-search>
+										<option value="">请选择视图</option>
+										<option value="0">学生</option>
+										<option value="1">专业方向视图</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</form>
+					<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+						<legend>填报详情-学生试图</legend>
+					</fieldset>
+					<div class="layui-row">
+						<div class="layui-col-xs3 layui-col-xs-offset9 layui-col-sm2 layui-col-sm-offset10 layui-col-md1 layui-col-md-offset11">
+							<button class="layui-btn layui-btn-small layui-btn-norma"><i class="layui-icon">&#xe601;</i>导出数据</button>
+						</div>
+					</div>
+					<table class="layui-table">
+						<colgroup>
+							<col width="150">
+							<col width="200">
+							<col>
+						</colgroup>
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>学号</th>
+								<th>姓名</th>
+								<th>专业</th>
+								<th>第一志愿</th>
+								<th>第二志愿</th>
+								<th>第三志愿</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>201424133223</td>
+								<td>郭伟强</td>
+								<td>软件工程</td>
+								<td>java方向</td>
+								<td>安卓方向</td>
+								<td>前端方向</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>201424133223</td>
+								<td>郭伟强</td>
+								<td>软件工程</td>
+								<td>java方向</td>
+								<td>安卓方向</td>
+								<td>前端方向</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>201424133223</td>
+								<td>郭伟强</td>
+								<td>软件工程</td>
+								<td>java方向</td>
+								<td>安卓方向</td>
+								<td>前端方向</td>
+							</tr>
+							<tr>
+								<td>4</td>
+								<td>201424133223</td>
+								<td>郭伟强</td>
+								<td>软件工程</td>
+								<td>java方向</td>
+								<td>安卓方向</td>
+								<td>前端方向</td>
+							</tr>
+							<tr>
+								<td>5</td>
+								<td>201424133223</td>
+								<td>郭伟强</td>
+								<td>软件工程</td>
+								<td>java方向</td>
+								<td>安卓方向</td>
+								<td>前端方向</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="layui-row">
+						<div class="layui-col-xs12 layui-col-sm8 layui-col-sm-offset2 layui-col-md6 layui-col-md-offset4">
+							<div id="layPage1"></div>
+						</div>
+					</div>
+					<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+						<legend>填报详情-专业方向视图</legend>
+					</fieldset>
+					<div class="layui-row">
+						<div class="layui-col-xs3 layui-col-xs-offset9 layui-col-sm2 layui-col-sm-offset10 layui-col-md1 layui-col-md-offset11">
+							<button class="layui-btn layui-btn-small layui-btn-norma"><i class="layui-icon">&#xe601;</i>导出数据</button>
+						</div>
+					</div>
+					<table class="layui-table">
+						<colgroup>
+							<col width="150">
+							<col width="200">
+							<col>
+						</colgroup>
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>专业</th>
+								<th>专业方向</th>
+								<th>第一志愿人数</th>
+								<th>第二志愿人数</th>
+								<th>第三志愿人数</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>软件工程</td>
+								<td>java方向</td>
+								<td>30</td>
+								<td>20</td>
+								<td>10</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>软件工程</td>
+								<td>java方向</td>
+								<td>30</td>
+								<td>20</td>
+								<td>10</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>软件工程</td>
+								<td>java方向</td>
+								<td>30</td>
+								<td>20</td>
+								<td>10</td>
+							</tr>
+							<tr>
+								<td>4</td>
+								<td>软件工程</td>
+								<td>java方向</td>
+								<td>30</td>
+								<td>20</td>
+								<td>10</td>
+							</tr>
+							<tr>
+								<td>5</td>
+								<td>软件工程</td>
+								<td>java方向</td>
+								<td>30</td>
+								<td>20</td>
+								<td>10</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="layui-row">
+						<div class="layui-col-xs12 layui-col-sm8 layui-col-sm-offset2 layui-col-md6 layui-col-md-offset4">
+							<div id="layPage2"></div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-tab-item">
+
+				</div>
+			</div>
+		</div>
+
+		<script src="../layui.js"></script>
+		<script>
+			layui.use(['laypage', 'form','element'], function() {
+				var laypage = layui.laypage;
+				//执行一个分页
+				laypage.render({
+					elem: 'layPage1', //注意，这里的 test1 是 ID，不用加 # 号
+					count: 100, //数据总数，从服务端得到
+					limit: 10, //每页条数
+					groups: 5,
+					layout: ['prev', 'page', 'next', 'count']
+				});
+				laypage.render({
+					elem: 'layPage2', //注意，这里的 test1 是 ID，不用加 # 号
+					count: 100, //数据总数，从服务端得到
+					limit: 10, //每页条数
+					groups: 5,
+					layout: ['prev', 'page', 'next', 'count']
+				});
+			});
+		</script>
+	</body>
+
+</html>

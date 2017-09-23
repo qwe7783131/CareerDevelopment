@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>调查结果</title>
+		<link rel="stylesheet" href="../css/layui.css">
+	</head>
+
+	<body>
+		<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+			<legend>调查结果</legend>
+		</fieldset>
+		<div class="layui-row">
+			<div class="layui-col-xs3 layui-col-xs-offset9 layui-col-sm2 layui-col-sm-offset10 layui-col-md1 layui-col-md-offset11">
+				<button class="layui-btn layui-btn-small layui-btn-norma"><i class="layui-icon">&#xe601;</i>导出数据</button>
+			</div>
+		</div>
+		<table class="layui-table">
+			<colgroup>
+				<col width="150">
+				<col width="200">
+				<col>
+			</colgroup>
+			<thead>
+				<tr>
+					<th>序号</th>
+					<th>姓名</th>
+					<th>性别</th>
+					<th>专业</th>
+					<th>联系电话</th>
+					<th>单位</th>
+					<th>单位联系人</th>
+					<th>单位电话</th>
+					<th>填表日期</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>郭伟强</td>
+					<td>男</td>
+					<td>软件工程</td>
+					<td>15302386616</td>
+					<td>东软睿道</td>
+					<td>罗婷</td>
+					<td>202-88793614</td>
+					<td>2017-9-1</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>郭伟强</td>
+					<td>男</td>
+					<td>软件工程</td>
+					<td>15302386616</td>
+					<td>东软睿道</td>
+					<td>罗婷</td>
+					<td>202-88793614</td>
+					<td>2017-9-1</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>郭伟强</td>
+					<td>男</td>
+					<td>软件工程</td>
+					<td>15302386616</td>
+					<td>东软睿道</td>
+					<td>罗婷</td>
+					<td>202-88793614</td>
+					<td>2017-9-1</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>郭伟强</td>
+					<td>男</td>
+					<td>软件工程</td>
+					<td>15302386616</td>
+					<td>东软睿道</td>
+					<td>罗婷</td>
+					<td>202-88793614</td>
+					<td>2017-9-1</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>郭伟强</td>
+					<td>男</td>
+					<td>软件工程</td>
+					<td>15302386616</td>
+					<td>东软睿道</td>
+					<td>罗婷</td>
+					<td>202-88793614</td>
+					<td>2017-9-1</td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>郭伟强</td>
+					<td>男</td>
+					<td>软件工程</td>
+					<td>15302386616</td>
+					<td>东软睿道</td>
+					<td>罗婷</td>
+					<td>202-88793614</td>
+					<td>2017-9-1</td>
+				</tr>
+				<tr>
+					<td>7</td>
+					<td>郭伟强</td>
+					<td>男</td>
+					<td>软件工程</td>
+					<td>15302386616</td>
+					<td>东软睿道</td>
+					<td>罗婷</td>
+					<td>202-88793614</td>
+					<td>2017-9-1</td>
+				</tr>
+				<tr>
+					<td>8</td>
+					<td>郭伟强</td>
+					<td>男</td>
+					<td>软件工程</td>
+					<td>15302386616</td>
+					<td>东软睿道</td>
+					<td>罗婷</td>
+					<td>202-88793614</td>
+					<td>2017-9-1</td>
+				</tr>
+				<tr>
+					<td>9</td>
+					<td>郭伟强</td>
+					<td>男</td>
+					<td>软件工程</td>
+					<td>15302386616</td>
+					<td>东软睿道</td>
+					<td>罗婷</td>
+					<td>202-88793614</td>
+					<td>2017-9-1</td>
+				</tr>
+				<tr>
+					<td>10</td>
+					<td>郭伟强</td>
+					<td>男</td>
+					<td>软件工程</td>
+					<td>15302386616</td>
+					<td>东软睿道</td>
+					<td>罗婷</td>
+					<td>202-88793614</td>
+					<td>2017-9-1</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="layui-row">
+			<div class="layui-col-xs12 layui-col-sm8 layui-col-sm-offset2 layui-col-md6 layui-col-md-offset4">
+				<div id="layPage"></div>
+			</div>
+		</div>
+
+		<script src="../layui.js"></script>
+		<script>
+			layui.use(['laypage'], function() {
+				var laypage = layui.laypage;
+				//执行一个分页
+				laypage.render({
+					elem: 'layPage', //注意，这里的 test1 是 ID，不用加 # 号
+					count: 100, //数据总数，从服务端得到
+					limit: 10, //每页条数
+					groups: 5,
+					layout: ['prev', 'page', 'next', 'count']
+				});
+			});
+		</script>
+	</body>
+
+</html>

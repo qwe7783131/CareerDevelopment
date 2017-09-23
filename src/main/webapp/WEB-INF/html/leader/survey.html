@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<title>就业调查</title>
+		<link rel="stylesheet" href="../css/layui.css">
+
+	</head>
+
+	<body>
+		<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+			<legend>创建调查表</legend>
+		</fieldset>
+		<div class="layui-container">
+			<div class="layui-row">
+				<div class="layui-col-xs6 layui-col-xs-offset3 layui-col-sm6 layui-col-sm-offset3 layui-col-md4 layui-col-md-offset4">
+					<button class="layui-btn layui-btn-big layui-btn-radius">
+  						<i class="layui-icon">&#xe608;</i> 添加
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+			<legend>已发布的调查表</legend>
+		</fieldset>
+		<table class="layui-table">
+			<colgroup>
+				<col width="150">
+				<col width="200">
+				<col>
+			</colgroup>
+			<thead>
+				<tr>
+					<th>序号</th>
+					<th>创建日期</th>
+					<th>私有/公开</th>
+					<th>状态</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>2017-9-1</td>
+					<th>公开</th>
+					<td>进行中</td>
+					<td>
+						<button class="layui-btn layui-btn-danger layui-btn-small">设为私有</button>
+						<button class="layui-btn layui-btn-warm layui-btn-small">结束</button>
+						<button class="layui-btn layui-btn-normal layui-btn-small">调查结果</button>
+						<button class="layui-btn layui-btn-primary layui-btn-small"><i class="layui-icon">&#xe641;</i> <img src="../images/QQ.jpg"/></button>
+						<button class="layui-btn layui-btn-primary layui-btn-small"><i class="layui-icon">&#xe641;</i> <img src="../images/weixin.jpg"/></button>
+					</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>2017-9-1</td>
+					<th>私有</th>
+					<td>已结束</td>
+					<td>
+						<button class="layui-btn layui-btn-danger layui-btn-small">设为公开</button>
+						<button class="layui-btn layui-btn-warm layui-btn-small layui-btn-disabled">结束</button>
+						<button class="layui-btn layui-btn-normal layui-btn-small">调查结果</button>
+						<button class="layui-btn layui-btn-primary layui-btn-small layui-btn-disabled"><i class="layui-icon">&#xe641;</i> <img src="../images/QQ.jpg"/></button>
+						<button class="layui-btn layui-btn-primary layui-btn-small layui-btn-disabled"><i class="layui-icon">&#xe641;</i> <img src="../images/weixin.jpg"/></button>
+					</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>2017-9-1</td>
+					<th>公开</th>
+					<td>未发布</td>
+					<td>
+						<button class="layui-btn layui-btn-danger layui-btn-small">设为私有</button>
+						<button class="layui-btn layui-btn-warm layui-btn-small">发布</button>
+						<button class="layui-btn layui-btn-normal layui-btn-small layui-btn-disabled">调查结果</button>
+						<button class="layui-btn layui-btn-primary layui-btn-small"><i class="layui-icon">&#xe641;</i> <img src="../images/QQ.jpg"/></button>
+						<button class="layui-btn layui-btn-primary layui-btn-small"><i class="layui-icon">&#xe641;</i> <img src="../images/weixin.jpg"/></button>
+					</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>2017-9-1</td>
+					<th>公开</th>
+					<td>进行中</td>
+					<td>
+						<button class="layui-btn layui-btn-danger layui-btn-small">设为私有</button>
+						<button class="layui-btn layui-btn-warm layui-btn-small">结束</button>
+						<button class="layui-btn layui-btn-normal layui-btn-small">调查结果</button>
+						<button class="layui-btn layui-btn-primary layui-btn-small"><i class="layui-icon">&#xe641;</i> <img src="../images/QQ.jpg"/></button>
+						<button class="layui-btn layui-btn-primary layui-btn-small"><i class="layui-icon">&#xe641;</i> <img src="../images/weixin.jpg"/></button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="layui-row">
+			<div class="layui-col-xs6 layui-col-sm6 layui-col-md6 layui-col-md-offset4">
+				<div id="layPage"></div>
+			</div>
+		</div>
+
+		<script src="../layui.js"></script>
+		<script>
+			layui.use('laypage',function(){
+				var laypage = layui.laypage;
+				laypage.render({
+					elem: 'layPage', //注意，这里的 test1 是 ID，不用加 # 号
+					count: 100, //数据总数，从服务端得到
+					limit: 6, //每页条数
+					groups: 5,
+					layout: ['prev', 'page', 'next', 'count']
+				});
+			});
+		</script>
+	</body>
+
+</html>
