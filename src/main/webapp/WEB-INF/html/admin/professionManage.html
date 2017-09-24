@@ -76,7 +76,7 @@
 						<div class="site-demo-button" id="layerDemo"
 							style="margin-bottom: 0;">
 							<button data-professid="${profession.id}" data-professname="${profession.name}"
-								class="layui-btn layui-btn-normal layui-btn layui-btn-mini"
+								data-deptid="${profession.dept.id}" class="layui-btn layui-btn-normal layui-btn layui-btn-mini"
 								id="modify-${profession.id}">修改</button>
 							<button data-professid="${profession.id}" data-professname="${profession.name}"
 								class="layui-btn layui-btn-danger layui-btn layui-btn-mini"
@@ -121,7 +121,7 @@
 					}
 				});
 			},
-			modifyProfession: function(professId) {
+			modifyProfession: function(professId,deptId) {
 				layer.prompt({
 					title: '修改'+$("#modify-"+professId).data('professname')+'名称', 
 					formType: 0,
@@ -132,7 +132,7 @@
 						profession.id = professId;
 						profession.name = value;
 						profession.dept = {};
-						profession.dept.id=$("#deptId").val();
+						profession.dept.id=deptId;
 						$.ajax({
 							url: '${base}/modifyProfession.do',
 							type: 'POST',
@@ -153,7 +153,8 @@
 
 		$("[id^='modify-']").click(function() {
 			var professid = $(this).data('professid');
-			active.modifyProfession(professid);
+			var deptId = $(this).data('deptid');
+			active.modifyProfession(professid,deptId);
 		});
 		$("[id^='delete-']").click(function() {
 			var professid = $(this).data('professid');
@@ -175,7 +176,7 @@
 					layout: ['first','prev', 'page', 'next','last','count','skip'],
 					jump: function(obj,first) {
 						if(!first){
-							window.location.href="/toprofessionManagePage.do?curr="+obj.curr+"&deptId="+jquery("#deptId").val();
+							window.location.href="${base}/toprofessionManagePage.do?curr="+obj.curr+"&deptId="+jquery("#deptId").val();
 						}
 					}
 				});

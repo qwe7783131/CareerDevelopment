@@ -11,12 +11,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 	<select id="getAllProfessClass" resultMap="professClassResult">
-		select id profess_clas_id, class_name from profession_class
+		select pc.id profess_clas_id, class_name, p.id profess_id, 
+		p.name profess_name, profess_describe, d.id, dept_name
+		from profession_class pc, profession p, dept d
+		where pc.profession_id=p.id and p.dept_id=d.id
 	</select>
 	
 	<select id="getProfessClassByDeptId" resultMap="professClassResult">
-		select pc.id profess_clas_id, class_name 
+		select pc.id profess_clas_id, class_name, p.id profess_id, 
+		p.name profess_name, profess_describe, d.id, dept_name
 		from profession_class pc, profession p, dept d 
 		where pc.profession_id=p.id and p.dept_id=d.id and d.id=#{deptId}
 	</select>
+	
+	<select id="selectProfessClasByProfessId" resultMap="professClassResult">
+		select pc.id profess_clas_id, class_name, p.id profess_id, 
+		p.name profess_name, profess_describe, d.id, dept_name
+		from profession_class pc, profession p, dept d
+		where pc.profession_id=p.id and p.dept_id=d.id and p.id=#{professId}
+	</select>
+	
+	<insert id="addProfessClass">
+		insert into profession_class values (replace(uuid(),"-",""),#{profession.id},#{className})
+	</insert>
+	
+	<update id="modifyProfessCla">
+		update profession_class set class_name=#{className}, profession_id=#{profession.id}
+		where id=#{id}
+	</update>
+	
+	<delete id="deleteProfessClaById">
+		delete from profession_class where id=#{professClaId}
+	</delete>
 </mapper>

@@ -28,13 +28,50 @@ public class LeaderController {
 	
 	@Resource
 	public InternshipService internshipService;
-	
+
+	/**
+	 * 跳转到系领导的首页
+	 * @return
+     */
     @RequestMapping("index.do")
     public String indexView(){
         return "leader/index";
     }
-    
-    /**
+
+	/**
+	 * 跳转到分班页面
+	 */
+	@RequestMapping("toDivideClass.do")
+	public String divideClassView() { return "leader/divideClass"; }
+
+	/**
+	 * 跳转到开启和关闭专业选择页面
+	 */
+	@RequestMapping("toInstershipRegister.do")
+	public String instershipRegisterView() { return "leader/instershipRegister"; }
+
+	/**
+	 * 跳转到开启和关闭专业填报功能页面
+	 */
+	@RequestMapping("toSetProfessState.do")
+	public String setProfessStateView() { return "leader/setProfessState"; }
+	/**
+	 * 跳转到就业调查页面
+     */
+	@RequestMapping("toSurvey.do")
+	public String surveyView() { return "leader/survey"; }
+	/**
+	 * 跳转到调查结果页面
+	 */
+	@RequestMapping("toSurveyResult.do")
+	public String surveyResultView() { return "leader/surveyResult"; }
+	/**
+	 * 跳转到查看住宿安排页面
+	 */
+	@RequestMapping("towatchDormitoryArrange.do")
+	public String watchDormitoryArrangeView() { return "leader/watchDormitoryArrange"; }
+
+	/**
      * 系领导管理顶岗项目页面
      * @return
      */

@@ -155,7 +155,7 @@
 					layout: ['first','prev', 'page', 'next','last','count','skip'],
 					jump: function(obj,first) {
 						if(!first){
-							window.location.href="/toDeptManegePage.do?curr="+obj.curr;
+							window.location.href="${base}/toDeptManegePage.do?curr="+obj.curr;
 						}
 					}
 				});
