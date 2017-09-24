@@ -57,7 +57,7 @@ public class AddInternshipController {
 	}
 	/**
      * 删除项目信息
-     * @param internship
+     * @param id
      * @return
      */
 	@RequestMapping(value = "delInternship.do", method = RequestMethod.POST)
