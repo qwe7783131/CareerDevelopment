@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<#include "html/template/head.html" /> <#assign urlbase=base + "/admin"
+/>
+<title>学院管理</title>
+</head>
+
+<body>
+	<div style="margin: 15px;">
+		<fieldset class="layui-elem-field layui-field-title"
+			style="margin-top: 20px;">
+			<legend>创建专业</legend>
+		</fieldset>
+		<form action="${base}/toProfessClaPage.do" id="hideform"
+			class="layui-hide">
+			<input type="submit" id="hidesubmit" />
+		</form>
+		<form class="layui-form" action="" id="stuform" method="post">
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<select id="deptId" lay-verify="required" lay-filter="deptId" name="deptId"
+						form="hideform">
+						<option value="">请先选择学院</option> <#list map.depts as dept> <#if
+						map.deptId?? && (map.deptId==dept.id)>
+						<option value="${dept.id}" selected>${dept.deptName}</option>
+						<#else>
+						<option value="${dept.id}">${dept.deptName}</option> </#if>
+						</#list>
+					</select>
+				</div>
+				<div class="layui-inline">
+					<select id="professId" lay-verify="required" lay-filter="professId" name="professId"
+						form="hideform">
+						<option value="">请选择专业</option> <#list map.professions as
+						profession> <#if map.professId?? &&
+						(map.professId==profession.id)>
+						<option value="${profession.id}" selected>${profession.name}</option>
+						<#else>
+						<option value="${profession.id}">${profession.name}</option>
+						</#if> </#list>
+					</select>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">班级名称</label>
+					<div class="layui-input-block">
+						<input type="text" name="professClaName" lay-verify="required"
+							placeholder="请输入班级名称" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<div class="layui-input-block">
+						<button class="layui-btn" lay-submit lay-filter="formDemo">添加班级</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<fieldset class="layui-elem-field layui-field-title"
+		style="margin-top: 20px;">
+		<legend>数据</legend>
+	</fieldset>
+	<div style="padding-left: 50px; padding-right: 50px;">
+		<table class="layui-table">
+			<colgroup>
+				<col width="150">
+				<col width="150">
+				<col width="200">
+				<col>
+			</colgroup>
+			<thead>
+				<tr>
+					<th>序号</th>
+					<th>班级</th>
+					<th>专业</th>
+					<th>学院</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<#list map.page.list as professionClass>
+				<tr>
+					<td>#</td>
+					<td>${professionClass.className}</td>
+					<td>${professionClass.profession.name}</td>
+					<td>${professionClass.profession.dept.deptName}</td>
+					<td>
+						<div class="site-demo-button" id="layerDemo"
+							style="margin-bottom: 0;">
+							<button data-professclaid="${professionClass.id}"
+								data-professclaname="${professionClass.className}"
+								data-professid="${professionClass.profession.id}"
+								class="layui-btn layui-btn-normal layui-btn layui-btn-mini"
+								id="modify-${professionClass.id}">修改</button>
+							<button data-professclaid="${professionClass.id}"
+								data-professclaname="${professionClass.className}"
+								class="layui-btn layui-btn-danger layui-btn layui-btn-mini"
+								id="delete-${professionClass.id}">删除</button>
+						</div>
+					</td>
+				</tr>
+				</#list>
+			</tbody>
+		</table>
+	</div>
+	<div id="demo1"
+		style='padding-left: 50px; width: 100%; height: 50px; position: fixed; left: 100px;'></div>
+
+	<script src="${base}/frame/layui/layui.js"></script>
+	<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+	<script>
+	layui.use(['laypage', 'jquery','form','layer'], function() { //独立版的layer无需执行这一句
+		var $ = layui.jquery,
+			layer = layui.layer; //独立版的layer无需执行这一句
+		//触发事件
+		var active = {
+				deleteProfessCla: function(professClaId) {
+				//配置一个透明的询问框
+				layer.msg('确定删除？', {
+					btn: ['删除', '取消'],
+					yes: function(){
+						$.ajax({
+							url: '${base}/deleteProfessCla.do',
+							data: {professClaId : professClaId},
+							type: 'POST',
+							success: function(data){
+								if(data == '1'){
+									setTimeout("window.location.reload()",3000);
+									layer.msg("删除成功！三秒后刷新页面！",{icon: 1});
+								}else{
+									layer.msg("删除失败！三秒后刷新页面！",{icon: 2});
+								}
+							}
+						});
+					}
+				});
+			},
+			modifyProfessCla: function(professClaId,professId) {
+				layer.prompt({
+					title: '修改'+$("#modify-"+professClaId).data('professclaname')+'名称', 
+					formType: 0,
+					value:$("#modify-"+professClaId).data('professclaname')
+					}, 
+					function(value, index){
+						var professCla = {};
+						professCla.id = professClaId;
+						professCla.className = value;
+						professCla.profession = {};
+						professCla.profession.id=professId;
+						$.ajax({
+							url: '${base}/modifyProfessCla.do',
+							type: 'POST',
+							contentType: 'application/json;charset=utf-8',
+							data: JSON.stringify(professCla),
+							success: function(data){
+								if(data == '1'){
+									setTimeout("window.location.reload()",3000);
+									layer.msg("修改成功！三秒后刷新页面！",{icon: 1});
+								}else{
+									layer.msg("修改失败！三秒后刷新页面！",{icon: 2});
+								}
+							}
+						});
+					});
+			}
+		};
+
+		$("[id^='modify-']").click(function() {
+			var professClaId = $(this).data('professclaid');
+			var professId = $(this).data('professid');
+			active.modifyProfessCla(professClaId,professId);
+		});
+		$("[id^='delete-']").click(function() {
+			var professClaId = $(this).data('professclaid');
+			active.deleteProfessCla(professClaId);
+		});
+		var laypage = layui.laypage, form = layui.form,
+		jquery = layui.jquery, layer = layui.layer;
+
+	laypage.render({
+		elem: 'demo1',
+		count: ${map.page.total}, //数据总数
+		limit: ${map.page.pageSize},
+		first: '首页',
+		last: '尾页',
+		curr: ${map.page.pageNum},
+		layout: ['first','prev', 'page', 'next','last','count','skip'],
+		jump: function(obj,first) {
+			if(!first){
+				window.location.href="${base}/toProfessClaPage.do?curr="+obj.curr+"&deptId="+jquery("#deptId").val()+"&professId="+jquery("#professId").val();
+			}
+		}
+	});
+	form.on('submit',function(data){
+		var professClass = {};
+		professClass.className = data.field.professClaName
+		professClass.profession = {};
+		professClass.profession.id = jquery("#professId").val();
+		jquery.ajax({
+			url: '${base}/addProfessClass.do',
+			contentType: "application/json;charset=utf-8",
+			data: JSON.stringify(professClass),
+			type: 'POST',
+			success: function(response){
+				if(response == '1'){
+					setTimeout("window.location.reload()",3000);
+					layer.msg("添加成功！3秒后刷新页面！",{icon: 1});
+				}else{
+					layer.msg("添加失败！",{icon: 2});
+				}
+			}
+		});
+		return false;
+	});
+	form.on("select(deptId)",function(data){
+		if(jquery("#professId").val() != ""){
+			jquery("#professId").val("");
+		}
+		jquery("#hidesubmit").click();
+	});
+	form.on("select(professId)",function(data){
+		jquery("#hidesubmit").click();
+	});
+
+	});
+		
+	</script>
+</body>
+
+</html>
