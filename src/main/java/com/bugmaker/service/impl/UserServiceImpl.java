@@ -6,6 +6,7 @@ import com.bugmaker.mapper.UserMapper;
 import com.bugmaker.service.UserService;
 import com.bugmaker.utils.Object2Json;
 import com.bugmaker.utils.RequestUtil;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -44,9 +45,12 @@ public class UserServiceImpl implements UserService {
             modelAndView.addObject("map",map);
             return modelAndView;
         } else {
-            if (user.getPassword().equals(password.trim())) { // 判断密码是否正确
+            System.out.println(user.getPassword());
+            System.out.println(new Md5Hash(user.getId(),password.trim()).toString());
+            if (user.getPassword().equals(new Md5Hash(user.getId(),password.trim()).toString())) { // 判断密码是否正确
                 RequestUtil.loginUserInfo(user);
-//                System.out.println(rememberMe);
+                System.out.println("11");
+                System.out.println(user.getType());
                 if(rememberMe == "true") {
                     String userInfo = userName + "," + password;
                     Cookie userCookie = new Cookie("userInfo", userInfo);
