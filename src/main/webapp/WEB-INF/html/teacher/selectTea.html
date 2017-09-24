@@ -17,12 +17,7 @@
 					<input type="stuName" name="name" lay-verify="name" autocomplete="off" class="layui-input">
 				</div>
 			</div>
-			<div class="layui-inline">
-				<label class="layui-form-label">性别</label>
-				<div class="layui-input-block">
-					<input type="stuSex" name="sex" lay-verify="sex" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
-				</div>
-			</div>
+			
 			<div class="layui-inline">
 				<label class="layui-form-label">院系</label>
 				<div class="layui-input-block">
@@ -57,25 +52,38 @@
 					<tr>
 						<th>教工号</th>
 						<th>姓名</th>
-						<th>学院</th>
 						<th>性别</th>
 						<th>年龄</th>
 						<th>电话</th>
 						<th>邮箱</th>
-						<th>操作</th>
+						<th>学院</th>
+						<th>是否可用</th>
+						
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>201424133221</td>
-						<td>xuxu</td>
-						<td>计算机学院</td>
-						<td>男</td>
-						<td>25</td>
-						<td>11012311011</td>
-						<td>1111111@qq.com</td>
-						<td style="color: red;">无权限</td>
-					</tr>
+					<#list selectAllTea as teacher>
+						<tr>
+							<td>${teacher.id}</td>
+							<td>${teacher.username}</td>
+							<#if teacher.sex==1>
+							<!-- <td>${teacher.sex}</td> -->
+							<td>女</td>
+							<#else>
+							<td>男</td>
+							</#if>
+							<td>${teacher.age}</td>
+							<td>${teacher.phone}</td>
+							<td>${teacher.email}</td>
+							<td>${teacher.dept.deptName}</td>
+							<#if teacher.enable==1> 
+							<td>可用</td>
+							<#else>
+							<td>不可用</td>
+							</#if>
+							
+						</tr>
+					</#list>
 				</tbody>
 			</table>
 		</div>

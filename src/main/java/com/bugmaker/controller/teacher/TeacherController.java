@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bugmaker.bean.Internship;
 import com.bugmaker.bean.Student;
+import com.bugmaker.bean.User;
 import com.bugmaker.service.StudentService;
+import com.bugmaker.service.TeacherService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -25,6 +27,8 @@ public class TeacherController {
 	
 	@Resource
 	public StudentService studentService;
+	@Resource
+	public TeacherService teacherService;
 
     /**
      * 教师首页
@@ -46,6 +50,7 @@ public class TeacherController {
     	Integer currPage = Integer.valueOf(currentPage);
     	PageHelper.startPage(currPage, 5);	
     	List<Student> students = studentService.selectAllStudent();
+    	//System.out.println(students);
     	PageInfo page = new PageInfo(students, 5);
 		page.getNavigatePages();
 		model.addAttribute("page",page);
@@ -57,7 +62,10 @@ public class TeacherController {
      * @return
      */
     @RequestMapping("selectTea.do")
-    public String selectTeaView(){
+    public String selectTeaView(ModelMap model){
+    	
+    	List<User> selectAllTea = teacherService.selectAllTea();
+    	model.put("selectAllTea",selectAllTea);
         return "teacher/selectTea";
     }
 
