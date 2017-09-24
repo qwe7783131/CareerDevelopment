@@ -23,4 +23,7 @@ public interface ProfessionMapper {
 
 	//删除专业
 	int deleteProfession(String professId);
+
+	//根据专业id获取专业
+	Profession selectProfessById(String professId);
 }
