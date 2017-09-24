@@ -85,7 +85,7 @@ public class AddTeacherController {
         user.setEmail(userMap.get("email").toString());
         user.setDept(dept);
         user.setCreatTime(new Date());
-        user.setEnable(1);
+        user.setEnable(Integer.parseInt(userMap.get("enable").toString()));
         user.setType(2);
         UserRole userRole = new UserRole();
         userRole.setUser(user);
