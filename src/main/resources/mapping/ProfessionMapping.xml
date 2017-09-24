@@ -29,6 +29,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where p.dept_id=d.id and d.id=#{deptId}
 	</select>
 	
+	<select id="selectProfessById" resultMap="professionResult">
+		select p.id profess_id, name profess_name, profess_describe,
+			d.id, dept_name
+		from profession p, dept d
+		where p.dept_id=d.id and p.id=#{professId}
+	</select>
+	
 	<insert id="insertProfession">
 		insert into profession 
 		values(replace(uuid(),"-",""),#{name},#{profess_describe},#{dept.id})
