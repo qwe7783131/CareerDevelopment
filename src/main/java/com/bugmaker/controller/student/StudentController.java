@@ -75,4 +75,40 @@ public class StudentController {
 	public String voluntaryReporting(){
 		return "student/voluntaryReporting";
 	}
+
+	/**
+	 * 专业方向志愿填报
+	 * @return
+	 */
+	@RequestMapping("direction.do")
+	public String direction(){
+		return "student/direction";
+	}
+
+	/**
+	 * 跟岗查看宿舍安排
+	 * @return
+	 */
+	@RequestMapping("dormitoryGenggang.do")
+	public String dormitoryGenggang(){
+		return "student/dormitoryGenggang";
+	}
+
+	/**
+	 * 任务书
+	 * @return
+	 */
+	@RequestMapping("task.do")
+	public String task(){
+		return "student/task";
+	}
+
+	/**
+	 * 查看实习成绩
+	 * @return
+	 */
+	@RequestMapping("watchScore.do")
+	public String watchScore(){
+		return "student/watchScore";
+	}
 }

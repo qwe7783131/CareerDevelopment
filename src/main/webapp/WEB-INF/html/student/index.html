@@ -8,6 +8,7 @@
 </head>
 
 <body>
+
 <div class="layui-layout layui-layout-admin kit-layout-admin">
     <div class="layui-header">
         <div class="layui-logo">学生</div>
@@ -49,7 +50,7 @@
                     <a class="" href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 职业方向选择</span></a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'test.html',icon:'&#xe6c6;',title:'填报方向志愿',id:'1'}">
+                            <a href="javascript:;" kit-target data-options="{url:'${base}/student/voluntaryReporting.do',icon:'&#xe6c6;',title:'填报方向志愿',id:'1'}">
                                 <i class="layui-icon">&#xe6c6;</i><span> 填报方向志愿</span></a>
                         </dd>
                         <dd>
@@ -66,11 +67,11 @@
                                 <i class="layui-icon">&#xe6c6;</i><span> 完成跟岗实习手册</span></a>
                         </dd>
                         <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'查看实习成绩',id:'4'}">
+                            <a href="javascript:;" kit-target data-options="{url:'${base}/student/watchScore.do',icon:'&#xe6c6;',title:'查看实习成绩',id:'4'}">
                                 <i class="layui-icon">&#xe6c6;</i><span> 查看实习成绩</span></a>
                         </dd>
                         <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'住宿管理',id:'5'}">
+                            <a href="javascript:;" kit-target data-options="{url:'${base}/student/dormitoryGenggang.do',icon:'&#xe6c6;',title:'住宿管理',id:'5'}">
                                 <i class="layui-icon">&#xe6c6;</i><span> 住宿管理</span></a>
                         </dd>
                     </dl>
