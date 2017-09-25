@@ -1,5 +1,6 @@
 package com.bugmaker.mapper;
 
+import com.bugmaker.bean.Dept;
 import com.bugmaker.bean.Direction;
 
 import java.util.List;
@@ -17,5 +18,5 @@ public interface DirectionMapper {
     /**
      * 查询
      */
-    List<Direction> selectDirectionByParam();
+    List<Direction> selectDirectionByDept(Dept dept);
 }
