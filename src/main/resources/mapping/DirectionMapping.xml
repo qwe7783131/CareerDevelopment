@@ -18,7 +18,8 @@
     <insert id="insertDirection" >
         INSERT INTO direction (id, NAME, dept_id, direct_describe, status, enable)
         VALUES(
-            replace(uuid(),"-",""), #{name}, #{dept.id} , #{directDescribe}, 1, 1
+            replace(uuid(),"-",""), #{name}, #{dept.id} , 
+            #{directDescribe}, #{status}, #{enable}
         )
     </insert>
 
