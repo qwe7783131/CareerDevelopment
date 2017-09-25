@@ -4,7 +4,9 @@ import com.bugmaker.bean.Internship;
 import com.bugmaker.bean.Student;
 import com.bugmaker.bean.Survey;
 import com.bugmaker.bean.SurveyResult;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface StudentServiceXuxu {
@@ -18,7 +20,7 @@ public interface StudentServiceXuxu {
     String addInternship(Internship internship);
 
     //就业信息调查
-    String addSurveyResult(SurveyResult surveyResult);
+    String addSurveyResult(String unit_name, String unit_person, String unit_phone, HttpServletRequest request);
 
     //查最新调查表
     Survey isUseForSurvey();

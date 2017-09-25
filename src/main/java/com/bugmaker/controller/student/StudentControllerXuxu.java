@@ -43,10 +43,6 @@ public class StudentControllerXuxu {
         return "student/voluntaryReporting";
     }
 
-    //提交志愿填报
-
-
-
     //模糊查询
     @RequestMapping("student/selectByName.do")
     public String selectByName(ModelMap modelMap, String name, HttpServletRequest request){
@@ -60,24 +56,8 @@ public class StudentControllerXuxu {
 
     //添加就业信息调查
     @RequestMapping("student/addSurvey.do")
-    public String addSurvey(String unit_name,String unit_person,String unit_phone, HttpServletRequest request,RedirectAttributes attr) throws IOException {
-        System.out.println("添加就业信息");
-        //System.out.println(unit_name);
-        User user = (User)request.getSession().getAttribute("user");
-        SurveyResult surveyResult = new SurveyResult();
-        surveyResult.setCreateTime(new Date());
-        surveyResult.setId(UUID.randomUUID().toString().replace("-",""));
-        surveyResult.setUnitName(unit_name);
-        surveyResult.setUnitPerson(unit_person);
-        surveyResult.setUnitPhone(unit_phone);
-        Student student = new Student();
-        student.setUser(user);
-        student.setId(user.getId());
-        surveyResult.setStudent(student);
-        surveyResult.setSurvey(studentServiceXuxu.isUseForSurvey());
-        System.out.println(surveyResult);
-        studentServiceXuxu.addSurveyResult(surveyResult);
-        return "redirect:employmentSurvey.do";
+    public String addSurvey(String unit_name,String unit_person,String unit_phone, HttpServletRequest request) throws IOException {
+        return studentServiceXuxu.addSurveyResult(unit_name,unit_person,unit_phone,request);
     }
 
 

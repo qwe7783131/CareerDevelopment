@@ -35,7 +35,7 @@
                 <div class="layui-input-block">
                     <select name="dept" lay-filter="aihao">
                         <option value="">请选择学院</option>
-                        <#list selectAllDept as dept>
+                        <#list map.selectAllDept as dept>
                             <option value=${dept.id}>${dept.deptName}</option>
                         </#list>
                     </select>
@@ -89,7 +89,7 @@
         </tr>
         </thead>
         <tbody>
-        <#list page.list as p>
+        <#list map.page.list as p>
             <tr>
                 <td>${p.id}</td>
                 <td>${p.username}</td>
@@ -119,7 +119,7 @@
                     <div class="layui-inline">
                         <div class="site-demo-button" id="delete" style="margin-bottom: 0;">
                             <button class="layui-btn layui-btn-danger layui-btn layui-btn-mini"
-                                    data-method="confirmTrans" data-type=${teacher.id}>删除
+                                    data-method="confirmTrans" data-type=${p.id}>删除
                             </button>
                         </div>
                     </div>
@@ -243,15 +243,16 @@
 				var laypage = layui.laypage,
 					layer = layui.layer;
 
-				//总页数大于页码总数
 				laypage.render({
 					elem: 'demo1',
-					count: ${page.total} ,//数据总数
-				    curr: ${page.pageNum},
-				    limit:${page.pageSize},
+					count: ${map.page.total}, //数据总数
+					limit: ${map.page.pageSize},
+					first: '首页',
+					last: '尾页',
+					curr: ${map.page.pageNum},
+					layout: ['first','prev', 'page', 'next','last','count','skip'],
 					jump: function(obj,first) {
-						//console.log(obj);
-						if(first!=true){
+						if(!first){
 							 window.location.href ="careerdevelopment/admin/teacherManage.do?currentPage="+obj.curr;
 						}
 					}
