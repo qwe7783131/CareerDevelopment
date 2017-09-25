@@ -2,6 +2,7 @@ package com.bugmaker.mapper;
 
 import com.bugmaker.bean.Student;
 import com.bugmaker.bean.User;
+import com.bugmaker.bean.UserRole;
 
 import java.util.List;
 
@@ -32,4 +33,13 @@ public interface StudentMapper {
      * @return
      */
     List<Student> selectStudentByParams(Student student);
+
+    //删除学生
+    String deleteStudentById(String id);
+
+    //修改学生信息
+    String updateStudentById(Student student);
+
+    //添加教师角色
+    String insertStudentRole(UserRole userRole);
 }
