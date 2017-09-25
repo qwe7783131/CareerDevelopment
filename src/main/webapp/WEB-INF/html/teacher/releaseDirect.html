@@ -2,92 +2,152 @@
 <html xmlns="http://www.w3.org/1999/html">
 
 <head>
-    <#include "html/template/head.html" />
-    <title>发布专业方向</title>
+<#include "html/template/head.html" />
+<title>发布专业方向</title>
 </head>
 
 <body>
-<div style="padding-left: 10px;padding-right: 50px;" class="layui-form-item layui-form-text">
-    </br>
-    </br>
-    <div class="site-demo-button" id="layerDemo">
-        <button data-method="add" data-type="t" class="layui-btn layui-btn-small">发布专业方向信息</button>
-    </div>
-    </br>
-    </br>
-    </br>
-    <blockquote class="layui-elem-quote layui-text">
-        已存在的专业方向
-    </blockquote>
-    <table class="layui-table">
-        <colgroup>
-            <col width="150">
-            <col width="150">
-            <col width="200">
-            <col>
-        </colgroup>
-        <thead>
-        <tr>
-            <th>方向名称</th>
-            <th>专业</th>
-            <th>方向简介</th>
+	<div style="padding-left: 10px; padding-right: 50px;"
+		class="layui-form-item layui-form-text">
+		</br> </br>
+		<div class="site-demo-button" id="layerDemo">
+			<button data-method="add" data-type="t"
+				class="layui-btn layui-btn-small">发布专业方向信息</button>
+		</div>
+		</br> </br> </br>
+		<blockquote class="layui-elem-quote layui-text">已存在的专业方向
+		</blockquote>
+		<table class="layui-table">
+			<colgroup>
+				<col width="150">
+				<col width="150">
+				<col width="200">
+				<col>
+			</colgroup>
+			<thead>
+				<tr>
+					<th>序号</th>
+					<th>方向名称</th>
+					<th>学院</th>
+					<th>有效性</th>
+					<th>方向简介</th>
+					<th>操作</th>
 
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>java开发</td>
-            <td>计算机</td>
-            <td>Java是和简单易用两个特征。Java语言作为静编程[1] 。</td>
-        </tr>
-        </tbody>
-    </table>
-    <div id="demo1" style=" width: 100%;height: 50px;position: fixed;bottom: 0;" />
-</div>
+				</tr>
+			</thead>
+			<tbody>
+				<#list page.list as direction>
+				<tr>
+					<td>#</td>
+					<td>${direction.name}</td>
+					<td>${direction.dept.deptName}</td> <#if (direction.enable==1) >
+					<td style="color:green;">有效</td> <#else>
+					<td style="color:red;">已失效</td> </#if>
+					<td>${direction.directDescribe}</td>
+					<td>
+						<div class="site-demo-button" id="layerDemo"
+							style="margin-bottom: 0;">
+							<button data-directid="${direction.id}"
+								class="layui-btn layui-btn-normal layui-btn layui-btn-mini"
+								id="modify-${direction.id}">修改</button>
+							<button data-directid="${direction.id}"
+								class="layui-btn layui-btn-danger layui-btn layui-btn-mini"
+								id="delete-${direction.id}">删除</button>
+						</div>
+					</td>
+				</tr>
+				</#list>
+			</tbody>
+		</table>
+		<div id="demo1"
+			style="width: 100%; height: 50px; position: fixed;" />
+	</div>
 
-<script src="${base}/frame/layui/layui.js"></script>
+	<script src="${base}/frame/layui/layui.js"></script>
 
-<script>
-			layui.use(['laypage', 'layer', 'form'], function() {
-				var form = layui.form;
-
-				var laypage = layui.laypage,
-					layer = layui.layer;
-
-				laypage.render({
-					elem: 'demo1',
-					count: 70,
-					jump: function(obj) {
-						console.log(obj)
-					}
-				});
+	<script>
+		layui.use([ 'laypage', 'layer', 'form', 'jquery'], function() {
+			var form = layui.form, laypage = layui.laypage, 
+			layer = layui.layer, $ = layui.jquery;
+			//触发事件
+			var active = {
+				add : function(othis) {
+					var type = othis.data('type'), text = othis.text();
+					layer.open({
+						type : 2,
+						title : false,
+						scrollbar : false,
+						area : [ '500px', '400px' ],
+						closeBtn : 2,
+						content : '${base}/teacher/addDirect.do',
+						end: function(){
+							window.location.reload();
+						}
+					});
+				},
+				modifyDirect: function(directId){
+					layer.open({
+						type : 2,
+						title : false,
+						scrollbar : false,
+						area : [ '500px', '400px' ],
+						closeBtn : 2,
+						content : '${base}/toModifyDirectPage.do?directId='+directId,
+						end: function(){
+							window.location.reload();
+						}
+					});
+				},
+				deleteDirect: function(directId){
+					layer.msg('确定删除？', {
+						btn: ['删除', '取消'],
+						yes: function(){
+							$.ajax({
+								url: '${base}/deleteDirection.do',
+								data: {directId : directId},
+								type: 'POST',
+								success: function(data){
+									if(data == '1'){
+										setTimeout("window.location.reload()",3000);
+										layer.msg("删除成功！3秒后刷新页面！",{icon: 1});
+									}else{
+										layer.msg("删除失败！3秒后刷新页面！",{icon: 2});
+									}
+								}
+							});
+						}
+					});
+				}
+			};
+			$('#layerDemo .layui-btn').on('click', function() {
+				var othis = $(this), method = othis.data('method');
+				active[method] ? active[method].call(this, othis) : '';
 			});
-			layui.use('layer', function() {
-				//独立版的layer无需执行这一句
-				var $ = layui.jquery,
-					layer = layui.layer; //独立版的layer无需执行这一句
-				//触发事件
-				var active = {
-					add: function(othis) {
-						var type = othis.data('type'),
-							text = othis.text();
-						layer.open({
-							type: 2,
-							title: false,
-							scrollbar: false,
-							area: ['500px', '400px'],
-							closeBtn: 2,
-							content: '${base}/teacher/addDirect.do'
-						});
-					}
-				};
-				$('#layerDemo .layui-btn').on('click', function() {
-					var othis = $(this),
-						method = othis.data('method');
-					active[method] ? active[method].call(this, othis) : '';
-				});
+			
+			$("[id^='modify-']").click(function() {
+				var directId = $(this).data('directid');
+				active.modifyDirect(directId);
 			});
-		</script>
+			$("[id^='delete-']").click(function() {
+				var directId = $(this).data('directid');
+				active.deleteDirect(directId);
+			});
+
+			laypage.render({
+				elem: 'demo1',
+				count: ${page.total},
+				limit: ${page.pageSize},
+				first: '首页',
+				last: '尾页',
+				curr: ${page.pageNum},
+				jump : function(obj,first) {
+					if(!first){
+						window.location.href="${base}/toDirectionManagePage.do?curr="+obj.curr;
+					}
+				}
+			});
+		});
+	</script>
 </body>
 
 </html>
