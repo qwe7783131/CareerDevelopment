@@ -50,14 +50,14 @@ public class AddTeacherController {
 
     //模糊查询
     @RequestMapping("/admin/teacherManage2.do")
-    public String teacherManage2View(ModelMap model,String username,String sex ,String dept){
-        System.out.println("username"+username + "sex" + sex + "dept" + dept);
+    public String teacherManage2View(ModelMap model,String id,String username ,String dept){
+        System.out.println("搜索词为：id："+id + "username:" + username + "dept:" + dept);
         User user = new User();
         user.setUsername(username);
         Dept dept1 = new Dept();
         dept1.setId(dept);
         user.setDept(dept1);
-        user.setSex(sex);
+        user.setId(id);
         List<User> selectAllTea = teacherService.selectTeaByParams(user);
         List<Dept> selectAllDept = teacherService3.selectAllDept();
         model.put("selectAllDept",selectAllDept);
