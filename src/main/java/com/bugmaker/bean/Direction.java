@@ -9,6 +9,10 @@ public class Direction {
 
     private Dept dept;
 
+    private int status;
+
+    private int enable;
+
     private String directDescribe;
 
     public String getId() {
@@ -18,6 +22,23 @@ public class Direction {
     public void setId(String id) {
         this.id = id == null ? null : id.trim();
     }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public int getEnable() {
+        return enable;
+    }
+
+    public void setEnable(int enable) {
+        this.enable = enable;
+    }
+
 
     public String getName() {
         return name;
@@ -49,6 +70,8 @@ public class Direction {
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", dept=" + dept +
+                ", status=" + status +
+                ", enable=" + enable +
                 ", directDescribe='" + directDescribe + '\'' +
                 '}';
     }
