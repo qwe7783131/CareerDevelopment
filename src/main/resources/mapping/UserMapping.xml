@@ -41,7 +41,7 @@
         <if test="username != null and username != ''">
             AND username LIKE '%' #{username} '%'
         </if>
-        <if test="dept != null and dept != ''">
+        <if test="dept != null and dept != '' and dept.id != '' and dept.id != null">
             AND u.dept_id = #{dept.id}
         </if>
     </sql>

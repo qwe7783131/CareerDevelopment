@@ -50,9 +50,7 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public List<User> selectTeaByParams(User user) {
         List<User> userList = userMapper.selectTeacherByParams(user);
-//        for(User users : userList){
-//            System.out.println(users);
-//        }
+        System.out.println(userList);
         return userList;
     }
 

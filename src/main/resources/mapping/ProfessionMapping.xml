@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<id column="profess_id" property="id"/>
 		<result column="profess_name" property="name"/>
 		<result column="profess_describe" property="describe"/>
-		<association property="dept" javaType="Profession" resultMap="com.bugmaker.mapper.DeptMapper.deptResult"/>
+		<association property="dept" javaType="Dept" resultMap="com.bugmaker.mapper.DeptMapper.deptResult"/>
 	</resultMap>
 
 	<select id="getAllProfessions" resultMap="professionResult">

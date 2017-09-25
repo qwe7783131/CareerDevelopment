@@ -7,9 +7,13 @@ public class Direction {
 
     private String name;
 
-    private Profession profession;
+    private Dept dept;
 
-    private String describe;
+    private int status;
+
+    private int enable;
+
+    private String directDescribe;
 
     public String getId() {
         return id;
@@ -19,6 +23,23 @@ public class Direction {
         this.id = id == null ? null : id.trim();
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public int getEnable() {
+        return enable;
+    }
+
+    public void setEnable(int enable) {
+        this.enable = enable;
+    }
+
+
     public String getName() {
         return name;
     }
@@ -27,21 +48,20 @@ public class Direction {
         this.name = name == null ? null : name.trim();
     }
 
-
-    public Profession getProfession() {
-        return profession;
+    public Dept getDept() {
+        return dept;
     }
 
-    public void setProfession(Profession profession) {
-        this.profession = profession;
+    public void setDept(Dept dept) {
+        this.dept = dept;
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getDirectDescribe() {
+        return directDescribe;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe == null ? null : describe.trim();
+    public void setDirectDescribe(String directDescribe) {
+        this.directDescribe = directDescribe == null ? null : directDescribe.trim();
     }
 
     @Override
@@ -49,8 +69,10 @@ public class Direction {
         return "Direction{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", profession=" + profession +
-                ", describe='" + describe + '\'' +
+                ", dept=" + dept +
+                ", status=" + status +
+                ", enable=" + enable +
+                ", directDescribe='" + directDescribe + '\'' +
                 '}';
     }
 }
