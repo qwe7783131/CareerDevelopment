@@ -74,7 +74,7 @@ public class StudentMapperTest extends BaseTest {
     public void testSelectParams(){
         Student student = new Student();
         User user = new User();
-//        user.setUsername("伟");
+        user.setUsername("伟");
 //        user.setId("201424");
         ProfessionClass professionClass = new ProfessionClass();
 //        professionClass.setClassName("2");

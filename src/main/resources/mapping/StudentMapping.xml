@@ -46,18 +46,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<association property="direction" javaType="com.bugmaker.bean.Direction">
 				<id property="id" column="direct_id" />
 				<result property="name" column="direct_name" />
-				<result property="describe" column="direct_describe" />
+				<result property="directDescribe" column="direct_describe" />
 
-				<association property="profession" javaType="com.bugmaker.bean.Profession">
 
-					<id property="id" column="p2_id" />
-					<result property="name" column="p2_name" />
-					<result property="describe" column="p2_describe" />
-					<association property="dept" javaType="com.bugmaker.bean.Dept">
+				<association property="dept" javaType="com.bugmaker.bean.Dept">
 
-						<id property="id" column="d2_id" />
-						<result property="deptName" column="d2_name" />
-					</association>
+					<id property="id" column="d2_id" />
+					<result property="deptName" column="d2_name" />
 				</association>
 			</association>
 		</association>
@@ -87,15 +82,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			SELECT dc.id dc_id, dc.name dc_name, dd.*
 			FROM direction_class dc
 			LEFT JOIN (
-				SELECT direction.id direct_id, direction.name direct_name, direction.describe direct_describe, pd2.*
+				SELECT direction.id direct_id, direction.name direct_name, direction.direct_describe direct_describe, d2.id d2_id, d2.dept_name d2_name
 				FROM direction
-				LEFT JOIN (
-					SELECT p2.id p2_id, p2.name p2_name, p2.profess_describe p2_describe
-							,d2.id d2_id, d2.dept_name d2_name
-					FROM profession p2
-					LEFT JOIN dept d2
-					ON p2.dept_id = d2.id
-				) pd2 ON direction.profess_id = pd2.p2_id
+				LEFT JOIN dept d2
+				ON direction.dept_id = d2.id
 			) dd ON dc.id = dd.direct_id
 		) dcd ON s.direc_class_id = dcd.dc_id
 	</sql>
@@ -161,30 +151,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 多条件查询学生 -->
 	<select id="selectStudentByParams" parameterType="student" resultMap="stuMap">
-		SELECT u.id u_id,username,password,sex,age,phone,email,enable,type,u.create_time,
-		pc.id pc_id, pc.class_name,
-		p.id p_id,p.name p_name,p.profess_describe p_describe,
-		dc.id dc_id, dc.name dc_name,
-		d.id d_id,d.dept_name,
-		direct.id direct_id,direct.name direct_name,direct.describe direct_describe
-		FROM student s, user u, profession_class pc, direction_class dc,
-		profession p, direction direct, dept d
-		WHERE s.id = u.id AND s.direc_class_id = dc.id AND s.class_id = pc.id
-		AND pc.profession_id = p.id AND dc.direc_id = direct.id
-		AND direct.profess_id = p.id AND p.dept_id = d.id
+		<!--SELECT u.id u_id,username,password,sex,age,phone,email,enable,type,u.create_time,-->
+		<!--pc.id pc_id, pc.class_name,-->
+		<!--p.id p_id,p.name p_name,p.profess_describe p_describe,-->
+		<!--dc.id dc_id, dc.name dc_name,-->
+		<!--d.id d_id,d.dept_name,-->
+		<!--direct.id direct_id,direct.name direct_name,direct.describe direct_describe-->
+		<!--FROM student s, user u, profession_class pc, direction_class dc,-->
+		<!--profession p, direction direct, dept d-->
+		<!--WHERE s.id = u.id AND s.direc_class_id = dc.id AND s.class_id = pc.id-->
+		<!--AND pc.profession_id = p.id AND dc.direc_id = direct.id-->
+		<!--AND direct.profess_id = p.id AND p.dept_id = d.id-->
+		<include refid="selectAll" />
+		<where>
+			<if test="user != null">
+				<if test="user.id != null and user.id != ''">
+					u.id = #{user.id}
+				</if>
+				<if test="user.username != null and user.username != ''">
+					AND username LIKE '%' #{user.username} '%'
+				</if>
+				<if test="user.dept != null and user.dept.id != ''">
+					AND u.dept_id = #{user.dept.id}
+				</if>
+			</if>
+			<if test="professionClass != null and professionClass.id != null and professionClass.id != ''">
+				AND pc.id = #{professionClass.id}
+			</if>
+		</where>
 
-		<if test="user != null and user.id != null and user.id != ''">
-			AND u.id = #{user.id}
-		</if>
-		<if test="user != null and user.username != null and user.username != ''">
-			AND username LIKE '%' #{user.username} '%'
-		</if>
-		<if test="user != null and user.dept != null and user.dept != ''">
-			AND u.dept_id = #{user.dept_id}
-		</if>
-		<if test="professionClass != null and professionClass.id != null and professionClass.id != ''">
-			AND pc.id = #{professionClass.id}
-		</if>
 	</select>
 
 	<!-- 添加学生 -->
