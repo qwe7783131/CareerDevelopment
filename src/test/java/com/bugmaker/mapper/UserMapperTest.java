@@ -20,7 +20,12 @@ public class UserMapperTest extends BaseTest{
     @Test
     public void selectTeacherByParamsTest() {
         User user = new User();
-        user.setUsername("花");
+        user.setUsername("李");
+        user.setId("");
+        Dept dept = new Dept();
+        dept.setId("");
+        user.setDept(dept);
+        System.out.println(user);
         List<User> users = userMapper.selectTeacherByParams(user);
         for (User user1 :
                 users) {
