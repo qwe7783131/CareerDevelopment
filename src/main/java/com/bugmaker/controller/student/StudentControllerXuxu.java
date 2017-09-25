@@ -1,19 +1,27 @@
 package com.bugmaker.controller.student;
 
-import com.bugmaker.bean.Internship;
-import com.bugmaker.bean.User;
+import com.bugmaker.bean.*;
 import com.bugmaker.service.StudentService;
 import com.bugmaker.service.StudentServiceXuxu;
 import com.bugmaker.service.impl.StudentServiceImplXuxu;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @Controller
 public class StudentControllerXuxu {
@@ -49,4 +57,28 @@ public class StudentControllerXuxu {
         modelMap.put("internshipList",internshipList);
         return "student/voluntaryReporting";
     }
+
+    //添加就业信息调查
+    @RequestMapping("student/addSurvey.do")
+    public String addSurvey(String unit_name,String unit_person,String unit_phone, HttpServletRequest request,RedirectAttributes attr) throws IOException {
+        System.out.println("添加就业信息");
+        //System.out.println(unit_name);
+        User user = (User)request.getSession().getAttribute("user");
+        SurveyResult surveyResult = new SurveyResult();
+        surveyResult.setCreateTime(new Date());
+        surveyResult.setId(UUID.randomUUID().toString().replace("-",""));
+        surveyResult.setUnitName(unit_name);
+        surveyResult.setUnitPerson(unit_person);
+        surveyResult.setUnitPhone(unit_phone);
+        Student student = new Student();
+        student.setUser(user);
+        student.setId(user.getId());
+        surveyResult.setStudent(student);
+        surveyResult.setSurvey(studentServiceXuxu.isUseForSurvey());
+        System.out.println(surveyResult);
+        studentServiceXuxu.addSurveyResult(surveyResult);
+        return "redirect:employmentSurvey.do";
+    }
+
+
 }

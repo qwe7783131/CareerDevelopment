@@ -2,12 +2,17 @@ package com.bugmaker.controller.student;
 
 
 import com.bugmaker.bean.Student;
+import com.bugmaker.bean.SurveyResult;
+import com.bugmaker.bean.User;
 import com.bugmaker.service.StudentService;
+import com.bugmaker.service.StudentServiceXuxu;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -15,6 +20,9 @@ import java.util.List;
 public class StudentController {
 	@Resource
 	public StudentService studentService;
+	@Resource
+	public StudentServiceXuxu studentServiceXuxu;
+
 	@RequestMapping("test.do")
  	public String testcontroller(ModelMap model) {
 		List<Student> selectAllStudent = studentService.selectAllStudent();
@@ -40,8 +48,21 @@ public class StudentController {
      * @return
      */
 	@RequestMapping("employmentSurvey.do")
-	public String employmentSurvey(){
-		return "student/employmentSurvey";
+	public String employmentSurvey(ModelMap modelMap, HttpServletRequest request , SurveyResult a){
+		Student student = new Student();
+		User user = (User)request.getSession().getAttribute("user");
+		student.setId(user.getId());
+		student.setUser(user);
+		studentServiceXuxu.selectSurveyByStuId(student);
+		//判断是否填过
+		if(!(studentServiceXuxu.selectSurveyByStuId(student)==null)){
+			modelMap.put("selectSurvey",studentServiceXuxu.selectSurveyByStuId(student));
+			modelMap.put("selectUser",user);
+			return "student/alreadyHadEmpolymentSurvey";
+		}
+		else {
+			return "student/employmentSurvey";
+		}
 	}
 	/**
      * 学生查询个人成绩页面

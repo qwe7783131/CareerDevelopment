@@ -20,6 +20,10 @@ public class StudentMapperTest extends BaseTest {
     @Test
     public void testSelectAll(){
         List<Student> students = studentMapper.selectAllStudent();
+        System.out.println(students.size());
+        for (Student student: students) {
+            System.out.println(student);
+        }
         System.out.println(students);
     }
     @Test
@@ -29,13 +33,13 @@ public class StudentMapperTest extends BaseTest {
         ProfessionClass professionClass = new ProfessionClass();
         professionClass.setId("1222");
 
-        DirectionClass directionClass = new DirectionClass();
-        directionClass.setId("3333");
+//        DirectionClass directionClass = new DirectionClass();
+//        directionClass.setId("3333");
 
         Student student = new Student();
-        student.setId("20111119111");
+        student.setId("2011119111");
         student.setProfessionClass(professionClass);
-        student.setDirectionClass(directionClass);
+//        student.setDirectionClass(directionClass);
 
         System.out.println(studentMapper.insertStudent(student));
     }

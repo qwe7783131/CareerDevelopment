@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>就业信息调查</title>
+    <#include "html/template/head.html" />
+</head>
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+    <legend>就业信息调查</legend>
+</fieldset>
+
+<blockquote class="layui-elem-quote layui-quote-nm" style="color:red">该用户已提交,详细如下</blockquote>
+</br>
+<table class="layui-table">
+    <thead>
+    <tr>
+        <th>学生名</th>
+        <th>学号</th>
+        <th>调查表编号</th>
+        <th>单位名称</th>
+        <th>单位联系人</th>
+        <th>单位联系人电话</th>
+        <th>学生联系电话</th>
+    </tr>
+    </thead>
+    <#list selectSurvey as survey>
+        <tr>
+            <th>${selectUser.username}</th>
+            <th>${selectUser.id}</th>
+            <th>${survey.getSurvey().getId()}</th>
+            <th>${survey.getUnitName()}</th>
+            <th>${survey.getUnitPerson()}</th>
+            <th>${survey.getUnitPhone()}</th>
+            <th>${selectUser.phone}</th>
+        </tr>
+    </#list>
+</table>
+
+
+<script src="${base}/frame/layui/layui.js"></script>
+<script src="${base}/resources/js/jquery-2.1.4.js"></script>
+<script>
+		//Demo
+		layui.use('form', function(){
+		  var form = layui.form;
+
+		});
+
+</script>
+</body>
+</html>
