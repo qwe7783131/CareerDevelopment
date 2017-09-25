@@ -6,9 +6,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 配置映射字段 -->
 	<resultMap type="com.bugmaker.bean.Student" id="stuMap">
-		<id property="id" column="u_id"/>
-
+		<!-- 这里先使用student表里面的id，到时候是要改成user表的id -->
+		<id property="id" column="s_id" />
 		<association property="user" javaType="com.bugmaker.bean.User">
+			<id property="id" column="id" />
 			<result property="username" column="username" />
 			<result property="password" column="password" />
 			<result property="sex" column="sex" />
@@ -18,18 +19,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<result property="enable" column="enable" />
 			<result property="type" column="type" />
 			<result property="creatTime" column="create_time" />
+
+			<association property="dept" javaType="com.bugmaker.bean.Dept">
+				<id property="id" column="d3_id" />
+				<result property="deptName" column="d3_name" />
+			</association>
 		</association>
 
 		<association property="professionClass" javaType="com.bugmaker.bean.ProfessionClass">
 			<id property="id" column="pc_id"/>
-			<result property="className" column="class_name"/>
+			<result property="className" column="pc_name"/>
 			<association property="profession" javaType="com.bugmaker.bean.Profession">
-				<id property="id" column="p_id" />
-				<result property="name" column="p_name" />
-				<result property="describe" column="p_describe" />
+				<id property="id" column="p1_id" />
+				<result property="name" column="p1_name" />
+				<result property="describe" column="p1_describe" />
 				<association property="dept" javaType="com.bugmaker.bean.Dept">
-					<id property="id" column="d_id" />
-					<result property="deptName" column="dept_name" />
+					<id property="id" column="d1_id" />
+					<result property="deptName" column="d1_name" />
 				</association>
 			</association>
 		</association>
@@ -41,23 +47,116 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				<id property="id" column="direct_id" />
 				<result property="name" column="direct_name" />
 				<result property="describe" column="direct_describe" />
+
+				<association property="profession" javaType="com.bugmaker.bean.Profession">
+
+					<id property="id" column="p2_id" />
+					<result property="name" column="p2_name" />
+					<result property="describe" column="p2_describe" />
+					<association property="dept" javaType="com.bugmaker.bean.Dept">
+
+						<id property="id" column="d2_id" />
+						<result property="deptName" column="d2_name" />
+					</association>
+				</association>
 			</association>
 		</association>
 	</resultMap>
 
+	<sql id="selectAll">
+		SELECT s.id s_id, ud.*,pcd.*, dcd.*
+		FROM student s
+		LEFT JOIN (
+			SELECT u.id, u.username, u.password, u.sex, u.age, u.phone, u.email, u.enable, u.type, u.create_time, d3.id d3_id, d3.dept_name d3_name
+			FROM user u
+			LEFT JOIN dept d3
+			ON u.dept_id = d3.id
+		) ud ON s.id = ud.id
+		LEFT JOIN (
+			SELECT pc.id pc_id, pc.class_name pc_name, pd1.*
+			FROM profession_class pc
+			LEFT JOIN (
+				SELECT  p1.id p1_id, p1.name p1_name, p1.profess_describe p1_describe
+						,d1.id d1_id, d1.dept_name d1_name
+				FROM profession p1
+				LEFT JOIN dept d1
+				ON p1.dept_id = d1.id
+			) pd1 ON pc.profession_id = pd1.p1_id
+		) pcd ON s.class_id = pcd.pc_id
+		LEFT JOIN (
+			SELECT dc.id dc_id, dc.name dc_name, dd.*
+			FROM direction_class dc
+			LEFT JOIN (
+				SELECT direction.id direct_id, direction.name direct_name, direction.describe direct_describe, pd2.*
+				FROM direction
+				LEFT JOIN (
+					SELECT p2.id p2_id, p2.name p2_name, p2.profess_describe p2_describe
+							,d2.id d2_id, d2.dept_name d2_name
+					FROM profession p2
+					LEFT JOIN dept d2
+					ON p2.dept_id = d2.id
+				) pd2 ON direction.profess_id = pd2.p2_id
+			) dd ON dc.id = dd.direct_id
+		) dcd ON s.direc_class_id = dcd.dc_id
+	</sql>
+	<!-- sql过长报Mysql com.mysql.jdbc.PacketTooBigException -->
+	<!--<sql id="selectAll">-->
+		<!--SELECT s.id s_id, ud.*,pcd.*, dcd.*-->
+		<!--FROM student s-->
+		<!--LEFT JOIN (-->
+		<!--SELECT u.*, d3.id d3_id, d3.dept_name d3_name-->
+		<!--FROM user u-->
+		<!--LEFT JOIN dept d3-->
+		<!--ON u.dept_id = d3.id-->
+		<!--) ud ON s.id = ud.id-->
+		<!--LEFT JOIN (-->
+		<!--SELECT pc.id pc_id, pc.class_name pc_name, pd1.*-->
+		<!--FROM profession_class pc-->
+		<!--LEFT JOIN (-->
+		<!--SELECT  p1.id p1_id, p1.name p1_name, p1.profess_describe p1_describe-->
+		<!--,d1.id d1_id, d1.dept_name d1_name-->
+		<!--FROM profession p1-->
+		<!--LEFT JOIN dept d1-->
+		<!--ON p1.dept_id = d1.id-->
+		<!--) pd1 ON pc.profession_id = pd1.p1_id-->
+		<!--) pcd ON s.class_id = pcd.pc_id-->
+		<!--LEFT JOIN (-->
+		<!--SELECT dc.id dc_id, dc.name dc_name, dd.*-->
+		<!--FROM direction_class dc-->
+		<!--LEFT JOIN (-->
+		<!--SELECT direction.id direct_id, direction.name direct_name, direction.describe direct_describe, pd2.*-->
+		<!--FROM direction-->
+		<!--LEFT JOIN (-->
+		<!--SELECT p2.id p2_id, p2.name p2_name, p2.profess_describe p2_describe-->
+		<!--,d2.id d2_id, d2.dept_name d2_name-->
+		<!--FROM profession p2-->
+		<!--LEFT JOIN dept d2-->
+		<!--ON p2.dept_id = d2.id-->
+		<!--) pd2 ON direction.profess_id = pd2.p2_id-->
+		<!--) dd ON dc.id = dd.direct_id-->
+		<!--) dcd ON s.direc_class_id = dcd.dc_id-->
+	<!--</sql>-->
+	<sql id="selectAllAndRoles">
+		SELECT *
+		FROM (
+			<include refid="selectAll" />
+		) stu, role r,user_role ur
+		WHERE ur.user_id = stu.id AND ur.role_id = r.id
+	</sql>
 	<!-- 查看所有学生 -->
 	<select id="selectAllStudent" resultMap="stuMap">
-		SELECT u.id u_id,username,password,sex,age,phone,email,enable,type,u.create_time,
-			pc.id pc_id, pc.class_name,
-			p.id p_id,p.name p_name,p.profess_describe p_describe,
-			dc.id dc_id, dc.name dc_name,
-			d.id d_id,d.dept_name,
-			direct.id direct_id,direct.name direct_name,direct.describe direct_describe
-		FROM student s, user u, profession_class pc, direction_class dc,
-			 profession p, direction direct, dept d
-		WHERE s.id = u.id AND s.direc_class_id = dc.id AND s.class_id = pc.id
-			 AND pc.profession_id = p.id AND dc.direc_id = direct.id
-			 AND direct.profess_id = p.id AND p.dept_id = d.id
+		<!--SELECT u.id u_id,username,password,sex,age,phone,email,enable,type,u.create_time,-->
+			<!--pc.id pc_id, pc.class_name,-->
+			<!--p.id p_id,p.name p_name,p.profess_describe p_describe,-->
+			<!--dc.id dc_id, dc.name dc_name,-->
+			<!--d.id d_id,d.dept_name,-->
+			<!--direct.id direct_id,direct.name direct_name,direct.describe direct_describe-->
+		<!--FROM student s, user u, profession_class pc, direction_class dc,-->
+			 <!--profession p, direction direct, dept d-->
+		<!--WHERE s.id = u.id AND s.direc_class_id = dc.id AND s.class_id = pc.id-->
+			 <!--AND pc.profession_id = p.id AND dc.direc_id = direct.id-->
+			 <!--AND direct.profess_id = p.id AND p.dept_id = d.id-->
+		<include refid="selectAll" />
 	</select>
 
 	<!-- 多条件查询学生 -->
