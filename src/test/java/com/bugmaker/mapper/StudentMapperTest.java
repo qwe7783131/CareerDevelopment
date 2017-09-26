@@ -82,4 +82,18 @@ public class StudentMapperTest extends BaseTest {
         List<Student> students = studentMapper.selectStudentByParams(student);
         System.out.println(students);
     }
+
+    @Test
+    public void testUpdateStu(){
+        Student student = new Student();
+        ProfessionClass pc = new ProfessionClass();
+        pc.setId("aaaaaa");
+        DirectionClass dc = new DirectionClass();
+        dc.setId("bbbbbb");
+        student.setId("21");
+        student.setProfessionClass(pc);
+        student.setDirectionClass(dc);
+
+        System.out.println(studentMapper.updateStudentById(student));
+    }
 }

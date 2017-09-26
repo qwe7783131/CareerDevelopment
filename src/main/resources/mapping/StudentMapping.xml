@@ -199,5 +199,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</foreach>
 	</insert>
 
+	<!-- 更新学生信息 -->
+	<update id="updateStudentById" parameterType="student">
+		update student
+		<set>
+			<if test="professionClass != null and professionClass.id != null">class_id=#{professionClass.id},</if>
+			<if test="directionClass != null and directionClass.id != null">direc_class_id=#{directionClass.id},</if>
+
+		</set>
+		where id=#{id}
+	</update>
 
 </mapper>
