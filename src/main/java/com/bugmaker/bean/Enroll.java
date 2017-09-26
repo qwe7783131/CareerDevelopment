@@ -13,9 +13,9 @@ public class Enroll {
 
     private  Direction direction;
 
-    private String direcNo;
-
     private String reason;
+
+    private int status;
 
     private Date createTime;
 
@@ -43,12 +43,12 @@ public class Enroll {
         this.direction = direction;
     }
 
-    public String getDirecNo() {
-        return direcNo;
+    public int getStatus() {
+        return status;
     }
 
-    public void setDirecNo(String direcNo) {
-        this.direcNo = direcNo;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getReason() {
@@ -73,8 +73,8 @@ public class Enroll {
                 "id='" + id + '\'' +
                 ", student=" + student +
                 ", direction=" + direction +
-                ", direcNo='" + direcNo + '\'' +
                 ", reason='" + reason + '\'' +
+                ", status=" + status +
                 ", createTime=" + createTime +
                 '}';
     }

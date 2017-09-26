@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bugmaker.mapper.EnrollMapper">
+
+	<resultMap id="EnrollMap" type="Enroll">
+		<id property="id" column="enroll_id" />
+		<result property="reason" column="reason" />
+		<result property="createTime" column="enroll_create_time" />
+		<result property="status" column="enroll_status" />
+		<association property="student" javaType="Student">
+			<id property="id" column="stu_id"/>
+		</association>
+		<association property="direction" javaType="Direction" resultMap="com.bugmaker.mapper.DirectionMapper.directMap" />
+	</resultMap>
+
+	<!--根据学生id查询录取情况-->
+	<select id="selectEnrollByStudentId" resultMap="EnrollMap">
+		SELECT e.id enroll_id,stu_id, reason, create_time enroll_create_time,e.status enroll_status,
+		d.id direc_id,d.name direc_name, direct_describe, d.status direc_status, d.enable direc_enable,
+		dept.id id, dept_name
+		FROM enroll e, direction d, dept WHERE e.direc_id = d.id
+		AND stu_id = #{studentId} AND d.dept_id = dept.id ORDER BY create_time DESC LIMIT 1
+	</select>
+
+	<!--判断当前用户是否填写过志愿-->
+	<select id="isChooseEnroll" parameterType="string" resultType="string">
+		SELECT status FROM enroll WHERE stu_id = #{studentId} ORDER BY create_time DESC LIMIT 1
+	</select>
+
+	<!-- 插入学生填报志愿 -->
+	<insert id="insertEnroll" parameterType="Enroll">
+		INSERT INTO enroll (
+			id, stu_id,direc_id,reason,create_time,status
+		) VALUES (
+			REPLACE(UUID(),"-",""), #{student.id}, #{direction.id}, #{reason}, #{createTime}, 2
+		)
+	</insert>
+
+</mapper>
