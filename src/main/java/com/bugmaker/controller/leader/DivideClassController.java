@@ -1,5 +1,6 @@
 package com.bugmaker.controller.leader;
 
+import com.bugmaker.bean.Enroll;
 import com.bugmaker.service.VolunteerInfoService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -93,6 +94,20 @@ public class DivideClassController {
                                        String deptId, String directId, String classId){
 
         return volunteerInfoService.toDividePage(deptId, directId, classId, currentPage);
+    }
+
+    /**
+     * 设置志愿状态并填入理由
+     * @param enrollId 志愿id
+     * @param status 审核状态
+     * @return 执行结果
+     */
+    @ResponseBody
+    @RequestMapping("modifyEnrollStatus.do")
+    public boolean modifyEnrollState(String enrollId, Integer status, String reason){
+//        System.out.println("aaaa");
+//        System.out.println(enrollId + "" + status + "" + reason);
+        return volunteerInfoService.modifyEnrollStatus(enrollId, status, reason);
     }
 
 }

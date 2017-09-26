@@ -30,4 +30,10 @@ public class EnrollMapperTest extends BaseTest {
             System.out.println(enroll);
         }
     }
+
+    @Test
+    public void testUpdate(){
+        int a = enrollMapper.updateEnroll("beeeca46a2af11e7b4d800163e083221", 1, "aa");
+        System.out.println(a);
+    }
 }

@@ -16,5 +16,13 @@ public interface VolunteerInfoService {
 
     ModelAndView toDividePage(String deptId, String directId, String classId, String curr);
 
+    /**
+     * 修改志愿状态
+     * @param enrollId
+     * @param status
+     * @param reason
+     * @return
+     */
+    boolean modifyEnrollStatus(String enrollId, Integer status, String reason);
 
 }

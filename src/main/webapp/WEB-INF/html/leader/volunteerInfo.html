@@ -93,13 +93,13 @@
                     <th>学院</th>
                     <th>志愿方向</th>
                     <th>审核状态</th>
-
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 <#list map.page.list as enroll>
                     <tr>
-                        <td>#</td>
+                        <td>${enroll_index + 1}</td>
                         <td>${enroll.student.user.id}</td>
                         <td>${enroll.student.user.username}</td>
                         <td>${enroll.direction.dept.deptName}</td>
@@ -110,6 +110,22 @@
                                     ${s[1]}
                                 </#if>
                             </#list>
+                        </td>
+                        <td>
+                            <#if enroll.status?? && (enroll.status==0)>
+
+                            <#else>
+
+                                <div class="site-demo-button" id="layerDemo"
+                                     style="margin-bottom: 0;">
+                                    <button data-enrollid="${enroll.id}" data-username="${enroll.student.user.username}"
+                                            class="layui-btn layui-btn-normal layui-btn-mini"
+                                            id="accept-${enroll.id}">通过</button>
+                                    <button data-enrollid="${enroll.id}" data-username="${enroll.student.user.username}"
+                                            class="layui-btn layui-btn-danger layui-btn-mini"
+                                            id="refuse-${enroll.id}">拒绝</button>
+                                </div>
+                            </#if>
                         </td>
                     </tr>
                 </#list>
@@ -160,6 +176,7 @@
                                             <option value="2">3</option>
                                             <option value="3">4</option>
                                         </select>
+                                        <!--<input type="number" min="0" name="number" class="layui-input" />-->
                                     </div>
                                 </div>
 
@@ -301,10 +318,77 @@
 
 <#include "html/template/common_js.html" />
 <script>
-			layui.use(['laypage', 'form','element'], function() {
+			layui.use(['layer','laypage', 'form','element'], function() {
 				var laypage = layui.laypage;
 				var form = layui.form;
-				var jquery = layui.jquery;
+				var $ = layui.jquery;
+
+				//触发事件
+                var active = {
+                    acceptEnroll: function(enrollid) {
+                        layer.prompt({
+                            title: '通过'+$("#accept-"+enrollid).data('username')+'的志愿，填写理由',
+                            formType: 2,
+                            value:''
+                            },
+                            function(value, index){
+                                $.ajax({
+                                    url: '${urlbase}/modifyEnrollStatus.do',
+                                    type: 'POST',
+                                    data: {
+                                        "enrollId" : enrollid,
+                                        "status"   : 1,
+                                        "reason"   : value
+                                    },
+                                    success: function(data){
+                                        if(data == true){
+                                            setTimeout("window.location.reload()",3000);
+                                            layer.msg("修改成功！",{icon: 1});
+                                        }else{
+                                            layer.msg("修改失败！",{icon: 2});
+                                        }
+                                    }
+                                });
+                            });
+                    },
+                    refuseEnroll: function(enrollid) {
+                        layer.prompt({
+                            title: '通过'+$("#refuse-"+enrollid).data('username')+'的志愿，填写理由',
+                            formType: 2,
+                            value:''
+                            },
+                            function(value, index){
+                                $.ajax({
+                                    url: '${urlbase}/modifyEnrollStatus.do',
+                                    type: 'POST',
+                                    data: {
+                                        "enrollId" : enrollid,
+                                        "status"   : 0,
+                                        "reason"   : value
+                                    },
+                                    success: function(data){
+                                        if(data == true){
+                                            setTimeout("window.location.reload()",3000);
+                                            layer.msg("修改成功！",{icon: 1});
+                                        }else{
+                                            layer.msg("修改失败！",{icon: 2});
+                                        }
+                                    }
+                                });
+                            });
+                    }
+
+                };
+
+                $("[id^='accept-']").click(function() {
+                    var enrollid = $(this).data('enrollid');
+                    active.acceptEnroll(enrollid);
+                });
+
+                $("[id^='refuse-']").click(function() {
+                    var enrollid = $(this).data('enrollid');
+                    active.refuseEnroll(enrollid);
+                });
 				//执行一个分页
 
 
@@ -331,16 +415,16 @@
                     }
                 });
 				form.on("select(deptId)",function(data){
-					if(jquery("#directId").val() != ""){
-						jquery("#directId").val("");
+					if($("#directId").val() != ""){
+						$("#directId").val("");
 					}
-					jquery("#hidesubmit").click();
+					$("#hidesubmit").click();
 				});
 				form.on("select(directId)",function(data){
-					jquery("#hidesubmit").click();
+					$("#hidesubmit").click();
 				});
 				form.on("select(statusId)",function(data){
-					jquery("#hidesubmit").click();
+					$("#hidesubmit").click();
 				});
 			});
 		</script>

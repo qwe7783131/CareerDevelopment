@@ -23,3 +23,10 @@ target/
 .settings/*
 .classpath
 .project
+
+# Other
+src/main/resources/mybatis-config.xml
+src/main/resources/spring-dao.xml
+src/main/resources/spring-mybatis.xml
+src/main/webapp/resources/css/teacher/
+/src/test/java/com/bugmaker/BaseTest.java

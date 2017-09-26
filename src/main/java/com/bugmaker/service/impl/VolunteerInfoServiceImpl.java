@@ -192,4 +192,12 @@ public class VolunteerInfoServiceImpl implements VolunteerInfoService{
         map.put("page", page);
         return new ModelAndView("leader/divideInfo", "map", map);
     }
+
+
+    @Override
+    public boolean modifyEnrollStatus(String enrollId, Integer status, String reason) {
+        int flag = enrollMapper.updateEnroll(enrollId, status, reason);
+
+        return flag == 1 ? true : false;
+    }
 }

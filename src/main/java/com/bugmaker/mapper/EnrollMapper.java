@@ -41,4 +41,7 @@ public interface EnrollMapper {
      * @return
      */
     List<Enroll> selectByParam(@Param("deptId")String deptId, @Param("directId") String directId, @Param("status")Integer status);
+
+    int updateEnroll(@Param("enrollId") String enrollId, @Param("status") Integer status,
+                     @Param("reason") String reason);
 }

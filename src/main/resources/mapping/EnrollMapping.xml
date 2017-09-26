@@ -105,4 +105,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</where>
 
 	</select>
+
+	<update id="updateEnroll" >
+		update enroll
+		<set>
+			<if test="status != null">status=#{status},</if>
+			<if test="reason != null">reason=#{reason},</if>
+
+		</set>
+		where id=#{enrollId}
+	</update>
 </mapper>
