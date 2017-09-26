@@ -22,6 +22,20 @@ public interface UserMapper {
      */
     List<User> selectTeacherByParams(User user);
 
+    /**
+     * 多条件查询辅导员
+     * @param user
+     * @return
+     */
+    List<User> selectCounselorByParams(User user);
+
+    /**
+     * 多条件查询系领导
+     * @param user
+     * @return
+     */
+    List<User> selectLeaderByParams(User user);
+
 
     /**
      * 查询所有的专业负责人
@@ -74,5 +88,17 @@ public interface UserMapper {
      * @return
      */
     int insertUsers(List<User> users);
+
+    /**
+     * 查询所有的辅导员
+     * @return
+     */
+    List<User> getAllCounselor();
+
+    /**
+     * 查询所有的系领导
+     * @return
+     */
+    List<User> getAllLeader();
 
 }

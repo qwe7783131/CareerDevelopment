@@ -24,10 +24,10 @@ public class AdminController {
         return "admin/index";
     }
 
-    @RequestMapping("studentManage.do")
-    public String studentManageView() {
-        return "admin/studentManage";
-    }
+//    @RequestMapping("studentManage.do")
+//    public String studentManageView() {
+//        return "admin/studentManage";
+//    }
 
     /**
      * 单个添加

@@ -35,11 +35,11 @@ public interface StudentMapper {
     List<Student> selectStudentByParams(Student student);
 
     //删除学生
-    String deleteStudentById(String id);
+    int deleteStudentById(String id);
 
     //修改学生信息
-    String updateStudentById(Student student);
+    int updateStudentById(Student student);
 
     //添加教师角色
-    String insertStudentRole(UserRole userRole);
+    int insertStudentRole(UserRole userRole);
 }

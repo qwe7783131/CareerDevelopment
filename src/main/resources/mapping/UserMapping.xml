@@ -30,7 +30,7 @@
     <sql id="selectUser">
         SELECT u.id uid,username,password,sex,age,phone,email,enable,type,u.create_time ucreateTime,
         r.id rid,role_name,role_permiss,d.id,dept_name FROM user u,role r,user_role ur,dept d
-        WHERE ur.user_id = u.id AND ur.role_id = r.id AND u.dept_id = d.id
+        WHERE ur.user_id = u.id AND ur.role_id = r.id AND u.dept_id = d.id AND u.enable = 1
     </sql>
 
     <!--模糊查询所需要的条件，多条件查询 -->
@@ -101,6 +101,20 @@
         <include refid="condition" />
     </select>
 
+    <!-- 模糊查询辅导员信息 -->
+    <select id="selectCounselorByParams" parameterType="user" resultMap="userMap">
+        <include refid="selectUser" />
+        AND TYPE = 4
+        <include refid="condition" />
+    </select>
+
+    <!-- 模糊查询系领导信息 -->
+    <select id="selectLeaderByParams" parameterType="user" resultMap="userMap">
+        <include refid="selectUser" />
+        AND TYPE = 5
+        <include refid="condition" />
+    </select>
+
     <!-- 插入用户角色 -->
     <insert id="insertUserRole" parameterType="userRole">
         insert into user_role (id, user_id, role_id)
@@ -130,4 +144,16 @@
 			#{item.enable}, #{item.type}, #{item.dept.id}, #{item.creatTime})
 		</foreach>
 	</insert>
+
+    <!-- 查询所有的辅导员(type = 4) -->
+    <select id="getAllCounselor" resultMap="userMap">
+        <include refid="selectUser" />
+        AND TYPE = 4
+    </select>
+
+    <!-- 查询所有的系领导(type = 5) -->
+    <select id="getAllLeader" resultMap="userMap">
+        <include refid="selectUser" />
+        AND TYPE = 5
+    </select>
 </mapper>
