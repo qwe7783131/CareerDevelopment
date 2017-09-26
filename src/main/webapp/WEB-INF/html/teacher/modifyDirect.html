@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <#include "html/template/head.html" />
-<title>发布专业方向</title>
+<title>修改专业方向信息</title>
 </head>
 <body>
-	<blockquote class="layui-elem-quote layui-text">请编辑方向信息</blockquote>
+	<blockquote class="layui-elem-quote layui-text">修改${direction.name}信息</blockquote>
 	<div class="layui-form-item layui-form-text">
 		<div class="layui-inline">
 			<form class="layui-form" action="">
@@ -13,20 +13,47 @@
 					<label class="layui-form-label">方向名称</label>
 					<div class="layui-input-block">
 						<input type="text" name="name" required lay-verify="required"
-							placeholder="请输入方向名称" autocomplete="off" class="layui-input">
+							value="${direction.name}" autocomplete="off" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-form-item" style="width: 450px;">
 					<label class="layui-form-label">方向简介</label>
 					<div class="layui-input-block">
-						<textarea placeholder="请输入简介" name="directDescribe"
-							class="layui-textarea"></textarea>
+						<textarea name="directDescribe"
+							class="layui-textarea">${direction.directDescribe}</textarea>
+					</div>
+				</div>
+				<div class="layui-form-item" style="width: 450px;">
+					<label class="layui-form-label">方向简介</label>
+					<div class="layui-input-block">
+						<select id="deptId" lay-verify="required" lay-filter="deptId" name="enable"
+						form="hideform">
+						<#if direction.enable == 1>
+						<option value="1" selected>有效</option>
+						<#else>
+						<option value="1">有效</option>
+						</#if>
+						<#if direction.enable == 0>
+						<option value="0" selected>有效</option>
+						<#else>
+						<option value="0">无效</option>
+						</#if>
+					</select>
+					</div>
+				</div>
+				<div class="layui-form-item layui-hide" style="width: 450px;">
+					<div class="layui-input-block">
+						<input type="text" name="directId" value="${direction.id}">
+					</div>
+				</div>
+				<div class="layui-form-item layui-hide" style="width: 450px;">
+					<div class="layui-input-block">
+						<input type="text" name="status" value="${direction.status}">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<div class="layui-input-block">
-						<button class="layui-btn" lay-submit lay-filter="*">发布</button>
-						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						<button class="layui-btn" lay-submit lay-filter="*">提交修改</button>
 					</div>
 				</div>
 			</form>
@@ -41,16 +68,17 @@
 
 			form.on('submit',function(data){
 				var direction = {};
+				direction.id = data.field.directId;
+				direction.enable = data.field.enable;
+				direction.status = data.field.status;
 				direction.name = data.field.name;
-				direction.directDescribe = data.field.directDescribe
-				console.log(direction);
+				direction.directDescribe = data.field.directDescribe;
 				$.ajax({
-					url: '${base}/addDirection.do',
+					url: '${base}/modifyDirection.do',
 					type: 'POST',
 					contentType: 'application/json;charset=utf-8',
 					data: JSON.stringify(direction),
 					success: function(data){
-						console.log(data);
 						if(data == '1'){
 							setTimeout(function(){
 								var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引

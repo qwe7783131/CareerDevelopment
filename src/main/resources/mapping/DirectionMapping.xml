@@ -29,6 +29,21 @@
         FROM direction direc, dept d
         WHERE direc.dept_id = d.id AND d.id=#{id}
     </select>
+    
+    <select id="selectDirectionById" parameterType="Dept" resultMap="directMap">
+        SELECT direc.*, d.id, dept_name
+        FROM direction direc, dept d
+        WHERE direc.dept_id = d.id AND direc.id=#{directId}
+    </select>
+    
+    <update id="updateDirection">
+    	update direction set name=#{name}, direct_describe=#{directDescribe},
+    	status=#{status}, enable=#{enable} where id=#{id}
+    </update>
+    
+    <delete id="deleteDirection">
+    	delete from direction where id=#{directId}
+    </delete>
 
 
 </mapper>

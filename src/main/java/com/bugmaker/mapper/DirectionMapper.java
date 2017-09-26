@@ -19,4 +19,13 @@ public interface DirectionMapper {
      * 查询
      */
     List<Direction> selectDirectionByDept(Dept dept);
+
+    //根据id查询专业方向信息
+	Direction selectDirectionById(String directId);
+
+	//修改专业方向信息
+	int updateDirection(Direction direction);
+
+	//删除专业方向信息
+	int deleteDirection(String directId);
 }
