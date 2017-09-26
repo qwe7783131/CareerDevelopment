@@ -5,6 +5,8 @@ import com.bugmaker.bean.Direction;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 /**
  * 专业方向
  */
@@ -28,4 +30,11 @@ public interface DirectionMapper {
 
 	//删除专业方向信息
 	int deleteDirection(String directId);
+
+	//更新方向的状态
+	int updateDirectionState(@Param("directId") String directId, @Param("status") int status);
+
+	//根据学院id和方向id查询，返回list
+	List<Direction> selectDirectByIdAndDeptIdReturnList(@Param("directId") String directId,
+			@Param("deptId") String deptId);
 }

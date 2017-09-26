@@ -44,6 +44,16 @@
     <delete id="deleteDirection">
     	delete from direction where id=#{directId}
     </delete>
+    
+    <update id="updateDirectionState">
+    	update direction set status=#{status} where id=#{directId}
+    </update>
+    
+    <select id="selectDirectByIdAndDeptIdReturnList" resultMap="directMap">
+    	select direc.id, name, d.id, direct_describe, status, enable
+    	form direction direc, dept d
+    	where direc.dept_id=d.id direc.id=#{directId} and dept_id=#{deptId}
+    </select>
 
 
 </mapper>
