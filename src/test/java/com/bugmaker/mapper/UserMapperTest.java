@@ -86,7 +86,7 @@ public class UserMapperTest extends BaseTest{
     @Test
     public void updateTest() {
         User user = new User();
-        user.setId("2");
+        user.setId("7");
         user.setPassword("333");
         user.setPassword("1");
         Dept dept = new Dept();
@@ -98,7 +98,7 @@ public class UserMapperTest extends BaseTest{
 
     @Test
     public void deleteTest() {
-        int i = userMapper.deleteUserById("1");
+        int i = userMapper.deleteUserById("9");
         System.out.println(i);
     }
 

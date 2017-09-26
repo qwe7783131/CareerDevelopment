@@ -47,13 +47,25 @@
     </sql>
 
     <!-- 根据id删除对应的用户 -->
-    <delete id="deleteUserById" parameterType="string">
-        delete from user where id = #{id}
-    </delete>
+    <update id="deleteUserById" parameterType="string">
+        <!--delete from user where id = #{id}-->
+        update user set enable = 0 where id = #{id}
+    </update>
     <!--根据id修改对应的用户信息 -->
     <update id="updateUserById" parameterType="user">
-        UPDATE user SET username=#{username}, PASSWORD=#{password}, sex=#{sex}, age=#{age}, phone=#{phone},
-        email=#{email},ENABLE=#{enable}, TYPE=#{type},dept_id=#{dept.id} WHERE id = #{id}
+        UPDATE user
+        <set>
+            <if test="username != null">username=#{username},</if>
+            <if test="password != null">PASSWORD=#{password},</if>
+            <if test="sex != null">sex=#{sex},</if>
+            <if test="age != null">age=#{age},</if>
+            <if test="phone != null">phone=#{phone},</if>
+            <if test="enable != null">ENABLE=#{enable},</if>
+            <if test="email != null">email=#{email},</if>
+            <if test="type != null">TYPE=#{type},</if>
+            <if test="dept != null and dept.id != null">dept_id=#{dept.id},</if>
+        </set>
+       WHERE id = #{id}
     </update>
 
     <!-- 根据id查询登录的用户 -->
@@ -92,7 +104,7 @@
     <!-- 插入用户角色 -->
     <insert id="insertUserRole" parameterType="userRole">
         insert into user_role (id, user_id, role_id)
-        values (UUID(), #{user.id}, #{role.id})
+        values (replace(uuid(),"-",""), #{user.id}, #{role.id})
     </insert>
     <!-- 添加用户基表数据,插入用户前必须要先插入角色 -->
 	<insert id="insertUser" parameterType="user">
