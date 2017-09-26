@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>选人分班</title>
+
+    <#include "html/template/head.html" />
+    <#assign urlbase=base + "/leader" />
+</head>
+
+<body>
+<div class="layui-tab">
+    <ul class="layui-tab-title">
+        <li class="layui-this">填报详情</li>
+        <!--<li>查看分班名单</li>-->
+        <li>分班</li>
+    </ul>
+    <div class="layui-tab-content">
+        <div class="layui-tab-item layui-show">
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>选择专业</legend>
+            </fieldset>
+            <form action="${urlbase}/toVolunteerInfo.do" id="hideform"
+                  class="layui-hide">
+                <input type="submit" id="hidesubmit" />
+            </form>
+            <form class="layui-form" action="">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <select id="deptId" lay-verify="required" lay-filter="deptId" name="deptId"
+                                form="hideform">
+                            <option value="">请先选择学院</option> <#list map.depts as dept> <#if
+                                map.deptId?? && (map.deptId==dept.id)>
+                            <option value="${dept.id}" selected>${dept.deptName}</option>
+                            <#else>
+                                <option value="${dept.id}">${dept.deptName}</option> </#if>
+                        </#list>
+                        </select>
+                    </div>
+                    <div class="layui-inline">
+                        <select id="directId" lay-verify="required" lay-filter="directId" name="directId"
+                                form="hideform">
+                            <option value="">请选择志愿方向</option> <#list map.directions as
+                                direction> <#if map.directId?? &&
+                                (map.directId==direction.id)>
+                            <option value="${direction.id}" selected>${direction.name}</option>
+                            <#else>
+                                <option value="${direction.id}">${direction.name}</option>
+                        </#if> </#list>
+                        </select>
+                    </div>
+                    <div class="layui-inline">
+                        <select id="statusId" lay-verify="required" lay-filter="statusId" name="statusId"
+                                form="hideform">
+                            <#assign statusArr = [
+                                    [0,'没通过'],
+                                    [1,'通过'],
+                                    [2,'待审核']
+                                    ] >
+                            <option value="">请选择志愿方向</option>
+                                <#list statusArr as s>
+                                    <#if map.status?? && (map.status==s[0])>
+                                         <option value="${s[0]}" selected>${s[1]}</option>
+                                    <#else>
+                                      <option value="${s[0]}">${s[1]}</option>
+                                    </#if>
+                                </#list>
+                        </select>
+                    </div>
+                </div>
+            </form>
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>填报详情-学生试图</legend>
+            </fieldset>
+            <div class="layui-row">
+                <div class="layui-col-xs3 layui-col-xs-offset9 layui-col-sm2 layui-col-sm-offset10 layui-col-md1 layui-col-md-offset11">
+                    <button class="layui-btn layui-btn-small layui-btn-norma"><i class="layui-icon">&#xe601;</i>导出数据</button>
+                </div>
+            </div>
+            <table class="layui-table">
+                <colgroup>
+                    <col width="150">
+                    <col width="200">
+                    <col>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>学号</th>
+                    <th>姓名</th>
+                    <th>学院</th>
+                    <th>志愿方向</th>
+                    <th>审核状态</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                <#list map.page.list as enroll>
+                    <tr>
+                        <td>#</td>
+                        <td>${enroll.student.user.id}</td>
+                        <td>${enroll.student.user.username}</td>
+                        <td>${enroll.direction.dept.deptName}</td>
+                        <td>${enroll.direction.name}</td>
+                        <td>
+                            <#list statusArr as s>
+                                <#if enroll.status?? && (enroll.status==s[0])>
+                                    ${s[1]}
+                                </#if>
+                            </#list>
+                        </td>
+                    </tr>
+                </#list>
+
+                </tbody>
+            </table>
+            <div id="demo1"
+                 style='padding-left: 50px; width: 100%; height: 50px; position: fixed; left: 100px;'></div>
+
+        </div>
+
+        <div class="layui-tab-item">
+
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+                <legend>待分班</legend>
+            </fieldset>
+
+            <table class="layui-table">
+                <colgroup>
+                    <col width="150">
+                    <col width="200">
+                    <col>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>专业</th>
+                    <th>专业方向</th>
+                    <th>志愿人数</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>软件工程</td>
+                    <td>java方向</td>
+                    <td>30</td>
+                    <td>
+                        <form class="layui-form">
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <div class="layui-input-inline">
+                                        <select name="city">
+                                            <option value="">请选定分班个数</option>
+                                            <option value="0">1</option>
+                                            <option value="1">2</option>
+                                            <option value="2">3</option>
+                                            <option value="3">4</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="layui-inline">
+                                    <div class="layui-input-block">
+                                        <button class="layui-btn layui-btn-normal layui-btn layui-btn-normal" lay-submit="" lay-filter="demo1"><i class="layui-icon"></i>确认</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>软件工程</td>
+                    <td>java方向</td>
+                    <td>30</td>
+                    <td>
+                        <form class="layui-form">
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <div class="layui-input-inline">
+                                        <select name="city">
+                                            <option value="">请选定分班个数</option>
+                                            <option value="0">1</option>
+                                            <option value="1">2</option>
+                                            <option value="2">3</option>
+                                            <option value="3">4</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="layui-inline">
+                                    <div class="layui-input-block">
+                                        <button class="layui-btn layui-btn-normal layui-btn layui-btn-normal" lay-submit="" lay-filter="demo1"><i class="layui-icon"></i>确认</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>软件工程</td>
+                    <td>java方向</td>
+                    <td>30</td>
+                    <td>
+                        <form class="layui-form">
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <div class="layui-input-inline">
+                                        <select name="city">
+                                            <option value="">请选定分班个数</option>
+                                            <option value="0">1</option>
+                                            <option value="1">2</option>
+                                            <option value="2">3</option>
+                                            <option value="3">4</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="layui-inline">
+                                    <div class="layui-input-block">
+                                        <button class="layui-btn layui-btn-normal layui-btn layui-btn-normal" lay-submit="" lay-filter="demo1"><i class="layui-icon"></i>确认</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>软件工程</td>
+                    <td>java方向</td>
+                    <td>30</td>
+                    <td>
+                        <form class="layui-form">
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <div class="layui-input-inline">
+                                        <select name="city">
+                                            <option value="">请选定分班个数</option>
+                                            <option value="0">1</option>
+                                            <option value="1">2</option>
+                                            <option value="2">3</option>
+                                            <option value="3">4</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="layui-inline">
+                                    <div class="layui-input-block">
+                                        <button class="layui-btn layui-btn-normal layui-btn layui-btn-normal" lay-submit="" lay-filter="demo1"><i class="layui-icon"></i>确认</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>软件工程</td>
+                    <td>java方向</td>
+                    <td>30</td>
+                    <td>
+                        <form class="layui-form">
+                            <div class="layui-form-item">
+                                <div class="layui-inline">
+                                    <div class="layui-input-inline">
+                                        <select name="city">
+                                            <option value="">请选定分班个数</option>
+                                            <option value="0">1</option>
+                                            <option value="1">2</option>
+                                            <option value="2">3</option>
+                                            <option value="3">4</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="layui-inline">
+                                    <div class="layui-input-block">
+                                        <button class="layui-btn layui-btn-normal layui-btn layui-btn-normal" lay-submit="" lay-filter="demo1"><i class="layui-icon"></i>确认</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<#include "html/template/common_js.html" />
+<script>
+			layui.use(['laypage', 'form','element'], function() {
+				var laypage = layui.laypage;
+				var form = layui.form;
+				var jquery = layui.jquery;
+				//执行一个分页
+
+
+				laypage.render({
+					elem: 'layPage3', //注意，这里的 test1 是 ID，不用加 # 号
+					count: 100, //数据总数，从服务端得到
+					limit: 10, //每页条数
+					groups: 5,
+					layout: ['prev', 'page', 'next', 'count']
+				});
+
+                laypage.render({
+                    elem: 'demo1',
+                    count: ${map.page.total}, //数据总数
+                    limit: ${map.page.pageSize},
+                    first: '首页',
+                    last: '尾页',
+                    curr: ${map.page.pageNum},
+                    layout: ['first','prev', 'page', 'next','last','count','skip'],
+                    jump: function(obj,first) {
+                        if(!first){
+                            window.location.href="${urlbase}/toVolunteerInfo.do?curr="+obj.curr+"&deptId="+jquery("#deptId").val()+"&professId="+jquery("#professId").val();
+                        }
+                    }
+                });
+				form.on("select(deptId)",function(data){
+					if(jquery("#directId").val() != ""){
+						jquery("#directId").val("");
+					}
+					jquery("#hidesubmit").click();
+				});
+				form.on("select(directId)",function(data){
+					jquery("#hidesubmit").click();
+				});
+				form.on("select(statusId)",function(data){
+					jquery("#hidesubmit").click();
+				});
+			});
+		</script>
+</body>
+
+</html>

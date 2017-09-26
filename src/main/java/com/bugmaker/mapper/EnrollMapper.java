@@ -1,6 +1,7 @@
 package com.bugmaker.mapper;
 
 import com.bugmaker.bean.Enroll;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -25,4 +26,19 @@ public interface EnrollMapper {
      * 根据学生id查询对应的录取情况
      */
     Enroll selectEnrollByStudentId(String StudentId);
+
+    /**
+     * 查看所有志愿
+     * @return
+     */
+    List<Enroll> selectAllEnrolls();
+
+    /**
+     * 根据筛选条件查询
+     * @param deptId 学院id
+     * @param directId 志愿方向id
+     * @param status 审核状态
+     * @return
+     */
+    List<Enroll> selectByParam(@Param("deptId")String deptId, @Param("directId") String directId, @Param("status")Integer status);
 }

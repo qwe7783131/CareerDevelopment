@@ -15,6 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<association property="direction" javaType="Direction" resultMap="com.bugmaker.mapper.DirectionMapper.directMap" />
 	</resultMap>
 
+
 	<!--根据学生id查询录取情况-->
 	<select id="selectEnrollByStudentId" resultMap="EnrollMap">
 		SELECT e.id enroll_id,stu_id, reason, create_time enroll_create_time,e.status enroll_status,
@@ -38,4 +39,70 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 	</insert>
 
+	<!-- By wurenjie -->
+	<sql id="selectAll">
+
+		SELECT e.create_time e_time, e.reason e_reason, e.status e_status, e.id e_id, u.*,dd.*
+		FROM enroll e
+		LEFT JOIN
+		(
+			SELECT direction.id direct_id, direction.name direct_name, direction.direct_describe direct_describe, d2.id d2_id, d2.dept_name d2_name
+			FROM direction
+			LEFT JOIN dept d2
+			ON direction.dept_id = d2.id
+		) dd on e.direc_id = dd.direct_id
+		LEFT JOIN user u on e.stu_id = u.id
+	</sql>
+
+	<resultMap id="enMap" type="com.bugmaker.bean.Enroll">
+		<id property="id" column="e_id" />
+		<result property="reason" column="e_reason" />
+		<result property="createTime" column="e_time" />
+		<result property="status" column="e_status" />
+		<association property="student" javaType="Student">
+			<association property="user" javaType="com.bugmaker.bean.User">
+				<id property="id" column="id" />
+				<result property="username" column="username" />
+				<result property="password" column="password" />
+				<result property="sex" column="sex" />
+				<result property="age" column="age" />
+				<result property="phone" column="phone" />
+				<result property="email" column="email" />
+				<result property="enable" column="enable" />
+				<result property="type" column="type" />
+				<result property="creatTime" column="create_time" />
+			</association>
+		</association>
+		<association property="direction" javaType="com.bugmaker.bean.Direction">
+			<id property="id" column="direct_id" />
+			<result property="name" column="direct_name" />
+			<result property="directDescribe" column="direct_describe" />
+			<association property="dept" javaType="com.bugmaker.bean.Dept">
+				<id property="id" column="d2_id" />
+				<result property="deptName" column="d2_name" />
+			</association>
+		</association>
+	</resultMap>
+
+	<select id="selectAllEnrolls" resultMap="enMap">
+		<include refid="selectAll"/>
+
+	</select>
+
+	<select id="selectByParam" resultMap="enMap">
+		<include refid="selectAll" />
+
+		<where>
+			<if test="deptId != null">
+				dd.d2_id = #{deptId}
+			</if>
+			<if test="directId != null">
+				AND dd.direct_id = #{directId}
+			</if>
+			<if test="status != null">
+				AND e.status = #{status}
+			</if>
+		</where>
+
+	</select>
 </mapper>

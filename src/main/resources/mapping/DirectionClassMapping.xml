@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bugmaker.mapper.DirectionClassMapper">
+
+	<resultMap id="dcMap" type="com.bugmaker.bean.DirectionClass">
+		<id property="id" column="dc_id" />
+		<result property="name" column="dc_name" />
+		<association property="direction" javaType="com.bugmaker.bean.Direction">
+			<id property="id" column="direct_id" />
+			<result property="name" column="direct_name" />
+			<result property="directDescribe" column="direct_describe" />
+			<association property="dept" javaType="com.bugmaker.bean.Dept">
+				<id property="id" column="d2_id" />
+				<result property="deptName" column="d2_name" />
+			</association>
+		</association>
+	</resultMap>
+	<sql id="selectAll">
+		SELECT dc.id dc_id, dc.name dc_name, dd.*
+		FROM direction_class dc
+		LEFT JOIN (
+			SELECT direction.id direct_id, direction.name direct_name, direction.direct_describe direct_describe, d2.id d2_id, d2.dept_name d2_name
+			FROM direction
+			LEFT JOIN dept d2
+			ON direction.dept_id = d2.id
+		) dd ON dc.id = dd.direct_id
+	</sql>
+
+	<select id="selectAllDirectionClass" resultMap="dcMap">
+		<include refid="selectAll" />
+	</select>
+
+	<!-- 根据deptid查询专业方向班级 -->
+	<select id="selectDirectionClassByDeptId" resultMap="dcMap">
+
+		<include refid="selectAll" />
+		WHERE dd.d2_id = #{deptId}
+
+	</select>
+
+	<!-- 根据专业方向id查询专业方向班级 -->
+	<select id="selectDirectionClassByDirectId" resultMap="dcMap">
+
+		<include refid="selectAll" />
+		WHERE dd.direct_id = #{directId}
+
+	</select>
+
+</mapper>

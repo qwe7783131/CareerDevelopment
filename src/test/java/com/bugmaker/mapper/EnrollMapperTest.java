@@ -1,0 +1,33 @@
+package com.bugmaker.mapper;
+
+import com.bugmaker.BaseTest;
+import com.bugmaker.bean.Enroll;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
+public class EnrollMapperTest extends BaseTest {
+
+    @Autowired
+    private EnrollMapper enrollMapper;
+
+    @Test
+    public void testSelectAll(){
+        List<Enroll> enrolls = enrollMapper.selectAllEnrolls();
+
+        for(Enroll enroll : enrolls){
+            System.out.println(enroll);
+        }
+    }
+
+    @Test
+    public void testSelectByParam(){
+        List<Enroll> enrolls = enrollMapper.selectByParam("e2c3cc8ba07a11e7b4d800163e083221", "e5f6450fa1bc11e7b4d800163e083221",1);
+
+
+        for(Enroll enroll : enrolls){
+            System.out.println(enroll);
+        }
+    }
+}
