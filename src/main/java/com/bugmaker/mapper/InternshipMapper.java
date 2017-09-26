@@ -1,7 +1,6 @@
 package com.bugmaker.mapper;
 
 
-import com.bugmaker.bean.InsVoluntee;
 import com.bugmaker.bean.Internship;
 import com.bugmaker.bean.TeacIns;
 
@@ -66,5 +65,12 @@ public interface InternshipMapper {
      * @return
      */
     int deleteInternshipById(String internshipId);
+    
+    /**
+     * 根据学院id查询实现项目
+     * @param deptId
+     * @return
+     */
+	List<Internship> selectInternshipsByDeptId(String deptId);
 
 }
