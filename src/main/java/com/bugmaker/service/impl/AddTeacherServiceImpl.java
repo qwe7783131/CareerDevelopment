@@ -58,7 +58,7 @@ public class AddTeacherServiceImpl implements AddTeacherService {
         User user = new User();
         user.setId(userMap.get("id").toString());
         user.setUsername(userMap.get("username").toString());
-        user.setPassword((new Md5Hash(userMap.get("password").toString())).toString());
+        user.setPassword((new Md5Hash(userMap.get("id").toString(),userMap.get("password").toString())).toString());
         user.setSex(userMap.get("sex").toString());
         user.setAge(Integer.valueOf(userMap.get("age").toString()));
         user.setPhone(userMap.get("phone").toString());
@@ -136,7 +136,7 @@ public class AddTeacherServiceImpl implements AddTeacherService {
         com.bugmaker.bean.User user = new User();
         user.setId(userMap.get("id").toString());
         user.setUsername(userMap.get("username").toString());
-        user.setPassword((new Md5Hash(userMap.get("password").toString())).toString());
+        user.setPassword((new Md5Hash(userMap.get("id").toString(),userMap.get("password").toString())).toString());
         user.setSex(userMap.get("sex").toString());
         user.setAge(Integer.valueOf(userMap.get("age").toString()));
         user.setPhone(userMap.get("phone").toString());

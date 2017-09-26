@@ -88,14 +88,7 @@ public class StudentController {
 	public String teacherU(){
 		return "student/teacherU";
 	}
-	/**
-     * 学生填报志愿页面
-     * @return
-     */
-	@RequestMapping("voluntaryReporting.do")
-	public String voluntaryReporting(){
-		return "student/voluntaryReporting";
-	}
+
 
 	/**
 	 * 专业方向志愿填报
