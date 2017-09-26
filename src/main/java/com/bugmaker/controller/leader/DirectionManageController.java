@@ -67,4 +67,37 @@ public class DirectionManageController {
 	public String deleteDirection(@RequestParam String directId){
 		return ""+directionManageService.deleteDirection(directId);
 	}
+	
+	/**
+	 * 跳转到开启关闭学生填报方向志愿功能页面
+	 * @param curr  客户端分页参数
+	 * @return      返回视图
+	 */
+	@RequestMapping("toModifyProfessState.do")
+	public ModelAndView toModifyDirectionState(@RequestParam(required=false) String directId, @RequestParam(defaultValue="1") String curr){
+		return directionManageService.toModifyProfessState(directId,curr);
+	}
+	
+	/**
+	 * 开启/关闭学生选择权限
+	 * @param directId
+	 * @param action
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("modifyDirectionState.do")
+	public String modifyDirectionState(@RequestParam String directId, @RequestParam String action){
+		return ""+directionManageService.modifyDirectionState(directId,action);
+	}
+	
+	/**
+	 * 一键开启或关闭
+	 * @param openOrClose
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("onKeyOpenOrClose.do")
+	public String onKeyOpenOrClose(@RequestParam String openOrClose){
+		return ""+directionManageService.onKeyOpenOrClose(openOrClose);
+	}
 }
