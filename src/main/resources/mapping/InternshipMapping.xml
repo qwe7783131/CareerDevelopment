@@ -8,6 +8,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<id property="id" column="iid"/>
 		<result property="type" column="itype" />
 		<result property="name" column="iname" />
+		<result property="status" column="istatus"/>
+		<result property="" column="ienable"/>
 		<association property="job" javaType="com.bugmaker.bean.Job">
 			<id column="jid" property="id" />
 			<result column="jname" property="name" />
@@ -23,11 +25,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				<result column="cadvisor" property="advisor" />
 			</association>
 		</association>
+		<association property="dept" javaType="Dept" resultMap="com.bugmaker.mapper.DeptMapper.deptResult"/>
 		<collection property="teachers" ofType="com.bugmaker.bean.User">
 			<id property="id" column="uid"  />
 			<result property="username" column="u_username"  />
 		</collection>
 	</resultMap>
+	
+	<sql id="selectSql">
+		SELECT  i.id iid, i.type itype,
+        j.id jid,
+        c.id cid, c.name cname, c.address caddress, c.phone cphone, c.advisor cadvisor,
+        j.name jname, j.salary jsalary, j.outteac_id joutteacherid,
+        i.name iname,
+        u.id uid, u.username u_username
+        FROM ins_voluntee iv,internship i, company c, job j, teac_ins ti, user u
+	</sql>
 
     <!--根据学生id查询项目志愿 -->
     <select id="selectInsVolunteerByStuId" parameterType="string" resultMap="internshipMap">
@@ -118,5 +131,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteInternshipById" parameterType="string">
 		delete from internship where id = #{id}
 	</delete>
+	
+	<select id="selectInternshipsByDeptId" resultMap="internshipMap">
+		select id iid, type itype, name iname, status istatus, enable ienable
+		from internship where dept = #{deptId}
+	</select>
 
 </mapper>
