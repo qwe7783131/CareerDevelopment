@@ -140,6 +140,7 @@
 				first: '首页',
 				last: '尾页',
 				curr: ${page.pageNum},
+				layout:['first','prev','page','next','count'],
 				jump : function(obj,first) {
 					if(!first){
 						window.location.href="${base}/toDirectionManagePage.do?curr="+obj.curr;
