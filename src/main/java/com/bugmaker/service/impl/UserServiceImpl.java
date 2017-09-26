@@ -45,9 +45,12 @@ public class UserServiceImpl implements UserService {
             modelAndView.addObject("map",map);
             return modelAndView;
         } else {
-            System.out.println(user.getPassword());
-            System.out.println(new Md5Hash(user.getId(),password.trim()).toString());
-            if (user.getPassword().equals(new Md5Hash(user.getId(),password.trim()).toString())) { // 判断密码是否正确
+//            System.out.println("输入"+userName);
+//            System.out.println(user.getId());
+//            System.out.println("输入密码"+password);
+//            System.out.println(user.getPassword());
+//            System.out.println("加密后"+new Md5Hash(password.trim()).toString());
+            if (user.getPassword().equals(new Md5Hash(userName.trim(),password.trim()).toString())) { // 判断密码是否正确
                 RequestUtil.loginUserInfo(user);
                 System.out.println("11");
                 System.out.println(user.getType());

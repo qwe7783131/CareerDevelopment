@@ -63,9 +63,13 @@
     <select id="selectDirectByIdAndDeptIdReturnList" resultMap="directMap">
     	select direc.id direc_id, name direc_name, d.id,dept_name, direct_describe,
         direc.status direc_status, direc.enable direc_enable
-    	form direction direc, dept d
-    	where direc.dept_id=d.id direc.id=#{directId} and dept_id=#{deptId}
+    	from direction direc, dept d
+    	where direc.dept_id=d.id and direc.id=#{directId}
     </select>
+    
+    <update id="updateSomeDirectionsStatusByDept">
+    	update direction set status=#{status} where dept_id=#{deptId}
+    </update>
 
 
 </mapper>
