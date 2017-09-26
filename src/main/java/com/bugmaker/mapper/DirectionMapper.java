@@ -39,6 +39,8 @@ public interface DirectionMapper {
 	int updateDirectionState(@Param("directId") String directId, @Param("status") int status);
 
 	//根据学院id和方向id查询，返回list
-	List<Direction> selectDirectByIdAndDeptIdReturnList(@Param("directId") String directId,
-			@Param("deptId") String deptId);
+	List<Direction> selectDirectByIdAndDeptIdReturnList(String directId);
+	
+	//根据学院id批量更新专业方向状态
+	int updateSomeDirectionsStatusByDept(@Param("deptId") String deptId, @Param("status") int status);
 }
