@@ -164,12 +164,9 @@ public class AddTeacherServiceImpl implements AddTeacherService {
         dept1.setId(dept);
         user.setDept(dept1);
         user.setId(id);
-        List<User> userList = userMapper.selectTeacherByParams(user);
-//        for(User users : userList){
-//            System.out.println(users);
-//        }
         Integer currPage = Integer.valueOf(currentPage);
         PageHelper.startPage(currPage, 6);
+        List<User> userList = userMapper.selectTeacherByParams(user);
         PageInfo<User> page = new PageInfo<>(userList);
         map.put("page",page);
         List<Dept> selectAllDept = teacherService.selectAllDept();
@@ -185,9 +182,9 @@ public class AddTeacherServiceImpl implements AddTeacherService {
     //获取数据跳转到teacherManage
     public ModelAndView teacherManageView(String currentPage){
         Map<String ,Object> map = new HashMap<String, Object>();
-        List<User> selectAllTea = teacherService.selectAllTea();
         Integer currPage = Integer.valueOf(currentPage);
         PageHelper.startPage(currPage, 6);
+        List<User> selectAllTea = teacherService.selectAllTea();
         PageInfo<User> page = new PageInfo<>(selectAllTea);
         List<Dept> selectAllDept = teacherService.selectAllDept();
         map.put("page",page);
