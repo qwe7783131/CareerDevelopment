@@ -12,15 +12,19 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface DirectionMapper {
 
-    /**
-     * 添加
+	/**
+	 * 添加专业方向
+	 */
+	int insertDirection(Direction direction);
+	/**
+	 * 学生根据学院查询所有专业方向
      */
-    int insertDirection(Direction direction);
+	List<Direction> studentSelectDirectionByDept(Dept dept);
 
-    /**
-     * 查询
-     */
-    List<Direction> selectDirectionByDept(Dept dept);
+	/**
+	 * 教师根据学院查询所有专业方向
+	 */
+	List<Direction> selectDirectionByDept(Dept dept);
 
     //根据id查询专业方向信息
 	Direction selectDirectionById(String directId);
