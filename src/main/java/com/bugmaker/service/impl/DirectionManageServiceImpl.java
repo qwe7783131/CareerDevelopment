@@ -1,6 +1,8 @@
 package com.bugmaker.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -72,5 +74,68 @@ public class DirectionManageServiceImpl implements DirectionManageService {
 	public int deleteDirection(String directId) {
 		
 		return directionMapper.deleteDirection(directId);
+	}
+
+	/**
+	 * 返回开启和关闭学生填报专业方向志愿页面视图
+	 */
+	@Override
+	public ModelAndView toModifyProfessState(String directId,String curr) {
+		
+		System.out.println(directId);
+		int nowPage = Integer.valueOf(curr);
+		Dept dept = new Dept();//dept应该从session获取
+		dept.setId("13d59d9fa01411e7b4d800163e083221");//需从session获取
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Direction> directions1 = directionMapper.selectDirectionByDept(dept);
+		PageInfo<Direction> page = null;
+		PageHelper.startPage(nowPage, 5);
+		if(directId != null && !directId.equals("")){
+			List<Direction> directions = directionMapper.selectDirectByIdAndDeptIdReturnList(directId);
+			page = new PageInfo<>(directions);
+			map.put("directId", directId);
+			
+		}else{
+			List<Direction> directions = directionMapper.selectDirectionByDept(dept);
+			page = new PageInfo<>(directions);
+		}
+		
+		System.out.println(page);
+		map.put("directions", directions1);
+		map.put("page", page);
+		
+		return new ModelAndView("leader/setProfessState", "map", map);
+	}
+
+	/**
+	 * 开启关闭学生选择权限
+	 */
+	@Override
+	public int modifyDirectionState(String directId, String action) {
+		int status = 0;
+		if(action.equals("1")){
+			status = 1;
+		}else if(action.equals("0")){
+			status = 0;
+		}
+		
+		return directionMapper.updateDirectionState(directId,status);
+	}
+
+	/**
+	 * 一键开启或关闭
+	 */
+	@Override
+	public int onKeyOpenOrClose(String openOrClose) {
+		int status = 0;
+		if(openOrClose.equals("1")){
+			status = 1;
+		}else{
+			status = 0;
+		}
+		Dept dept = new Dept();//dept应该从session获取
+		dept.setId("13d59d9fa01411e7b4d800163e083221");//需从session获取
+		
+		return directionMapper.updateSomeDirectionsStatusByDept(dept.getId(),status);
 	}
 }

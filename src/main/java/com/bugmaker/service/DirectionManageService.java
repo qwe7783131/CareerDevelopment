@@ -21,4 +21,13 @@ public interface DirectionManageService {
 	//删除专业方向信息
 	int deleteDirection(String directId);
 
+	//跳转到开启和关闭学生填报方向志愿页面
+	ModelAndView toModifyProfessState(String directId, String curr);
+
+	//开启/关闭学生选择权限
+	int modifyDirectionState(String directId, String action);
+
+	//一键开启或关闭
+	int onKeyOpenOrClose(String openOrClose);
+
 }
