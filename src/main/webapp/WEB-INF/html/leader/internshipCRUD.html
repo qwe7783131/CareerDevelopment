@@ -11,7 +11,7 @@
 			
 			
 			<div class="layui-row">
-			<form class="layui-form" action="careerdevelopment/leader/getInternshipByName.do"  method="post">
+			<form class="layui-form" action="${base}/leader/getInternshipByName.do"  method="post">
 			    <div class="layui-col-md10">
 			       <label class="layui-form-label">项目名称</label>
 					<div class="layui-input-inline">
@@ -157,7 +157,7 @@
 					jump: function(obj,first) {
 						//console.log(obj);
 						if(first!=true){
-							 window.location.href ="careerdevelopment/leader/internshipCRUD.do?currentPage="+obj.curr;  
+							 window.location.href ="${base}/leader/internshipCRUD.do?currentPage="+obj.curr;  
 						}
 					}
 				});
@@ -180,7 +180,10 @@
 					  shade: false,
 					  maxmin: true, //开启最大化最小化按钮
 					  area: ['893px', '300px'],
-					  content: 'careerdevelopment/leader/addInternship.do'
+					  content: '${base}/leader/addInternship.do',
+					  end:function(){
+						  setTimeout("window.location.reload()",2000);
+					  }
 					});					      
 				},
 				del: function(othis) {
@@ -190,7 +193,7 @@
 						btn: ['删除', '取消'],
 						btn1: function() {
 							$.ajax({
-								url: 'careerdevelopment/leader/delInternship.do',
+								url: '${base}/leader/delInternship.do',
 								contentType: "application/json",
 								data: { "id": othis.data('type') },
 								type: 'post',
@@ -198,7 +201,7 @@
 								success: function(data) {
 									parent.layer.msg("删除" +  "成功");
 									//alert("删除" +  "成功");
-									window.location.href = 'careerdevelopment/leader/internshipCRUD.do';
+									window.location.href = '${base}/leader/internshipCRUD.do';
 								},
 								error: function(err) {
 									layer.msg("失败");
@@ -219,7 +222,11 @@
 						  shade: false,
 						  maxmin: true, //开启最大化最小化按钮
 						  area: ['893px', '300px'],
-						content: 'careerdevelopment/leader/updateInternship.do?internshipID='+id
+						 
+						content: '${base}/leader/updateInternship.do?internshipID='+id,
+						 end:function(){
+							  setTimeout("window.location.reload()",2000);
+						  }	
 					});  
 				}
 					    

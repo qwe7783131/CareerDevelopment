@@ -10,7 +10,7 @@
  
 
  
-<form class="layui-form" action="careerdevelopment/leader/updateOneInternship.do" method="post">
+<form class="layui-form" action="${base}/leader/updateOneInternship.do" method="post">
 
   <div class="layui-form-item">
     <label class="layui-form-label">项目代号</label>
@@ -88,10 +88,12 @@ layui.use(['form','layer'], function(){
 
   form.on('submit(formDemo)', function(data){
     //layer.msg(JSON.stringify(data.field));
-   parent.layer.msg("修改成功");
+    parent.layer.msg("修改成功",{time:3000},function(){
+	   
+   });
       var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
     parent.layer.close(index); //再执行关闭    
-    parent.window.location.href = 'careerdevelopment/leader/internshipCRUD.do';
+   // parent.window.location.href = 'careerdevelopment/leader/internshipCRUD.do';
       /* return false; */ 
   });
 });

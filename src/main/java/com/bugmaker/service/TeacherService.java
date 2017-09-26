@@ -5,6 +5,8 @@ import com.bugmaker.bean.UserRole;
 
 import java.util.List;
 
+import org.springframework.web.servlet.ModelAndView;
+
 public interface TeacherService {
     List<User> selectAllTea();
 
@@ -17,6 +19,9 @@ public interface TeacherService {
     String addTeaRole(UserRole userRole);
 
     //查询教师信息
-    List<User> selectTeaByParams(User user);
+    ModelAndView selectTeaByParams(User user,String currentPage);
+    
+  //获取数据跳转到teacherManage
+    ModelAndView getAllTeacher(String currentPage);
 
 }

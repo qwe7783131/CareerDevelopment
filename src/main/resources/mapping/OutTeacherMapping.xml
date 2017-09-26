@@ -45,7 +45,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM user u, outteacher outteac, company c
 		WHERE outteac.id = u.id AND outteac.company_id = c.id
 		<if test="id != null and id != ''">
-			AND outteac_id = #{id}
+			<!-- AND outteac_id = #{id} -->
+			AND outteac.id = #{id}
 		</if>
 		<if test="company != null and company.name != null and company.name != ''">
 			AND c.name LIKE '%' #{company.name} '%'

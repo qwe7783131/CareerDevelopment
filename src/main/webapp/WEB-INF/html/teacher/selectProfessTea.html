@@ -11,6 +11,7 @@
 			<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
 				<legend>单条件或多条件查询专业负责人信息</legend>
 			</fieldset>
+			<form class="layui-form" action="${base}/teacher/getprofessInfo.do"  method="post">
 			<div class="layui-inline">
 				<label class="layui-form-label">负责人姓名</label>
 				<div class="layui-input-inline">
@@ -23,6 +24,7 @@
 					<button class="layui-btn layui-btn-primary"><i class="layui-icon">&#xe640;</i>清空</button>
 				</div>
 			</div>
+			</form>
 		</div>
 		<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
 			<legend>数据</legend>
@@ -39,25 +41,59 @@
 					<tr>
 						<th>负责人编号</th>
 						<th>姓名</th>
-						<th>负责企业</th>
 						<th>性别</th>
 						<th>年龄</th>
 						<th>电话</th>
 						<th>邮箱</th>
-						<th>操作</th>
+						<th>学院</th>
+						<th>是否可用</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>201424133221</td>
-						<td>xuxu</td>
-						<td>计算机学院</td>
-						<td>男</td>
-						<td>25</td>
-						<td>11012311011</td>
-						<td>1111111@qq.com</td>
-						<td style="color: red;">无权限</td>
-					</tr>
+					<#list page.list as teacher>
+						<tr>
+							<td>${teacher.id}</td>
+							<td>${teacher.username}</td>
+							<#if teacher.sex==1>
+							<!-- <td>${teacher.sex}</td> -->
+							<td>女</td>
+							<#else>
+							<td>男</td>
+							</#if>
+							<td>${teacher.age}</td>
+							<td>${teacher.phone}</td>
+							<td>${teacher.email}</td>
+							<td>${teacher.dept.deptName}</td>
+							<#if teacher.enable==1> 
+							<td>可用</td>
+							<#else>
+							<td>不可用</td>
+							</#if>
+							
+						</tr>
+					</#list>
+					<#list profess as teacher>
+						<tr>
+							<td>${teacher.id}</td>
+							<td>${teacher.username}</td>
+							<#if teacher.sex==1>
+							<!-- <td>${teacher.sex}</td> -->
+							<td>女</td>
+							<#else>
+							<td>男</td>
+							</#if>
+							<td>${teacher.age}</td>
+							<td>${teacher.phone}</td>
+							<td>${teacher.email}</td>
+							<td>${teacher.dept.deptName}</td>
+							<#if teacher.enable==1> 
+							<td>可用</td>
+							<#else>
+							<td>不可用</td>
+							</#if>
+							
+						</tr>
+					</#list>
 				</tbody>
 			</table>
 		</div>
@@ -74,9 +110,14 @@
 
 				laypage.render({
 					elem: 'demo1',
-					count: 70 ,
-					jump: function(obj) {
-						console.log(obj)
+					count: ${page.total} ,//数据总数
+				    curr: ${page.pageNum},
+				    limit:${page.pageSize},
+					jump: function(obj,first) {
+						//console.log(obj);
+						if(first!=true){
+							 window.location.href ="${base}/teacher/selectProfessTea.do?currentPage="+obj.curr;  
+						}
 					}
 				});
 			});

@@ -10,7 +10,7 @@
  
 
  
-<form class="layui-form" action="careerdevelopment/leader/addOneInternship.do" method="post">
+<form class="layui-form" action="${base}/leader/addOneInternship.do" method="post">
   <div class="layui-form-item">
     <label class="layui-form-label">项目名称</label>
     <div class="layui-input-block">
@@ -75,7 +75,7 @@ layui.use(['form','layer'], function(){
 		   var ids=companyid.value;
 		   $.ajax({
 	          type: "POST",
-	          url: "careerdevelopment/leader/getjobs.do",
+	          url: "${base}/leader/getjobs.do",
 	          data: {"id":ids},
 	          dataType: "json",
 	          success: function(data){
@@ -96,10 +96,12 @@ layui.use(['form','layer'], function(){
   //监听提交
   form.on('submit(formDemo)', function(data){
     //layer.msg(JSON.stringify(data.field));
-   parent.layer.msg("添加成功");
+   parent.layer.msg("添加成功",{time:3000},function(){
+	   
+   });
       var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
     parent.layer.close(index); //再执行关闭    
-    parent.window.location.href = 'careerdevelopment/leader/internshipCRUD.do';
+    //parent.window.location.href = 'careerdevelopment/leader/internshipCRUD.do'; */
       /* return false; */ 
   });
 });

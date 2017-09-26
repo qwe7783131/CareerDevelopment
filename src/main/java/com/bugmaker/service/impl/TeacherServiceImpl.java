@@ -1,18 +1,31 @@
 package com.bugmaker.service.impl;
 
+import com.bugmaker.bean.Dept;
 import com.bugmaker.bean.User;
 import com.bugmaker.bean.UserRole;
+import com.bugmaker.mapper.DeptMapper;
 import com.bugmaker.mapper.UserMapper;
 import com.bugmaker.service.TeacherService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
 
 @Service("selectTeaService")
 public class TeacherServiceImpl implements TeacherService {
-    @Autowired
+	@Resource
     private UserMapper userMapper;
+	@Resource
+	private DeptMapper deptMapper;
+	 
 
     //查询所有老师
     @Override
@@ -48,10 +61,33 @@ public class TeacherServiceImpl implements TeacherService {
 
     //模糊查询
     @Override
-    public List<User> selectTeaByParams(User user) {
+    public ModelAndView selectTeaByParams(User user,String currentPage) {
+    	Map<String ,Object> map = new HashMap<String, Object>();
+        
+        Integer currPage = Integer.valueOf(currentPage);
+        PageHelper.startPage(currPage, 6);
         List<User> userList = userMapper.selectTeacherByParams(user);
-        System.out.println(userList);
-        return userList;
+        PageInfo<User> page = new PageInfo<>(userList);
+        map.put("page",page);
+        List<Dept> selectAllDept = deptMapper.selectAllDept();
+        map.put("selectAllDept",selectAllDept);
+        
+        return new ModelAndView("teacher/selectTea","map",map);
+        
     }
+
+	@Override
+	public ModelAndView getAllTeacher(String currentPage) {
+		Map<String ,Object> map = new HashMap<String, Object>();
+		List<Dept> selectAllDept = deptMapper.selectAllDept();
+        Integer currPage = Integer.valueOf(currentPage);
+        PageHelper.startPage(currPage, 5);
+        List<User> selectAllTea = userMapper.getAllTeacher();
+        PageInfo<User> page = new PageInfo<>(selectAllTea);
+        
+        map.put("page",page);
+        map.put("selectAllDept",selectAllDept);
+        return new ModelAndView("teacher/selectTea","map",map);
+	}
 
 }
