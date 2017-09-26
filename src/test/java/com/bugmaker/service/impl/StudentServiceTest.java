@@ -18,10 +18,10 @@ public class StudentServiceTest {
     @Resource
     private StudentService studentService = null;
 
-    @Test
+   /* @Test
     public void test() {
         List<Student> selectAllStudent = studentService.selectAllStudent();
         System.out.println(selectAllStudent);
 
-    }
+    }*/
 }

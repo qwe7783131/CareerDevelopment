@@ -23,12 +23,12 @@ public class StudentController {
 	@Resource
 	public StudentServiceXuxu studentServiceXuxu;
 
-	@RequestMapping("test.do")
+	/*@RequestMapping("test.do")
  	public String testcontroller(ModelMap model) {
 		List<Student> selectAllStudent = studentService.selectAllStudent();
 		model.put("selectAllStudent", selectAllStudent);
 		return "index";
-	}
+	}*/
 
 	@RequestMapping("index.do")
 	public String indexView(){
