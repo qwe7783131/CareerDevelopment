@@ -3,6 +3,7 @@ package com.bugmaker.mapper;
 
 import com.bugmaker.bean.Internship;
 import com.bugmaker.bean.TeacIns;
+import com.bugmaker.bean.User;
 
 import java.util.List;
 
@@ -72,5 +73,7 @@ public interface InternshipMapper {
      * @return
      */
 	List<Internship> selectInternshipsByDeptId(String deptId);
+	
+	
 
 }
