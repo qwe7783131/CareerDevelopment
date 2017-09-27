@@ -7,11 +7,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    
 
 	<insert id="insertCompany" parameterType="com.bugmaker.bean.Company">
-	  insert into company values (#{id},#{name},#{address},#{phone},#{advisor})
+	  insert into company values (#{id},#{name},#{address},#{phone},#{advisor},#{enable})
 	</insert>
 	
 	<select id="selectAllCompany" resultType="Company">
-	   select * from company
+	   select * from company where enable = 1
+	</select>
+
+	<update id="updateCompanyById" parameterType="Company">
+		UPDATE company
+		<set>
+			<if test="name != null">name=#{name},</if>
+			<if test="address != null">address=#{address},</if>
+			<if test="phone != null">phone=#{phone},</if>
+			<if test="advisor != null">advisor=#{advisor},</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+
+	<update id="deleteCompanyById" parameterType="String">
+		update company set enable = 0 where id = #{id}
+	</update>
+
+	<select id="selectByName" parameterType="Company" resultType="Company">
+		select * from company where name like '%' #{name} '%'
 	</select>
 	
 </mapper>

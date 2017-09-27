@@ -16,6 +16,15 @@ public interface CompanyMapper {
     /**
      * 查询所有公司
      * @return
-     */
+             */
     List<Company> selectAllCompany();
+
+    //修改公司
+    int updateCompanyById(Company company);
+
+    //删除公司
+    int deleteCompanyById(String id);
+
+    //模糊查询
+    List<Company> selectByName(Company company);
 }

@@ -13,6 +13,16 @@ public class Company {
 
     private String advisor;
 
+    private Integer enable;
+
+    public Integer getEnable() {
+        return enable;
+    }
+
+    public void setEnable(Integer enable) {
+        this.enable = enable;
+    }
+
     public String getId() {
         return id;
     }
@@ -61,6 +71,7 @@ public class Company {
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
                 ", advisor='" + advisor + '\'' +
+                ", enable='" + enable + '\'' +
                 '}';
     }
 }
