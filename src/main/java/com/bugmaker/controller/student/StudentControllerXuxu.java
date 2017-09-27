@@ -9,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,29 +28,19 @@ public class StudentControllerXuxu {
     @Qualifier("studentServiceXuxu")
     StudentServiceXuxu studentServiceXuxu;
 
-    //跳转到填报项目界面，获取所有志愿
+    //跳转到填报项目界面，获取所有志愿, 包括模糊查询
     @RequestMapping("student/voluntoryReport.do")
-    public String voluntoryReport(ModelMap modelMap){
-        List<Internship> voluntaryList = studentServiceXuxu.selectAllInternshipList();
-        modelMap.put("voluntaryList",voluntaryList);
-        List<Internship> internshipList = studentServiceXuxu.selectAllInternshipList();
-        modelMap.put("internshipList",internshipList);
-//        for(Internship internship : internshipList){
-//            System.out.println(internship);
-//        }
-        return "student/voluntaryReporting";
+    public ModelAndView voluntoryReport(@RequestParam(defaultValue = "")String name, @RequestParam(defaultValue = "1") String curr){
+        return studentServiceXuxu.selectAllInternshipList(name, curr);
     }
 
-    //模糊查询
-    @RequestMapping("student/selectByName.do")
-    public String selectByName(ModelMap modelMap, String name, HttpServletRequest request){
-        System.out.println("name=" + name);
-        List<Internship> voluntaryList = studentServiceXuxu.selectInternshipByName(name);
-        modelMap.put("voluntaryList",voluntaryList);
-        List<Internship> internshipList = studentServiceXuxu.selectAllInternshipList();
-        modelMap.put("internshipList",internshipList);
-        return "student/voluntaryReporting";
+    @ResponseBody
+    @RequestMapping("student/studentAddInternship.do")
+    public String studentAddInternship(String insVolunteeId) {
+        System.out.println("weishenme "+insVolunteeId);
+        return studentServiceXuxu.addInternship(insVolunteeId);
     }
+
 
     //添加就业信息调查
     @RequestMapping("student/addSurvey.do")

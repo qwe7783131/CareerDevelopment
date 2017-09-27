@@ -4,6 +4,7 @@ import com.bugmaker.bean.Internship;
 import com.bugmaker.bean.Student;
 import com.bugmaker.bean.Survey;
 import com.bugmaker.bean.SurveyResult;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,13 +12,10 @@ import java.util.List;
 
 public interface StudentServiceXuxu {
     //查询所有志愿（选择志愿列表用）
-    List<Internship> selectAllInternshipList();
-
-    //模糊查询
-    List<Internship> selectInternshipByName(String internshipString);
+    ModelAndView selectAllInternshipList(String name, String curr);
 
     //添加志愿填报
-    String addInternship(Internship internship);
+    String addInternship(String internshipId);
 
     //就业信息调查
     String addSurveyResult(String unit_name, String unit_person, String unit_phone, HttpServletRequest request);

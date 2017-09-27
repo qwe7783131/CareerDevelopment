@@ -57,19 +57,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         AND i.id = ti.ins_id AND ti.teac_id=u.id
     </select>
 
-	<!-- 根据项目名称模糊查询所有的项目（包含所有的指导教师） -->
-	<select id="selectInternshipAndTeacByName"	parameterType="string" resultMap="internshipMap">
-		SELECT  i.id iid, i.type itype,
-		j.id jid,
-		c.id cid, c.name cname, c.address caddress, c.phone cphone, c.advisor cadvisor,
-		j.name jname, j.salary jsalary, j.outteac_id joutteacherid,
-		i.name iname,
-		u.id uid, u.username u_username
-		FROM internship i, company c, job j, teac_ins ti, user u
-		WHERE i.type = "顶岗" AND i.job_id = j.id AND j.company_id = c.id
-		AND i.id = ti.ins_id AND ti.teac_id=u.id AND u.type = "2" AND i.name LIKE '%' #{name} '%'
-
-	</select>
 	<!--根据项目id查询该项目的所有的指导老师 -->
 	<select id="selectAllTeacherByInternshipId" parameterType="string" resultMap="internshipMap">
 		SELECT u.id uid, u.username u_username, temp.name iname
@@ -83,16 +70,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		UPDATE teac_ins SET teac_id = #{teacher.id} WHERE id = #{id}
 	</update>
 	<!-- 查询所有的项目（包含所有的指导教师） -->
-	<select id="selectAllInternshipAndTeac" resultMap="internshipMap">
-		SELECT  i.id iid, i.type itype,
+	<select id="selectAllInternshipAndTeac" parameterType="string" resultMap="internshipMap">
+		SELECT *
+		FROM
+		(SELECT  i.id iid, i.type itype,
 		j.id jid,
 		c.id cid, c.name cname, c.address caddress, c.phone cphone, c.advisor cadvisor,
 		j.name jname, j.salary jsalary, j.outteac_id joutteacherid,
-		i.name iname,
-		u.id uid, u.username u_username
-		FROM internship i, company c, job j, teac_ins ti, user u
+		i.name iname
+		FROM internship i, company c, job j
 		WHERE i.type = "顶岗" AND i.job_id = j.id AND j.company_id = c.id
-		AND i.id = ti.ins_id AND ti.teac_id=u.id AND u.type = "2"
+		AND i.status = 2 AND i.enable = 1 AND i.name LIKE '%' #{name} '%' ) internships
+		LEFT JOIN
+		(SELECT u.id uid,u.username u_username, ins_id FROM teac_ins ti, user u, internship i WHERE
+		i.id = ti.ins_id AND ti.teac_id=u.id AND u.type = "2" AND ti.status = "1") teachers
+		ON internships.iid = teachers.ins_id
 
 	</select>
 	<!-- 根据项目名称模糊查询项目 -->

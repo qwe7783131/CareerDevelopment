@@ -50,7 +50,7 @@ public class InternshipMapperTest extends BaseTest {
 
     @Test
     public  void selectAllInternshipAndTeacTest() {
-        List<Internship> internships = internshipMapper.selectAllInternshipAndTeac();
+        List<Internship> internships = internshipMapper.selectAllInternshipAndTeac("");
         for (Internship internship :
                 internships) {
             System.out.println(internship);

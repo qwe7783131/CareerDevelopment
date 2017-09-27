@@ -7,45 +7,83 @@
 </head>
 
 <fieldset class="layui-elem-field " style="margin-top: 20px;">
+	<#if insVolunteerStatus != 0 && insVoluntee != null>
+	<legend>我填报的志愿项目</legend>
+	<div style="padding-left: 50px;padding-right: 50px;">
+		<table class="layui-table">
+			<thead>
+			<tr>
+				<th>序号</th>
+				<th>公司名称</th>
+				<th>岗位名称</th>
+				<th>项目名称</th>
+				<th>工资</th>
+				<th>所有指导老师（随机分配三位）</th>
+				<th>状态</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>#</td>
+					<td>${insVoluntee.getInternship().getJob().getCompany().name}</td>
+					<td>${insVoluntee.getInternship().getJob().name}</td>
+					<td>${insVoluntee.getInternship().name}</td>
+					<td>${insVoluntee.getInternship().getJob().salary}.0</td>
+					<td><#list insVoluntee.getInternship().getTeachers() as teacher>${teacher.username} </#list></td>
+					<#if insVolunteerStatus == 1 >
+					<td><span style="color:green">已通过</span></td>
+					</#if>
+					<#if insVolunteerStatus == 2 >
+						<td><span style="color:blue">待审核</span></td>
+					</#if>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	</#if>
+	<#if insVolunteerStatus == 3 || insVolunteerStatus == 0 >
 	<legend>志愿项目填报</legend>
 	<div>
-		<form class="layui-form" action="">
+		<#if insVolunteerStatus == 0>
+			<span style="color:blue">你填报的志愿不通过，请重新选择！</span>
+		</#if>
+		<div class="layui-form">
 			<div class="layui-input-inline">
 				<div class="layui-form-item">
-
-					<label class="layui-form-label">志愿一</label>
+					<label class="layui-form-label">选择志愿</label>
 				</div>
 			</div>
 			<div class="layui-input-inline">
 				<div class="layui-form-item">
-					<select name="modules" lay-verify="required" lay-search="">
+					<select id="internshipId" lay-verify="required" lay-search="">
 						<option value="">直接选择或搜索选择</option>
 						<#list internshipList as internship>
-							<option>${internship.name}</option>
+							<option value="${internship.id}">${internship.name}</option>
 						</#list>
 					</select>
 				</div>
 			</div>
 			<div class="layui-input-inline">
 				<div class="layui-form-item">
-					<button class="layui-btn" lay-submit lay-filter="formDemo"><i class="layui-icon">&#xe616;</i>提交</button>
+					<button id="addInsVolunteer" class="layui-btn"><i class="layui-icon">&#xe616;</i>提交</button>
 				</div>
 			</div>
-		</form>
+			</div>
 	</div>
+	</#if>
 </fieldset>
 
 <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
 	<legend>项目信息</legend>
 </fieldset>
 <div style="padding-right: 20px;">
-<form class="layui-form" action="${base}/student/selectByName.do" method="post">
+<form class="layui-form" action="${base}/student/voluntoryReport.do" method="post">
 
 		<div class="layui-input-inline">
 			<div class="layui-form-item">
 				<label class="layui-form-label">项目名称</label>
 				<div class="layui-input-block">
-					<input type="text" name="name" lay-verify="required" placeholder="支持模糊查询" autocomplete="off" class="layui-input">
+					<input type="text" id="name" name="name" value="${name}" placeholder="支持模糊查询" autocomplete="off" class="layui-input">
 				</div>
 			</div>
 		</div>
@@ -58,6 +96,7 @@
 		</div>
 </form>
 </div>
+
 <!--<table id="demo"></table>-->
 <div style="padding-left: 50px;padding-right: 50px;">
 	<table class="layui-table">
@@ -72,41 +111,72 @@
 		</tr>
 		</thead>
 		<tbody>
-		<#list voluntaryList as voluntaryList>
+		<#list page.list as voluntary>
 			<tr>
-				<td>${voluntaryList.id}</td>
-				<td>${voluntaryList.getJob().getCompany().name}</td>
-				<td>${voluntaryList.getJob().name}</td>
-				<td>${voluntaryList.name}</td>
-				<td>${voluntaryList.getJob().salary}.0</td>
-				<td>${voluntaryList.getTeachers()[0].username},${voluntaryList.getTeachers()[1].username},${voluntaryList.getTeachers()[2].username}</td>
+				<td>#</td>
+				<td>${voluntary.getJob().getCompany().name}</td>
+				<td>${voluntary.getJob().name}</td>
+				<td>${voluntary.name}</td>
+				<td>${voluntary.getJob().salary}.0</td>
+				<td><#list voluntary.getTeachers() as teacher>${teacher.username} </#list></td>
 			</tr>
 		</#list>
 		</tbody>
 	</table>
 </div>
-<div id="demo1" style='padding-left:50px;width: 100%;height: 50px;position: fixed;'></div>
+<div id="tableData" style='padding-left:50px;width: 100%;height: 50px;position: fixed;'></div>
 
 <#include "html/template/common_js.html" />
 <script>
 			//Demo
 			layui.use('form', function() {
 				var form = layui.form;
-
 			});
 
-			layui.use(['laypage', 'layer'], function() {
+			layui.use(['laypage', 'layer','jquery'], function() {
 				var laypage = layui.laypage,
 					layer = layui.layer;
+					var $ = layui.jquery;
 
-				//总页数大于页码总数
+				//执行一个分页
 				laypage.render({
-					elem: 'demo1',
-					count: 70 //数据总数
-						,
-					jump: function(obj) {
-						console.log(obj)
-					}
+					elem: 'tableData', //注意，这里的 test1 是 ID，不用加 # 号
+					count: ${page.total}, //数据总数，从服务端得到
+					limit: 5, //每页条数
+					curr: ${page.pageNum}, //当前页
+					groups: 5,//连续出现的页码个数
+					prev: '<',
+					next: '>',
+					first: '<<',
+					last: '>>',
+					layout : ['first','prev','page','next','last'],
+					jump: function(obj, first){
+						//obj包含了当前分页的所有参数，比如：
+						console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+						<!--alert($("#name").val());-->
+						//首次不执行
+						if(!first){
+						<!--alert("不是第一次");-->
+						  window.location.href="${base}/student/voluntoryReport.do?curr="+obj.curr+"&name="+$("#name").val();
+						}
+					  }
+				});
+				$("#addInsVolunteer").click(function(){
+					<!--alert($("#internshipId").val());-->
+					var insVolunteeId = $("#internshipId").val();
+					$.ajax({
+						url: '${base}/student/studentAddInternship.do?insVolunteeId='+insVolunteeId,
+						type: 'POST',
+						contentType: 'application/json;charset=utf-8',
+						success: function(data){
+							if(data == '1'){
+								setTimeout("window.location.reload()",3000);
+								layer.msg("添加成功！三秒后刷新页面！",{icon: 1});
+							}else{
+								layer.msg("添加失败！三秒后刷新页面！",{icon: 2});
+							}
+						}
+					});
 				});
 			});
 		</script>

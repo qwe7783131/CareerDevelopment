@@ -4,6 +4,7 @@ package com.bugmaker.mapper;
 import com.bugmaker.bean.Internship;
 import com.bugmaker.bean.TeacIns;
 import com.bugmaker.bean.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ public interface InternshipMapper {
      * 查询所有的项目（包含所有的指导教师）
      * @return
      */
-    List<Internship> selectAllInternshipAndTeac();
+    List<Internship> selectAllInternshipAndTeac(@Param("name") String name);
     /**
      * 通过项目名称模糊查询项目
      * @param name

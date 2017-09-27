@@ -1,4 +1,7 @@
 package com.bugmaker.bean;
+
+import java.util.Date;
+
 /**
  *   学生志愿表
  */
@@ -7,9 +10,19 @@ public class InsVoluntee {
 
     private Student student;
 
-    private User teacher;
-
     private Internship internship ;
+
+    private int status;
+
+    private Date createTime;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public String getId() {
         return id;
@@ -27,14 +40,6 @@ public class InsVoluntee {
         this.student = student;
     }
 
-    public User getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(User teacher) {
-        this.teacher = teacher;
-    }
-
     public Internship getInternship() {
         return internship;
     }
@@ -43,13 +48,22 @@ public class InsVoluntee {
         this.internship = internship;
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
     @Override
     public String toString() {
         return "InsVoluntee{" +
                 "id='" + id + '\'' +
                 ", student=" + student +
-                ", teacher=" + teacher +
                 ", internship=" + internship +
+                ", status=" + status +
+                ", createTime=" + createTime +
                 '}';
     }
 }

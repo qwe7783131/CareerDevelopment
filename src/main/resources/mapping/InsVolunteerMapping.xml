@@ -4,10 +4,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bugmaker.mapper.InsVolunteeMapper">
 
+	<resultMap id="insVolunteeMap" type="InsVoluntee">
+		<id property="id" column="insVolunteer_id" />
+		<result property="status" column="insVolunteer_status" />
+		<result property="createTime" column="insVolunteer_create_time" />
+		<association property="student" resultMap="com.bugmaker.mapper.StudentMapper.stuMap" />
+		<association property="internship" javaType="Internship" resultMap="com.bugmaker.mapper.InternshipMapper.internshipMap" />
+	</resultMap>
+
+	<!--判断当前用户填写过项目志愿的状态-->
+	<select id="getInsVolunteerStatus" resultType="string">
+		SELECT iv.status insVolunteer
+		FROM ins_voluntee iv, user u,internship i, job j, company c
+		WHERE ins_id = i.id AND iv.stu_id = u.id AND iv.ins_id = i.id AND i.status = 2 AND i.enable = 1
+		AND i.type = "顶岗" AND i.job_id = j.id AND j.company_id = c.id AND  iv.stu_id = #{StudentId}
+		ORDER BY iv.create_time DESC LIMIT 1
+	</select>
+
 	<!--插入学生项目志愿-->
 	<insert id="insertInsVolunteer" parameterType="com.bugmaker.bean.InsVoluntee">
-		INSERT INTO ins_voluntee (id, stu_id, teac_id, ins_id)
-		VALUES (#{id},#{student.id},#{teacher.id}, #{internship.id})
+		INSERT INTO ins_voluntee (id, stu_id, ins_id, create_time, status)
+		VALUES (replace(UUID(),"-",""),#{student.id}, #{internship.id}, #{createTime}, 2)
 	</insert>
+
+	<!--根据学生id查询项目志愿 -->
+	<select id="selectInsVolunteerByStuId" resultMap="insVolunteeMap">
+		SELECT iv.id insVolunteer_id,iv.create_time insVolunteer_create_time, iv.status insVolunteer_status,
+		u.id s_id, u.username username, i.id iid, i.type itype,
+		j.id jid,
+		c.id cid, c.name cname, c.address caddress, c.phone cphone, c.advisor cadvisor,
+		j.name jname, j.salary jsalary, j.outteac_id joutteacherid,
+		i.name iname, i.status istatus, i.enable ienable
+		FROM ins_voluntee iv, user u,internship i, job j, company c
+		WHERE ins_id = i.id AND iv.stu_id = u.id AND iv.ins_id = i.id AND i.status = 2 AND i.enable = 1
+		AND i.type = "顶岗" AND i.job_id = j.id AND j.company_id = c.id AND  iv.stu_id = #{studentId}
+		ORDER BY iv.create_time DESC LIMIT 1
+	</select>
 	
 </mapper>
