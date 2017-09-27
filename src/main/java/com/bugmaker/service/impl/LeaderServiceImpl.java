@@ -1,10 +1,14 @@
 package com.bugmaker.service.impl;
 
-import com.bugmaker.bean.*;
+import com.bugmaker.bean.Dept;
+import com.bugmaker.bean.Role;
+import com.bugmaker.bean.User;
+import com.bugmaker.bean.UserRole;
 import com.bugmaker.mapper.DeptMapper;
 import com.bugmaker.mapper.UserMapper;
 import com.bugmaker.service.AddTeacherService;
 import com.bugmaker.service.CounselorService;
+import com.bugmaker.service.LeaderService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -14,44 +18,43 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service("counselorImpl")
-public class CounselorServiceImpl implements CounselorService {
 
+@Service("leaderImpl")
+public class LeaderServiceImpl implements LeaderService{
     @Autowired
     private UserMapper userMapper ;
     @Autowired
     private DeptMapper deptMapper;
 
     @Autowired
-    @Qualifier("counselorImpl")
-    CounselorService counselorService;
+    @Qualifier("leaderImpl")
+    LeaderService leaderService;
 
     @Autowired
     @Qualifier("teaService")
     AddTeacherService teacherService;
 
     @Override
-    public ModelAndView counselorManageView(String currentPage) {
+    public ModelAndView leaderManageView(String currentPage) {
         Map<String ,Object> map = new HashMap<String, Object>();
         Integer currPage = Integer.valueOf(currentPage);
         PageHelper.startPage(currPage, 6);
-        List<User> selectAllCoun = counselorService.selectAllCoun();
-        PageInfo<User> page = new PageInfo<>(selectAllCoun);
-        List<Dept> selectAllDept = counselorService.selectAllDept();
+        List<User> selectAllLeader = leaderService.selectAllLeader();
+        PageInfo<User> page = new PageInfo<>(selectAllLeader);
+        List<Dept> selectAllDept = leaderService.selectAllDept();
         map.put("page",page);
         map.put("selectAllDept",selectAllDept);
-        return new ModelAndView("/admin/counselorManage","map",map);
+        return new ModelAndView("/admin/leaderManage","map",map);
     }
 
     @Override
-    public String addOneCounselor(String userString) throws IOException {
+    public String addOneLeader(String userString) throws IOException {
         //System.out.println(userString);
         ObjectMapper mapper = new ObjectMapper();
         Map userMap = mapper.readValue(userString, Map.class);
@@ -61,7 +64,7 @@ public class CounselorServiceImpl implements CounselorService {
         User user = new User();
         user.setId(userMap.get("id").toString());
         user.setUsername(userMap.get("username").toString());
-        user.setPassword((new Md5Hash(userMap.get("id").toString(),userMap.get("password").toString())).toString());
+        user.setPassword((new Md5Hash(userMap.get("password").toString())).toString());
         user.setSex(userMap.get("sex").toString());
         user.setAge(Integer.valueOf(userMap.get("age").toString()));
         user.setPhone(userMap.get("phone").toString());
@@ -69,11 +72,11 @@ public class CounselorServiceImpl implements CounselorService {
         user.setDept(dept);
         user.setCreatTime(new Date());
         user.setEnable(Integer.parseInt(userMap.get("enable").toString()));
-        user.setType(4);
+        user.setType(5);
         UserRole userRole = new UserRole();
         userRole.setUser(user);
         Role role = new Role();
-        role.setId("4");
+        role.setId("5");
         userRole.setRole(role);
         teacherService.addTeaRole(userRole);
         return  String.valueOf(userMapper.insertUser(user));
@@ -81,27 +84,27 @@ public class CounselorServiceImpl implements CounselorService {
 
 
 
-    //查询所有辅导员
+    //查询所有学院
     @Override
     public List<Dept> selectAllDept() {
         List<Dept> deptList = deptMapper.selectAllDept();
         return deptList;
     }
 
-    //查询所有辅导员
+    //查询所有系领导
     @Override
-    public List<User> selectAllCoun() {
+    public List<User> selectAllLeader() {
         //System.out.println("2");
-        List<User> userList = userMapper.getAllCounselor();
+        List<User> userList = userMapper.getAllLeader();
 //        for(User user : userList){
 //            System.out.println("的" + user);
 //        }
         return  userList;
     }
 
-    //修改辅导员信息
+    //修改系领导信息
     @Override
-    public String updateCoun(String userString) throws IOException {
+    public String updateLeader(String userString) throws IOException {
 //        System.out.println("执行修改controller");
 //        System.out.println(userString);
         ObjectMapper mapper = new ObjectMapper();
@@ -112,7 +115,7 @@ public class CounselorServiceImpl implements CounselorService {
         com.bugmaker.bean.User user = new User();
         user.setId(userMap.get("id").toString());
         user.setUsername(userMap.get("username").toString());
-        user.setPassword((new Md5Hash(userMap.get("id"),userMap.get("password").toString())).toString());
+        user.setPassword((new Md5Hash(userMap.get("id").toString(),userMap.get("password").toString())).toString());
         user.setSex(userMap.get("sex").toString());
         user.setAge(Integer.valueOf(userMap.get("age").toString()));
         user.setPhone(userMap.get("phone").toString());
@@ -120,20 +123,20 @@ public class CounselorServiceImpl implements CounselorService {
         user.setDept(dept);
         user.setCreatTime(new Date());
         user.setEnable(Integer.parseInt(userMap.get("enable").toString()));
-        user.setType(4);
+        user.setType(5);
 //        System.out.println(user);
         return "" + userMapper.updateUserById(user);
     }
 
-    //删除辅导员
-    public int deleteCoun(String id) {
+    //删除系领导
+    public int deleteLeader(String id) {
         int i = userMapper.deleteUserById(id);
         return i;
     }
 
     //模糊查询
     @Override
-    public ModelAndView selectCounByParams(String id, String username , String dept, String currentPage) {
+    public ModelAndView selectLeaderByParams(String id, String username , String dept, String currentPage) {
 //        System.out.println("id:" + id + "username" + username + "dept" + dept);
         Map<String ,Object> map = new HashMap<String, Object>();
         User user = new User();
@@ -144,7 +147,7 @@ public class CounselorServiceImpl implements CounselorService {
         user.setId(id);
         Integer currPage = Integer.valueOf(currentPage);
         PageHelper.startPage(currPage, 6);
-        List<User> userList = userMapper.selectCounselorByParams(user);
+        List<User> userList = userMapper.selectLeaderByParams(user);
         PageInfo<User> page = new PageInfo<>(userList);
 //        for(User user1 : userList){
 //            System.out.println(user1);
@@ -153,10 +156,10 @@ public class CounselorServiceImpl implements CounselorService {
         List<Dept> selectAllDept = teacherService.selectAllDept();
         map.put("selectAllDept",selectAllDept);
         if(id.equals("") && username.equals("") && dept.equals("")){
-            return new ModelAndView("redirect:/admin/counselorManage.do","map",map);
+            return new ModelAndView("redirect:/admin/leaderManage.do","map",map);
         }
         else {
-            return new ModelAndView("/admin/counselorManage","map",map);
+            return new ModelAndView("/admin/leaderManage","map",map);
         }
     }
 }
