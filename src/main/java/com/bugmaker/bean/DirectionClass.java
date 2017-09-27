@@ -8,7 +8,7 @@ public class DirectionClass {
 
     private String name;
 
-    private Dept dept;
+//    private Dept dept;
 
     private Direction direction;
 
@@ -27,14 +27,14 @@ public class DirectionClass {
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
     }
-
-    public Dept getDept() {
-        return dept;
-    }
-
-    public void setDept(Dept dept) {
-        this.dept = dept;
-    }
+//
+//    public Dept getDept() {
+//        return dept;
+//    }
+//
+//    public void setDept(Dept dept) {
+//        this.dept = dept;
+//    }
 
     public Direction getDirection() {
         return direction;
@@ -49,7 +49,7 @@ public class DirectionClass {
         return "DirectionClass{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", dept=" + dept +
+//                ", dept=" + dept +
                 ", direction=" + direction +
                 '}';
     }

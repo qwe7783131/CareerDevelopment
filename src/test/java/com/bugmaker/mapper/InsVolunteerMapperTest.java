@@ -26,7 +26,7 @@ public class InsVolunteerMapperTest extends BaseTest {
         User user = new User();
         user.setId("1");
         insVoluntee.setStudent(student);
-        insVoluntee.setTeacher(user);
+//        insVoluntee.setTeacher(user);
         insVolunteeMapper.insertInsVolunteer(insVoluntee);
     }
 
