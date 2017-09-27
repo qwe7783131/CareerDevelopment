@@ -42,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- By wurenjie -->
 	<sql id="selectAll">
 
-		SELECT e.create_time e_time, e.reason e_reason, e.status e_status, e.id e_id, u.*,dd.*
+		SELECT e.create_time e_time, e.reason e_reason, e.status e_status, e.id e_id, ud.*,dd.*
 		FROM enroll e
 		LEFT JOIN
 		(
@@ -51,7 +51,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			LEFT JOIN dept d2
 			ON direction.dept_id = d2.id
 		) dd on e.direc_id = dd.direct_id
-		LEFT JOIN user u on e.stu_id = u.id
+		LEFT JOIN (
+				SELECT uu.*, stu.class_id, pcd.*
+				FROM student stu
+				LEFT JOIN user uu ON stu.id = uu.id
+				LEFT JOIN (
+					SELECT pc.id pc_id, pc.class_name pc_name
+		<!--, p.id p_id,p.name p_name, p.profess_describe p_describe-->
+					FROM
+					profession_class pc
+					<!--LEFT JOIN profession p-->
+				<!--ON pc.profession_id = p.id-->
+			) pcd ON stu.class_id = pcd.pc_id
+		) ud on e.stu_id = ud.id
 	</sql>
 
 	<resultMap id="enMap" type="com.bugmaker.bean.Enroll">
@@ -59,7 +71,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="reason" column="e_reason" />
 		<result property="createTime" column="e_time" />
 		<result property="status" column="e_status" />
-		<association property="student" javaType="Student">
+		<association property="student" javaType="com.bugmaker.bean.Student">
+			<id property="id" column="id"></id>
 			<association property="user" javaType="com.bugmaker.bean.User">
 				<id property="id" column="id" />
 				<result property="username" column="username" />
@@ -71,6 +84,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				<result property="enable" column="enable" />
 				<result property="type" column="type" />
 				<result property="creatTime" column="create_time" />
+			</association>
+			<association property="professionClass" javaType="com.bugmaker.bean.ProfessionClass">
+				<id property="id" column="pc_id" />
+				<result property="className" column="pc_name" />
+				<!--<association property="profession" javaType="com.bugmaker.bean.Profession">-->
+					<!--<id property="id" column="p_id" />-->
+					<!--<result property="name" column="p_name" />-->
+					<!--<result property="describe" column="p_describe" />-->
+				<!--</association>-->
 			</association>
 		</association>
 		<association property="direction" javaType="com.bugmaker.bean.Direction">
@@ -93,14 +115,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<include refid="selectAll" />
 
 		<where>
-			<if test="deptId != null">
+			<if test="deptId != null and deptId != ''">
 				dd.d2_id = #{deptId}
 			</if>
-			<if test="directId != null">
+			<if test="directId != null and directId != ''">
 				AND dd.direct_id = #{directId}
 			</if>
 			<if test="status != null">
 				AND e.status = #{status}
+			</if>
+			<if test="professClassId != null and professClassId != ''">
+				AND ud.pc_id = #{professClassId}
 			</if>
 		</where>
 

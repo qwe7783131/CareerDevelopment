@@ -37,7 +37,11 @@
         SELECT direc.id direc_id, direc.name direc_name, direct_describe,direc.status direc_status
         , direc.enable direc_enable, d.id, dept_name
         FROM direction direc, dept d
-        WHERE direc.dept_id = d.id AND d.id=#{id}
+        WHERE direc.dept_id = d.id
+        <if test="id != null and id != ''">
+            AND d.id=#{id}
+        </if>
+
     </select>
     
     <select id="selectDirectionById" parameterType="Dept" resultMap="directMap">

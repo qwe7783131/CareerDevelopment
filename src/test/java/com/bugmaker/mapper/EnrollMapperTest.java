@@ -23,7 +23,7 @@ public class EnrollMapperTest extends BaseTest {
 
     @Test
     public void testSelectByParam(){
-        List<Enroll> enrolls = enrollMapper.selectByParam("e2c3cc8ba07a11e7b4d800163e083221", "e5f6450fa1bc11e7b4d800163e083221",1);
+        List<Enroll> enrolls = enrollMapper.selectByParam(null,null,null,null);
 
 
         for(Enroll enroll : enrolls){

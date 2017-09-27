@@ -6,15 +6,15 @@ public interface VolunteerInfoService {
 
     /**
      *
-     * @param deptId
+     * @param professclassId
      * @param directId
      * @param status
      * @param curr
      * @return
      */
-    ModelAndView toVolunteerPage(String deptId, String directId, Integer status, String curr);
+    ModelAndView toVolunteerPage(String professclassId, String directId, Integer status, String curr);
 
-    ModelAndView toDividePage(String deptId, String directId, String classId, String curr);
+    ModelAndView toDividePage(String directId, String classId, String curr);
 
     /**
      * 修改志愿状态

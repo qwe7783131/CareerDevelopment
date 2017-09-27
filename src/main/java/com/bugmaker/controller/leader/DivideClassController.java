@@ -50,8 +50,16 @@ public class DivideClassController {
     }
 
     /**
+     * 跳转到分班页面
+     */
+    @RequestMapping("toDivideClass.do")
+    public String divideClassView(){
+        return "leader/divideClass";
+    }
+
+    /**
      * 查看志愿填报
-     * @param deptId 学院id
+     * @param pcClassId 专业班级id
      * @param directId 志愿方向id
      * @param statusId 审核状态
      * @return
@@ -59,7 +67,7 @@ public class DivideClassController {
     @RequestMapping("toVolunteerInfo.do")
     public ModelAndView volunteerInfoView(Model model,
                                           @RequestParam(defaultValue="1") String currentPage,
-                                          String deptId, String directId, Integer statusId) {
+                                          String pcClassId, String directId, Integer statusId) {
 
 //        Integer currPage = Integer.valueOf(currentPage);
 //        PageHelper.startPage(currPage, 5);
@@ -69,7 +77,7 @@ public class DivideClassController {
 //        PageInfo page = new PageInfo(students, 5);
 //        page.getNavigatePages();
 //        model.addAttribute("page",page);
-        return volunteerInfoService.toVolunteerPage(deptId,directId,statusId, currentPage);
+        return volunteerInfoService.toVolunteerPage(pcClassId,directId,statusId, currentPage);
     }
 
     // 文件导入导出的例子：http://blog.csdn.net/hsf15768615284/article/details/73136029
@@ -93,7 +101,7 @@ public class DivideClassController {
                                        @RequestParam(defaultValue="1") String currentPage,
                                        String deptId, String directId, String classId){
 
-        return volunteerInfoService.toDividePage(deptId, directId, classId, currentPage);
+        return volunteerInfoService.toDividePage(directId, classId, currentPage);
     }
 
     /**

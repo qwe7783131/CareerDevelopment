@@ -19,27 +19,19 @@
     </form>
     <form class="layui-form" action="">
         <div class="layui-form-item">
-            <div class="layui-inline">
-                <select id="deptId" lay-verify="required" lay-filter="deptId" name="deptId"
-                        form="hideform">
-                    <option value="">请先选择学院</option> <#list map.depts as dept> <#if
-                        map.deptId?? && (map.deptId==dept.id)>
-                    <option value="${dept.id}" selected>${dept.deptName}</option>
-                    <#else>
-                        <option value="${dept.id}">${dept.deptName}</option> </#if>
-                </#list>
-                </select>
-            </div>
+
             <div class="layui-inline">
                 <select id="directId" lay-verify="required" lay-filter="directId" name="directId"
                         form="hideform">
-                    <option value="">请选择志愿方向</option> <#list map.directions as
-                        direction> <#if map.directId?? &&
-                        (map.directId==direction.id)>
-                    <option value="${direction.id}" selected>${direction.name}</option>
-                    <#else>
-                        <option value="${direction.id}">${direction.name}</option>
-                </#if> </#list>
+                    <option value="">请选择志愿方向</option>
+                    <#list map.directions as direction>
+                        <#if map.directId?? &&
+                            (map.directId==direction.id)>
+                            <option value="${direction.id}" selected>${direction.name}</option>
+                        <#else>
+                            <option value="${direction.id}">${direction.name}</option>
+                        </#if>
+                    </#list>
                 </select>
             </div>
             <div class="layui-inline">
@@ -144,13 +136,11 @@
                         }
                     }
                 });
-				form.on("select(deptId)",function(data){
-					if(jquery("#directId").val() != ""){
-						jquery("#directId").val("");
-					}
-					jquery("#hidesubmit").click();
-				});
+
 				form.on("select(directId)",function(data){
+                    if(jquery("#classId").val() != ""){
+                            jquery("#directId").val("");
+					}
 					jquery("#hidesubmit").click();
 				});
 				form.on("select(classId)",function(data){

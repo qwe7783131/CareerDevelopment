@@ -37,10 +37,12 @@ public interface EnrollMapper {
      * 根据筛选条件查询
      * @param deptId 学院id
      * @param directId 志愿方向id
+     * @param professClassId 专业班级id
      * @param status 审核状态
      * @return
      */
-    List<Enroll> selectByParam(@Param("deptId")String deptId, @Param("directId") String directId, @Param("status")Integer status);
+    List<Enroll> selectByParam(@Param("deptId")String deptId, @Param("directId") String directId,
+                               @Param("professClassId") String professClassId, @Param("status")Integer status );
 
     int updateEnroll(@Param("enrollId") String enrollId, @Param("status") Integer status,
                      @Param("reason") String reason);

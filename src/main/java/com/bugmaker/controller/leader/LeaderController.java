@@ -41,8 +41,8 @@ public class LeaderController {
 	/**
 	 * 跳转到分班页面
 	 */
-	@RequestMapping("toDivideClass.do")
-	public String divideClassView() { return "leader/divideClass"; }
+//	@RequestMapping("toDivideClass.do")
+//	public String divideClassView() { return "leader/divideClass"; }
 
 	/**
 	 * 跳转到开启和关闭专业选择页面
