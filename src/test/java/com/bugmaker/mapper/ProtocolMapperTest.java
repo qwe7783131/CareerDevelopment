@@ -3,6 +3,7 @@ package com.bugmaker.mapper;
 import com.bugmaker.BaseTest;
 import com.bugmaker.bean.Protocol;
 import com.bugmaker.bean.Student;
+import com.bugmaker.bean.User;
 import com.bugmaker.constant.ProtocolConstant;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,26 +19,26 @@ public class ProtocolMapperTest extends BaseTest {
     @Test
     public void test01(){
         Protocol protocol = new Protocol();
-//        protocol.setId(UUID.randomUUID().toString().replace("-", ""));
-        protocol.setId("0991aef4e295453b879b05187cc7fd5c");
-        protocol.setType("跟岗");
+        String stuId = "20142413";
+        User user = new User();
+        user.setId(stuId);
         Student student = new Student();
-        student.setId("asasas");
+        student.setUser(user);
         protocol.setStudent(student);
-        protocol.setReport("report");
-        protocol.setSafeProtocal("asasa11sas");
-        protocol.setInternshipApplication("accc");
-        protocol.setAcceptProve("ass");
-        protocol.setInternshipRecord("scscs");
-
+        protocol.setId(UUID.randomUUID().toString().replace("-",""));
+        protocol.setReport("aa");
+        protocol.setType("跟岗");
         protocolMapper.insertOrUpdateDocument(protocol);
     }
 
     @Test
     public void test02(){
+        String stuId = "20142413";
         Student student = new Student();
-        student.setId("201424133223");
-        List<Protocol> protocols = protocolMapper.selectProtocolByParam(ProtocolConstant.ONJOB, student);
+        User user = new User();
+        user.setId(stuId);
+        student.setUser(user);
+        List<Protocol> protocols = protocolMapper.selectProtocolByParam(null, student);
         System.out.println(protocols);
     }
 }

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>文档上传</title>
+    <!-- <link rel="stylesheet" href="layui/css/layui.css"> -->
+    <#include "html/template/head.html" />
+    <#assign urlbase=base + "/student" />
+</head>
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+    <legend>上传文档</legend>
+</fieldset>
+<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+    <ul class="layui-tab-title">
+
+        <li class="layui-this">顶岗实习报告</li>
+        <li>自主联系顶岗实习申请</li>
+        <li>顶岗实习安全协议</li>
+
+        <li>顶岗实习单位接受证明</li>
+        <li>顶岗实习记录表</li>
+        <li>顶岗实习考核表</li>
+
+    </ul>
+
+    <div class="layui-tab-content" style="height: 100px;">
+        <div class="layui-tab-item layui-show">
+
+            <#if map.protocol?? &&
+                    (map.protocol.report??)>
+                已上传
+            <#else>
+                <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                    <legend>选完文件后不自动上传</legend>
+                </fieldset>
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn layui-btn-normal" id="select1">选择文件</button>
+                    <button type="button" class="layui-btn" id="upload1">开始上传</button>
+                </div>
+            </#if>
+
+
+            <!--<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">-->
+            <!--<legend>拖拽上传</legend>-->
+            <!--</fieldset>-->
+            <!--<div class="layui-upload-drag" id="test10">-->
+            <!--<i class="layui-icon"></i>-->
+            <!--<p>点击上传，或将文件拖拽到此处</p>-->
+            <!--</div>-->
+
+        </div>
+        <div class="layui-tab-item">
+            <#if map.protocol?? &&
+                    (map.protocol.internshipApplication??)>
+                已上传
+                <#else>
+                    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                        <legend>选完文件后不自动上传</legend>
+                    </fieldset>
+                    <div class="layui-upload">
+                        <button type="button" class="layui-btn layui-btn-normal" id="select2">选择文件</button>
+                        <button type="button" class="layui-btn" id="upload2">开始上传</button>
+                    </div>
+            </#if>
+        </div>
+        <div class="layui-tab-item">
+
+            <#if map.protocol?? &&
+                    (map.protocol.safeProtocal??)>
+                已上传
+                <#else>
+                    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                        <legend>选完文件后不自动上传</legend>
+                    </fieldset>
+                    <div class="layui-upload">
+                        <button type="button" class="layui-btn layui-btn-normal" id="select3">选择文件</button>
+                        <button type="button" class="layui-btn" id="upload3">开始上传</button>
+                    </div>
+            </#if>
+        </div>
+        <div class="layui-tab-item">
+            <#if map.protocol?? &&
+                    (map.protocol.acceptProve??)>
+                已上传
+                <#else>
+                    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                        <legend>选完文件后不自动上传</legend>
+                    </fieldset>
+                    <div class="layui-upload">
+                        <button type="button" class="layui-btn layui-btn-normal" id="select4">选择文件</button>
+                        <button type="button" class="layui-btn" id="upload4">开始上传</button>
+                    </div>
+            </#if>
+        </div>
+        <div class="layui-tab-item">
+
+            <#if map.protocol?? &&
+                    (map.protocol.internshipRecord??)>
+                已上传
+                <#else>
+                    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                        <legend>选完文件后不自动上传</legend>
+                    </fieldset>
+                    <div class="layui-upload">
+                        <button type="button" class="layui-btn layui-btn-normal" id="select5">选择文件</button>
+                        <button type="button" class="layui-btn" id="upload5">开始上传</button>
+                    </div>
+            </#if>
+        </div>
+        <div class="layui-tab-item">
+
+            <#if map.protocol?? &&
+                    (map.protocol.internshipAssess??)>
+                已上传
+                <#else>
+                    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                        <legend>选完文件后不自动上传</legend>
+                    </fieldset>
+                    <div class="layui-upload">
+                        <button type="button" class="layui-btn layui-btn-normal" id="select6">选择文件</button>
+                        <button type="button" class="layui-btn" id="upload6">开始上传</button>
+                    </div>
+            </#if>
+        </div>
+
+    </div>
+</div>
+<!-- <script src="layui/layui.js"></script> -->
+<#include "html/template/common_js.html" />
+<script>
+			layui.use('element', function(){
+			  var $ = layui.jquery
+			  ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+
+			  $('.site-demo-active').on('click', function(){
+			    var othis = $(this), type = othis.data('type');
+			    active[type] ? active[type].call(this, othis) : '';
+			  });
+
+			});
+		</script>
+
+<script>
+			layui.use('upload', function(){
+			  var $ = layui.jquery
+			  ,upload = layui.upload;
+
+
+			  //选完文件后不自动上传
+			  upload.render({
+			    elem: '#select1'
+			    ,url: '${urlbase}/uploadProtocol.do'
+			    ,auto: false
+			    ,exts: 'xls|xlsx'
+			    ,data: {
+			        'jobType':2,
+			        'docType':1
+			    }
+			    ,bindAction: '#upload1'
+			    ,done: function(res){
+			      if(res == true){
+						setTimeout("window.location.reload()",3000);
+						layer.msg("上传成功！",{icon: 1});
+				  }else{
+						layer.msg("上传失败！",{icon: 2});
+				  }
+			    }
+			  });
+
+			  upload.render({
+			    elem: '#select2'
+			    ,url: '${urlbase}/uploadProtocol.do'
+			    ,auto: false
+			    ,exts: 'xls|xlsx'
+			    ,data: {
+			        'jobType':2,
+			        'docType':2
+			    }
+			    ,bindAction: '#upload2'
+			    ,done: function(res){
+			      if(res == true){
+						setTimeout("window.location.reload()",3000);
+						layer.msg("上传成功！",{icon: 1});
+				  }else{
+						layer.msg("上传失败！",{icon: 2});
+				  }
+			    }
+			  });
+
+			  upload.render({
+			    elem: '#select3'
+			    ,url: '${urlbase}/uploadProtocol.do'
+			    ,auto: false
+			    ,exts: 'xls|xlsx'
+			    ,data: {
+			        'jobType':2,
+			        'docType':3
+			    }
+			    ,bindAction: '#upload3'
+			    ,done: function(res){
+			      if(res == true){
+						setTimeout("window.location.reload()",3000);
+						layer.msg("上传成功！",{icon: 1});
+				  }else{
+						layer.msg("上传失败！",{icon: 2});
+				  }
+			    }
+			  });
+
+			  upload.render({
+			    elem: '#select4'
+			    ,url: '${urlbase}/uploadProtocol.do'
+			    ,auto: false
+			    ,exts: 'xls|xlsx'
+			    ,data: {
+			        'jobType':2,
+			        'docType':4
+			    }
+			    ,bindAction: '#upload4'
+			    ,done: function(res){
+			      if(res == true){
+						setTimeout("window.location.reload()",3000);
+						layer.msg("上传成功！",{icon: 1});
+				  }else{
+						layer.msg("上传失败！",{icon: 2});
+				  }
+			    }
+			  });
+
+			  upload.render({
+			    elem: '#select5'
+			    ,url: '${urlbase}/uploadProtocol.do'
+			    ,auto: false
+			    ,exts: 'xls|xlsx'
+			    ,data: {
+			        'jobType':2,
+			        'docType':5
+			    }
+			    ,bindAction: '#upload5'
+			    ,done: function(res){
+			      if(res == true){
+						setTimeout("window.location.reload()",3000);
+						layer.msg("上传成功！",{icon: 1});
+				  }else{
+						layer.msg("上传失败！",{icon: 2});
+				  }
+			    }
+			  });
+
+			  upload.render({
+			    elem: '#select6'
+			    ,url: '${urlbase}/uploadProtocol.do'
+			    ,auto: false
+			    ,exts: 'xls|xlsx'
+			    ,data: {
+			        'jobType':2,
+			        'docType':6
+			    }
+			    ,bindAction: '#upload6'
+			    ,done: function(res){
+			      if(res == true){
+						setTimeout("window.location.reload()",3000);
+						layer.msg("上传成功！",{icon: 1});
+				  }else{
+						layer.msg("上传失败！",{icon: 2});
+				  }
+			    }
+			  });
+
+
+			});
+		</script>
+</body>
+</html>

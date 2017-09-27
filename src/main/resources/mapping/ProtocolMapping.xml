@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="type != null and type != ''">
 				type,
 			</if>
-			<if test="student != null and student.id != null ">
+			<if test="student != null and student.user.id != null ">
 				stu_id,
 			</if>
 			<if test="safeProtocal != null and safeProtocal != ''">
@@ -52,8 +52,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="type != null and type != ''">
 				#{type},
 			</if>
-			<if test="student != null and student.id != null ">
-				#{student.id},
+			<if test="student != null and student.user.id != null ">
+				#{student.user.id},
 			</if>
 			<if test="safeProtocal != null and safeProtocal != ''">
 				#{safeProtocal},
@@ -90,7 +90,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</selectKey>
 		<if test="count > 0">
 			<!-- 只有指定了岗位类型和学生id才可以更新 -->
-			<if test="type != null and type != '' and student != null and student.id != null">
+			<if test="type != null and type != '' and student != null and student.user.id != null">
 				update protocol
 				<trim prefix="set" suffixOverrides=",">
 					<!-- 实习安全协议书 -->
@@ -118,13 +118,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						internship_application = #{internshipApplication},
 					</if>
 				</trim>
-				where id = #{id} AND type = #{type} AND stu_id = #{student.id}
+				where id = #{id} AND type = #{type} AND stu_id = #{student.user.id}
 			</if>
 		</if>
 		<!-- 若无存在记录，则插入一条记录 -->
 		<if test="count==0">
 		<!-- 只有指定了岗位类型和学生id才可以插入 -->
-			<if test="type != null and type != '' and student != null and student.id != null">
+			<if test="type != null and type != '' and student != null and student.user.id != null">
 				insert into protocol(<include refid="key"/>) values(<include refid="value"/>);
 			</if>
 		</if>

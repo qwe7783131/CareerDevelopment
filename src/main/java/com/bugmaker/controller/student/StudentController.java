@@ -35,14 +35,7 @@ public class StudentController {
 		return "student/index";
 	}
 	
-	 /**
-     * 学生文档上传
-     * @return
-     */
-	@RequestMapping("documentUpload.do")
-	public String documentUpload(){
-		return "student/documentUpload";
-	}
+
 	/**
      * 学生就业调查页面
      * @return

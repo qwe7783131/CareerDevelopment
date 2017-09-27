@@ -9,34 +9,39 @@ public interface ProtocolConstant {
     /* 文档类型 */
 
     /**
-     * 安全协议证书
-     */
-    public static final int SAFEPROTOCAL = 1;
-
-    /**
-     * 实习记录表
-     */
-    public static final int INTERNSHIPRECORD = 2;
-
-    /**
-     * 实习单位接收证明
-     */
-    public static final int ACCEPTPROVE = 3;
-
-    /**
-     * 实习考核表
-     */
-    public static final int INTERNSHIPASSESS = 4;
-
-    /**
      * 实习报告
      */
-    public static final int REPORT = 5;
+    public static final int REPORT = 1;
 
     /**
      * 实习申请表
      */
-    public static final int INTERSHIPAPPLICATION = 6;
+    public static final int INTERSHIPAPPLICATION = 2;
+    /**
+     * 安全协议证书
+     */
+    public static final int SAFEPROTOCAL = 3;
+
+    /**
+     * 实习单位接收证明
+     */
+    public static final int ACCEPTPROVE = 4;
+
+    /**
+     * 实习记录表
+     */
+    public static final int INTERNSHIPRECORD = 5;
+
+
+
+    /**
+     * 实习考核表
+     */
+    public static final int INTERNSHIPASSESS = 6;
+
+
+
+
 
     /* 岗位类型 */
     /**
