@@ -74,6 +74,11 @@ public interface InternshipMapper {
      */
 	List<Internship> selectInternshipsByDeptId(String deptId);
 	
-	
+	/**
+	 * 查询所有未选择实习项目的教师
+	 * @param deptId 
+	 * @return
+	 */
+	List<User> selectTeachersNoChooseIns(String deptId);
 
 }

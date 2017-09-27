@@ -132,10 +132,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from internship where id = #{id}
 	</delete>
 	
+	<!-- 根据学院id查询实习项目 -->
 	<select id="selectInternshipsByDeptId" resultMap="internshipMap">
 		select id iid, type itype, name iname, status istatus, enable ienable
 		from internship where dept = #{deptId}
 	</select>
 	
+	<!-- 查询所有未选择实习项目的教师 -->
+	<select id="selectTeachersNoChooseIns" resultMap="com.bugmaker.mapper.UserMapper.userMap">
+		select u.id uid, username, password, sex, age, phone, email, d.id, dept_name, create_time
+		from user u, dept d
+		where u.dept_id=d.id and d.id=#{deptId}
+		and u.type='${@com.bugmaker.constant.UserConstant@TeacherType}'
+		and u.id not in (
+			select distinct teac_id from teac_ins
+		)
+	</select>
 
 </mapper>
