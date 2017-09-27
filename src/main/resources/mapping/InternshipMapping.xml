@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="type" column="itype" />
 		<result property="name" column="iname" />
 		<result property="status" column="istatus"/>
-		<result property="" column="ienable"/>
+		<result property="enable" column="ienable"/>
 		<association property="job" javaType="com.bugmaker.bean.Job">
 			<id column="jid" property="id" />
 			<result column="jname" property="name" />
@@ -136,5 +136,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select id iid, type itype, name iname, status istatus, enable ienable
 		from internship where dept = #{deptId}
 	</select>
+	
 
 </mapper>
