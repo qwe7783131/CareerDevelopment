@@ -12,6 +12,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<association property="internship" javaType="Internship" resultMap="com.bugmaker.mapper.InternshipMapper.internshipMap" />
 	</resultMap>
 
+	<!-- 审核改变所有项目志愿的状态 -->
+	<update id="modifyAllInsVolunteerStatus">
+		<if test="type != null and type == 1">
+			UPDATE ins_voluntee SET STATUS = #{status} WHERE STATUS = 2 AND ins_id IN (SELECT id FROM internship WHERE TYPE = "跟岗")
+		</if>
+		<if test="type != null and type == 2">
+			UPDATE ins_voluntee SET STATUS = #{status} WHERE STATUS = 2 AND ins_id IN (SELECT id FROM internship WHERE TYPE = "顶岗")
+		</if>
+	</update>
+
+	<!-- 审核改变项目志愿的状态 -->
+	<update id="modifyInsVolunteerStatus">
+		UPDATE ins_voluntee SET STATUS = #{status} WHERE id = #{insVolunteerId}
+	</update>
+
 	<!--判断当前用户填写过项目志愿的状态-->
 	<select id="getInsVolunteerStatus" resultType="string">
 		SELECT iv.status insVolunteer
@@ -40,5 +55,72 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND i.type = "顶岗" AND i.job_id = j.id AND j.company_id = c.id AND  iv.stu_id = #{studentId}
 		ORDER BY iv.create_time DESC LIMIT 1
 	</select>
-	
+	<!--多条件获取所有学生填报的项目志愿：JobType,status，班级id-->
+	<select id="selectInsVolunteerByParam" resultMap="insVolunteeMap">
+		SELECT s.id s_id,stu.*,profess_class.class_name pc_name,insvolunteer.*
+		FROM student s
+		LEFT JOIN (
+			SELECT u.*, d.id d3_id,d.dept_name d3_name
+			FROM user u
+			LEFT JOIN dept d ON u.dept_id = d.id
+			<if test="deptId != null and deptId != ''">
+				WHERE d.id=#{deptId}
+			</if>
+		) stu ON stu.id = s.id
+		LEFT JOIN profession_class profess_class ON s.class_id = profess_class.id
+		LEFT JOIN (
+			SELECT iv.id insVolunteer_id,iv.status insVolunteer_status,iv.stu_id stu_id,
+			iv.create_time insVolunteer_create_time, i.id iid, i.type itype, i.name iname
+			FROM ins_voluntee iv
+			LEFT JOIN (
+				SELECT * FROM internship i
+				<!-- jobType = 1 为跟岗 -->
+				<if test="type != null and type == 1">
+					WHERE i.type = "跟岗"
+				</if>
+				<if test="type != null and type == 2">
+					WHERE i.type = "顶岗"
+				</if>
+			) i ON iv.ins_id = i.id
+			<if test="status != null and status == 0">
+				WHERE iv.status = 0
+			</if>
+			<if test="status != null and status == 1">
+				WHERE iv.status = 1
+			</if>
+			<if test="status != null and status == 2">
+				WHERE iv.status = 2
+			</if>
+		) insvolunteer ON insvolunteer.stu_id = s.id
+		WHERE insvolunteer.insVolunteer_id IS NOT NULL AND insvolunteer.iid IS NOT NULL
+		<if test="professClassId != null and professClassId != ''">
+			AND profess_class.id= #{professClassId}
+		</if>
+		<if test="internshipId != null and internshipId != ''">
+			AND insvolunteer.iid = #{internshipId}
+		</if>
+
+		<!--SELECT iv.id insVolunteer_id,iv.status insVolunteer_status,-->
+		<!--iv.create_time insVolunteer_create_time, i.*, stu.*-->
+		<!--FROM ins_voluntee iv-->
+		<!--LEFT JOIN (-->
+		<!--SELECT * FROM internship i-->
+
+		<!--) i ON iv.ins_id = i.id-->
+		<!--LEFT JOIN (-->
+		<!--SELECT s.id s_id, u.*, d.id d3_id,d.dept_name d3_name, profess_class.class_name pc_name-->
+		<!--FROM student s,USER u, dept d, profession_class profess_class-->
+		<!--WHERE u.id = s.id AND u.dept_id = d.id AND profess_class.id = s.class_id-->
+		<!--) stu ON iv.stu_id = stu.id-->
+		<!--<if test="status != null and status == 0">-->
+			<!--WHERE iv.status = 0-->
+		<!--</if>-->
+		<!--<if test="status != null and status == 1">-->
+			<!--WHERE iv.status = 1-->
+		<!--</if>-->
+		<!--<if test="status != null and status == 2">-->
+			<!--WHERE iv.status = 2-->
+		<!--</if>-->
+
+	</select>
 </mapper>

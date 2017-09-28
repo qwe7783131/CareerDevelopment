@@ -39,14 +39,14 @@ public class InternshipMapperTest extends BaseTest {
         System.out.println(internship);
     }
 
-    @Test
-    public void selectInternshipAndTeacByNameTest() {
-        List<Internship> internships = internshipMapper.selectInternshipAndTeacByName("家");
-        for (Internship internship :
-                internships) {
-            System.out.println(internship);
-        }
-    }
+//    @Test
+//    public void selectInternshipAndTeacByNameTest() {
+//        List<Internship> internships = internshipMapper.selectInternshipAndTeacByName("家");
+//        for (Internship internship :
+//                internships) {
+//            System.out.println(internship);
+//        }
+//    }
 
     @Test
     public  void selectAllInternshipAndTeacTest() {
