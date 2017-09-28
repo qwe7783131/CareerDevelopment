@@ -93,10 +93,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<include refid="selectAll" />
 
 		<where>
-			<if test="deptId != null">
+			<if test="deptId != null and deptId != ''">
 				dd.d2_id = #{deptId}
 			</if>
-			<if test="directId != null">
+			<if test="directId != null and directId != ''">
 				AND dd.direct_id = #{directId}
 			</if>
 			<if test="status != null">
@@ -115,4 +115,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</set>
 		where id=#{enrollId}
 	</update>
+
+	<resultMap id="allInfo" type="java.util.Map">
+		<result column="count(d.id)" property="count" jdbcType="VARCHAR"/>
+		<result column="name" property="name" jdbcType="VARCHAR"/>
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<select id="getVolunteerInfo" resultMap="allInfo">
+		SELECT count(d.id),d.name, d.id
+		FROM enroll e
+		LEFT JOIN student s ON e.stu_id = s.id
+		LEFT JOIN direction d ON e.direc_id = d.id
+		WHERE s.direc_class_id is null || LENGTH(TRIM(s.direc_class_id)) = 0
+		AND  e.status = 1 AND d.dept_id = #{deptId}
+		GROUP BY d.id
+	</select>
 </mapper>

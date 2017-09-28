@@ -1,6 +1,12 @@
 package com.bugmaker.service;
 
+import com.bugmaker.bean.Dept;
+import com.bugmaker.bean.Direction;
+import com.bugmaker.bean.Enroll;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
+import java.util.Map;
 
 public interface VolunteerInfoService {
 
@@ -24,5 +30,13 @@ public interface VolunteerInfoService {
      * @return
      */
     boolean modifyEnrollStatus(String enrollId, Integer status, String reason);
+
+    List<Map> getAllVolunteerInfo(String deptId);
+
+    List<Direction> selectDirectionByDeptId(String deptId);
+
+    List<Enroll> selectAllEnrollByDirectId(String directId);
+
+    int batchUpdateStudentByEnroll(String dcId, List<Enroll> enrolls);
 
 }

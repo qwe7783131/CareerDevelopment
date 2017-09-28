@@ -25,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			FROM direction
 			LEFT JOIN dept d2
 			ON direction.dept_id = d2.id
-		) dd ON dc.id = dd.direct_id
+		) dd ON dc.direc_id = dd.direct_id
 	</sql>
 
 	<select id="selectAllDirectionClass" resultMap="dcMap">
@@ -48,4 +48,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	</select>
 
+		<insert id="addMutiDirectionClass" parameterType="List">
+			INSERT INTO direction_class(id,name,direc_id)
+			values
+			<foreach collection="list" item="item" index="index" separator ="," >
+				(#{item.id}, #{item.name}, #{item.direction.id})
+			</foreach>
+		</insert>
+
+	<select id="selectDirectionClassById" resultMap="dcMap">
+
+		<include refid="selectAll" />
+		WHERE dc.id = #{id}
+
+	</select>
 </mapper>

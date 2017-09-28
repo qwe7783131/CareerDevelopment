@@ -4,6 +4,7 @@ import com.bugmaker.bean.Enroll;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by guan on 2017/9/25.
@@ -46,4 +47,6 @@ public interface EnrollMapper {
 
     int updateEnroll(@Param("enrollId") String enrollId, @Param("status") Integer status,
                      @Param("reason") String reason);
+
+    List<Map> getVolunteerInfo(@Param("deptId") String deptId);
 }

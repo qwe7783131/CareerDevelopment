@@ -69,10 +69,10 @@ public class VolunteerInfoServiceImpl implements VolunteerInfoService{
         }
 
 //        List<Enroll> enrolls = wuEnrollMapper.selectByParam(deptId, directId, status);
-        PageHelper.startPage(nowPage, 5);
         System.out.println("deptId:"+deptId);
         System.out.println("directId:"+directId+ directId == null);
         System.out.println("pcClassId:"+pcClassId);
+        PageHelper.startPage(nowPage, 5);
         List<Enroll> enrolls = enrollMapper.selectByParam(deptId,directId,pcClassId,status);
         PageInfo<Enroll> page = new PageInfo<>(enrolls);
 
@@ -82,6 +82,8 @@ public class VolunteerInfoServiceImpl implements VolunteerInfoService{
         map.put("status", status);
         System.out.println("status"+ status);
         map.put("page", page);
+
+        System.out.println(page);
         return new ModelAndView("leader/volunteerInfo", "map", map);
     }
 
@@ -103,6 +105,7 @@ public class VolunteerInfoServiceImpl implements VolunteerInfoService{
         List<Direction> directions = null;
         List<DirectionClass> directionClassList = null;
         map.put("classId", classId);
+        System.out.println("classId" + classId);
         if(deptId != null && !deptId.equals("")){
             System.out.println("有dept");
             Dept dept = new Dept();
@@ -116,6 +119,13 @@ public class VolunteerInfoServiceImpl implements VolunteerInfoService{
                 directionClassList = directionClassMapper.selectDirectionClassByDirectId(directId);
 
 
+            }else if(classId != null && !classId.equals("")){
+                System.out.println("=================");
+                DirectionClass directionClass = directionClassMapper.selectDirectionClassById(classId);
+                //
+                directionClassList = directionClassMapper.selectDirectionClassByDirectId(directionClass.getDirection().getId());
+                System.out.println("dirClass" +directionClassList);
+                map.put("directId", directionClass.getDirection().getId());
             }else{
                 directionClassList = directionClassMapper.selectDirectionClassByDeptId(deptId);
             }
@@ -190,5 +200,44 @@ public class VolunteerInfoServiceImpl implements VolunteerInfoService{
         int flag = enrollMapper.updateEnroll(enrollId, status, reason);
 
         return flag == 1 ? true : false;
+    }
+
+    @Override
+    public List<Map> getAllVolunteerInfo(String deptId) {
+        return enrollMapper.getVolunteerInfo(deptId);
+    }
+
+    @Override
+    public List<Direction> selectDirectionByDeptId(String deptId) {
+        Dept dept = new Dept();
+        dept.setId(deptId);
+        return directionMapper.selectDirectionByDept(dept);
+    }
+
+    @Override
+    public List<Enroll> selectAllEnrollByDirectId(String directId) {
+        return enrollMapper.selectByParam(null, directId, null, 1);
+    }
+
+    @Override
+    public int batchUpdateStudentByEnroll(String dcId, List<Enroll> enrolls) {
+        List<Student> students = new ArrayList<Student>();
+
+        for (Enroll enroll: enrolls) {
+            Student student = new Student();
+            student.setId(enroll.getStudent().getUser().getId());
+            DirectionClass directionClass = new DirectionClass();
+            directionClass.setId(dcId);
+            student.setDirectionClass(directionClass);
+
+            students.add(student);
+
+        }
+        int j = 0, count = 0;
+        for (Student student : students){
+            j = studentMapper.updateStudentById(student);
+            count += j;
+        }
+        return count;
     }
 }

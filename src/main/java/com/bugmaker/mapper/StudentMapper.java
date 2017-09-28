@@ -42,4 +42,7 @@ public interface StudentMapper {
 
     //添加教师角色
     int insertStudentRole(UserRole userRole);
+
+    //批量更新学生
+    int batchUpdate(List<Student> students);
 }

@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Map;
 
 public class EnrollMapperTest extends BaseTest {
 
@@ -35,5 +36,12 @@ public class EnrollMapperTest extends BaseTest {
     public void testUpdate(){
         int a = enrollMapper.updateEnroll("beeeca46a2af11e7b4d800163e083221", 1, "aa");
         System.out.println(a);
+    }
+
+    @Test
+    public void testAllInfo(){
+        String deptId = "e2c3cc8ba07a11e7b4d800163e083221";
+        List<Map> aa = enrollMapper.getVolunteerInfo(deptId);
+//        System.out.println(aa.get(0).get("count"));
     }
 }

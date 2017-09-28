@@ -37,6 +37,12 @@
             <div class="layui-inline">
                 <select id="classId" lay-verify="required" lay-filter="classId" name="classId"
                         form="hideform">
+                    <#if map.directionClassList?? >
+                        <#list map.directionClassList as
+                                directionClass>
+                        ${directionClass}
+                        </#list>
+                    </#if>
                     <option value="">请选择班级</option> <#list map.directionClassList as
                         directionClass> <#if map.classId?? &&
                         (map.classId==directionClass.id)>
@@ -139,7 +145,7 @@
 
 				form.on("select(directId)",function(data){
                     if(jquery("#classId").val() != ""){
-                            jquery("#directId").val("");
+                            jquery("#classId").val("");
 					}
 					jquery("#hidesubmit").click();
 				});

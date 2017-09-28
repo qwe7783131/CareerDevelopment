@@ -1,7 +1,12 @@
 package com.bugmaker.controller.leader;
 
+import com.bugmaker.bean.Direction;
+import com.bugmaker.bean.DirectionClass;
 import com.bugmaker.bean.Enroll;
+import com.bugmaker.bean.Student;
+import com.bugmaker.service.DirectionClassManagerService;
 import com.bugmaker.service.VolunteerInfoService;
+import com.bugmaker.utils.MyUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.http.HttpRequest;
@@ -18,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -30,22 +35,63 @@ public class DivideClassController {
 
     @Resource
     private VolunteerInfoService volunteerInfoService;
+
+
+    @Resource
+    private DirectionClassManagerService directionClassManagerService;
     /**
      * 分班
-     * @param direct_id 方向id
-     * @param class_num 分班个数
+     * @param directId 方向id
+     * @param classNum 分班个数
      * @return
      */
     @RequestMapping("divideClass.do")
     @ResponseBody
-    public boolean divideClass(String direct_id, Integer class_num){
+    public boolean divideClass(String directId, String directName, Integer count, Integer classNum){
 
-        System.out.println("方向id:" + direct_id + "分班个数" + class_num);
+        // 接收一组数据 [专业方向id，专业方向名字， 人数，分班个数]
+        System.out.println("方向id:" + directId + "分班个数" + classNum);
+        System.out.println(directName + count);
+
+        List<DirectionClass> directionClasses = new ArrayList<DirectionClass>();
+
+        if(count < classNum){
+            return false;
+        }
+
+        Direction direction = new Direction();
+        direction.setId(directId);
+        List<String> dcIdList = new ArrayList<String>();
+        for(int i = 1; i <= classNum; i++){
+            DirectionClass directionClass = new DirectionClass();
+            String randomId = UUID.randomUUID().toString().replace("-", "");
+            dcIdList.add(randomId);
+            directionClass.setId(randomId);
+            directionClass.setName(directName + i + "班");
+            directionClass.setDirection(direction);
+
+            directionClasses.add(directionClass);
+        }
+
+        //用到的表 student，directionClass，
         // 1.在专业方向的班级表插入班级id
+        directionClassManagerService.mutiAddDirectinClass(directionClasses);
+        // 2.找出所有选了这个方向的学生志愿
+        List<Enroll> enrolls = volunteerInfoService.selectAllEnrollByDirectId(directId);
+        // 3.在学生表中更新方向班级id
+        // update student ()
+        // 4.返回操作状态
 
-        // 2.在学生表中插入方向班级id
+        List<List<Enroll>> lists = MyUtil.averageAssign(enrolls, classNum);
 
-        // 3.返回操作状态
+        System.out.println(lists.size());
+        int i = 0;
+        for (List<Enroll> list : lists){
+            System.out.println("==" +list.size());
+            System.out.println(list);
+            volunteerInfoService.batchUpdateStudentByEnroll(dcIdList.get(i), list);
+            i++;
+        }
         return true;
     }
 
@@ -53,8 +99,19 @@ public class DivideClassController {
      * 跳转到分班页面
      */
     @RequestMapping("toDivideClass.do")
-    public String divideClassView(){
-        return "leader/divideClass";
+    public ModelAndView divideClassView(){
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        String deptId = "e2c3cc8ba07a11e7b4d800163e083221";
+        List<Direction> directions = null;
+        directions = volunteerInfoService.selectDirectionByDeptId(deptId);
+        // 用到的表， enroll,direction
+        List<Map> infoMap = volunteerInfoService.getAllVolunteerInfo(deptId);
+
+        map.put("directions", directions);
+        map.put("infoMap", infoMap);
+        // 根据deptId来
+        return new ModelAndView("leader/divideClass", "map", map);
     }
 
     /**
@@ -66,7 +123,7 @@ public class DivideClassController {
      */
     @RequestMapping("toVolunteerInfo.do")
     public ModelAndView volunteerInfoView(Model model,
-                                          @RequestParam(defaultValue="1") String currentPage,
+                                          @RequestParam(defaultValue="1") String curr,
                                           String pcClassId, String directId, Integer statusId) {
 
 //        Integer currPage = Integer.valueOf(currentPage);
@@ -77,7 +134,7 @@ public class DivideClassController {
 //        PageInfo page = new PageInfo(students, 5);
 //        page.getNavigatePages();
 //        model.addAttribute("page",page);
-        return volunteerInfoService.toVolunteerPage(pcClassId,directId,statusId, currentPage);
+        return volunteerInfoService.toVolunteerPage(pcClassId,directId,statusId, curr);
     }
 
     // 文件导入导出的例子：http://blog.csdn.net/hsf15768615284/article/details/73136029
@@ -98,10 +155,10 @@ public class DivideClassController {
 
     @RequestMapping("toDivideInfo.do")
     public ModelAndView divideInfoView(Model model,
-                                       @RequestParam(defaultValue="1") String currentPage,
-                                       String deptId, String directId, String classId){
+                                       @RequestParam(defaultValue="1") String curr,
+                                       String directId, String classId){
 
-        return volunteerInfoService.toDividePage(directId, classId, currentPage);
+        return volunteerInfoService.toDividePage(directId, classId, curr);
     }
 
     /**
@@ -117,5 +174,7 @@ public class DivideClassController {
 //        System.out.println(enrollId + "" + status + "" + reason);
         return volunteerInfoService.modifyEnrollStatus(enrollId, status, reason);
     }
+
+
 
 }

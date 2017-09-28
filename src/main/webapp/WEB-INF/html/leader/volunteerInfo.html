@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>选人分班</title>
+    <title>查看志愿填报</title>
 
     <#include "html/template/head.html" />
     <#assign urlbase=base + "/leader" />
@@ -51,7 +51,7 @@
                         [1,'通过'],
                         [2,'待审核']
                         ] >
-                    <option value="">请选择志愿方向</option>
+                    <option value="">请选择审核状态</option>
                     <#list statusArr as s>
                         <#if map.status?? && (map.status==s[0])>
                             <option value="${s[0]}" selected>${s[1]}</option>
@@ -205,13 +205,13 @@
 				//执行一个分页
 
 
-				laypage.render({
-					elem: 'layPage3', //注意，这里的 test1 是 ID，不用加 # 号
-					count: 100, //数据总数，从服务端得到
-					limit: 10, //每页条数
-					groups: 5,
-					layout: ['prev', 'page', 'next', 'count']
-				});
+				<!--laypage.render({-->
+					<!--elem: 'layPage3', //注意，这里的 test1 是 ID，不用加 # 号-->
+					<!--count: 100, //数据总数，从服务端得到-->
+					<!--limit: 10, //每页条数-->
+					<!--groups: 5,-->
+					<!--layout: ['prev', 'page', 'next', 'count']-->
+				<!--});-->
 
                 laypage.render({
                     elem: 'demo1',
@@ -223,7 +223,7 @@
                     layout: ['first','prev', 'page', 'next','last','count','skip'],
                     jump: function(obj,first) {
                         if(!first){
-                            window.location.href="${urlbase}/toVolunteerInfo.do?curr="+obj.curr+"&deptId="+jquery("#deptId").val()+"&professId="+jquery("#professId").val();
+                            window.location.href="${urlbase}/toVolunteerInfo.do?curr="+obj.curr+"&pcClassId="+$("#pcClassId").val()+"&directId="+$("#directId").val()+"&statusId=" + $("#statusId").val();
                         }
                     }
                 });

@@ -1,10 +1,7 @@
 package com.bugmaker.mapper;
 
 import com.bugmaker.BaseTest;
-import com.bugmaker.bean.DirectionClass;
-import com.bugmaker.bean.ProfessionClass;
-import com.bugmaker.bean.Student;
-import com.bugmaker.bean.User;
+import com.bugmaker.bean.*;
 import com.bugmaker.constant.UserConstant;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,11 +70,17 @@ public class StudentMapperTest extends BaseTest {
     @Test
     public void testSelectParams(){
         Student student = new Student();
+        Direction direction = new Direction();
+        DirectionClass directionClass = new DirectionClass();
         User user = new User();
-        user.setUsername("伟");
-//        user.setId("201424");
-        ProfessionClass professionClass = new ProfessionClass();
-//        professionClass.setClassName("2");
+        Dept dept = new Dept();
+
+        direction.setId("2312313");
+        directionClass.setId("21ce7d8da47c4778981e0493b0d0ee0b");
+        directionClass.setDirection(direction);
+        dept.setId("e2c3cc8ba07a11e7b4d800163e083221");
+        user.setDept(dept);
+        student.setDirectionClass(directionClass);
         student.setUser(user);
         List<Student> students = studentMapper.selectStudentByParams(student);
         System.out.println(students);
