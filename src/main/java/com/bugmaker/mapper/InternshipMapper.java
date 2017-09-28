@@ -4,6 +4,7 @@ package com.bugmaker.mapper;
 import com.bugmaker.bean.Internship;
 import com.bugmaker.bean.TeacIns;
 import com.bugmaker.bean.User;
+
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -81,5 +82,21 @@ public interface InternshipMapper {
 	 * @return
 	 */
 	List<User> selectTeachersNoChooseIns(String deptId);
+	
+	/**
+	 * 查询选择此项目的教师
+	 * @param insId  项目id
+	 * @param deptId 学院id
+	 * @return 
+	 */
+	List<TeacIns> selectTeachersByInsAndDept(@Param("insId") String insId, @Param("deptId") String deptId);
+	
+	/**
+	 * 更新教师项目表对应教师和项目为通过
+	 * @param teacIds
+	 * @param insId
+	 * @return
+	 */
+	int updateTeacInsForAcc(@Param("teacIds") String[] teacIds, @Param("insId") String insId);
 
 }
