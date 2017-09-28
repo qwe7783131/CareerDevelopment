@@ -26,10 +26,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</association>
 		</association>
 		<association property="dept" javaType="Dept" resultMap="com.bugmaker.mapper.DeptMapper.deptResult"/>
-		<collection property="teachers" ofType="com.bugmaker.bean.User">
-			<id property="id" column="uid"  />
-			<result property="username" column="u_username"  />
-		</collection>
+		<collection property="teachers" ofType="com.bugmaker.bean.User" resultMap="com.bugmaker.mapper.UserMapper.userMap"/>
+	</resultMap>
+	
+	<resultMap type="com.bugmaker.bean.TeacIns" id="teacInsResult">
+		<id property="id" column="tiid"/>
+		<association property="teacher" resultMap="com.bugmaker.mapper.UserMapper.userMap"/>
+		<association property="internship" resultMap="internshipMap"/>
 	</resultMap>
 	
 	<sql id="selectSql">
@@ -38,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         c.id cid, c.name cname, c.address caddress, c.phone cphone, c.advisor cadvisor,
         j.name jname, j.salary jsalary, j.outteac_id joutteacherid,
         i.name iname,
-        u.id uid, u.username u_username
+        u.id uid, u.username username
         FROM ins_voluntee iv,internship i, company c, job j, teac_ins ti, user u
 	</sql>
 
@@ -49,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         c.id cid, c.name cname, c.address caddress, c.phone cphone, c.advisor cadvisor,
         j.name jname, j.salary jsalary, j.outteac_id joutteacherid,
         i.name iname,
-        u.id uid, u.username u_username
+        u.id uid, u.username username
         FROM ins_voluntee iv,internship i, company c, job j, teac_ins ti, user u
         WHERE iv.stu_id = #{id} AND iv.ins_id = i.id
         AND i.type = "顶岗" AND i.job_id = j.id AND j.company_id = c.id
@@ -59,7 +62,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!--根据项目id查询该项目的所有的指导老师 -->
 	<select id="selectAllTeacherByInternshipId" parameterType="string" resultMap="internshipMap">
-		SELECT u.id uid, u.username u_username, temp.name iname
+		SELECT u.id uid, u.username username, temp.name iname
 		FROM user u,(SELECT ti.teac_id ti_teac_id, i.name FROM teac_ins ti, internship i
 		WHERE ins_id = #{id}
 		AND i.id = ti.ins_id) temp
@@ -82,7 +85,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE i.type = "顶岗" AND i.job_id = j.id AND j.company_id = c.id
 		AND i.status = 2 AND i.enable = 1 AND i.name LIKE '%' #{name} '%' ) internships
 		LEFT JOIN
-		(SELECT u.id uid,u.username u_username, ins_id FROM teac_ins ti, user u, internship i WHERE
+		(SELECT u.id uid,u.username username, ins_id FROM teac_ins ti, user u, internship i WHERE
 		i.id = ti.ins_id AND ti.teac_id=u.id AND u.type = "2" AND ti.status = "1") teachers
 		ON internships.iid = teachers.ins_id
 
@@ -137,8 +140,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where u.dept_id=d.id and d.id=#{deptId}
 		and u.type='${@com.bugmaker.constant.UserConstant@TeacherType}'
 		and u.id not in (
-			select distinct teac_id from teac_ins
+			select distinct teac_id 
+			from teac_ins t, internship i
+			where t.ins_id=i.id and i.dept=#{deptId}
 		)
 	</select>
+	
+	<!-- 查询所有选此项目的教师 -->
+	<select id="selectTeachersByInsAndDept" resultMap="teacInsResult">
+		select u.id uid, username, password, sex, age, phone, email, d.id, dept_name, create_time
+		from user u, dept d, teac_ins ti
+		where u.dept_id=d.id and ti.teac_id=u.id
+		and u.type='${@com.bugmaker.constant.UserConstant@TeacherType}'
+		and ti.ins_id=#{insId} and d.id=#{deptId}
+	</select>
+	
+	<update id="updateTeacInsForAcc">
+		update teac_ins set status='1'
+		where ins_id=#{insId} and teac_id in
+		<foreach collection="teacIds" index="index" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</update>
 
 </mapper>
