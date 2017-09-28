@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bugmaker.mapper.TeacherInternshipMapper">
+
+
+	 <resultMap type="TeacherInternship" id="TeacherInternshipMap">
+	
+		<association property="teacher" resultMap="com.bugmaker.mapper.UserMapper.userMap"/>
+		<collection property="teacIns" ofType="com.bugmaker.bean.TeacIns">
+		
+		    <result property="status" column="TeacIns_status" />
+			<association property="internship" resultMap="com.bugmaker.mapper.InternshipMapper.internshipMap"/>
+			
+		</collection>
+	</resultMap> 
+	
+	<!-- 插入教师填报项目 -->
+	<insert id="insertTeacIns" parameterType="com.bugmaker.bean.TeacIns">
+	     insert into teac_ins values (replace(uuid(),"-",""),#{teacher.id},#{internship.id},"2")
+	</insert>
+	<!-- 根据教师的id查询录取情况 -->
+	<select id="getTeacInsByTeacherId" resultMap="TeacherInternshipMap">
+	     select t.status TeacIns_status,i.type itype,i.name iname 
+	     from teac_ins t,internship i,user u
+	     where t.teac_id=#{teacherId} and t.ins_id = i.id and u.id=t.teac_id
+	</select>
+	
+	
+	
+</mapper>

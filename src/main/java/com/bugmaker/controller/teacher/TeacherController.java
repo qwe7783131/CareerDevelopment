@@ -10,7 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bugmaker.bean.Dept;
@@ -22,6 +24,7 @@ import com.bugmaker.service.AddTeacherService;
 import com.bugmaker.service.OutTeacherService;
 import com.bugmaker.service.ProfessPrincipalService;
 import com.bugmaker.service.StudentService;
+import com.bugmaker.service.TeacherInternshipService;
 import com.bugmaker.service.TeacherService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -43,6 +46,8 @@ public class TeacherController {
 	public ProfessPrincipalService professsPrincipalService;
 	@Resource
 	public OutTeacherService outTeacherService;
+	@Resource
+	public TeacherInternshipService teacherInternshipService;
 	
     /**
      * 教师首页
@@ -143,11 +148,28 @@ public class TeacherController {
     /**
      * 指导老师分配
      */
-    @RequestMapping("teacherAssign.do")
+    /*@RequestMapping("teacherAssign.do")
     public String teacherAssignView(){
         return "teacher/zhidaofenpei";
+    }*/
+    @RequestMapping("teacherAssign.do")
+    public ModelAndView teacherAssignView(@RequestParam(defaultValue="1") String curr){
+    	return teacherInternshipService.tSelectInternshipsByDeptId(curr);
     }
-
+    /**
+     * 指导老师分配
+     */
+    @ResponseBody
+    @RequestMapping(value = "addTeacIns.do", method = RequestMethod.POST)
+    public String addTeacIns(String[] internshipID){
+    	int i=0;
+    for (String string : internshipID) {
+    	i=teacherInternshipService.addTeacIns(string);
+		
+	}
+    	
+        return ""+i;
+    }
     /**
      * 查看和完成顶岗实习手册
      * @return

@@ -8,8 +8,11 @@ public class TeacIns {
     private User teacher;
 
     private Internship internship;
+    
+    private String status;
+ 
 
-    public String getId() {
+	public String getId() {
         return id;
     }
 
@@ -32,13 +35,25 @@ public class TeacIns {
     public void setInternship(Internship internship) {
         this.internship = internship;
     }
+    
 
-    @Override
-    public String toString() {
-        return "TeacIns{" +
-                "id='" + id + '\'' +
-                ", teacher=" + teacher +
-                ", internship=" + internship +
-                '}';
-    }
+    public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	
+
+	
+	@Override
+	public String toString() {
+		return "TeacIns [id=" + id + ", teacher=" + teacher + ", internship=" + internship + ", status=" + status + "]";
+	}
+
+	
+	
+	
 }
