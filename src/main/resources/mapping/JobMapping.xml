@@ -10,27 +10,62 @@
 		<result property="salary" column="salary" />
 		<association property="company" javaType="com.bugmaker.bean.Company">
 			<id property="id" column="company_id" />
-			<result property="name" column="name" />
+			<result property="name" column="company_name" />
 			<result property="address" column="address" />
 			<result property="phone" column="phone" />
 			<result property="advisor" column="advisor" />
 		</association>
 		<association property="outteacher" javaType="com.bugmaker.bean.Outteacher">
-			<id property="id" column="outteac_id" />
+			<id property="id" column="outteacher_id" />
+			<association property="user" javaType="com.bugmaker.bean.User">
+				<id property="id" column="user_id"/>
+				<result property="username" column="user_username"/>
+			</association>
 		</association>
 	</resultMap>
+
+	<select id="getAllJob" resultMap="jobMap">
+		select j.id,j.name,j.salary,c.id company_id,c.name company_name,c.address,c.phone,c.advisor,j.outteac_id outteacher_id,
+		       u.username user_username
+		from job j,company c,outteacher o,user u
+		where j.company_id = c.id and j.outteac_id = u.id and j.enable = 1
+	</select>
 
 	<!-- 根据公司id查询对应的岗位 -->
 	<select id="getJobByCompanyId" parameterType="String" resultType="Job">
 	  select * from job where company_id=#{id}
 	</select>
 
+	<!--根据公司id查询对应企业教师-->
+	<select id="getOutteacherByCompanyId" parameterType="String" resultType="User">
+		select  * from user u,outteacher o where o.company_id = #{id} and o.id = u.id
+	</select>
+
 
     <insert id="insertJob" parameterType="com.bugmaker.bean.Job">
-        insert into job values (#{id},#{companyId},#{name},#{salary},#{outteacId})
+        insert into job (id ,company_id,name,salary,outteac_id,enable) values (#{id},#{company.id},#{name},#{salary},#{outteacher.id},#{enable})
     </insert>
 
-    <select id="getAllJob" resultType="Job">
-        select * from job
-    </select>
+
+	<update id="deleteJob" parameterType="String">
+		update job set enable = 0 where id = #{id}
+	</update>
+
+	<update id="updateJobById" parameterType="Job">
+		UPDATE job
+		<set>
+			<if test="name != null">name=#{name},</if>
+			<if test="salary != null">salary=#{salary},</if>
+			<if test="outteacher.id != null">outteac_id=#{outteacher.id},</if>
+		</set>
+		WHERE id = #{id}
+	</update>
+
+	<select id="selectAllJobByCompanyName" parameterType="string" resultMap="jobMap">
+		select j.id,j.name,j.salary,c.id company_id,c.name company_name,c.address,c.phone,c.advisor,j.outteac_id outteacher_id,
+		u.username user_username
+		from job j,company c,outteacher o,user u
+		where j.company_id = c.id and j.outteac_id = u.id and j.enable = 1
+			AND c.id = #{name}
+	</select>
 </mapper>

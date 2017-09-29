@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <#include "html/template/head.html" />
+    <title>添加企业</title>
+</head>
+<body>
+
+
+<div style="margin: 15px;">
+    <blockquote class="layui-elem-quote ">
+        添加岗位
+    </blockquote>
+</div>
+
+<div class="layui-row">
+    <form class="layui-form" action="" style="padding-right : 100px">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">企业</label>
+            <div class="layui-input-block">
+                <select name="companyId" lay-filter="aihao" id="companyId">
+                    <option value=""></option>
+                    <#list map.getAllCompany as company>
+                        <#if map.company_id==company.id>
+                        <option value=${company.id} selected>${company.name}</option>
+                            <#else>
+                                <option value=${company.id}>${company.name}</option>
+                            </#if>
+                    </#list>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">企业教师</label>
+            <div class="layui-input-block">
+                <select name="outteacherId" lay-filter="aihao" id="outteacherId">
+                    <option value=""></option>
+                    <#list map.getOutteacherByCompanyId as outteacher>
+                        <#if map.outteacher_id==outteacher.id>
+                            <option value=${outteacher.id} selected>${outteacher.username}</option>
+                            <#else>
+                                <option value=${outteacher.id}>${outteacher.username}</option>
+                        </#if>
+                    </#list>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">岗位</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" required lay-verify="required" placeholder="请输入岗位名称" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <!--<div class="layui-form-item">-->
+            <!--<label class="layui-form-label">岗位编号</label>-->
+            <!--<div class="layui-input-block">-->
+                <!--<input type="text" name="id" required lay-verify="required" placeholder="请输入岗位编号" autocomplete="off" class="layui-input">-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="layui-form-item">
+            <label class="layui-form-label">工资</label>
+            <div class="layui-input-block">
+                <input type="text" name="salary" required lay-verify="required" placeholder="请输入工资" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="${base}/frame/layui/layui.js"></script>
+<script src="${base}/resources/js/jquery-2.1.4.js"></script>
+<script>
+		layui.use(['laypage', 'layer', 'form'], function() {
+			//var form = layui.form;
+
+			var laypage = layui.laypage,
+				layer = layui.layer;
+
+			laypage.render({
+				elem: 'demo1',
+				count: 70,
+				jump: function(obj) {
+					console.log(obj)
+				}
+			});
+		});
+		layui.use(['form', 'layedit', 'laydate'], function() {
+			var form = layui.form,
+				layer = layui.layer,
+				layedit = layui.layedit,
+				laydate = layui.laydate;
+
+            //监听select
+            form.on('select',function(data){
+                window.location.href = '${base}/admin/toAddJob.do?company_id='+companyId.value + '&outteacher_id=' + outteacherId.value;
+            });
+
+			//监听提交
+			form.on('submit(formDemo)', function(data) {
+				$.ajax({
+						url: '${base}/admin/addJob.do',
+						contentType: "application/json",
+						data: JSON.stringify(data.field),
+						type: 'post',
+						dataType: 'json',
+						success:function(data){
+						    parent.layer.msg("成功");
+						    parent.window.location.href = '${base}/admin/jobManage.do';
+						 },
+						error:function(){
+						    layer.msg("失败,用户已存在");
+						}
+					});
+				return false;
+			});
+		});
+	</script>
+
+</body>
+
+</html>
