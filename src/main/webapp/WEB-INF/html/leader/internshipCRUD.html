@@ -10,7 +10,7 @@
 			<legend>操作</legend>
 			
 			
-			<div class="layui-row">
+			<div class="layui-row style="padding-bottom:10px;"">
 			<form class="layui-form" action="${base}/leader/getInternshipByName.do"  method="post">
 			    <div class="layui-col-md10">
 			       <label class="layui-form-label">项目名称</label>
@@ -42,38 +42,43 @@
 		<div style="padding-left: 50px;padding-right: 50px;">
 		
 			<table class="layui-table">
-				<colgroup>
-					<col width="150">
-					<col width="150">
-					<col width="200">
-					<col>
-				</colgroup>
+				
 				<thead>
 					<tr>
 						<th>序号</th>
 						<th lay-data="{field:'internshipName'}">项目名称</th>
+						<th>学院</th>
 						<th>项目类型</th>
 						<th>公司名称</th>
-						<th>地址</th>
-						<th>联系电话</th>
-						<th>顾问</th>
+						<th>公司地址</th>
+						<th>公司电话</th>
+						<th>公司顾问</th>
 						<th>岗位名称</th>
 						<th>薪水</th>
+						<th>是否可用</th>
 						<th>操作</th>
 					</tr>
 				</thead>
 				<tbody>
 				<#list page.list as p>
+				   <#if p.type == "顶岗">
 					<tr>					
-						<td>1</td>						
+						<td>#</td>						
 						<td>${p.name}</td>
+						<td>${p.dept.deptName}</td>
 						<td>${p.type}</td>
 						<td>${p.job.company.name}</td>
 						<td>${p.job.company.address}</td>
 						<td>${p.job.company.phone}</td>
 						<td>${p.job.company.advisor}</td>
 						<td>${p.job.name}</td>
+						
 						<td>${p.job.salary}</td>
+						<#if p.enable==1>
+						<td>可用</td>
+						<#else>
+						<td>否</td>
+						</#if>
 						<td>
 							<div class="layui-inline">
 								<div class="site-demo-button" id="modify" style="margin-bottom: 0;">
@@ -88,11 +93,14 @@
 					
 						</td>						
 					</tr>
+					</#if>
 					</#list>
 					<#list ship as p>
+					 <#if p.type == "顶岗">
 					<tr>					
-						<td>1</td>						
+						<td>#</td>						
 						<td>${p.name}</td>
+						<td>${p.dept.deptName}</td>
 						<td>${p.type}</td>
 						<td>${p.job.company.name}</td>
 						<td>${p.job.company.address}</td>
@@ -100,6 +108,11 @@
 						<td>${p.job.company.advisor}</td>
 						<td>${p.job.name}</td>
 						<td>${p.job.salary}</td>
+						<#if p.enable==1>
+						<td>可用</td>
+						<#else>
+						<td>否</td>
+						</#if>
 						<td>
 							<div class="layui-inline">
 								<div class="site-demo-button" id="modify" style="margin-bottom: 0;">
@@ -114,6 +127,7 @@
 					
 						</td>						
 					</tr>
+					</#if>
 					</#list>
 				</tbody>
 			</table>
@@ -179,7 +193,7 @@
 					 shadeClose: true,
 					  shade: false,
 					  maxmin: true, //开启最大化最小化按钮
-					  area: ['893px', '300px'],
+					  area: ['893px', '350px'],
 					  content: '${base}/leader/addInternship.do',
 					  end:function(){
 						  setTimeout("window.location.reload()",2000);
@@ -221,7 +235,7 @@
 						shadeClose: true,
 						  shade: false,
 						  maxmin: true, //开启最大化最小化按钮
-						  area: ['893px', '300px'],
+						  area: ['893px', '450px'],
 						 
 						content: '${base}/leader/updateInternship.do?internshipID='+id,
 						 end:function(){

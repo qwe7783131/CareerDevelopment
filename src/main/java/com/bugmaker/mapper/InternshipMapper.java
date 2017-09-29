@@ -60,7 +60,7 @@ public interface InternshipMapper {
     /**
      * 查询所有的实习项目
      */
-    List<Internship> selectAllInternship();
+    List<Internship> selectAllInternship(String deptID);
 
     /**
      * 根据id删除实习项目

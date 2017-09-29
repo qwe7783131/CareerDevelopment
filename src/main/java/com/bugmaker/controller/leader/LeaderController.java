@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bugmaker.bean.Company;
+import com.bugmaker.bean.Dept;
 import com.bugmaker.bean.Internship;
 import com.bugmaker.bean.Job;
+
 import com.bugmaker.service.InternshipService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -28,7 +30,7 @@ public class LeaderController {
 	
 	@Resource
 	public InternshipService internshipService;
-
+	
 	/**
 	 * 跳转到系领导的首页
 	 * @return
@@ -94,9 +96,11 @@ public class LeaderController {
      */
 	@RequestMapping("addInternship.do")
 	public ModelAndView addInternship(){
-		Map<String,List<Company>>  map = new HashMap<String,List<Company>>();
+		Map<String,Object>  map = new HashMap<String,Object>();
 		List<Company> companys = internshipService.getAllCompany();
+		List<Dept> depts = internshipService.getAllDept();
 		map.put("companys", companys);
+		map.put("depts", depts);
 		ModelAndView modelAndView = new ModelAndView();
     	modelAndView.addObject("map", map);
     	modelAndView.setViewName("leader/addInternship");

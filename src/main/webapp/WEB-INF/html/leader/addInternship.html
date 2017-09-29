@@ -27,6 +27,19 @@
     </div>
   </div>
  
+ <div class="layui-form-item">
+    <label class="layui-form-label">学院</label>
+    <div class="layui-input-block">
+      <select name="dept.id" lay-filter="">
+        <option value=""></option>
+        <#list map.depts as de>
+			<option value="${de.id}">${de.deptName}</option> 
+			
+		</#list>
+      </select>
+    </div>
+  </div>
+ 
   <div class="layui-form-item">
     <label class="layui-form-label">公司名称</label>
     <div class="layui-input-block">

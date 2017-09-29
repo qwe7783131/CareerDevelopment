@@ -3,6 +3,7 @@ package com.bugmaker.service;
 import java.util.List;
 
 import com.bugmaker.bean.Company;
+import com.bugmaker.bean.Dept;
 import com.bugmaker.bean.Internship;
 import com.bugmaker.bean.Job;
 
@@ -10,6 +11,9 @@ public interface InternshipService {
 	
 	//获取所有公司
 	public List<Company> getAllCompany();
+	
+	//获取所有学院
+	public List<Dept> getAllDept();
 	
 	//通过公司ID获取岗位信息
 	public List<Job> getJobByCompanyId(String id);

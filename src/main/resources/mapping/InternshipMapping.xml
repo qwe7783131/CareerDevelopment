@@ -25,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				<result column="cadvisor" property="advisor" />
 			</association>
 		</association>
-		<association property="dept" javaType="Dept" resultMap="com.bugmaker.mapper.DeptMapper.deptResult"/>
+		<association property="dept" javaType="com.bugmaker.bean.Dept" resultMap="com.bugmaker.mapper.DeptMapper.deptResult"/>
 		<collection property="teachers" ofType="com.bugmaker.bean.User" resultMap="com.bugmaker.mapper.UserMapper.userMap"/>
 	</resultMap>
 	
@@ -92,34 +92,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!-- 根据项目名称模糊查询项目 -->
 	<select id="selectInternshipByName"	parameterType="string" resultMap="internshipMap">
-		SELECT i.id iid, i.type itype,
+		SELECT i.id iid, i.type itype,d.dept_name,i.enable ienable,
 		j.id jid,
 		c.id cid, c.name cname, c.address caddress, c.phone cphone, c.advisor cadvisor,
 		j.name jname, j.salary jsalary, j.outteac_id joutteacherid,
 		i.name iname
-		FROM internship i, job j, company c
-		WHERE i.job_id = j.id AND j.company_id = c.id AND i.name LIKE '%' #{name} '%'
+		FROM internship i, job j, company c,dept d
+		WHERE i.job_id = j.id AND j.company_id = c.id AND d.id= i.dept AND i.name LIKE '%' #{name} '%'
 	</select>
 
-	<!-- 修改实习项目 -->
+	<!-- 修改实习项目  job_id = #{job.id},-->
 	<update id="updateInternshipById"  parameterType="com.bugmaker.bean.Internship">
-		UPDATE internship SET job_id = #{job.id}, NAME=#{name} WHERE id = #{id}
+		UPDATE internship SET NAME=#{name},status=#{status},enable=#{enable} WHERE id = #{id}
 	</update>
 
 	<!-- 添加实习项目 -->
 	<insert id="insertInternship" parameterType="com.bugmaker.bean.Internship">
-		insert into internship values (#{id},#{type},#{job.id},#{name})
+		insert into internship values (#{id},#{type},#{job.id},#{name},#{status},${enable},#{dept.id})
 	</insert>
 
 	<!-- 查询所有的实习项目 -->
-	<select id="selectAllInternship" resultMap="internshipMap">
-		SELECT i.id iid, i.type itype,
+	<select id="selectAllInternship" parameterType="String" resultMap="internshipMap">
+		SELECT i.id iid, i.type itype,d.dept_name,i.enable ienable,
 		j.id jid,
 		c.id cid, c.name cname, c.address caddress, c.phone cphone, c.advisor cadvisor,
 		j.name jname, j.salary jsalary, j.outteac_id joutteacherid,
 		i.name iname
-		FROM internship i, job j, company c
-		WHERE i.job_id = j.id AND j.company_id = c.id
+		FROM internship i, job j, company c,dept d
+		WHERE i.job_id = j.id AND j.company_id = c.id AND d.id= i.dept AND d.id =#{deptID}
 	</select>
 
 	<!--根据id删除实习项目 -->

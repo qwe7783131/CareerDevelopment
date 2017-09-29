@@ -12,16 +12,17 @@
  
 <form class="layui-form" action="${base}/leader/updateOneInternship.do" method="post">
 
-  <div class="layui-form-item">
+  <div class="layui-form-item" style="display: none;">
     <label class="layui-form-label">项目代号</label>
     <div class="layui-input-block">
-      <select id="" name="id" >
-      <option value=""></option>
+     <!--  <select id="" name="id" > -->
+      <!-- <option value=""></option>
       
 			<option value="${map.internshipID}">${map.internshipID}</option> 
 			
 		
-      </select>
+      </select> -->
+       <input type="text" name="id" required  lay-verify="required" placeholder="请输入标题" value="${map.internshipID}" autocomplete="off" class="layui-input">
     </div>
   </div>
 
@@ -33,28 +34,22 @@
     </div>
   </div> 
  
-   <!-- <div class="layui-form-item">
-    <label class="layui-form-label">项目类型</label>
-    <div class="layui-input-block">
-      <input type="radio" name="type" value="跟岗" title="跟岗">
-      <input type="radio" name="type" value="顶岗" title="顶岗" checked>
-    </div>
-  </div> -->
- 
-  <!-- <div class="layui-form-item">
-    <label class="layui-form-label">公司名称</label>
-    <div class="layui-input-block">
-      <select name="" lay-filter="comp">
-        <option value=""></option>
-        <#list map.companys as company>
-			<option value="${company.id}">${company.name}</option> 
-			
-		</#list>
-      </select>
-    </div>
-  </div> -->
-  
    <div class="layui-form-item">
+    <label class="layui-form-label">项目可用否</label>
+    <div class="layui-input-block">
+      <input type="checkbox" name="enable" lay-skin="switch" lay-text="可用|否" value="1">
+    </div>
+  </div>
+  
+  <div class="layui-form-item">
+    <label class="layui-form-label">用户选用</label>
+    <div class="layui-input-block">
+      <input type="radio" name="status" value="2" title="学生可选">
+      <input type="radio" name="status" value="1" title="教师可选">
+      <input type="radio" name="status" value="0" title="均不可选" checked>
+    </div>
+  </div>
+   <!-- <div class="layui-form-item">
     <label class="layui-form-label">岗位</label>
     <div class="layui-input-block">
       <select id="" name="job.id" >
@@ -65,7 +60,7 @@
 		</#list>
       </select>
     </div>
-  </div> 
+  </div>  -->
   
   <div class="layui-form-item">
     <div class="layui-input-block">
