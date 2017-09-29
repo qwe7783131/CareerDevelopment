@@ -86,17 +86,34 @@ public interface InternshipMapper {
 	/**
 	 * 查询选择此项目的教师
 	 * @param insId  项目id
-	 * @param deptId 学院id
 	 * @return 
 	 */
-	List<TeacIns> selectTeachersByInsAndDept(@Param("insId") String insId, @Param("deptId") String deptId);
+	List<TeacIns> selectTeachersByInsAndDept(@Param("insId") String insId);
 	
 	/**
 	 * 更新教师项目表对应教师和项目为通过
 	 * @param teacIds
 	 * @param insId
+	 * @param status 
 	 * @return
 	 */
-	int updateTeacInsForAcc(@Param("teacIds") String[] teacIds, @Param("insId") String insId);
+	int updateTeacInsForAcc(@Param("teacIds") String[] teacIds, @Param("insId") String insId, @Param("status") String status);
+	
+	/**
+	 * 根据项目InsId和status查询所有的教师项目
+	 * @param insId
+	 * @param status
+	 * @return
+	 */
+	List<TeacIns> selectTeacsByInsIdAndStatus(@Param("insId") String insId, @Param("status") String status);
+	
+	/**
+	 * 插入teac_ins
+	 * @param teacIds
+	 * @param insId
+	 * @param status
+	 * @return
+	 */
+	int insertTeacIns(@Param("teacIds") String[] teacIds, @Param("insId") String insId, @Param("status") String status);
 
 }

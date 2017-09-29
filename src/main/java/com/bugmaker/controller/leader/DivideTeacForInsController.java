@@ -21,8 +21,12 @@ public class DivideTeacForInsController {
 	 * @return
 	 */
 	@RequestMapping("toDivideTeachDinggang.do")
-	public ModelAndView toDivideTeachDinggang(@RequestParam(required=false) String insId){
-		return divideTeacForInsService.toDivideTeachDinggang(insId);
+	public ModelAndView toDivideTeachDinggang(@RequestParam(required=false) String insId,
+			@RequestParam(required=false) String status,
+			@RequestParam(defaultValue="1") String curr1, 
+			@RequestParam(defaultValue="1") String curr2, 
+			@RequestParam(defaultValue="1") String curr3){
+		return divideTeacForInsService.toDivideTeachDinggang(insId,status,curr1,curr2,curr3);
 	}
 	
 	/**
@@ -32,7 +36,7 @@ public class DivideTeacForInsController {
 	 */
 	@ResponseBody
 	@RequestMapping("diviTeachers.do")
-	public String diviTeachers(@RequestParam String[] teacIds, @RequestParam String insId){
-		return ""+divideTeacForInsService.diviTeachers(teacIds,insId);
+	public String diviTeachers(@RequestParam String[] teacIds, @RequestParam String insId, @RequestParam String type){
+		return ""+divideTeacForInsService.diviTeachers(teacIds,insId,type);
 	}
 }

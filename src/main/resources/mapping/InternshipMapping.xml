@@ -31,6 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<resultMap type="com.bugmaker.bean.TeacIns" id="teacInsResult">
 		<id property="id" column="tiid"/>
+		<result property="status" column="tistatus"/>
 		<association property="teacher" resultMap="com.bugmaker.mapper.UserMapper.userMap"/>
 		<association property="internship" resultMap="internshipMap"/>
 	</resultMap>
@@ -98,7 +99,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		j.name jname, j.salary jsalary, j.outteac_id joutteacherid,
 		i.name iname
 		FROM internship i, job j, company c,dept d
-		WHERE i.job_id = j.id AND j.company_id = c.id AND d.id= i.dept AND i.name LIKE '%' #{name} '%'
++		WHERE i.job_id = j.id AND j.company_id = c.id AND d.id= i.dept AND i.name LIKE '%' #{name} '%'
 	</select>
 
 	<!-- 修改实习项目  job_id = #{job.id},-->
@@ -113,13 +114,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 查询所有的实习项目 -->
 	<select id="selectAllInternship" parameterType="String" resultMap="internshipMap">
-		SELECT i.id iid, i.type itype,d.dept_name,i.enable ienable,
++		SELECT i.id iid, i.type itype,d.dept_name,i.enable ienable,
 		j.id jid,
 		c.id cid, c.name cname, c.address caddress, c.phone cphone, c.advisor cadvisor,
 		j.name jname, j.salary jsalary, j.outteac_id joutteacherid,
 		i.name iname
 		FROM internship i, job j, company c,dept d
-		WHERE i.job_id = j.id AND j.company_id = c.id AND d.id= i.dept AND d.id =#{deptID}
++		WHERE i.job_id = j.id AND j.company_id = c.id AND d.id= i.dept AND d.id =#{deptID}
 	</select>
 
 	<!--根据id删除实习项目 -->
@@ -148,19 +149,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 查询所有选此项目的教师 -->
 	<select id="selectTeachersByInsAndDept" resultMap="teacInsResult">
-		select u.id uid, username, password, sex, age, phone, email, d.id, dept_name, create_time
+		select ti.id tiid, ti.status tistatus, u.id uid, username, password, sex, age, phone, email, d.id, dept_name, create_time
 		from user u, dept d, teac_ins ti
 		where u.dept_id=d.id and ti.teac_id=u.id
 		and u.type='${@com.bugmaker.constant.UserConstant@TeacherType}'
-		and ti.ins_id=#{insId} and d.id=#{deptId}
+		and ti.ins_id=#{insId}
 	</select>
 	
 	<update id="updateTeacInsForAcc">
-		update teac_ins set status='1'
+		update teac_ins set status=#{status}
 		where ins_id=#{insId} and teac_id in
 		<foreach collection="teacIds" index="index" item="item" open="(" close=")" separator=",">
 			#{item}
 		</foreach>
 	</update>
+	
+	<select id="selectTeacsByInsIdAndStatus" resultMap="teacInsResult">
+		select ti.id tiid, ti.status tistatus, u.id uid, username, password, sex, age, phone, email, d.id, dept_name, create_time
+		from user u, dept d, teac_ins ti
+		where u.dept_id=d.id and ti.teac_id=u.id
+		and u.type='${@com.bugmaker.constant.UserConstant@TeacherType}'
+		and ti.status=#{status} and ti.ins_id=#{insId}
+	</select>
+	
+	<insert id="insertTeacIns">
+		insert into teac_ins values
+		<foreach collection="teacIds" index="index" item="item" separator=",">
+			(
+				replace(uuid(),"-",""),
+				#{item},
+				#{insId},
+				#{status}
+			)
+		</foreach>
+	</insert>
 
 </mapper>
