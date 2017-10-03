@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT u.*,outteac.id outteac_id,
 		c.id c_id, c.name c_name, c.address c_address, c.phone c_phone, c.advisor c_advisor
 		FROM user u, outteacher outteac, company c
-		WHERE outteac.id = u.id AND outteac.company_id = c.id
+		WHERE outteac.id = u.id AND outteac.company_id = c.id and u.enable = 1
 	</select>
 
 	<!-- 多条件查询所有的企业教师 -->
@@ -57,5 +57,38 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	</select>
 
+	<!--////////////////////////////////////////////////xuxu/////////////////////////////////////////////////////////-->
+	<!--添加企业教师(outteacher表)-->
+	<insert id="insertOutteacher" parameterType="outteacher">
+		insert into outteacher (id,company_id) values (#{id},#{company.id})
+	</insert>
+	<!--添加企业教师(user)-->
+	<insert id="insertOutteacherUser" parameterType="outteacher">
+		insert into user (id,username,password,sex,age,phone,email,enable,type,create_time)
+		values (#{id},#{user.username},#{user.password},#{user.sex},#{user.age},#{user.phone},#{user.email},#{user.enable}
+		,#{user.type},#{user.creatTime})
+	</insert>
+
+	<update id="deleteOutteacher">
+		update user set enable = 0 where id = #{id}
+	</update>
+
+	<update id="updateOutteacher">
+		update user set username = #{username},sex = #{sex},age = #{age},phone = #{phone},email = #{email} where id = #{id}
+	</update>
+
+	<select id="selectOutTeacherByParams" parameterType="outteacher" resultMap="outTeacherMap">
+		SELECT u.*,outteac.id outteac_id,
+		c.id c_id, c.name c_name, c.address c_address, c.phone c_phone, c.advisor c_advisor
+		FROM user u, outteacher outteac, company c
+		WHERE outteac.id = u.id AND outteac.company_id = c.id
+		<if test="company != null and company.id != null and company.id != ''">
+			AND outteac.company_id = #{company.id}
+		</if>
+		<if test="user != null and user.username != null and user.username != ''">
+			AND u.username LIKE '%' #{user.username} '%'
+		</if>
+
+	</select>
 
 </mapper>

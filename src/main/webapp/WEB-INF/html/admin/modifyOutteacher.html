@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <#include "html/template/head.html" />
+    <title>修改企业教师信息</title>
+</head>
+
+<body>
+<div style="margin: 15px;">
+    <blockquote class="layui-elem-quote ">
+        修改企业教师
+    </blockquote>
+</div>
+<div class="layui-row">
+    <form class="layui-form" action="" style="padding-right : 100px">
+        <div class="layui-form-item">
+            <label class="layui-form-label">企业教师名</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" value="${map.name}" required lay-verify="required" placeholder="请输入岗位名" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-inline">
+                <select name="sex" id="sex">
+                    <#if map.sex=0>
+                        <option selected>男</option>
+                        <option >女</option>
+                    <#else>
+                        <option >男</option>
+                        <option selected>女</option>
+                    </#if>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">年龄</label>
+            <div class="layui-input-block">
+                <input type="text" name="age" value="${map.age}" required lay-verify="required" placeholder="请输入年龄" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">电话</label>
+            <div class="layui-input-block">
+                <input type="text" name="phone" value="${map.phone}" required lay-verify="required" placeholder="请输入电话" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">邮箱</label>
+            <div class="layui-input-block">
+                <input type="text" name="email" value="${map.email}" required lay-verify="required" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="${base}/frame/layui/layui.js"></script>
+<script src="${base}/resources/js/jquery-2.1.4.js"></script>
+<script>
+		layui.use(['laypage', 'layer', 'form'], function() {
+			//var form = layui.form;
+
+			var laypage = layui.laypage,
+				layer = layui.layer;
+
+			laypage.render({
+				elem: 'demo1',
+				count: 70,
+				jump: function(obj) {
+					console.log(obj)
+				}
+			});
+		});
+		layui.use(['form', 'layedit', 'laydate'], function() {
+			var form = layui.form,
+				layer = layui.layer,
+				layedit = layui.layedit,
+				laydate = layui.laydate;
+
+			//监听提交
+			form.on('submit(formDemo)', function(data) {
+				$.ajax({
+						url: '${base}/admin/updateOutteacher.do?id=${map.id}',
+						contentType: "application/json",
+						data: JSON.stringify(data.field),
+						type: 'post',
+						dataType: 'json',
+						success:function(data){
+						    alert("成功");
+                            parent.window.location.href = '${base}/admin/toOutteacherManage.do';
+						 },
+						error:function(){
+						    layer.msg("失败");
+						}
+					});
+				return false;
+			});
+		});
+	</script>
+</body>
+</html>
