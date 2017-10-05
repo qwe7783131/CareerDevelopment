@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<#include "html/template/head.html" />
+	<#assign urlbase=base + "/leader" />
+<title>顶岗发布任务书</title>
+</head>
+
+<body>
+	<div style="padding-left: 10px; padding-right: 50px;"
+		class="layui-form-item layui-form-text">
+		</br> </br>
+		<div class="layui-form" method="post">
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<div class="site-demo-button" id="layerDemo">
+						<button data-method="add"  data-type="t"
+								class="layui-btn layui-btn-small">填写任务书</button>
+					</div>
+				</div>
+				<div class="layui-inline">
+					<select id="statusId" lay-verify="required" lay-filter="statusId" name="statusId">
+						<#assign statusArr = [
+								[0,'待发布'],
+								[1,'已发布']
+								] >
+							<option value="">请选择任务状态</option>
+							<#list statusArr as s>
+								<#if status?? && (status==s[0])>
+									<option value="${s[0]}" selected>${s[1]}</option>
+									<#else>
+										<option value="${s[0]}">${s[1]}</option>
+								</#if>
+							</#list>
+					</select>
+				</div>
+			</div>
+		</div>
+		</br>
+		<blockquote class="layui-elem-quote layui-text">顶岗待发布的任务书
+		</blockquote>
+
+		<table class="layui-table">
+			<thead>
+				<tr>
+					<th>序号</th>
+					<th width="150">标题</th>
+					<th>岗位</th>
+					<th>开始时间</th>
+					<th>结束时间</th>
+					<th>创建时间</th>
+					<th>状态</th>
+					<th>操作</th>
+
+				</tr>
+			</thead>
+			<tbody>
+			<#list page.list as issueTask>
+				<tr>
+					<td>#</td>
+					<td>${issueTask.title}</td>
+					<td>${issueTask.job.name}</td>
+					<td>${issueTask.startTime?date}</td>
+					<td>${issueTask.endTime?date}</td>
+					<td>${issueTask.createTime?datetime}</td>
+					<#if issueTask.status == '0'>
+					<td style="color:blue;">待发布</td>
+					</#if>
+					<#if issueTask.status == '1'>
+						<td style="color:green;">已发布</td>
+					</#if>
+					<td>
+						<div class="site-demo-button"
+							style="margin-bottom: 0;">
+							<button data-issuetasktitle="${issueTask.title}"
+									data-issuetaskcontent="${issueTask.content}"
+									class="layui-btn layui-btn-warm layui-btn-mini"
+									id="look-${issueTask.id}">任务详情</button>
+							<#if issueTask.status == '0'>
+							<button data-issuetaskid="${issueTask.id}"
+									class="layui-btn layui-btn-normal layui-btn-mini"
+									id="issue-${issueTask.id}">发布</button>
+							</#if>
+							<button data-issuetaskid="${issueTask.id}"
+								class="layui-btn layui-btn-mini"
+								id="modify-${issueTask.id}">修改</button>
+							<button data-issuetaskid="${issueTask.id}"
+								class="layui-btn layui-btn-danger layui-btn-mini"
+								id="delete-${issueTask.id}">删除</button>
+						</div>
+					</td>
+				</tr>
+			</#list>
+			</tbody>
+		</table>
+
+		<div id="demo1"
+			style="width: 100%; height: 50px; position: fixed;" />
+	</div>
+
+	<#include "html/template/common_js.html" />
+
+	<script>
+		layui.use([ 'laypage', 'layer', 'form', 'jquery'], function() {
+			var form = layui.form, laypage = layui.laypage, 
+			layer = layui.layer, $ = layui.jquery;
+
+			form.on('select(statusId)', function(data){
+			    var statusId = data.value; //得到被选中的值
+			    window.location.href="${base}/outteacher/toIssueTaskBookPage.do?status="+$("#statusId").val();
+			});
+
+			//触发事件
+			var active = {
+				look : function(issuetasktitle,issuetaskcontent) {
+					layer.open({
+						title: '任务详情',
+						area : [ '500px', '400px' ],
+						closeBtn : 2,
+						content: '<div class="layui-form">'+
+						    '<div class="layui-form-item">'+
+							'<label class="layui-form-label">标题</label>'+
+							'<div class="layui-input-block">'+
+							'<div class="layui-colla-content layui-show" style="width:65%">'+issuetasktitle+'</div>'+
+							'</div>'+
+						    '</div>'+
+						    '<div class="layui-form-item">'+
+							'<label class="layui-form-label">内容</label>'+
+							'<div class="layui-input-block">'+
+							'<div class="layui-colla-content layui-show" style="width:65%">'+issuetaskcontent+'</div>'+
+							'</div>'+
+						    '</div></div>'
+					});
+				},
+				add : function() {
+					layer.open({
+						type : 2,
+						title : false,
+						scrollbar : false,
+						area : [ '500px', '600px'],
+						closeBtn : 2,
+						content : '${base}/outteacher/toAddIssueTaskBookPage.do',
+						end: function(){
+							window.location.reload();
+						}
+					});
+				},
+				issueTask: function(issuetaskId){
+					layer.msg('确定发布？', {
+						btn: ['确定', '取消'],
+						yes: function(){
+							$.ajax({
+								url: '${base}/outteacher/issueTaskBook.do',
+								data: {issuetaskId : issuetaskId},
+								type: 'POST',
+								success: function(data){
+									if(data == '1'){
+										setTimeout("window.location.reload()",3000);
+										layer.msg("发布成功！3秒后刷新页面！",{icon: 1});
+									}else{
+										layer.msg("发布失败！3秒后刷新页面！",{icon: 2});
+									}
+								}
+							});
+						}
+					});
+				},
+				modifyTask: function(issuetaskId){
+					layer.open({
+						type : 2,
+						title : false,
+						scrollbar : false,
+						area : [ '500px', '550px' ],
+						closeBtn : 2,
+						content : '${base}/outteacher/toUpdateTaskBookPage.do?issuetaskId='+issuetaskId,
+						end: function(){
+							window.location.reload();
+						}
+					});
+				},
+				deleteTask: function(issuetaskId){
+					layer.msg('确定删除？', {
+						btn: ['删除', '取消'],
+						yes: function(){
+							$.ajax({
+								url: '${base}/outteacher/deleteTaskBook.do',
+								data: {issuetaskId : issuetaskId},
+								type: 'POST',
+								success: function(data){
+									if(data == '1'){
+										setTimeout("window.location.reload()",3000);
+										layer.msg("删除成功！3秒后刷新页面！",{icon: 1});
+									}else{
+										layer.msg("删除失败！3秒后刷新页面！",{icon: 2});
+									}
+								}
+							});
+						}
+					});
+				}
+			};
+			$('#layerDemo .layui-btn').on('click', function() {
+				var othis = $(this), method = othis.data('method');
+				active[method] ? active[method].call(this, othis) : '';
+			});
+			
+			$("[id^='look-']").click(function() {
+				var issuetasktitle = $(this).data('issuetasktitle');
+				var issuetaskcontent = $(this).data('issuetaskcontent');
+				active.look(issuetasktitle,issuetaskcontent);
+			});
+			$("[id^='issue-']").click(function() {
+				var issuetaskId = $(this).data('issuetaskid');
+				active.issueTask(issuetaskId);
+			});
+			$("[id^='modify-']").click(function() {
+				var issuetaskId = $(this).data('issuetaskid');
+				active.modifyTask(issuetaskId);
+			});
+			$("[id^='delete-']").click(function() {
+				var issuetaskId = $(this).data('issuetaskid');
+				active.deleteTask(issuetaskId);
+			});
+
+			laypage.render({
+				elem: 'demo1',
+				count: ${page.total}, //数据总数
+                limit: ${page.pageSize},
+                first: '<<',
+                last: '>>',
+                curr: ${page.pageNum},
+				layout:['first','prev','page','next','last','count'],
+				jump : function(obj,first) {
+					if(!first){
+						window.location.href="${base}/toIssueTaskBookPage.do?curr="+obj.curr+"&status="+$("#statusId").val();
+					}
+				}
+			});
+		});
+	</script>
+</body>
+
+</html>

@@ -24,6 +24,13 @@
 		</association>
 	</resultMap>
 
+	<!-- 根据企业教师id查询岗位 -->
+	<select id="selectJobByOutTeacherId" resultType="Job">
+		SELECT * FROM job,outteacher o
+		WHERE o.id = #{outteacherId} AND o.company_id = job.company_id
+		AND o.id = job.outteac_id AND job.enable = 1
+	</select>
+
 	<select id="getAllJob" resultMap="jobMap">
 		select j.id,j.name,j.salary,c.id company_id,c.name company_name,c.address,c.phone,c.advisor,j.outteac_id outteacher_id,
 		       u.username user_username

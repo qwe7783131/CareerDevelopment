@@ -6,10 +6,18 @@ import java.util.List;
 import com.bugmaker.bean.Job;
 import com.bugmaker.bean.Outteacher;
 import com.bugmaker.bean.User;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface JobMapper {
+    /**
+     * 根据企业教师id查询岗位
+     * @param outTeacherId
+     * @return
+     */
+    Job selectJobByOutTeacherId(@Param("outteacherId") String outTeacherId);
+
     /**
      * 添加岗位
      * @param job

@@ -52,6 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		i.name iname, i.status istatus, i.enable ienable
 		FROM ins_voluntee iv, user u,internship i, job j, company c
 		WHERE ins_id = i.id AND iv.stu_id = u.id AND iv.ins_id = i.id AND i.status = 2 AND i.enable = 1
+		AND j.enable = 1  AND c.enable = 1
 		AND i.type = "顶岗" AND i.job_id = j.id AND j.company_id = c.id AND  iv.stu_id = #{studentId}
 		ORDER BY iv.create_time DESC LIMIT 1
 	</select>

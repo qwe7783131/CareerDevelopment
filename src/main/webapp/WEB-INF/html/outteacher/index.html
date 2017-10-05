@@ -11,19 +11,6 @@
     <div class="layui-header">
         <div class="layui-logo">企业老师</div>
         <div class="layui-logo kit-logo-mobile">K</div>
-        <!--<ul class="layui-nav layui-layout-left kit-nav">
-            <li class="layui-nav-item"><a href="javascript:;">控制台</a></li>
-            <li class="layui-nav-item"><a href="javascript:;">商品管理</a></li>
-            <li class="layui-nav-item"><a href="javascript:;" id="pay"><i class="fa fa-gratipay" aria-hidden="true"></i> 捐赠我</a></li>
-            <li class="layui-nav-item">
-                <a href="javascript:;">其它系统</a>
-                <dl class="layui-nav-child">
-                    <dd><a href="javascript:;">邮件管理</a></dd>
-                    <dd><a href="javascript:;">消息管理</a></dd>
-                    <dd><a href="javascript:;">授权管理</a></dd>
-                </dl>
-            </li>
-        </ul>-->
         <ul class="layui-nav layui-layout-right kit-nav">
             <li class="layui-nav-item">
                 <a href="javascript:;">
@@ -47,6 +34,10 @@
                     <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 跟岗实习</span></a>
                     <dl class="layui-nav-child">
                         <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'${base}/outteacher/toFollowIssueTaskBookPage.do',icon:'&#xe6c6;',title:'发布跟岗实习任务书',id:'8'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 发布跟岗实习任务书</span></a>
+                        </dd>
+                        <dd>
                             <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'完成跟岗实习手册',id:'1'}">
                                 <i class="layui-icon">&#xe6c6;</i><span> 完成跟岗实习手册</span></a>
                         </dd>
@@ -59,7 +50,7 @@
                                 <i class="layui-icon">&#xe6c6;</i><span> 查看实习日志完成进度统计表</span></a>
                         </dd>
                         <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'住宿管理',id:'4'}">
+                            <a href="javascript:;" kit-target data-options="{url:'${base}/outteacher/toDormitoryPage.do',icon:'&#xe6c6;',title:'住宿管理',id:'4'}">
                                 <i class="layui-icon">&#xe6c6;</i><span> 住宿管理</span></a>
                         </dd>
                     </dl>
@@ -67,6 +58,10 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 顶岗实习</span></a>
                     <dl class="layui-nav-child">
+                        <dd>
+                            <a href="javascript:;" kit-target data-options="{url:'${base}/outteacher/toIssueTaskBookPage.do',icon:'&#xe6c6;',title:'发布顶岗实习任务书',id:'9'}">
+                                <i class="layui-icon">&#xe6c6;</i><span> 发布顶岗实习任务书</span></a>
+                        </dd>
                         <dd>
                             <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'完成顶岗实习手册',id:'5'}">
                                 <i class="layui-icon">&#xe6c6;</i><span> 完成顶岗实习手册</span></a>
@@ -80,7 +75,7 @@
                                 <i class="layui-icon">&#xe6c6;</i><span> 查看实习日志完成进度统计表</span></a>
                         </dd>
                         <dd>
-                            <a href="javascript:;" kit-target data-options="{url:'testtab.html',icon:'&#xe6c6;',title:'住宿管理',id:'8'}">
+                            <a href="javascript:;" kit-target data-options="{url:'${base}/outteacher/toDormitoryPage.do',icon:'&#xe6c6;',title:'住宿管理',id:'9'}">
                                 <i class="layui-icon">&#xe6c6;</i><span> 住宿管理</span></a>
                         </dd>
                     </dl>
