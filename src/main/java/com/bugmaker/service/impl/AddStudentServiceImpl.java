@@ -211,7 +211,7 @@ public class AddStudentServiceImpl implements AddStudentService {
 	}
 
 	//获取所有学院（修改时用）
-	public ModelAndView modifyStu(){
+	public ModelAndView modifyStu(User user){
 		Map<String,Object> map = new HashMap<String, Object>();
 		List<Dept> deptList = studentService.selectAllDept();
 //		for (Dept dept : deptList){
@@ -220,6 +220,8 @@ public class AddStudentServiceImpl implements AddStudentService {
 		List<ProfessionClass> professionClasses = professionClassMapper.getAllProfessClass();
 		map.put("selectPC",professionClasses);
 		map.put("selectAllDept",deptList);
+		map.put("user",user);
+//		System.out.println(user);
 		return new ModelAndView("admin/modifyStudent","map",map);
 	}
 
