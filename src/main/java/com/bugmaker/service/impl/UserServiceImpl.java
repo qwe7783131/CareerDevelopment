@@ -36,8 +36,14 @@ public class UserServiceImpl implements UserService {
             modelAndView.addObject("map",map);
             return modelAndView;
         }
-        int type = userMapper.getTypeByUserName(userName.trim());
-
+        String strtype = userMapper.getTypeByUserName(userName.trim());
+        System.out.println(strtype);
+        int type;
+        if(strtype == null) {
+            type = -1;
+        } else {
+            type = Integer.parseInt(strtype);
+        }
         // 获取用户信息
         User user = userMapper.getUserByUserName(userName.trim(),type);
         if (user == null) { // 账号不存在

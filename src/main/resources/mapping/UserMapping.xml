@@ -68,7 +68,7 @@
        WHERE id = #{id}
     </update>
 
-    <select id="getTypeByUserName" resultType="int">
+    <select id="getTypeByUserName" resultType="string">
         select type from user where id = #{id}
     </select>
 

@@ -67,7 +67,7 @@ public interface UserMapper {
      * @param userName
      * @return
      */
-    int getTypeByUserName(String userName);
+    String getTypeByUserName(String userName);
 
     /**
      * 根据用户id删除对应的用户
