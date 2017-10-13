@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 import com.bugmaker.bean.Company;
 import com.bugmaker.service.CompanyService;
+
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bugmaker.bean.Dept;
 import com.bugmaker.bean.Outteacher;
 import com.bugmaker.bean.User;
+import com.bugmaker.mapper.DeptMapper;
 import com.bugmaker.mapper.OutTeacherMapper;
+import com.bugmaker.mapper.UserRoleMapper;
 import com.bugmaker.service.OutTeacherService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -34,6 +38,12 @@ public class OutTeacherServiceImpl implements OutTeacherService{
 	@Autowired
 	@Qualifier("outteacherService")
 	OutTeacherService outTeacherService;
+	
+	@Resource
+	private DeptMapper deptMapper;
+	
+	@Resource
+	private UserRoleMapper userRoleMapper;
 
 	//查询出所有企业教师
 	@Override
@@ -73,7 +83,7 @@ public class OutTeacherServiceImpl implements OutTeacherService{
 		ObjectMapper mapper = new ObjectMapper();
 		Map userMap = mapper.readValue(userInfo, Map.class);
 		Outteacher outteacher = new Outteacher();
-		outteacher.setId(UUID.randomUUID().toString().replace("-",""));
+		outteacher.setId(userMap.get("id").toString());
 		User user = new User();
 		user.setId(outteacher.getId());
 		user.setUsername(userMap.get("username").toString());
@@ -85,12 +95,19 @@ public class OutTeacherServiceImpl implements OutTeacherService{
 		user.setType(3);
 		user.setEnable(1);
 		user.setCreatTime(new Date());
+		
+		List<Dept> depts = deptMapper.selectAllDept();
+		user.setDept(depts.get(0));
+		
 		Company company = new Company();
 		company.setId(userMap.get("company").toString());
 		outteacher.setCompany(company);
 		outteacher.setUser(user);
 
 		outTeacherMapper.insertOutteacherUser(outteacher);
+		
+		userRoleMapper.insertUserRole(outteacher.getId(), "3");
+		
 		return String .valueOf(outTeacherMapper.insertOutteacher(outteacher));
 	}
 

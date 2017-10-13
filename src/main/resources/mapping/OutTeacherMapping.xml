@@ -64,9 +64,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	<!--添加企业教师(user)-->
 	<insert id="insertOutteacherUser" parameterType="outteacher">
-		insert into user (id,username,password,sex,age,phone,email,enable,type,create_time)
+		insert into user (id,username,password,sex,age,phone,email,enable,type,create_time,dept_id)
 		values (#{id},#{user.username},#{user.password},#{user.sex},#{user.age},#{user.phone},#{user.email},#{user.enable}
-		,#{user.type},#{user.creatTime})
+		,#{user.type},#{user.creatTime},#{user.dept.id})
 	</insert>
 
 	<update id="deleteOutteacher">
