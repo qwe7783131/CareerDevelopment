@@ -77,39 +77,32 @@ public class OutTeacherServiceImpl implements OutTeacherService{
 
 	//查询出所有企业
 
-	//添加企业教师
-	public String addOutteacher(String userInfo) throws IOException {
-		System.out.println(userInfo);
-		ObjectMapper mapper = new ObjectMapper();
-		Map userMap = mapper.readValue(userInfo, Map.class);
-		Outteacher outteacher = new Outteacher();
-		outteacher.setId(userMap.get("id").toString());
-		User user = new User();
-		user.setId(outteacher.getId());
-		user.setUsername(userMap.get("username").toString());
-		user.setPassword(new Md5Hash(outteacher.getId(),userMap.get("password").toString()).toString());
-		user.setSex(userMap.get("sex").toString());
-		user.setAge(Integer.parseInt(userMap.get("age").toString()));
-		user.setPhone(userMap.get("phone").toString());
-		user.setEmail(userMap.get("email").toString());
-		user.setType(3);
-		user.setEnable(1);
-		user.setCreatTime(new Date());
-		
-		List<Dept> depts = deptMapper.selectAllDept();
-		user.setDept(depts.get(0));
-		
-		Company company = new Company();
-		company.setId(userMap.get("company").toString());
-		outteacher.setCompany(company);
-		outteacher.setUser(user);
-
-		outTeacherMapper.insertOutteacherUser(outteacher);
-		
-		userRoleMapper.insertUserRole(outteacher.getId(), "3");
-		
-		return String .valueOf(outTeacherMapper.insertOutteacher(outteacher));
-	}
+    //添加企业教师
+    public String addOutteacher(String userInfo) throws IOException {
+        System.out.println(userInfo);
+        ObjectMapper mapper = new ObjectMapper();
+        Map userMap = mapper.readValue(userInfo, Map.class);
+        Outteacher outteacher = new Outteacher();
+        outteacher.setId(UUID.randomUUID().toString().replace("-",""));
+        User user = new User();
+        user.setId(userMap.get("id").toString());
+        user.setUsername(userMap.get("username").toString());
+        user.setPassword(new Md5Hash(userMap.get("id").toString(),userMap.get("password").toString()).toString());
+        user.setSex(userMap.get("sex").toString());
+        user.setAge(Integer.parseInt(userMap.get("age").toString()));
+        user.setPhone(userMap.get("phone").toString());
+        user.setEmail(userMap.get("email").toString());
+        user.setType(3);
+        user.setEnable(1);
+        user.setCreatTime(new Date());
+        Company company = new Company();
+        company.setId(userMap.get("company").toString());
+        outteacher.setCompany(company);
+        outteacher.setUser(user);
+        outTeacherMapper.insertOutteacherUserRole(outteacher);
+        outTeacherMapper.insertOutteacherUser(outteacher);
+        return String .valueOf(outTeacherMapper.insertOutteacher(outteacher));
+    }
 
 	//跳转到企业教师
 	public ModelAndView toModifyOutteacher(String id,String companyid,String name,String sex,String age,String phone,String email) throws UnsupportedEncodingException {

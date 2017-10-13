@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @Controller
@@ -50,9 +51,9 @@ public class LeaderControllerAdmin {
     //修改系领导信息
     @RequestMapping(value = "/modifyLeaderImpl.do", method = RequestMethod.POST)
     @ResponseBody
-    public String modifyLeaderImpl(@RequestBody String userString) throws IOException {
+    public String modifyLeaderImpl(@RequestBody String userString,String id) throws IOException {
 //        System.out.println(userString);
-        return leaderService.updateLeader(userString);
+        return leaderService.updateLeader(userString,id);
     }
 
     /**
@@ -69,9 +70,17 @@ public class LeaderControllerAdmin {
      * 获取学院（修改系领导时)
      */
     @RequestMapping("/leaderSelectDept2.do")
-    public  String selectDept2(ModelMap model){
+    public  String selectDept2(ModelMap model,String id,String sex,String age,String phone,String email,String username,String dept) throws UnsupportedEncodingException {
+//        System.out.println(id+sex+age+phone+email+username+dept);
         List<Dept> selectAllDept = teacherService.selectAllDept();
         model.put("selectAllDept",selectAllDept);
+        model.put("id",id);
+        model.put("sex",sex);
+        model.put("age",age);
+        model.put("phone",phone);
+        model.put("email",email);
+        model.put("dept1",new String(dept.getBytes("iso8859-1"), "utf-8"));
+        model.put("username",new String(username.getBytes("iso8859-1"), "utf-8"));
         return "admin/modifyLeader";
     }
 

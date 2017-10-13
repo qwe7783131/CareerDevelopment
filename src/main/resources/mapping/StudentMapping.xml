@@ -99,7 +99,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 查看所有学生 -->
 	<select id="selectAllStudent" resultMap="stuMap">
 
-		<include refid="selectAll" />
+		<include refid="selectAll" /> and type=1
 	</select>
 
 	<!-- 多条件查询学生 -->
