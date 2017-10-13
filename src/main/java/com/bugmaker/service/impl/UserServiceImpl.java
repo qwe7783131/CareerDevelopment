@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
     public ModelAndView doLogin(String userName, String password, String rememberMe, HttpServletResponse response) throws IOException {
         ModelAndView modelAndView = new ModelAndView("login");
         Map<String, String> map = new HashMap<String, String>();
-//        System.out.println(userName+"  "+password);
+        System.out.println(userName+"  "+password);
         if(userName == null || userName.trim().equals("") || password == null || password.trim().equals("")){
             map.put("message", "1");
             map.put("state", "error");
