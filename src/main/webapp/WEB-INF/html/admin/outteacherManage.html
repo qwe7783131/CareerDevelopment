@@ -14,14 +14,6 @@
     <form class="layui-form" action="${base}/admin/selectAllOutteacherByParam.do" method="post">
         <div class="layui-inline">
             <div class="layui-form-item">
-                <label class="layui-form-label">教师号</label>
-                <div class="layui-input-block">
-                    <input type="text" name="id" placeholder="请输入教师号" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-        </div>
-        <div class="layui-inline">
-            <div class="layui-form-item">
                 <label class="layui-form-label">企业</label>
                 <div class="layui-input-block">
                     <select name="company" lay-filter="" id="">
@@ -73,7 +65,6 @@
         </colgroup>
         <thead>
         <tr>
-            <th>教师号</th>
             <th>企业名</th>
             <th>企业教师名</th>
             <th>性别</th>
@@ -86,7 +77,6 @@
         <tbody>
         <#list map.page.list as p>
             <tr>
-                <td>${p.user.id}</td>
                 <td>${p.company.name}</td>
                 <td>${p.user.username}</td>
                 <#if p.user.sex = 0>

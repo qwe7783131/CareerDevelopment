@@ -179,5 +179,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</foreach>
 
 	</update>
-
+	<select id="selectStudentsByOutTeacherId" resultMap="stuMap">
+		select stu.id s_id
+		from outteacher outt, company cp, job j, internship ins, internship_detail insd, student stu
+		where outt.company_id=cp.id and j.company_id=cp.id and ins.job_id=j.id
+		and insd.ins_id=ins.id and insd.stu_id=stu.id and outt.id=#{id}
+	</select>
 </mapper>

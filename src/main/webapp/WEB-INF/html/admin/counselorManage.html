@@ -108,15 +108,7 @@
                 <td>
                     <div class="layui-inline">
                         <div class="site-demo-button" id="modify" style="margin-bottom: 0;">
-                            <button data-method="modify"
-                                    data-id=${p.id}
-                                    data-username=${p.username}
-                                    data-sex=${p.sex}
-                                    data-age=${p.age}
-                                    data-phone=${p.phone}
-                                    data-email=${p.email}
-                                    data-dept=${p.dept.deptName}
-                                    class="layui-btn layui-btn-normal layui-btn layui-btn-mini">
+                            <button data-method="modify" class="layui-btn layui-btn-normal layui-btn layui-btn-mini">
                                 修改
                             </button>
                         </div>
@@ -221,10 +213,7 @@
 							scrollbar: false,
 							area: ['500px', '630px'],
 							closeBtn: 2,
-							content: '${urlbase}/counselorSelectDept2.do?id='+othis.data('id')
-							+'&username='+othis.data('username')+'&sex='+othis.data('sex')
-							+'&age='+othis.data('age')+'&phone='+othis.data('phone')+'&email='+othis.data('email')
-							+'&dept='+othis.data('dept')
+							content: '${urlbase}/counselorSelectDept2.do'
 						});
 					}
 				};

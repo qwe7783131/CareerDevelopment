@@ -23,7 +23,7 @@ public interface CounselorService {
     public List<User> selectAllCoun();
 
     //修改教师信息
-    public String updateCoun(String userString,String id) throws IOException;
+    public String updateCoun(String userString) throws IOException;
 
     //删除辅导员
     public int deleteCoun(String id);

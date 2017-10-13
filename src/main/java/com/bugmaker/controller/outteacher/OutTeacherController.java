@@ -1,11 +1,14 @@
 package com.bugmaker.controller.outteacher;
 
 import com.bugmaker.constant.ProtocolConstant;
+import com.bugmaker.service.DormitoryServiceAdmin;
 import com.bugmaker.service.IssueTaskBookService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -19,6 +22,9 @@ public class OutTeacherController {
 
     @Resource
     public IssueTaskBookService issueTaskBookService;
+    
+    @Resource
+    private DormitoryServiceAdmin dormitoryServiceAdmin;
 
     @RequestMapping("index.do")
     public String indexView(){
@@ -50,5 +56,16 @@ public class OutTeacherController {
         ModelAndView modelAndView = issueTaskBookService.toIssueTaskBookPage(ProtocolConstant.ONJOB, curr, status);
         modelAndView.setViewName("outteacher/followIssueTaskBook");
         return modelAndView;
+    }
+    
+    @RequestMapping("toDormitoryManagePage.do")
+    public String toDormitoryManagePage(){
+    	return "outteacher/dormitory";
+    }
+    
+    @ResponseBody
+    @RequestMapping("doArrangeDormitory.do")
+    public String doArrangeDormitory(){
+    	return ""+dormitoryServiceAdmin.doArrangeDormitory();
     }
 }

@@ -21,7 +21,7 @@ public interface LeaderService {
     public List<User> selectAllLeader();
 
     //修改系领导信息
-    public String updateLeader(String userString,String id) throws IOException;
+    public String updateLeader(String userString) throws IOException;
 
     //删除系领导
     public int deleteLeader(String id);

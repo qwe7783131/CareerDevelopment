@@ -20,4 +20,10 @@ public interface DormitoryServiceAdmin {
     public int deleteDormitory(String id);
 
     public ModelAndView getDormByCompany(String company,String curr);
+
+    /**
+     * 一键安排宿舍
+     * @return
+     */
+	public int doArrangeDormitory();
 }

@@ -73,7 +73,7 @@ public class AddStudentServiceImpl implements AddStudentService {
 		int result = studentMapper.insertStudent(student);
 		result = userMapper.insertUser(student.getUser());
 		UserRole userRole = new UserRole();
-		userRole.setId(student.getId());
+		userRole.setId(UUID.randomUUID().toString().replaceAll("-", ""));
 		userRole.setUser(student.getUser());
 		Role role = new Role();
 		role.setId("1");
@@ -154,15 +154,13 @@ public class AddStudentServiceImpl implements AddStudentService {
 //		System.out.println(userString);
 		ObjectMapper mapper = new ObjectMapper();
 		Map userMap = mapper.readValue(userString, Map.class);
-//		System.out.println(userMap);
+		System.out.println(userMap);
 		Dept dept = new Dept();
 		dept.setId(userMap.get("dept").toString());
 		com.bugmaker.bean.User user = new User();
 		user.setId(userMap.get("id").toString());
 		user.setUsername(userMap.get("username").toString());
-		if(userMap.get("password").toString()!=null&&userMap.get("password").toString()!="") {
-			user.setPassword((new Md5Hash(userMap.get("id").toString(), userMap.get("password").toString())).toString());
-		}
+		user.setPassword((new Md5Hash(userMap.get("id").toString(),userMap.get("password").toString())).toString());
 		user.setSex(userMap.get("sex").toString());
 		user.setAge(Integer.valueOf(userMap.get("age").toString()));
 		user.setPhone(userMap.get("phone").toString());
@@ -197,9 +195,9 @@ public class AddStudentServiceImpl implements AddStudentService {
 		Integer currPage = Integer.valueOf(currentPage);
 		PageHelper.startPage(currPage, 6);
 		List<Student> userList = studentMapper.selectStudentByParams(student);
-//		for(Student users : userList){
-//			System.out.println(users);
-//		}
+		for(Student users : userList){
+			System.out.println(users);
+		}
 		PageInfo<Student> page = new PageInfo<>(userList);
 		map.put("page",page);
 		List<Dept> selectAllDept = studentService.selectAllDept();
@@ -235,7 +233,7 @@ public class AddStudentServiceImpl implements AddStudentService {
 		User user = new User();
 		user.setId(userMap.get("id").toString());
 		user.setUsername(userMap.get("username").toString());
-		user.setPassword((new Md5Hash(userMap.get("id").toString(),userMap.get("password").toString())).toString());
+		user.setPassword(userMap.get("password").toString());
 		user.setSex(userMap.get("sex").toString());
 		user.setPhone(userMap.get("phone").toString());
 		user.setEmail(userMap.get("email").toString());

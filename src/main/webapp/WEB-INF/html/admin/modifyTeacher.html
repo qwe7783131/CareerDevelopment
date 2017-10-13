@@ -13,22 +13,22 @@
 </div>
 <div class="layui-row">
     <form class="layui-form" action="" style="padding-right : 100px">
-        <!--<div class="layui-form-item">-->
-            <!--<label class="layui-form-label">教工号</label>-->
-            <!--<div class="layui-input-block">-->
-                <!--<input type="text" name="id" required lay-verify="required" placeholder="请输入教工号" autocomplete="off" class="layui-input">-->
-            <!--</div>-->
-        <!--</div>-->
+        <div class="layui-form-item">
+            <label class="layui-form-label">教工号</label>
+            <div class="layui-input-block">
+                <input type="text" name="id" required lay-verify="required" placeholder="请输入教工号" autocomplete="off" class="layui-input">
+            </div>
+        </div>
         <div class="layui-form-item">
             <label class="layui-form-label">姓名</label>
             <div class="layui-input-block">
-                <input type="text" name="username" value="${username}" required lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+                <input type="text" name="username" required lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">密码</label>
             <div class="layui-input-inline">
-                <input type="password" name="password" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -36,33 +36,28 @@
             <div class="layui-input-block">
                 <select name="sex" lay-filter="aihao">
                     <option value=""></option>
-                    <#if sex==0>
-                    <option value="0" selected>男</option>
+                    <option value="0">男</option>
                     <option value="1">女</option>
-                    <#else>
-                        <option value="0" >男</option>
-                        <option value="1" selected>女</option>
-                    </#if>
                 </select>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">年龄</label>
             <div class="layui-input-block">
-                <input type="text" name="age" value="${age}" required lay-verify="required" placeholder="请输入年龄" autocomplete="off" class="layui-input">
+                <input type="text" name="age" required lay-verify="required" placeholder="请输入年龄" autocomplete="off" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">电话</label>
             <div class="layui-input-block">
-                <input type="text" name="phone" value="${phone}" required lay-verify="required" placeholder="请输入电话号码" autocomplete="off" class="layui-input">
+                <input type="text" name="phone" required lay-verify="required" placeholder="请输入电话号码" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">邮箱</label>
             <div class="layui-input-block">
-                <input type="email" name="email" value="${email}" required lay-verify="required" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
+                <input type="email" name="email" required lay-verify="required" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -71,25 +66,21 @@
                 <select name="dept" lay-filter="aihao">
                     <option value=""></option>
                     <#list selectAllDept as dept>
-                        <#if dept.deptName==dept1>
-                        <option value=${dept.id} selected>${dept.deptName}</option>
-                        <#else>
-                            <option value=${dept.id}>${dept.deptName}</option>
-                        </#if>
+                        <option value=${dept.id}>${dept.deptName}</option>
                     </#list>
                 </select>
             </div>
         </div>
-        <!--<div class="layui-form-item">-->
-            <!--<label class="layui-form-label">是否可用</label>-->
-            <!--<div class="layui-input-block">-->
-                <!--<select name="enable" >-->
-                    <!--<option value=""></option>-->
-                    <!--<option value="0">不可用</option>-->
-                    <!--<option value="1">可用</option>-->
-                <!--</select>-->
-            <!--</div>-->
-        <!--</div>-->
+        <div class="layui-form-item">
+            <label class="layui-form-label">是否可用</label>
+            <div class="layui-input-block">
+                <select name="enable" >
+                    <option value=""></option>
+                    <option value="0">不可用</option>
+                    <option value="1">可用</option>
+                </select>
+            </div>
+        </div>
 
         <div class="layui-form-item">
             <div class="layui-input-block">
@@ -125,14 +116,14 @@
 			//监听提交
 			form.on('submit(formDemo)', function(data) {
 				$.ajax({
-						url: '${base}/admin/modifyTeacherImpl.do?id='+${id},
+						url: '${base}/admin/modifyTeacherImpl.do',
 						contentType: "application/json",
 						data: JSON.stringify(data.field),
 						type: 'post',
 						dataType: 'json',
 						success:function(data){
 						    layer.msg("成功");
-                            parent.window.location.href = '${base}/admin/teacherManage.do';
+
 						 },
 						error:function(){
 						    layer.msg("失败");

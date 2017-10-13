@@ -38,6 +38,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 
 	<select id="getDormByCompany" resultMap="dormitoryMap">
-		select d.id,d.total,d.person_num,d.company_id,c.name from dormitory d,company c where company_id=#{id} where d.company_id = c.id
+		select d.id,d.total,d.person_num,d.company_id,c.name from dormitory d,company c where company_id=#{id} and d.company_id = c.id
 	</select>
+	
+	<select id="getDormitoryLeaveByOutTeacherId" resultMap="dormitoryMap">
+		select d.id, d.total, d.person_num
+		from outteacher outt, company cp, dormitory d
+		where outt.company_id=cp.id and d.company_id=cp.id
+		and outt.id=#{id} and d.person_num &lt; d.total
+	</select>
+	
+	<update id="updateDormitorys">
+		<foreach collection="list" item="item">
+			update dormitory set person_num=#{item.personNum} where id=#{item.id}
+		</foreach>
+	</update>
 </mapper>

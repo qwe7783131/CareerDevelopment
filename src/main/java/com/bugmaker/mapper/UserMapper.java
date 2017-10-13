@@ -2,7 +2,6 @@ package com.bugmaker.mapper;
 
 import com.bugmaker.bean.User;
 import com.bugmaker.bean.UserRole;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 /**
@@ -60,14 +59,7 @@ public interface UserMapper {
      * @param userName
      * @return User 返回用户信息
      */
-    User getUserByUserName(@Param("id") String userName,@Param("type") int type);
-
-    /**
-     * 根据id查询出type，为了给企业教师用
-     * @param userName
-     * @return
-     */
-    String getTypeByUserName(String userName);
+    User getUserByUserName(String userName);
 
     /**
      * 根据用户id删除对应的用户

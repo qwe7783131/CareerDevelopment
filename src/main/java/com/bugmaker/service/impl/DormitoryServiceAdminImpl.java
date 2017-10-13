@@ -1,14 +1,21 @@
 package com.bugmaker.service.impl;
 
 import com.bugmaker.bean.Company;
+import com.bugmaker.bean.DormArrange;
 import com.bugmaker.bean.Dormitory;
 import com.bugmaker.bean.Outteacher;
+import com.bugmaker.bean.Student;
+import com.bugmaker.bean.User;
+import com.bugmaker.mapper.DormArrangeMapper;
 import com.bugmaker.mapper.DormitoryMapper;
+import com.bugmaker.mapper.StudentMapper;
 import com.bugmaker.service.CompanyService;
 import com.bugmaker.service.DormitoryServiceAdmin;
 import com.bugmaker.service.OutTeacherService;
+import com.bugmaker.utils.RequestUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,19 +23,28 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.annotation.Resource;
 
 @Service("dormitoryServiceAdmin")
 public class DormitoryServiceAdminImpl implements DormitoryServiceAdmin {
 
     @Autowired
     private DormitoryMapper dormitoryMapper;
+    
+    @Resource
+    private StudentMapper studentMapper;
 
     @Autowired
     @Qualifier("companyService")
     CompanyService companyService;
+    
+    @Resource
+    private DormArrangeMapper dormArrangeMapper;
 
     //跳转到宿舍管理页面
     @Override
@@ -128,4 +144,40 @@ public class DormitoryServiceAdminImpl implements DormitoryServiceAdmin {
         map.put("companyList",companyList);
         return new ModelAndView("admin/dormitoryManage", "map", map);
     }
+
+    //一键安排宿舍
+	@Override
+	public int doArrangeDormitory() {
+		User outteacher = RequestUtil.getCurrentUser();
+		List<Student> students = studentMapper.selectStudentsByOutTeacherId(outteacher.getId());
+		List<Dormitory> dormitories = dormitoryMapper.getDormitoryLeaveByOutTeacherId(outteacher.getId());
+		List<DormArrange> dormArranges = new ArrayList<>();
+		for (Dormitory dormitory : dormitories) {
+			int leave = dormitory.getTotal() - dormitory.getPersonNum();
+			int min = leave;
+			int length = students.size();
+			if(length == 0){
+				break;
+			}
+			if(length < leave){
+				min = length;
+			}
+			for(int i=0; i<min; i++){
+				DormArrange dormArrange = new DormArrange();
+				dormArrange.setDormitory(dormitory);
+				dormArrange.setStudent(students.get(0));
+				//添加一条宿舍安排记录
+				dormArranges.add(dormArrange);
+				//原宿舍入住人数+1
+				dormitory.setPersonNum(dormitory.getPersonNum()+1);
+				//未安排的学生人数-1
+				students.remove(0);
+			}
+		}
+		//宿舍安排写入数据库
+		dormArrangeMapper.insertDormArranges(dormArranges);
+		//更新宿舍情况
+		dormitoryMapper.updateDormitorys(dormitories);
+		return 0;
+	}
 }

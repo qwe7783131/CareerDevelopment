@@ -125,27 +125,25 @@ public class AddTeacherServiceImpl implements AddTeacherService {
 
     //修改教师信息
     @Override
-    public String updateTea(String userString,String id) throws IOException {
-//        System.out.println("执行修改controller");
-//        System.out.println(userString);
+    public String updateTea(String userString) throws IOException {
+        System.out.println("执行修改controller");
+        System.out.println(userString);
         ObjectMapper mapper = new ObjectMapper();
         Map userMap = mapper.readValue(userString, Map.class);
-//        System.out.println(userMap);
+        System.out.println(userMap);
         Dept dept = new Dept();
         dept.setId(userMap.get("dept").toString());
         com.bugmaker.bean.User user = new User();
-        user.setId(id);
+        user.setId(userMap.get("id").toString());
         user.setUsername(userMap.get("username").toString());
-        if(userMap.get("password").toString()!=null&&userMap.get("password").toString()!="") {
-            user.setPassword((new Md5Hash(id, userMap.get("password").toString())).toString());
-        }
+        user.setPassword((new Md5Hash(userMap.get("id").toString(),userMap.get("password").toString())).toString());
         user.setSex(userMap.get("sex").toString());
         user.setAge(Integer.valueOf(userMap.get("age").toString()));
         user.setPhone(userMap.get("phone").toString());
         user.setEmail(userMap.get("email").toString());
         user.setDept(dept);
         user.setCreatTime(new Date());
-        user.setEnable(1);
+        user.setEnable(Integer.parseInt(userMap.get("enable").toString()));
         user.setType(2);
         return "" + userMapper.updateUserById(user);
     }

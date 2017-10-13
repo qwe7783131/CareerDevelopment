@@ -20,4 +20,17 @@ public interface DormitoryMapper {
 
     //搜索
     List<Dormitory> getDormByCompany(String id);
+
+    /**
+     * 查询有剩余空床位的宿舍
+     * @param id
+     * @return
+     */
+	List<Dormitory> getDormitoryLeaveByOutTeacherId(String id);
+
+	/**
+	 * 更新宿舍信息
+	 * @param dormitories
+	 */
+	void updateDormitorys(List<Dormitory> dormitories);
 }
