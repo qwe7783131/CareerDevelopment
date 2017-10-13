@@ -99,7 +99,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		j.name jname, j.salary jsalary, j.outteac_id joutteacherid,
 		i.name iname
 		FROM internship i, job j, company c,dept d
-+		WHERE i.job_id = j.id AND j.company_id = c.id AND d.id= i.dept AND i.name LIKE '%' #{name} '%'
+		WHERE i.job_id = j.id AND j.company_id = c.id AND d.id= i.dept AND i.name LIKE '%' #{name} '%'
 	</select>
 
 	<!-- 修改实习项目  job_id = #{job.id},-->
