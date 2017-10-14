@@ -12,10 +12,11 @@
 		</fieldset>
 		</br>
 		</br>
+		<input id="insType" type="text" value="${insType}" class="layui-hide">
 		<div style="float: left;padding-left: 45px;">
 			<div class="site-demo-button" id="layerDemo">
 				<button data-method="modify" data-type="t" class="layui-btn layui-btn-small layui-btn-normal">宿舍更换申请</button>
-				<button class="layui-btn layui-btn-small">一键安排宿舍</button>
+				<button id="arrange" class="layui-btn layui-btn-small">一键安排宿舍</button>
 			</div>
 		</div>
 
@@ -43,105 +44,69 @@
 					</tr>
 				</thead>
 				<tbody>
+				<#list page.list as dormArrange>
 					<tr>
-						<td>xuxu</td>
-						<td>F2-133</td>
+						<td>${dormArrange.student.user.username}</td>
+						<td>${dormArrange.dormitory.id}</td>
 						<td>
 							<div class="site-demo-button" id="layerDemo">
 								<button data-method="offset" data-type="t" class="layui-btn layui-btn-normal layui-btn layui-btn-mini">修改</button>
 							</div>
 						</td>
 					</tr>
-					<tr>
-						<td>xuxu</td>
-						<td>F2-133</td>
-						<td>
-							<div class="site-demo-button" id="layerDemo">
-								<button data-method="offset" data-type="t" class="layui-btn layui-btn-normal layui-btn layui-btn-mini">修改</button>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td>xuxu</td>
-						<td>F2-133</td>
-						<td>
-							<div class="site-demo-button" id="layerDemo">
-								<button data-method="offset" data-type="t" class="layui-btn layui-btn-normal layui-btn layui-btn-mini">修改</button>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td>xuxu</td>
-						<td>F2-133</td>
-						<td>
-							<div class="site-demo-button" id="layerDemo">
-								<button data-method="offset" data-type="t" class="layui-btn layui-btn-normal layui-btn layui-btn-mini">修改</button>
-							</div>
-						</td>
-					</tr>
+				</#list>
 				</tbody>
 			</table>
-			<div id="demo1" style="100%;height: 50px;position: fixed;bottom: 0; "></div>
+			<div id="demo1" style="margin-top:10px;"></div>
 		</div>
 
 		<script src="${base}/frame/layui/layui.js"></script>
 
 		<script>
-			layui.use(['laypage', 'layer', 'form'], function() {
-				var form = layui.form;
-
-				var laypage = layui.laypage,
-					layer = layui.layer;
+			layui.use(['laypage', 'layer', 'form','layer','jquery'], function() {
+				var form = layui.form, laypage = layui.laypage, $ = layui.jquery,
+					layer = layui.layer, layer = layui.layer;
 
 				laypage.render({
 					elem: 'demo1',
-					count: 70,
-					jump: function(obj) {
-						console.log(obj)
+					count: ${page.total}, //数据总数
+					limit: ${page.pageSize},
+					first: '首页',
+					last: '尾页',
+					curr: ${page.pageNum},
+					jump: function(obj,first) {
+						if(!first){
+							var insType = $("#insType").val();
+							window.location.href="${base}/outteacher/toDormitoryManagePage.do?insType="+insType+"&pageNum="+obj.curr;
+						}
 					}
 				});
-			});
-			layui.use('layer', function() {
-				//独立版的layer无需执行这一句
-				var $ = layui.jquery,
-					layer = layui.layer; //独立版的layer无需执行这一句
-
+				
 				//触发事件
-				var active = {
-
-					offset: function(othis) {
-						var type = othis.data('type'),
-							text = othis.text();
-						layer.open({
-							type: 2,
-							title: false,
-							scrollbar: false,
-							area: ['500px', '800px'],
-							closeBtn: 2,
-							content: '${base}/xuxu3.do'
-						});
-					},
-					modify: function(othis) {
-						var type = othis.data('type'),
-							text = othis.text();
-						layer.open({
-							type: 2,
-							title: false,
-							scrollbar: false,
-							area: ['500px', '300px'],
-							closeBtn: 2,
-							content: '${base}/xuxu2.do'
-						});
-					}
+				var func = {
+						
 				};
 
-				$('#layerDemo .layui-btn').on('click', function() {
-					var othis = $(this),
-						method = othis.data('method');
-					active[method] ? active[method].call(this, othis) : '';
+				$('#arrange').on('click', function() {
+					var insType = $("#insType").val();
+					console.log(insType);
+					$.ajax({
+						url: '${base}/outteacher/doArrangeDormitory.do',
+						data: {
+							insType : insType
+						},
+						success: function(data){
+							if(data == '1'){
+								setTimeout(function(){
+									window.location.reload();
+								},3000);
+								layer.msg("操作成功！",{icon: 1});
+							}
+						}
+					});
 				});
-
 			});
+			
 		</script>
 	</body>
 

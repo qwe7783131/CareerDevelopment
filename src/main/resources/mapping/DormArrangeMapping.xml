@@ -4,11 +4,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bugmaker.mapper.DormArrangeMapper">
 
+	<resultMap type="com.bugmaker.bean.DormArrange" id="dormArrangeMap">
+		<id property="id" column="dormaid"/>
+		<association property="student" resultMap="com.bugmaker.mapper.StudentMapper.stuMap"/>
+		<association property="dormitory" javaType="com.bugmaker.bean.Dormitory">
+			<id property="id" column="dormid"/>
+		</association>
+	</resultMap>
+
 	<insert id="insertDormArranges">
 		insert into dorm_arrange values
 		<foreach collection="list" item="item" index="index" separator ="," >
 			(replace(uuid(),'-',''), #{item.student.id}, #{item.dormitory.id})
 		</foreach>
 	</insert>
+	
+	<select id="selectDormArrangeByOutTeacId" resultMap="dormArrangeMap">
+		select dorma.id dormaid, dorm.id dormid,u.id, u.username
+		from outteacher outt, company cp, dormitory dorm, dorm_arrange dorma, user u,
+		internship_detail insde, internship ins
+		where outt.company_id=cp.id and dorm.company_id=cp.id and dorma.dorm_id=dorm.id
+		and dorma.stu_id=u.id and insde.stu_id=u.id and insde.ins_id=ins.id
+		and ins.type=#{type} and outt.id=#{id}
+	</select>
 
 </mapper>

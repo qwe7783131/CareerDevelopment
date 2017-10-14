@@ -23,7 +23,16 @@ public interface DormitoryServiceAdmin {
 
     /**
      * 一键安排宿舍
+     * @param insType 0-跟岗，1-顶岗
      * @return
      */
-	public int doArrangeDormitory();
+	public int doArrangeDormitory(String insType);
+
+	/**
+	 * 跳转到宿舍安排页面
+	 * @param insType 
+	 * @param pageNum 
+	 * @return
+	 */
+	public ModelAndView toDormitoryManagePage(String insType, String pageNum);
 }

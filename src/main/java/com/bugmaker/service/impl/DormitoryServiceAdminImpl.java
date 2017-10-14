@@ -147,9 +147,15 @@ public class DormitoryServiceAdminImpl implements DormitoryServiceAdmin {
 
     //一键安排宿舍
 	@Override
-	public int doArrangeDormitory() {
+	public int doArrangeDormitory(String insType) {
+		String type = null;
+		if(insType.equals("0")){
+			type = "跟岗";
+		}else{
+			type = "顶岗";
+		}
 		User outteacher = RequestUtil.getCurrentUser();
-		List<Student> students = studentMapper.selectStudentsByOutTeacherId(outteacher.getId());
+		List<Student> students = studentMapper.selectStudentsByOutTeacherId(outteacher.getId(),type);
 		List<Dormitory> dormitories = dormitoryMapper.getDormitoryLeaveByOutTeacherId(outteacher.getId());
 		List<DormArrange> dormArranges = new ArrayList<>();
 		for (Dormitory dormitory : dormitories) {
@@ -178,6 +184,26 @@ public class DormitoryServiceAdminImpl implements DormitoryServiceAdmin {
 		dormArrangeMapper.insertDormArranges(dormArranges);
 		//更新宿舍情况
 		dormitoryMapper.updateDormitorys(dormitories);
-		return 0;
+		return 1;
+	}
+
+	//跳转到宿舍管理页面
+	@Override
+	public ModelAndView toDormitoryManagePage(String insType, String pageNum) {
+		int nowPage = Integer.valueOf(pageNum);
+		ModelAndView modelAndView = new ModelAndView("outteacher/dormitory");
+		User user = RequestUtil.getCurrentUser();
+    	modelAndView.addObject("insType", insType);
+    	String type = null;
+		if(insType.equals("0")){
+			type = "跟岗";
+		}else{
+			type = "顶岗";
+		}
+		PageHelper.startPage(nowPage, 1);
+    	List<DormArrange> dormArranges = dormArrangeMapper.selectDormArrangeByOutTeacId(user.getId(),type);
+		PageInfo<DormArrange> page = new PageInfo<>(dormArranges);
+    	modelAndView.addObject("page", page);
+    	return modelAndView;
 	}
 }

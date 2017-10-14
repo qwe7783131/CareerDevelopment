@@ -1,5 +1,8 @@
 package com.bugmaker.controller.outteacher;
 
+import java.util.List;
+
+import com.bugmaker.bean.DormArrange;
 import com.bugmaker.constant.ProtocolConstant;
 import com.bugmaker.service.DormitoryServiceAdmin;
 import com.bugmaker.service.IssueTaskBookService;
@@ -58,14 +61,24 @@ public class OutTeacherController {
         return modelAndView;
     }
     
+    /**
+     * 跳转到宿舍安排界面
+     * @return
+     */
     @RequestMapping("toDormitoryManagePage.do")
-    public String toDormitoryManagePage(){
-    	return "outteacher/dormitory";
+    public ModelAndView toDormitoryManagePage(@RequestParam String insType,@RequestParam(defaultValue="1") String pageNum){
+    	
+    	return dormitoryServiceAdmin.toDormitoryManagePage(insType,pageNum);
     }
     
+    /**
+     * 执行一键安排宿舍操作
+     * @return
+     */
     @ResponseBody
     @RequestMapping("doArrangeDormitory.do")
-    public String doArrangeDormitory(){
-    	return ""+dormitoryServiceAdmin.doArrangeDormitory();
+    public String doArrangeDormitory(@RequestParam String insType){
+    	return ""+dormitoryServiceAdmin.doArrangeDormitory(insType);
     }
+    
 }
