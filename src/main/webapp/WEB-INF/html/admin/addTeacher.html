@@ -125,6 +125,7 @@
 						dataType: 'json',
 						success:function(data){
 						    layer.msg("成功");
+						    parent.window.location.href = '${base}/admin/teacherManage.do';
 						 },
 						error:function(){
 						    layer.msg("失败,用户已存在");

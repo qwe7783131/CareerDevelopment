@@ -139,6 +139,7 @@
 							layer.msg("添加失败！",{icon: 2});
 						}else{
 							layer.msg("添加成功！",{icon: 1});
+							parent.window.location.href = '${base}/admin/studentManage.do';
 						}
 					},
 					error: function(){
