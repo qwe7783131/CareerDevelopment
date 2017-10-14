@@ -255,4 +255,24 @@ public class TeacherController {
         return "teacher/selectOut";
     }
 
+    ///////////////////////////xuxu//////////////////////////////////
+    @RequestMapping("internshipRegistrationManage.do")
+    public ModelAndView internshipRegistrationManage(@RequestParam(defaultValue = "1") String curr){
+        return teacherService.tointernshipRegistrationManage(curr);
+    }
+
+    @RequestMapping("getInsVolunteeByDept.do")
+    public ModelAndView getInsVolunteeByDept(@RequestParam(defaultValue = "1") String curr,String deptId){
+        return teacherService.getInsVolunteeByDept(curr,deptId);
+    }
+
+    @RequestMapping("internshipRegistrationManageIn.do")
+    public ModelAndView internshipRegistrationManageIn(@RequestParam(defaultValue = "1") String curr){
+        return teacherService.tointernshipRegistrationManageIn(curr);
+    }
+
+    @RequestMapping("getInsVolunteeByDeptIn.do")
+    public ModelAndView getInsVolunteeByDeptIn(@RequestParam(defaultValue = "1") String curr,String deptId){
+        return teacherService.getInsVolunteeByDeptIn(curr,deptId);
+    }
 }

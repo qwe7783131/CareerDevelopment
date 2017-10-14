@@ -1,15 +1,16 @@
 package com.bugmaker.service.impl;
 
-import com.bugmaker.bean.Dept;
-import com.bugmaker.bean.User;
-import com.bugmaker.bean.UserRole;
+import com.bugmaker.bean.*;
 import com.bugmaker.mapper.DeptMapper;
+import com.bugmaker.mapper.InternshipRegistrationMapper;
 import com.bugmaker.mapper.UserMapper;
+import com.bugmaker.service.AddTeacherService;
 import com.bugmaker.service.TeacherService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,6 +26,12 @@ public class TeacherServiceImpl implements TeacherService {
     private UserMapper userMapper;
 	@Resource
 	private DeptMapper deptMapper;
+	@Resource
+    private InternshipRegistrationMapper internshipRegistrationMapper;
+
+    @Autowired
+    @Qualifier("teaService")
+    AddTeacherService teacherService;
 	 
 
     //查询所有老师
@@ -90,4 +97,68 @@ public class TeacherServiceImpl implements TeacherService {
         return new ModelAndView("teacher/selectTea","map",map);
 	}
 
+	///////////////////////////xuxu///////////////////////
+    @Override
+    public ModelAndView tointernshipRegistrationManage(String curr) {
+        Map<String ,Object> map = new HashMap<>();
+        Integer currPage = Integer.valueOf(curr);
+        PageHelper.startPage(currPage, 10);
+        List<InsVoluntee> insVolunteeList = internshipRegistrationMapper.getInsVoluntee();
+        PageInfo<InsVoluntee> page = new PageInfo<>(insVolunteeList);
+        map.put("page",page);
+        List<Dept> selectAllDept = teacherService.selectAllDept();
+        map.put("selectAllDept",selectAllDept);
+        return new ModelAndView("/teacher/internshipRegistrationManage","map",map);
+    }
+
+    @Override
+    public ModelAndView getInsVolunteeByDept(String curr, String id) {
+        Map<String ,Object> map = new HashMap<>();
+        Integer currPage = Integer.valueOf(curr);
+        PageHelper.startPage(currPage, 10);
+        List<InsVoluntee> insVolunteeList;
+        if(id!="" && id!=null) {
+            insVolunteeList = internshipRegistrationMapper.getInsVolunteeByDept(id);
+        }
+        else{
+            insVolunteeList = internshipRegistrationMapper.getInsVoluntee();
+        }
+        PageInfo<InsVoluntee> page = new PageInfo<>(insVolunteeList);
+        map.put("page",page);
+        List<Dept> selectAllDept = teacherService.selectAllDept();
+        map.put("selectAllDept",selectAllDept);
+        return new ModelAndView("/teacher/internshipRegistrationManage","map",map);
+    }
+
+    @Override
+    public ModelAndView tointernshipRegistrationManageIn(String curr) {
+        Map<String ,Object> map = new HashMap<>();
+        Integer currPage = Integer.valueOf(curr);
+        PageHelper.startPage(currPage, 6);
+        List<InsVoluntee> insVolunteeList = internshipRegistrationMapper.getInsVolunteeIn();
+        PageInfo<InsVoluntee> page = new PageInfo<>(insVolunteeList);
+        map.put("page",page);
+        List<Dept> selectAllDept = teacherService.selectAllDept();
+        map.put("selectAllDept",selectAllDept);
+        return new ModelAndView("/teacher/internshipRegistrationInManage","map",map);
+    }
+
+    @Override
+    public ModelAndView getInsVolunteeByDeptIn(String curr, String id) {
+        Map<String ,Object> map = new HashMap<>();
+        Integer currPage = Integer.valueOf(curr);
+        PageHelper.startPage(currPage, 6);
+        List<InsVoluntee> insVolunteeList;
+        if(id!="" && id!=null) {
+            insVolunteeList = internshipRegistrationMapper.getInsVolunteeByDeptIn(id);
+        }
+        else{
+            insVolunteeList = internshipRegistrationMapper.getInsVolunteeIn();
+        }
+        PageInfo<InsVoluntee> page = new PageInfo<>(insVolunteeList);
+        map.put("page",page);
+        List<Dept> selectAllDept = teacherService.selectAllDept();
+        map.put("selectAllDept",selectAllDept);
+        return new ModelAndView("/teacher/internshipRegistrationInManage","map",map);
+    }
 }
