@@ -17,6 +17,10 @@ public class Task {
 
     private Date endTime;
 
+    private Date createTime;
+
+    private int status;
+
     public String getId() {
         return id;
     }
@@ -65,6 +69,22 @@ public class Task {
         this.endTime = endTime;
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Task{" +
@@ -74,6 +94,8 @@ public class Task {
                 ", job=" + job +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
+                ", createTime=" + createTime +
+                ", status=" + status +
                 '}';
     }
 }

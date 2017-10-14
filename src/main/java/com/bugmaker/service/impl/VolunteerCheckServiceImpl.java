@@ -82,7 +82,7 @@ public class VolunteerCheckServiceImpl implements VolunteerCheckService {
         //分页，一页5条数据
         PageHelper.startPage(nowPage, 5);
         //根据学院获取所有学生填报的项目志愿
-        System.out.println(jobType);
+//        System.out.println(jobType);
         List<InsVoluntee> insVoluntees = insVolunteeMapper.selectInsVolunteerByParam("e2c3cc8ba07a11e7b4d800163e083221",
                 jobType, professClassId,internshipId, status);
 //        System.out.println(insVoluntees);

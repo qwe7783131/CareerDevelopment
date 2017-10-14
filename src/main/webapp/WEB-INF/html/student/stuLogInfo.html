@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+
+<head>
+<#include "html/template/head.html" />
+<title>填写日志</title>
+</head>
+
+<body>
+	<br/><br/>
+	<div class="site-demo-button" id="layerDemo">
+		<button data-method="add" data-type="t" class="layui-btn layui-btn-small">写日志</button>
+	</div>
+	<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+		<legend>历史日志</legend>
+	</fieldset>
+
+	<table class="layui-table">
+		<colgroup>
+			<col width="150">
+			<col width="150">
+			<col width="200">
+			<col>
+		</colgroup>
+		<thead>
+
+		<tr>
+			<th>学号</th>
+			<th>姓名</th>
+			<th>日志</th>
+
+			<th>指导老师评语</th>
+			<th>企业老师评语</th>
+			<th>创建时间</th>
+		</tr>
+		</thead>
+		<tbody>
+		<#list map.stuLogs as stulog>
+
+			<tr>
+				<td>${stulog.student.user.id}</td>
+				<td>${stulog.student.user.username}</td>
+				<td>${stulog.content}</td>
+				<td>${stulog.schoolTeacWriteback}</td>
+				<td>${stulog.outSchoolTeacWriteback}</td>
+				<td>${stulog.writeDate?datetime}</td>
+			</tr>
+		</#list>
+
+		</tbody>
+	</table>
+</body>
+<#include "html/template/common_js.html" />
+<script>
+
+
+		layui.use(['layer', 'form', 'jquery'], function() {
+			var form = layui.form, layer = layui.layer, $ = layui.jquery;
+
+			var active = {
+				add : function(othis){
+					layer.prompt({
+                            title: '写日志',
+                            formType: 2,
+                            value:''
+                            },
+                            function(value, index){
+                                $.ajax({
+                                    url: '/careerdevelopment/student/addLog.do',
+                                    type: 'POST',
+                                    data: {
+                                        "content"   : value
+                                    },
+                                    success: function(data){
+                                        if(data == true){
+                                            setTimeout("window.location.reload()",3000);
+                                            layer.msg("修改成功！",{icon: 1});
+                                        }else{
+                                            layer.msg("修改失败！",{icon: 2});
+                                        }
+                                    }
+                                });
+                            });
+                    }
+			};
+
+			$('#layerDemo .layui-btn').on('click', function() {
+				var othis = $(this), method = othis.data('method');
+				active[method] ? active[method].call(this, othis) : '';
+			});
+		});
+
+</script>
+</html>

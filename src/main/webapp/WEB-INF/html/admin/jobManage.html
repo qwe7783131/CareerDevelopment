@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <#include "html/template/head.html" />
+    <#assign urlbase=base + "/admin" />
+    <title>查询岗位</title>
+</head>
+
+<br>
+<div style="margin: 15px;">
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>查询岗位信息</legend>
+    </fieldset>
+    <form class="layui-form" action="${base}/admin/selectAllJobByCompanyName.do" method="post">
+        <div class="layui-inline">
+            <div class="layui-form-item">
+                <label class="layui-form-label">公司名</label>
+                <div class="layui-input-block">
+                    <select name="name" lay-filter="" id="">
+                        <option value=""></option>
+                        <#list map.company as company>
+                            <option value=${company.id}>${company.name}</option>
+                        </#list>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn">查询</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">清空</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>数据</legend>
+</fieldset>
+<div style="float:right; padding-right:50px">
+    <div class="site-demo-button" id="layerDemo">
+        <button data-method="add" data-type="t" class="layui-btn">
+            <i class="layui-icon">&#xe608;</i> 单个添加
+        </button>
+    </div>
+</div>
+</br></br></br>
+<div style="padding-left: 50px; padding-right: 50px;">
+    <table class="layui-table">
+        <colgroup>
+            <col width="150">
+            <col width="150">
+            <col width="200">
+            <col>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>企业</th>
+            <th>岗位名称</th>
+            <th>工资</th>
+            <th>企业教师</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <#list map.page.list as p>
+            <tr>
+                <td>${p.company.name}</td>
+                <td>${p.name}</td>
+                <td>${p.salary}</td>
+                <td>${p.outteacher.user.username}</td>
+                <td>
+                    <div class="layui-inline">
+                        <div class="site-demo-button" id="modify" style="margin-bottom: 0;">
+                            <button data-method="modify" data-companyid=${p.company.id} data-pid=${p.id}
+                                    data-name=${p.name} data-salary=${p.salary} data-outname=${p.outteacher.user.username}
+                                    class="layui-btn layui-btn-normal layui-btn layui-btn-mini">
+                                修改
+                            </button>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <div class="site-demo-button" id="delete" style="margin-bottom: 0;">
+                            <button class="layui-btn layui-btn-danger layui-btn layui-btn-mini"
+                                    data-method="confirmTrans" data-type=${p.id}>删除
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </#list>
+        </tbody>
+    </table>
+</div>
+<div class="layui-row">
+    <div class="layui-col-xs12 layui-col-sm8 layui-col-sm-offset2 layui-col-md6 layui-col-md-offset4">
+        <div id="layPage"></div>
+    </div>
+</div>
+
+<script src="${base}/frame/layui/layui.js"></script>
+<script src="${base}/resources/js/jquery-2.1.4.js"></script>
+<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script>
+			layui.use('form', function(){
+  var form = layui.form;
+
+  //各种基于事件的操作，下面会有进一步介绍
+});
+			layui.use('upload', function() {
+				var upload = layui.upload;
+
+				//执行实例
+				var uploadInst = upload.render({
+					elem: '#test1' //绑定元素
+						,
+					url: '${base}/addMulTea.do' //上传接口
+						,
+					accept: 'file' //允许上传的文件类型
+						,
+					exts: 'xls',
+					done: function(res) {
+
+						//上传完毕回调
+						if(1) {
+							alert("上传成功");
+						}
+					},
+					error: function() {
+						//请求异常回调
+						alert("失败");
+					}
+				});
+			});
+			layui.use('layer', function() { //独立版的layer无需执行这一句
+				var $ = layui.jquery,
+					layer = layui.layer; //独立版的layer无需执行这一句
+
+				//触发事件
+				var active = {
+
+					add: function(othis) {
+						var type = othis.data('type'),
+							text = othis.text();
+						layer.open({
+							type: 2,
+							title: false,
+							scrollbar: false,
+							area: ['500px', '630px'],
+							closeBtn: 2,
+							content: '${urlbase}/toAddJob.do'
+						});
+					},
+					confirmTrans: function(othis) {
+						//配置一个透明的询问框
+						layer.msg('确定删除？', {
+							btn: ['删除', '取消'],
+							btn1: function() {
+								$.ajax({
+									url: '${base}/admin/deleteJob.do' ,
+									contentType: "application/json",
+									data: { "id": othis.data('type') },
+									type: 'post',
+									dataType: 'json',
+									success: function(data) {
+										parent.layer.msg("删除" + othis.data('type') + "成功");
+										window.location.href = '${base}/admin/jobManage.do';
+									},
+									error: function(err) {
+										layer.msg("失败");
+									}
+								});
+								return false;
+							}
+						});
+					},
+					modify: function(othis) {
+						var id = othis.data('type'),
+							text = othis.text();
+						layer.open({
+							type: 2,
+							title: false,
+							scrollbar: false,
+							area: ['500px', '630px'],
+							closeBtn: 2,
+							content: '${base}/admin/toUpdateJob.do?id='
+							+othis.data('pid')+'&company_id='+othis.data('companyid')+'&name='+othis.data('name')
+							+'&salary='+othis.data('salary') + '&outteacher_name=' + othis.data('outname')
+						});
+					}
+				};
+
+				$('#layerDemo .layui-btn').on('click', function() {
+					var othis = $(this),
+						method = othis.data('method');
+					active[method] ? active[method].call(this, othis) : '';
+				});
+				$('#modify .layui-btn').on('click', function() {
+					var othis = $(this),
+						method = othis.data('method');
+					active[method] ? active[method].call(this, othis) : '';
+				});
+				$('#delete .layui-btn').on('click', function() {
+					var othis = $(this),
+						method = othis.data('method');
+					active[method] ? active[method].call(this, othis) : '';
+				});
+
+			});
+			layui.use(['laypage', 'layer'], function() {
+				var laypage = layui.laypage,
+					layer = layui.layer;
+				laypage.render({
+					elem: 'layPage',
+					count: ${map.page.total}, //数据总数
+					limit: ${map.page.pageSize},
+					first: '首页',
+					last: '尾页',
+					curr: ${map.page.pageNum},
+					layout: ['first','prev', 'page', 'next','last','skip'],
+					jump: function(obj,first) {
+						if(!first){
+							 window.location.href ="careerdevelopment/admin/jobManage.do?currentPage="+obj.curr;
+						}
+					}
+				});
+			});
+</script>
+</body>
+
+</html>

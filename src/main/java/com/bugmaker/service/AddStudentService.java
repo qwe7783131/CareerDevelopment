@@ -38,7 +38,7 @@ public interface AddStudentService {
 	int deleteStu(String id);
 
 	//获取所有学院（修改时用）
-	public ModelAndView modifyStu();
+	public ModelAndView modifyStu(User user);
 
 	//修改学生信息
 	public int modifyStudentImpl(String userString) throws IOException;

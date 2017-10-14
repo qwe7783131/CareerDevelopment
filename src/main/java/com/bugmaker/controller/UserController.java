@@ -17,6 +17,11 @@ public class UserController {
 
     @Autowired
     public UserService userService;
+    
+    @RequestMapping("toLoginPage.do")
+    public String toLoginPage(){
+    	return "login";
+    }
 
     @RequestMapping("login.do")
     public ModelAndView doLogin(String userName, String password,String rememberMe, HttpServletResponse response) throws IOException {

@@ -17,7 +17,7 @@
 				<div class="layui-inline">
 					<label class="layui-form-label">实习项目</label>
 					<div class="layui-input-inline">
-						<select name="insId" lay-search id="insId">
+						<select name="insId" lay-search id="insId" lay-verify="required">
 							<option value="">请输入或选择实习项目</option>
 							<#list map.internships as internship>
 								<#if map.insId?? && (map.insId==internship.id)>
@@ -30,26 +30,47 @@
 					</div>
 				</div>
 				<div class="layui-inline">
+					<label class="layui-form-label">状态</label>
+					<div class="layui-input-inline">
+						<select name="status" id="status" lay-verify="required">
+							<option value="">请选择状态</option>
+							<#if map.status?? && map.status == '1'>
+							<option value="1" selected>通过</option>
+							<#else>
+							<option value="1">通过</option>
+							</#if>
+							<#if map.status?? && map.status == '0'>
+							<option value="0" selected>未通过</option>
+							<#else>
+							<option value="0">未通过</option>
+							</#if>
+							<#if map.status?? && map.status == '2'>
+							<option value="2" selected>待审</option>
+							<#else>
+							<option value="2">待审</option>
+							</#if>
+						</select>
+					</div>
+				</div>
+				<div class="layui-inline">
 					<div class="layui-input-inline">
 						<button lay-submit class="layui-btn" lay-filter="chooseIns">确定</button>
 					</div>
 				</div>
 			</div>
 		</form>
-		<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-			<legend>所有选此项目的教师</legend>
-		</fieldset>
 		<form class="layui-form" action="">
-			<#if map.insId??>
+		<#if map.page0??>
+			<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+				<legend>未通过</legend>
+			</fieldset>
 			<div class="layui-row">
 				<div class="layui-col-xs2 layui-col-sm2 layui-col-sm-offset1 layui-col-md1">
-					<button class="layui-btn layui-btn-small" lay-submit lay-filter="divide1">
-					<i class="layui-icon">&#xe608;</i> 分配给该项目
+					<button class="layui-btn layui-btn-small" lay-submit lay-filter="divide0">
+					<i class="layui-icon">&#xe618;</i> 恢复
 				</button>
 				</div>
 			</div>
-			</#if>
-
 			<table class="layui-table">
 				<colgroup>
 					<col width="10">
@@ -66,7 +87,7 @@
 						<th>
 							<div class="layui-form-item">
 								<div class="layui-input-block">
-									<input type="checkbox" name="chooseAllteac" value="${teacher.id}" lay-skin="primary" lay-filter="chooseAllteac">
+									<input type="checkbox" name="chooseAllteac" lay-skin="primary" lay-filter="chooseAllteac">
 								</div>
 							</div>
 						</th>
@@ -80,9 +101,82 @@
 					</tr>
 				</thead>
 				<tbody>
+					<#list map.page0.list as teacInsPass>
+						<tr>
+							<td>
+								<div class="layui-form-item">
+									<div class="layui-input-block">
+										<input type="checkbox" name="teacherId1" value="${teacInsPass.teacher.id}" lay-skin="primary" lay-filter="recover">
+									</div>
+								</div>
+							</td>
+							<td>#</td>
+							<td>${teacInsPass.teacher.id}</td>
+							<td>${teacInsPass.teacher.username}</td>
+							<td>${teacInsPass.teacher.sex}</td>
+							<td>${teacInsPass.teacher.phone}</td>
+							<td>${teacInsPass.teacher.email}</td>
+							<#if teacInsPass.status == '2'>
+							<td style="color:#dd7880;">待审</td>
+							<#elseif teacInsPass.status == '1'>
+							<td style="color:green;">通过</td>
+							<#else>
+							<td style="color:red;">不通过</td>
+							</#if>
+						</tr>
 
-					<#list map.teacIns as teacIns>
+					</#list>
+				</tbody>
+			</table>
 
+			<div class="layui-row">
+				<div class="layui-col-xs12 layui-col-sm8 layui-col-sm-offset2 layui-col-md6 layui-col-md-offset4">
+					<div id="layPage2"></div>
+				</div>
+			</div>
+			</#if>
+		<#if map.page1??>
+		<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+			<legend>待审</legend>
+		</fieldset>
+			<div class="layui-row">
+				<div class="layui-col-xs2 layui-col-sm2 layui-col-sm-offset1 layui-col-md1">
+					<button class="layui-btn layui-btn-small" lay-submit lay-filter="divide1">
+					<i class="layui-icon">&#xe618;</i> 通过
+				</button>
+				</div>
+			</div>
+			<table class="layui-table">
+				<colgroup>
+					<col width="10">
+					<col width="150">
+					<col width="200">
+					<col width="150">
+					<col width="150">
+					<col width="200">
+					<col width="150">
+					<col width="200">
+				</colgroup>
+				<thead>
+					<tr>
+						<th>
+							<div class="layui-form-item">
+								<div class="layui-input-block">
+									<input type="checkbox" name="chooseAllteac" lay-skin="primary" lay-filter="chooseAllteac">
+								</div>
+							</div>
+						</th>
+						<th>序号</th>
+						<th>教工号</th>
+						<th>姓名</th>
+						<th>性别</th>
+						<th>电话</th>
+						<th>邮箱</th>
+						<th>状态</th>
+					</tr>
+				</thead>
+				<tbody>
+					<#list map.page1.list as teacIns>
 						<tr>
 							<td>
 								<div class="layui-form-item">
@@ -97,12 +191,87 @@
 							<td>${teacIns.teacher.sex}</td>
 							<td>${teacIns.teacher.phone}</td>
 							<td>${teacIns.teacher.email}</td>
+							<#if teacIns.status == '2'>
+							<td style="color:#dd7880;">待审</td>
+							<#elseif teacIns.status == '1'>
+							<td style="color:green;">通过</td>
+							<#else>
+							<td style="color:red;">不通过</td>
+							</#if>
+						</tr>
+					</#list>
+				</tbody>
+			</table>
+			<div class="layui-row">
+				<div class="layui-col-xs12 layui-col-sm8 layui-col-sm-offset2 layui-col-md6 layui-col-md-offset4">
+					<div id="layPage1"></div>
+				</div>
+			</div>
+			</#if>
+			
+			<#if map.page2??>
+			<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+				<legend>通过</legend>
+			</fieldset>
+			<div class="layui-row">
+				<div class="layui-col-xs2 layui-col-sm2 layui-col-sm-offset1 layui-col-md1">
+					<button class="layui-btn layui-btn-small" lay-submit lay-filter="divide3">
+					<i class="layui-icon">&#xe618;</i> 移除
+				</button>
+				</div>
+			</div>
+			<table class="layui-table">
+				<colgroup>
+					<col width="10">
+					<col width="150">
+					<col width="200">
+					<col width="150">
+					<col width="150">
+					<col width="200">
+					<col width="150">
+					<col width="200">
+				</colgroup>
+				<thead>
+					<tr>
+						<th>
+							<div class="layui-form-item">
+								<div class="layui-input-block">
+									<input type="checkbox" name="chooseAllteac" lay-skin="primary" lay-filter="chooseAllteac">
+								</div>
+							</div>
+						</th>
+						<th>序号</th>
+						<th>教工号</th>
+						<th>姓名</th>
+						<th>性别</th>
+						<th>电话</th>
+						<th>邮箱</th>
+						<th>状态</th>
+					</tr>
+				</thead>
+				<tbody>
+					<#list map.page2.list as teacInsPass>
+						<tr>
 							<td>
-								<div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
-									<button data-deptid="${dept.id}" data-deptname="${dept.deptName}" class="layui-btn layui-btn-normal layui-btn layui-btn-mini" id="modify-${dept.id}">修改</button>
-									<button data-deptid="${dept.id}" data-deptname="${dept.deptName}" class="layui-btn layui-btn-danger layui-btn layui-btn-mini" id="delete-${dept.id}">删除</button>
+								<div class="layui-form-item">
+									<div class="layui-input-block">
+										<input type="checkbox" name="teacherId1" value="${teacInsPass.teacher.id}" lay-skin="primary" lay-filter="chooseOneteac">
+									</div>
 								</div>
 							</td>
+							<td>#</td>
+							<td>${teacInsPass.teacher.id}</td>
+							<td>${teacInsPass.teacher.username}</td>
+							<td>${teacInsPass.teacher.sex}</td>
+							<td>${teacInsPass.teacher.phone}</td>
+							<td>${teacInsPass.teacher.email}</td>
+							<#if teacInsPass.status == '2'>
+							<td style="color:#dd7880;">待审</td>
+							<#elseif teacInsPass.status == '1'>
+							<td style="color:green;">通过</td>
+							<#else>
+							<td style="color:red;">不通过</td>
+							</#if>
 						</tr>
 
 					</#list>
@@ -111,11 +280,14 @@
 
 			<div class="layui-row">
 				<div class="layui-col-xs12 layui-col-sm8 layui-col-sm-offset2 layui-col-md6 layui-col-md-offset4">
-					<div id="layPage1"></div>
+					<div id="layPage2"></div>
 				</div>
 			</div>
+			</#if>
+			
+			<#if map.page3??>
 			<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-				<legend>未选择实习项目的教师</legend>
+				<legend>未选</legend>
 			</fieldset>
 			<#if map.insId??>
 			<div class="layui-row">
@@ -151,7 +323,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<#list map.teachers as teacher>
+					<#list map.page3.list as teacher>
 						<tr>
 							<td>
 								<div class="layui-form-item">
@@ -170,12 +342,14 @@
 					</#list>
 				</tbody>
 			</table>
-		</form>
+		
 		<div class="layui-row">
 			<div class="layui-col-xs12 layui-col-sm8 layui-col-sm-offset2 layui-col-md6 layui-col-md-offset4">
-				<div id="layPage2"></div>
+				<div id="layPage3"></div>
 			</div>
 		</div>
+		</#if>
+		</form>
 		<#include "html/template/common_js.html" />
 		<script>
 			layui.use(['laypage', 'form', 'layer', 'jquery'], function() {
@@ -202,10 +376,10 @@
 					}
 					form.render('checkbox');
 				});
-				form.on('submit(divide1)', function(data) {
+				form.on('submit(divide0)', function(data) {
 					var checkbox = $('input:checkbox[name=teacherId1]:checked');
 					if(checkbox.length>0){
-						layer.msg('确定分配吗？', {
+						layer.msg('确定恢复吗？', {
 							btn: ['确定', '取消'],
 							yes: function(){
 								var array = new Array(),i = 0;
@@ -217,16 +391,55 @@
 									url: '${base}/diviTeachers.do',
 									data: {
 										teacIds : array,
-										insId : insId
+										insId : insId,
+										type: '1'
 									},
 									type: 'POST',
 									traditional: true,//如果你想要用传统的方式来序列化数据，那么就设置为true。请参考工具分类下面的jQuery.param 方法.
 									success: function(data){
-										if(data == '1'){
+										if(data != '0'){
 											setTimeout("window.location.reload()",3000);
-											layer.msg("分配成功！3秒后刷新界面",{icon: 1});
+											layer.msg("操作成功！3秒后刷新界面",{icon: 1});
 										}else{
-											layer.msg("分配失败！",{icon: 2});
+											layer.msg("操作失败！",{icon: 2});
+										}
+									}
+								});
+							}
+						});
+						
+					}else{
+						layer.msg("请先选择教师！",{icon: 5});
+					}
+					
+					return false;
+				});
+				form.on('submit(divide1)', function(data) {
+					var checkbox = $('input:checkbox[name=teacherId1]:checked');
+					if(checkbox.length>0){
+						layer.msg('确定通过吗？', {
+							btn: ['确定', '取消'],
+							yes: function(){
+								var array = new Array(),i = 0;
+								var insId = $("#insId").val();
+								checkbox.each(function(){
+									array[i] = checkbox[i++].value;
+								});
+								$.ajax({
+									url: '${base}/diviTeachers.do',
+									data: {
+										teacIds : array,
+										insId : insId,
+										type: '1'
+									},
+									type: 'POST',
+									traditional: true,//如果你想要用传统的方式来序列化数据，那么就设置为true。请参考工具分类下面的jQuery.param 方法.
+									success: function(data){
+										if(data != '0'){
+											setTimeout("window.location.reload()",3000);
+											layer.msg("操作成功！3秒后刷新界面",{icon: 1});
+										}else{
+											layer.msg("操作失败！",{icon: 2});
 										}
 									}
 								});
@@ -242,6 +455,34 @@
 				form.on('submit(divide2)', function(data) {
 					var checkbox = $('input:checkbox[name=teacherId2]:checked');
 					if(checkbox.length>0){
+						layer.msg('确定分配吗？', {
+							btn: ['确定', '取消'],
+							yes: function(){
+								var array = new Array(),i = 0;
+								var insId = $("#insId").val();
+								checkbox.each(function(){
+									array[i] = checkbox[i++].value;
+								});
+								$.ajax({
+									url: '${base}/diviTeachers.do',
+									data: {
+										teacIds : array,
+										insId : insId,
+										type: '0'
+									},
+									type: 'POST',
+									traditional: true,//如果你想要用传统的方式来序列化数据，那么就设置为true。请参考工具分类下面的jQuery.param 方法.
+									success: function(data){
+										if(data != '0'){
+											setTimeout("window.location.reload()",3000);
+											layer.msg("操作成功！3秒后刷新界面",{icon: 1});
+										}else{
+											layer.msg("操作失败！",{icon: 2});
+										}
+									}
+								});
+							}
+						});
 						
 					}else{
 						layer.msg("请先选择教师！",{icon: 5});
@@ -249,124 +490,90 @@
 					
 					return false;
 				});
-
-				$("[id^='open-']").click(function() {
-					var directId = $(this).data("directid");
-					func.open(directId);
-				});
-				$("[id^='close-']").click(function() {
-					var directId = $(this).data("directid");
-					func.close(directId);
-				});
-				$("#onekey-open").click(function() {
-					func.onekeydo("1");
-				});
-				$("#onekey-close").click(function() {
-					func.onekeydo("0");
-				});
-				var func = {
-					open: function(directId) {
-						layer.msg('确定开启吗？', {
-							btn: ['开启', '取消'],
-							yes: function() {
+				form.on('submit(divide3)', function(data) {
+					var checkbox = $('input:checkbox[name=teacherId1]:checked');
+					if(checkbox.length>0){
+						layer.msg('确定移除吗？', {
+							btn: ['确定', '取消'],
+							yes: function(){
+								var array = new Array(),i = 0;
+								var insId = $("#insId").val();
+								checkbox.each(function(){
+									array[i] = checkbox[i++].value;
+								});
 								$.ajax({
-									url: '${base}/modifyDirectionState.do',
+									url: '${base}/diviTeachers.do',
 									data: {
-									directId: directId,
-									action: '1'
+										teacIds : array,
+										insId : insId,
+										type: '2'
 									},
 									type: 'POST',
-									success: function(data) {
-										if(data == '1') {
+									traditional: true,//如果你想要用传统的方式来序列化数据，那么就设置为true。请参考工具分类下面的jQuery.param 方法.
+									success: function(data){
+										if(data != '0'){
 											setTimeout("window.location.reload()",3000);
-											layer.msg("开启成功！3秒后刷新页面！", {icon: 1});
-										} else {
-											layer.msg("开启失败！3秒后刷新页面！", {icon: 2});
+											layer.msg("操作成功！3秒后刷新界面",{icon: 1});
+										}else{
+											layer.msg("操作失败！",{icon: 2});
 										}
 									}
 								});
 							}
 						});
-					},
-					close: function(directId) {
-						layer.msg('确定关闭吗？', {
-							btn: ['关闭', '取消'],
-							yes: function() {
-								$.ajax({
-									url: '${base}/modifyDirectionState.do',
-									data: {
-										directId: directId,
-										action: '0'
-									},
-									type: 'POST',
-									success: function(data) {
-										if(data == '1') {
-											setTimeout("window.location.reload()",3000);
-											layer.msg("关闭成功！3秒后刷新页面！", {icon: 1});
-										} else {
-											layer.msg("关闭失败！3秒后刷新页面！", {icon: 2});
-										}
-									}
-								});
-							}
-						});
-					},
-					onekeydo: function(open_or_close) {
-						var msg = "";
-						if(open_or_close == "1") {
-							msg = "开启";
-						} else {
-							msg = "关闭";
-						}
-						layer.msg('确定一键' + msg + '关闭吗？', {
-							btn: [msg, '取消'],
-							yes: function() {
-								$.ajax({
-									url: '${base}/onKeyOpenOrClose.do',
-									data: {
-										openOrClose: open_or_close
-									},
-									type: 'POST',
-									success: function(data) {
-										if(data == '0') {
-											layer.msg(msg+"失败！", {icon: 2});
-										} else {
-											setTimeout("window.location.reload()",3000);
-											layer.msg(msg +"成功！3秒后刷新页面！", {icon: 1});
-										}
-									}
-								});
-							}
-						});
+						
+					}else{
+						layer.msg("请先选择教师！",{icon: 5});
 					}
-				};
+					
+					return false;
+				});
+				<#if map.page1??>
 				//执行一个分页
 				laypage.render({
 					elem: 'layPage1', //注意，这里的 test1 是 ID，不用加 # 号
-					count: 50, //${map.page.total}, //数据总数，从服务端得到
-					limit: 5, //${map.page.pageSize}, //每页条数
+					count: ${map.page1.total}, //${map.page.total}, //数据总数，从服务端得到
+					limit: ${map.page1.pageSize}, //${map.page.pageSize}, //每页条数
 					groups: 5,
-					curr: 1, //${map.page.pageNum},
+					curr: ${map.page1.pageNum}, //${map.page.pageNum},
 					layout: ['prev', 'page', 'next', 'count'],
 					jump: function(obj, first) {
 						if(!first) {
-							//window.location.href="${base}/toModifyProfessState.do?curr="+obj.curr;
+							window.location.href="${base}/toModifyProfessState.do?curr1="+obj.curr+"&insId="+$("#insId").val();
 						}
 					}
 				});
+				</#if>
+				<#if map.page2??>
 				laypage.render({
 					elem: 'layPage2', //注意，这里的 test1 是 ID，不用加 # 号
-					count: 50, //${map.page.total}, //数据总数，从服务端得到
-					limit: 5, //${map.page.pageSize}, //每页条数
+					count: ${map.page2.total}, //${map.page.total}, //数据总数，从服务端得到
+					limit: ${map.page2.pageSize}, //${map.page.pageSize}, //每页条数
 					groups: 5,
-					curr: 1, //${map.page.pageNum},
+					curr: ${map.page2.pageNum}, //${map.page.pageNum},
 					layout: ['prev', 'page', 'next', 'count'],
 					jump: function(obj, first) {
 						if(!first) {
-							//window.location.href="${base}/toModifyProfessState.do?curr="+obj.curr;
+							window.location.href="${base}/toModifyProfessState.do?curr2="+obj.curr+"&insId="+$("#insId").val();
 						}
 					}
 				});
+				</#if>
+				<#if map.page3??>
+				laypage.render({
+					elem: 'layPage3', //注意，这里的 test1 是 ID，不用加 # 号
+					count: ${map.page3.total}, //${map.page.total}, //数据总数，从服务端得到
+					limit: ${map.page3.pageSize}, //${map.page.pageSize}, //每页条数
+					groups: 5,
+					curr: ${map.page3.pageNum}, //${map.page.pageNum},
+					layout: ['prev', 'page', 'next', 'count'],
+					jump: function(obj, first) {
+						if(!first) {
+							window.location.href="${base}/toModifyProfessState.do?curr3="+obj.curr+"&insId="+$("#insId").val();
+						}
+					}
+				});
+				</#if>
 			});
 		</script>
 	</body>

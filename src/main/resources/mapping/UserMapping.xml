@@ -56,7 +56,7 @@
         UPDATE user
         <set>
             <if test="username != null">username=#{username},</if>
-            <if test="password != null">PASSWORD=#{password},</if>
+            <if test="password != null and password !=''">PASSWORD=#{password},</if>
             <if test="sex != null">sex=#{sex},</if>
             <if test="age != null">age=#{age},</if>
             <if test="phone != null">phone=#{phone},</if>

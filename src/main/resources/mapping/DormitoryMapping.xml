@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bugmaker.mapper.DormitoryMapper">
+
+	<resultMap id="dormitoryMap" type="com.bugmaker.bean.Dormitory">
+		<id property="id" column="id"/>
+		<result property="total" column="total"/>
+		<result property="personNum" column="person_num"/>
+		<association property="company" javaType="com.bugmaker.bean.Company">
+			<id property="id" column="company_id"/>
+			<result property="name" column="name"/>
+		</association>
+	</resultMap>
+
+	<select id="getAllDorm" resultMap="dormitoryMap">
+		select d.id,d.total,d.person_num,d.company_id,c.name from dormitory d,company c where d.company_id = c.id
+	</select>
+
+	<insert id="addDormitory" parameterType="com.bugmaker.bean.Dormitory">
+		insert into dormitory (id,company_id,total,person_num) values (#{id},#{company.id},#{total},#{personNum})
+	</insert>
+
+	<update id="modifyDormitory" parameterType="com.bugmaker.bean.Dormitory">
+		update dormitory
+		<set>
+			<if test="id != null">id=#{id},</if>
+			<if test="company.id != null">company_id=#{company.id},</if>
+			<if test="total != null">total=#{total},</if>
+			<if test="personNum != null">person_num=#{personNum}</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<delete id="deleteDormitory">
+		delete from dormitory where id = #{id}
+	</delete>
+
+	<select id="getDormByCompany" resultMap="dormitoryMap">
+		select d.id,d.total,d.person_num,d.company_id,c.name from dormitory d,company c where company_id=#{id} and d.company_id = c.id
+	</select>
+	
+	<select id="getDormitoryLeaveByOutTeacherId" resultMap="dormitoryMap">
+		select d.id, d.total, d.person_num
+		from outteacher outt, company cp, dormitory d
+		where outt.company_id=cp.id and d.company_id=cp.id
+		and outt.id=#{id} and d.person_num &lt; d.total
+	</select>
+	
+	<update id="updateDormitorys">
+		<foreach collection="list" item="item">
+			update dormitory set person_num=#{item.personNum} where id=#{item.id}
+		</foreach>
+	</update>
+</mapper>

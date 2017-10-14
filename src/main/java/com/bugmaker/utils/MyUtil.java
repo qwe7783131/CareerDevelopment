@@ -30,7 +30,7 @@ public class MyUtil {
 
     public static void main(String[] args) {
         List<String> list = new ArrayList<String>();
-        for(int i = 0; i < 3; i++){
+        for(int i = 0; i < 13; i++){
             list.add("str" + i);
         }
         List<List<String>> lists = averageAssign(list, 2);

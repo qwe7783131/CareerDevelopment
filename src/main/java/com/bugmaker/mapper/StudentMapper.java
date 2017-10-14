@@ -45,4 +45,11 @@ public interface StudentMapper {
 
     //批量更新学生
     int batchUpdate(List<Student> students);
+
+    /**
+     * 根据企业教师获取到企业实习的学生列表
+     * @param id
+     * @return
+     */
+	public List<Student> selectStudentsByOutTeacherId(String id);
 }

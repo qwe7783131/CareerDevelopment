@@ -84,7 +84,6 @@
                 <th>电话</th>
                 <th>邮箱</th>
                 <th>学院</th>
-                <th>是否可用</th>
                 <th>操作</th>
             </tr>
             </thead>
@@ -102,15 +101,18 @@
                     <td>${p.user.phone}</td>
                     <td>${p.user.email}</td>
                     <td>${p.user.dept.deptName}</td>
-                    <#if p.enable==1>
-                        <td>可用</td>
-                        <#else>
-                            <td>不可用</td>
-                    </#if>
+                    <!--<#if p.enable==1>-->
+                        <!--<td>可用</td>-->
+                        <!--<#else>-->
+                            <!--<td>不可用</td>-->
+                    <!--</#if>-->
                     <td>
                         <div class="layui-inline">
                             <div class="site-demo-button" id="modify" style="margin-bottom: 0;">
                                 <button data-method="modify"
+                                        data-id=${p.id} data-name=${p.user.username} data-sex=${p.user.sex}
+                                        data-age=${p.user.age}
+                                        data-phone=${p.user.phone} data-email=${p.user.email} data-dept=${p.user.dept.deptName}
                                         class="layui-btn layui-btn-normal layui-btn layui-btn-mini">
                                     修改
                                 </button>
@@ -238,7 +240,8 @@
 							scrollbar: false,
 							area: ['500px', '700px'],
 							closeBtn: 2,
-							content: '${urlbase}/modifyStudent.do'
+							content: '${urlbase}/modifyStudent.do?id='+othis.data('id')+'&name='+othis.data('name')+'&sex='+othis.data('sex')
+							+'&age=' +othis.data('age')+'&phone='+othis.data('phone')+'&email='+othis.data('email')+'&deptName='+othis.data('dept')
 						});
 					}
 				};

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bugmaker.mapper.StuLogMapper">
+
+    <resultMap id="logMap" type="com.bugmaker.bean.StuLog">
+
+        <id property="id" column="id" />
+        <result property="content" column="content" />
+        <result property="writeDate" column="write_date" />
+        <result property="schoolTeacWriteback" column="school_teac_writeback" />
+        <result property="schoolWritebackDate" column="school_writeback_date" />
+        <result property="outSchoolTeacWriteback" column="out_school_teac_writeback" />
+        <result property="outSchoolWritebackDate" column="out_school_writeback_date" />
+        <association property="student" javaType="com.bugmaker.bean.Student">
+            <association property="user" javaType="com.bugmaker.bean.User">
+                <id property="id" column="stu_id" />
+                <result property="username" column="username" />
+            </association>
+        </association>
+
+    </resultMap>
+    <insert id="insertLog" >
+
+        insert stu_log (id, stu_id, content, write_date)
+            values(#{id}, #{student.user.id}, #{content}, #{writeDate})
+
+    </insert>
+
+    <sql id="selectAll">
+        SELECT
+            *
+        FROM
+            stu_log
+        LEFT JOIN (
+            SELECT
+                tea.id intern_id,
+                tea.oid outteacher_id,
+                ind.stu_id s_id,
+                SUBSTRING_INDEX( ind.teac_id, ',', 1 ) teac1,
+                SUBSTRING_INDEX( SUBSTRING_INDEX( ind.teac_id, ',', 2 ), ",",- 1 ) teac2,
+                SUBSTRING_INDEX( SUBSTRING_INDEX( ind.teac_id, ',', 3 ), ",",- 1 ) teac3,
+                u.username
+            FROM
+                internship_detail ind
+            LEFT JOIN (
+                SELECT
+                i.id,
+                jj.oid
+                FROM
+                internship i
+            LEFT JOIN ( SELECT j.id, outteacher.id oid FROM job j LEFT JOIN outteacher ON j.outteac_id = outteacher.id ) jj ON i.job_id = jj.id
+            ) tea ON ind.ins_id = tea.id
+            LEFT JOIN user u ON ind.stu_id = u.id
+        ) aaa ON aaa.s_id = stu_log.stu_id
+    </sql>
+
+    <select id="selectByParam" resultMap="logMap">
+        <include refid="selectAll" />
+        <where>
+            <if test="stuId != null and stuId != ''" >
+                stu_log.stu_id = #{stuId}
+            </if>
+        </where>
+
+    </select>
+
+</mapper>

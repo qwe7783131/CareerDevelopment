@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <#include "html/template/head.html" />
-    <title>修改教师信息</title>
+    <title>修改学生信息</title>
 </head>
 
 <body>
@@ -16,48 +16,52 @@
         <div class="layui-form-item">
             <label class="layui-form-label">学号</label>
             <div class="layui-input-block">
-                <input type="text" name="id" required lay-verify="required" placeholder="请输入学号" autocomplete="off" class="layui-input">
+                <input type="text" name="id" value="${map.user.id}"  placeholder="请输入学号" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">姓名</label>
             <div class="layui-input-block">
-                <input type="text" name="username" required lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+                <input type="text" name="username" value="${map.user.username}"  placeholder="请输入姓名" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">密码</label>
             <div class="layui-input-inline">
-                <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                <input type="password" name="password"  placeholder="请输入密码" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">性别</label>
             <div class="layui-input-block">
                 <select name="sex" lay-filter="aihao">
-                    <option value=""></option>
-                    <option value="0">男</option>
-                    <option value="1">女</option>
+                    <#if map.user.sex==0>
+                        <option value="0" selected>男</option>
+                        <option value="1">女</option>
+                    <#else>
+                        <option value="0">男</option>
+                        <option value="1"selected>女</option>
+                    </#if>
                 </select>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">年龄</label>
             <div class="layui-input-block">
-                <input type="text" name="age" required lay-verify="required" placeholder="请输入年龄" autocomplete="off" class="layui-input">
+                <input type="text" name="age" value="${map.user.age}"  placeholder="请输入年龄" autocomplete="off" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item">
             <label class="layui-form-label">电话</label>
             <div class="layui-input-block">
-                <input type="text" name="phone" required lay-verify="required" placeholder="请输入电话号码" autocomplete="off" class="layui-input">
+                <input type="text" name="phone" value="${map.user.phone}" placeholder="请输入电话号码" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">邮箱</label>
             <div class="layui-input-block">
-                <input type="email" name="email" required lay-verify="required" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
+                <input type="email" name="email" value="${map.user.email}" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -66,7 +70,11 @@
                 <select name="dept" lay-filter="aihao">
                     <option value=""></option>
                     <#list map.selectAllDept as dept>
-                        <option value=${dept.id}>${dept.deptName}</option>
+                        <#if map.user.dept.deptName==dept.deptName>
+                            <option value=${dept.id} selected>${dept.deptName}</option>
+                        <#else>
+                            <option value=${dept.id}>${dept.deptName}</option>
+                        </#if>
                     </#list>
                 </select>
             </div>
@@ -79,16 +87,6 @@
                     <#list map.selectPC as pc>
                         <option value=${pc.id}>${pc.className}</option>
                     </#list>
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">是否可用</label>
-            <div class="layui-input-block">
-                <select name="enable" >
-                    <option value=""></option>
-                    <option value="0">不可用</option>
-                    <option value="1">可用</option>
                 </select>
             </div>
         </div>
@@ -127,7 +125,7 @@
 			//监听提交
 			form.on('submit(formDemo)', function(data) {
 				$.ajax({
-						url: '${base}/admin/modifyCounselorImpl.do',
+						url: '${base}/admin/modifyStudentImpl.do',
 						contentType: "application/json",
 						data: JSON.stringify(data.field),
 						type: 'post',

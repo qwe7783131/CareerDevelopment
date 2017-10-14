@@ -14,7 +14,17 @@
 <body class="beg-login-bg">
 <div class="beg-login-box">
     <header>
-        <h1>后台登录</h1>
+    	<#if map.message??>
+    		<#if map.message == "1">
+    			<h1 style="color:red;">请先登录</h1>
+    		<#elseif map.message == "2">
+    			<h1 style="color:red;">账号不存在</h1>
+    		<#elseif map.message == "3">
+    			<h1 style="color:red;">密码错误</h1>
+    		</#if>
+    		<#else>
+        	<h1>后台登录</h1>
+        </#if>
     </header>
     <div class="beg-login-main">
         <form action="login.do" method="post" class="layui-form">
