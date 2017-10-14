@@ -22,6 +22,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 	</update>
 
+	<!--通过企业教师名字查询学生姓名和项目名称-->
+	<select id="selectStusAndInsByOutteacId" resultMap="insVolunteeMap">
+		SELECT u.id s_id, username, i.name iname FROM outteacher ot,job j,internship i, ins_voluntee iv, user u
+		WHERE i.job_id = j.id AND j.outteac_id = ot.id AND iv.ins_id = i.id AND u.enable = 1
+		AND i.enable = 1 AND i.status = 2 AND iv.status = 1 AND i.type = "跟岗"
+		AND u.id = iv.stu_id AND ot.id=#{outteacherId}
+	</select>
+
 	<!-- 审核改变项目志愿的状态 -->
 	<update id="modifyInsVolunteerStatus">
 		UPDATE ins_voluntee SET STATUS = #{status} WHERE id = #{insVolunteerId}

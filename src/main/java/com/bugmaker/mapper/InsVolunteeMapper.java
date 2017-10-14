@@ -12,6 +12,13 @@ import java.util.List;
 public interface InsVolunteeMapper {
 
     /**
+     * 通过企业教师名字查询学生姓名和项目名称
+     * @param outeacherId
+     * @return
+     */
+    InsVoluntee selectStusAndInsByOutteacId(@Param("outteacherId") String outeacherId);
+
+    /**
      * 审核改变所有项目志愿的状态
      * @param type
      * @param status
