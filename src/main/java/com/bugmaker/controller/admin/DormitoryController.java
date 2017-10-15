@@ -21,9 +21,8 @@ public class DormitoryController {
     DormitoryServiceAdmin dormitoryServiceAdmin;
 
     @RequestMapping("toDormitoryManage.do")
-    @ResponseBody
-    public ModelAndView toDormitoryManage(@RequestParam(defaultValue = "1") String curr){
-        return dormitoryServiceAdmin.toDormitoryManage(curr);
+    public ModelAndView toDormitoryManage(@RequestParam(defaultValue = "1") String currentPage){
+        return dormitoryServiceAdmin.toDormitoryManage(currentPage);
     }
 
     @RequestMapping("toAddDormitory.do")

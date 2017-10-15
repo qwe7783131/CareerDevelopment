@@ -51,13 +51,14 @@ public class JobServiceImpl implements JobService {
     @Override
     public ModelAndView jobManageView(String currentPage) {
         Map<String ,Object> map = new HashMap<String, Object>();
-        Integer currPage = Integer.valueOf(currentPage);
-        PageHelper.startPage(currPage, 10);
+        int nowPage = Integer.valueOf(currentPage);
+        PageHelper.startPage(nowPage, 5);
         List<Job> jobList = jobService.selectAllJob();
         PageInfo<Job> page = new PageInfo<>(jobList);
         for(Job job: jobList){
             System.out.println(job);
         }
+        System.out.println(page.getTotal());
         map.put("page",page);
         List<Company> companyList = jobService.getAllCompany();
         map.put("company",companyList);
