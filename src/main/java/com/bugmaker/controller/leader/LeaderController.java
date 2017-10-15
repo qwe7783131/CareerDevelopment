@@ -1,11 +1,15 @@
 package com.bugmaker.controller.leader;
 
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +20,14 @@ import com.bugmaker.bean.Company;
 import com.bugmaker.bean.Dept;
 import com.bugmaker.bean.Internship;
 import com.bugmaker.bean.Job;
-
+import com.bugmaker.bean.Score;
+import com.bugmaker.bean.Student;
+import com.bugmaker.bean.User;
+import com.bugmaker.constant.ProtocolConstant;
+import com.bugmaker.service.GScoreExportService;
 import com.bugmaker.service.InternshipService;
+import com.bugmaker.service.ScoreExportService;
+import com.bugmaker.service.TeacherScoreService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -30,6 +40,13 @@ public class LeaderController {
 	
 	@Resource
 	public InternshipService internshipService;
+	@Resource
+	public TeacherScoreService teacherScoreService;
+	@Resource
+	public ScoreExportService scoreExportService;
+	@Resource
+	public GScoreExportService gscoreExportService;
+	
 	
 	/**
 	 * 跳转到系领导的首页
@@ -72,7 +89,11 @@ public class LeaderController {
 	 */
 	@RequestMapping("towatchDormitoryArrange.do")
 	public String watchDormitoryArrangeView() { return "leader/watchDormitoryArrange"; }
-
+	/**
+	 * 跳转到查询所有存档资料页面
+	 */
+	/*@RequestMapping("todocumentDownload.do")
+	public String documentDownloadView() { return "leader/documentDownload"; }*/
 	/**
      * 系领导管理顶岗项目页面
      * @return
@@ -124,5 +145,87 @@ public class LeaderController {
     	modelAndView.setViewName("leader/updateInternship");
 		return modelAndView;
 	}
+	
+	
+	//顶岗
+    @RequestMapping("selectScroeLea.do")
+    public String selectScroeLeaView(Model model,
+			@RequestParam(defaultValue="1") String currentPage){
+    	Student student =new Student();
+    	Integer currPage = Integer.valueOf(currentPage);
+		PageHelper.startPage(currPage, 5);		
+		List<Score> ins = teacherScoreService.selectScoreByParam(ProtocolConstant.OUTJOB,student);
+		PageInfo page = new PageInfo(ins, 5);
+		page.getNavigatePages();
+		model.addAttribute("page",page);
+        return "leader/selectScroeLea";
+    }
+    @RequestMapping("getScoreByName.do")
+    public String getScoreByName(Model model,String name){
+    	Student student =new Student();
+    	User user = new User();
+    	user.setUsername(name);
+    	student.setUser(user);
+			
+		List<Score> scores = teacherScoreService.selectScoreByParam(ProtocolConstant.OUTJOB,student);
+		
+		model.addAttribute("scores",scores);
+        return "leader/selectScroeLea";
+    }
+    @RequestMapping("scoreExcel.do")
+    public void scoreExcel(HttpServletRequest request, HttpServletResponse response)throws Exception{
+       
+    	Student student =new Student();
+		List<Score> scores = teacherScoreService.selectScoreByParam(ProtocolConstant.OUTJOB,student); 
+        HSSFWorkbook wb = scoreExportService.export(scores);    
+        response.setContentType("application/vnd.ms-excel");    
+        response.setHeader("Content-disposition", "attachment;filename=studentLea.xls");    
+        OutputStream ouputStream = response.getOutputStream();    
+        wb.write(ouputStream);    
+        ouputStream.flush();    
+        ouputStream.close();  
+    	
+    }
+    
+    //跟岗
+    @RequestMapping("selectggScroeLea.do")
+    public String selectggScroeLeaView(Model model,
+			@RequestParam(defaultValue="1") String currentPage){
+    	Student student =new Student();
+    	Integer currPage = Integer.valueOf(currentPage);
+		PageHelper.startPage(currPage, 5);		
+		List<Score> ins = teacherScoreService.selectScoreByParam(ProtocolConstant.ONJOB,student);
+		PageInfo page = new PageInfo(ins, 5);
+		page.getNavigatePages();
+		model.addAttribute("page",page);
+        return "leader/selectggScroeLea";
+    }
+    @RequestMapping("getggScoreByName.do")
+    public String getggScoreByName(Model model,String name){
+    	Student student =new Student();
+    	User user = new User();
+    	user.setUsername(name);
+    	student.setUser(user);
+			
+		List<Score> scores = teacherScoreService.selectScoreByParam(ProtocolConstant.ONJOB,student);
+		
+		model.addAttribute("scores",scores);
+        return "leader/selectggScroeLea";
+    }
+    @RequestMapping("ggscoreExcel.do")
+    public void ggscoreExcel(HttpServletRequest request, HttpServletResponse response)throws Exception{
+       
+    	Student student =new Student();
+    	List<Score> ins = teacherScoreService.selectScoreByParam(ProtocolConstant.ONJOB,student); 
+        //System.out.println(ins);
+    	HSSFWorkbook wb = gscoreExportService.export(ins);    
+        response.setContentType("application/vnd.ms-excel");    
+        response.setHeader("Content-disposition", "attachment;filename=studentscorelea.xls");    
+        OutputStream ouputStream = response.getOutputStream();    
+        wb.write(ouputStream);    
+        ouputStream.flush();    
+        ouputStream.close();  
+    	
+    }
 	
 }
