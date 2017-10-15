@@ -24,4 +24,12 @@ public interface TeacherService {
   //获取数据跳转到teacherManage
     ModelAndView getAllTeacher(String currentPage);
 
+    ///////////////////////xuxu//////////////////////
+    ModelAndView tointernshipRegistrationManage(String curr);
+
+    ModelAndView getInsVolunteeByDept(String curr,String id);
+
+    ModelAndView tointernshipRegistrationManageIn(String curr);
+
+    ModelAndView getInsVolunteeByDeptIn(String curr,String id);
 }

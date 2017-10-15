@@ -33,4 +33,16 @@ public interface DormitoryMapper {
 	 * @param dormitories
 	 */
 	void updateDormitorys(List<Dormitory> dormitories);
+
+	/**
+	 * 原宿舍人数-1
+	 * @param dormid
+	 */
+	int downOnePersonNum(String dormid);
+
+	/**
+	 * 更换的宿舍人数+1
+	 * @param changDormId
+	 */
+	void upOnePersonNum(String changDormId);
 }

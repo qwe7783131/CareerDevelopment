@@ -6,6 +6,8 @@ import com.bugmaker.bean.UserRole;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 public interface StudentMapper {
     /**
      * 查询所有学生
@@ -49,7 +51,8 @@ public interface StudentMapper {
     /**
      * 根据企业教师获取到企业实习的学生列表
      * @param id
+     * @param type 
      * @return
      */
-	public List<Student> selectStudentsByOutTeacherId(String id);
+	public List<Student> selectStudentsByOutTeacherId(@Param("id") String id, @Param("type") String type);
 }

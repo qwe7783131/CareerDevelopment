@@ -9,7 +9,11 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+
+import com.bugmaker.service.TeacherService;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +41,9 @@ import com.github.pagehelper.PageInfo;
 @Controller
 @RequestMapping("/leader")
 public class LeaderController {
+
+	@Resource
+	public TeacherService teacherService;
 	
 	@Resource
 	public InternshipService internshipService;
@@ -228,4 +235,27 @@ public class LeaderController {
     	
     }
 	
+
+
+	///////////////////////////xuxu//////////////////////////////////
+	@RequestMapping("internshipRegistrationManage.do")
+	public ModelAndView internshipRegistrationManage(@RequestParam(defaultValue = "1") String curr){
+		return teacherService.tointernshipRegistrationManage(curr);
+	}
+
+	@RequestMapping("getInsVolunteeByDept.do")
+	public ModelAndView getInsVolunteeByDept(@RequestParam(defaultValue = "1") String curr,String deptId){
+		return teacherService.getInsVolunteeByDept(curr,deptId);
+	}
+
+	@RequestMapping("internshipRegistrationManageIn.do")
+	public ModelAndView internshipRegistrationManageIn(@RequestParam(defaultValue = "1") String curr){
+		return teacherService.tointernshipRegistrationManageIn(curr);
+	}
+
+	@RequestMapping("getInsVolunteeByDeptIn.do")
+	public ModelAndView getInsVolunteeByDeptIn(@RequestParam(defaultValue = "1") String curr,String deptId){
+		return teacherService.getInsVolunteeByDeptIn(curr,deptId);
+	}
+
 }

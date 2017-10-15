@@ -49,8 +49,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<update id="updateDormitorys">
-		<foreach collection="list" item="item">
+		<foreach collection="list" item="item" separator=";">
 			update dormitory set person_num=#{item.personNum} where id=#{item.id}
 		</foreach>
+	</update>
+	
+	<update id="downOnePersonNum">
+		update dormitory set person_num=person_num-1 where id=#{dormid}
+	</update>
+	
+	<update id="upOnePersonNum">
+		update dormitory set person_num=person_num+1 where id=#{changDormId}
 	</update>
 </mapper>
