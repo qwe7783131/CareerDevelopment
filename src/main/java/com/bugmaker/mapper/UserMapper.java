@@ -101,4 +101,9 @@ public interface UserMapper {
      */
     List<User> getAllLeader();
 
+    /**
+     * 查询所有的专业负责人
+     * @return
+     */
+    List<User> getAllProfessteacher();
 }

@@ -7,48 +7,54 @@ import com.bugmaker.bean.UserRole;
 import com.bugmaker.mapper.DeptMapper;
 import com.bugmaker.mapper.UserMapper;
 import com.bugmaker.service.AddTeacherService;
-import com.bugmaker.utils.UploadUtil;
-import com.bugmaker.utils.XslResolveUtil;
+import com.bugmaker.service.LeaderService;
+import com.bugmaker.service.ProfessteacherService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
-import com.sun.org.apache.xpath.internal.operations.Mod;
-import org.apache.commons.fileupload.FileItem;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-@Service("teaService")
-public class AddTeacherServiceImpl implements AddTeacherService {
+
+@Service("professteacherImpl")
+public class ProfessteacherServiceImpl implements ProfessteacherService{
     @Autowired
     private UserMapper userMapper ;
     @Autowired
     private DeptMapper deptMapper;
 
     @Autowired
+    @Qualifier("professteacherImpl")
+    ProfessteacherService professteacherService;
+
+    @Autowired
     @Qualifier("teaService")
     AddTeacherService teacherService;
 
-    public void setDeptMapper(DeptMapper deptMapper) {
-        this.deptMapper = deptMapper;
-    }
-
-    public void setUserMapper(UserMapper userMapper) {
-        this.userMapper = userMapper;
-    }
-
-    //添加单个教师
     @Override
-    public String addOneTea(String userString) throws IOException {
+    public ModelAndView professteacherManageView(String currentPage) {
+        Map<String ,Object> map = new HashMap<String, Object>();
+        Integer currPage = Integer.valueOf(currentPage);
+        PageHelper.startPage(currPage, 6);
+        List<User> selectAllProfessteacher = professteacherService.selectAllProfessteacher();
+        PageInfo<User> page = new PageInfo<>(selectAllProfessteacher);
+        List<Dept> selectAllDept = professteacherService.selectAllDept();
+        map.put("page",page);
+        map.put("selectAllDept",selectAllDept);
+        return new ModelAndView("/admin/professteacherManage","map",map);
+    }
+
+    @Override
+    public String addOneProfessteacher(String userString) throws IOException {
         //System.out.println(userString);
         ObjectMapper mapper = new ObjectMapper();
         Map userMap = mapper.readValue(userString, Map.class);
@@ -58,44 +64,25 @@ public class AddTeacherServiceImpl implements AddTeacherService {
         User user = new User();
         user.setId(userMap.get("id").toString());
         user.setUsername(userMap.get("username").toString());
-        user.setPassword((new Md5Hash(userMap.get("id").toString(),userMap.get("password").toString())).toString());
+        user.setPassword((new Md5Hash(userMap.get("id"),userMap.get("password").toString())).toString());
         user.setSex(userMap.get("sex").toString());
         user.setAge(Integer.valueOf(userMap.get("age").toString()));
         user.setPhone(userMap.get("phone").toString());
         user.setEmail(userMap.get("email").toString());
         user.setDept(dept);
         user.setCreatTime(new Date());
-        user.setEnable(Integer.parseInt(userMap.get("enable").toString()));
-        user.setType(2);
+        user.setEnable(1);
+        user.setType(6);
         UserRole userRole = new UserRole();
         userRole.setUser(user);
         Role role = new Role();
-        role.setId("2");
+        role.setId("6");
         userRole.setRole(role);
         teacherService.addTeaRole(userRole);
         return  String.valueOf(userMapper.insertUser(user));
     }
 
-    //批量添加教师
-    @Override
-    public int addMulTea(HttpServletRequest request) throws IOException {
-        int result =0;
-        List<FileItem> fileItems = UploadUtil.getUploadFileStream(request);
-        List<User> teachers = null;
-        for(FileItem fileItem : fileItems){
-            if(!fileItem.isFormField()){
-                InputStream in = fileItem.getInputStream();
-                List<Dept> depts = new ArrayList<Dept>();
-                teachers = XslResolveUtil.getTeachersFromXSL(in,depts);
-                //数据库插入出错的话没处理，会全部插入失败
-                result = userMapper.insertUsers(teachers);
-                for (User teacher : teachers){
-                    System.out.println(teacher.getAge());
-                }
-            }
-        }
-        return result;
-    }
+
 
     //查询所有学院
     @Override
@@ -104,28 +91,20 @@ public class AddTeacherServiceImpl implements AddTeacherService {
         return deptList;
     }
 
-    //查询所有老师
+    //查询所有系领导
     @Override
-    public List<User> selectAllTea() {
+    public List<User> selectAllProfessteacher() {
         //System.out.println("2");
-        List<User> userList = userMapper.getAllTeacher();
-//        for(User user : userList){
-//            System.out.println("的" + user);
-//        }
+        List<User> userList = userMapper.getAllProfessteacher();
+        for(User user : userList){
+            System.out.println(user);
+        }
         return  userList;
     }
 
-    //删除教师
+    //修改系领导信息
     @Override
-    public int deleteTea(String id) {
-        int i = userMapper.deleteUserById(id);
-        //System.out.println("执行删除impl" + i);
-        return i;
-    }
-
-    //修改教师信息
-    @Override
-    public String updateTea(String userString,String id) throws IOException {
+    public String updateProfessteacher(String userString,String id) throws IOException {
 //        System.out.println("执行修改controller");
 //        System.out.println(userString);
         ObjectMapper mapper = new ObjectMapper();
@@ -133,7 +112,7 @@ public class AddTeacherServiceImpl implements AddTeacherService {
 //        System.out.println(userMap);
         Dept dept = new Dept();
         dept.setId(userMap.get("dept").toString());
-        com.bugmaker.bean.User user = new User();
+        User user = new User();
         user.setId(id);
         user.setUsername(userMap.get("username").toString());
         if(userMap.get("password").toString()!=null&&userMap.get("password").toString()!="") {
@@ -146,19 +125,21 @@ public class AddTeacherServiceImpl implements AddTeacherService {
         user.setDept(dept);
         user.setCreatTime(new Date());
         user.setEnable(1);
-        user.setType(2);
+        user.setType(6);
+//        System.out.println(user);
         return "" + userMapper.updateUserById(user);
     }
 
-    //添加教师角色
-    @Override
-    public String addTeaRole(UserRole userRole) {
-        return "" + userMapper.insertUserRole(userRole);
+    //删除系领导
+    public int deleteProfessteacher(String id) {
+        int i = userMapper.deleteUserById(id);
+        return i;
     }
 
     //模糊查询
     @Override
-    public ModelAndView selectTeaByParams(String id, String username , String dept, String currentPage) {
+    public ModelAndView selectProfessteacherByParams(String id, String username , String dept, String currentPage) {
+//        System.out.println("id:" + id + "username" + username + "dept" + dept);
         Map<String ,Object> map = new HashMap<String, Object>();
         User user = new User();
         user.setUsername(username);
@@ -168,29 +149,19 @@ public class AddTeacherServiceImpl implements AddTeacherService {
         user.setId(id);
         Integer currPage = Integer.valueOf(currentPage);
         PageHelper.startPage(currPage, 6);
-        List<User> userList = userMapper.selectTeacherByParams(user);
+        List<User> userList = userMapper.selectLeaderByParams(user);
         PageInfo<User> page = new PageInfo<>(userList);
+//        for(User user1 : userList){
+//            System.out.println(user1);
+//        }
         map.put("page",page);
         List<Dept> selectAllDept = teacherService.selectAllDept();
         map.put("selectAllDept",selectAllDept);
         if(id.equals("") && username.equals("") && dept.equals("")){
-            return new ModelAndView("redirect:/admin/teacherManage.do","map",map);
+            return new ModelAndView("redirect:/admin/leaderManage.do","map",map);
         }
         else {
-            return new ModelAndView("/admin/teacherManage","map",map);
+            return new ModelAndView("/admin/leaderManage","map",map);
         }
-    }
-
-    //获取数据跳转到teacherManage
-    public ModelAndView teacherManageView(String currentPage){
-        Map<String ,Object> map = new HashMap<String, Object>();
-        Integer currPage = Integer.valueOf(currentPage);
-        PageHelper.startPage(currPage, 6);
-        List<User> selectAllTea = teacherService.selectAllTea();
-        PageInfo<User> page = new PageInfo<>(selectAllTea);
-        List<Dept> selectAllDept = teacherService.selectAllDept();
-        map.put("page",page);
-        map.put("selectAllDept",selectAllDept);
-        return new ModelAndView("/admin/teacherManage","map",map);
     }
 }

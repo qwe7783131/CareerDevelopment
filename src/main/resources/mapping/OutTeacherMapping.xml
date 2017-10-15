@@ -58,20 +58,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 
 	<!--////////////////////////////////////////////////xuxu/////////////////////////////////////////////////////////-->
-	<!--添加企业教师(outteacher表)-->
-	<insert id="insertOutteacher" parameterType="outteacher">
-		insert into outteacher (id,company_id) values (#{id},#{company.id})
-	</insert>
-	<!--添加企业教师(user)-->
-	<insert id="insertOutteacherUser" parameterType="outteacher">
-		insert into user (id,username,password,sex,age,phone,email,enable,type,create_time,dept_id)
-		values (#{id},#{user.username},#{user.password},#{user.sex},#{user.age},#{user.phone},#{user.email},#{user.enable}
-		,#{user.type},#{user.creatTime},#{user.dept.id})
-	</insert>
+    <!--添加企业教师(outteacher表)-->
+    <insert id="insertOutteacher" parameterType="outteacher">
+        insert into outteacher (id,company_id) values (#{user.id},#{company.id})
+    </insert>
+    <!--添加企业教师(user)-->
+    <insert id="insertOutteacherUser" parameterType="outteacher">
+        insert into user (id,username,password,sex,age,phone,email,enable,type,create_time)
+        values (#{user.id},#{user.username},#{user.password},#{user.sex},#{user.age},#{user.phone},#{user.email},#{user.enable}
+        ,#{user.type},#{user.creatTime})
+    </insert>
 
-	<update id="deleteOutteacher">
-		update user set enable = 0 where id = #{id}
-	</update>
+    <insert id="insertOutteacherUserRole" parameterType="outteacher">
+        insert into user_role (id,user_id,role_id) values (replace(uuid(),"-",""),#{user.id},3)
+    </insert>
+
+    <update id="deleteOutteacher">
+        update user set enable = 0 where id = #{id}
+    </update>
 
 	<update id="updateOutteacher">
 		update user set username = #{username},sex = #{sex},age = #{age},phone = #{phone},email = #{email} where id = #{id}

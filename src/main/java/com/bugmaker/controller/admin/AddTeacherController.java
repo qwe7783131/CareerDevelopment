@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -76,17 +77,25 @@ public class AddTeacherController {
      * 获取学院（修改教师时)
      */
     @RequestMapping("/admin/selectDept2.do")
-    public  String selectDept2(ModelMap model){
+    public  String selectDept2(ModelMap model,String id,String sex,String age,String phone,String email,String username,String dept) throws UnsupportedEncodingException {
+//        System.out.println(id+sex+age+phone+email+username+dept);
         List<Dept> selectAllDept = teacherService.selectAllDept();
         model.put("selectAllDept",selectAllDept);
+        model.put("id",id);
+        model.put("sex",sex);
+        model.put("age",age);
+        model.put("phone",phone);
+        model.put("email",email);
+        model.put("dept1",new String(dept.getBytes("iso8859-1"), "utf-8"));
+        model.put("username",new String(username.getBytes("iso8859-1"), "utf-8"));
         return "admin/modifyTeacher";
     }
 
     //修改教师信息
     @RequestMapping(value = "admin/modifyTeacherImpl.do", method = RequestMethod.POST)
     @ResponseBody
-    public String modifyTeacherImpl(@RequestBody String userString) throws IOException {
-        return "" + teacherService.updateTea(userString);
+    public String modifyTeacherImpl(@RequestBody String userString,String id) throws IOException {
+        return "" + teacherService.updateTea(userString,id);
     }
 
     // 删除教师
