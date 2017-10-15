@@ -35,4 +35,25 @@ public interface DormitoryServiceAdmin {
 	 * @return
 	 */
 	public ModelAndView toDormitoryManagePage(String insType, String pageNum);
+
+	/**
+	 * 跳转到更换宿舍页面
+	 * @param dormaid
+	 * @param stuid
+	 * @param dormid
+	 * @return
+	 */
+	public ModelAndView toChangeDormPage(String dormaid, String stuid,
+			String dormid);
+
+	/**
+	 * 更换宿舍
+	 * @param dormaid
+	 * @param stuid
+	 * @param dormid
+	 * @param changDormId
+	 * @return
+	 */
+	public int doChangeDorm(String dormaid, String stuid, String dormid,
+			String changDormId);
 }

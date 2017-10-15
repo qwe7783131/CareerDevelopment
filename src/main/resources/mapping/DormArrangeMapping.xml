@@ -27,5 +27,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		and dorma.stu_id=u.id and insde.stu_id=u.id and insde.ins_id=ins.id
 		and ins.type=#{type} and outt.id=#{id}
 	</select>
+	
+	<update id="changeDormByid">
+		update dorm_arrange set dorm_id=#{changDormId} where id=#{dormaid}
+	</update>
 
 </mapper>

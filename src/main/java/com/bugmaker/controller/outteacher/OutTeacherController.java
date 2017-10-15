@@ -81,4 +81,31 @@ public class OutTeacherController {
     	return ""+dormitoryServiceAdmin.doArrangeDormitory(insType);
     }
     
+    /**
+     * 跳转到更换宿舍页面
+     * @param dormaid
+     * @param stuid
+     * @param dormid
+     * @return
+     */
+    @RequestMapping("toChangeDormPage.do")
+    public ModelAndView toChangeDormPage(String dormaid, String stuid, String dormid){
+    	
+    	return dormitoryServiceAdmin.toChangeDormPage(dormaid,stuid,dormid);
+    }
+    
+    /**
+     * 更换宿舍
+     * @param dormaid
+     * @param stuid
+     * @param dormid
+     * @param changDormId
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("doChangeDorm.do")
+    public String doChangeDorm(String dormaid, String stuid, String dormid,String changDormId){
+    	return ""+dormitoryServiceAdmin.doChangeDorm(dormaid,stuid,dormid,changDormId);
+    }
+    
 }

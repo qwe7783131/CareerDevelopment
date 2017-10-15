@@ -206,4 +206,31 @@ public class DormitoryServiceAdminImpl implements DormitoryServiceAdmin {
     	modelAndView.addObject("page", page);
     	return modelAndView;
 	}
+
+	//跳转到更换宿舍页面
+	@Override
+	public ModelAndView toChangeDormPage(String dormaid, String stuid,
+			String dormid) {
+		ModelAndView view = new ModelAndView("outteacher/changeDorm");
+    	view.addObject("dormaid", dormaid);
+    	view.addObject("stuid", stuid);
+    	view.addObject("dormid", dormid);
+    	User outteacher = RequestUtil.getCurrentUser();
+    	List<Dormitory> dormitories = dormitoryMapper.getDormitoryLeaveByOutTeacherId(outteacher.getId());
+    	view.addObject("dormitories", dormitories);
+		return view;
+	}
+
+	//更换宿舍
+	@Override
+	public int doChangeDorm(String dormaid, String stuid, String dormid,
+			String changDormId) {
+		//修改宿舍
+		dormArrangeMapper.changeDormByid(dormaid,changDormId);
+		//原宿舍人数-1
+		dormitoryMapper.downOnePersonNum(dormid);
+		//更换的宿舍人数+1
+		dormitoryMapper.upOnePersonNum(changDormId);
+		return 1;
+	}
 }

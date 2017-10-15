@@ -22,4 +22,11 @@ public interface DormArrangeMapper {
 	 */
 	List<DormArrange> selectDormArrangeByOutTeacId(@Param("id") String id, @Param("type") String type);
 
+	/**
+	 * 修改宿舍号
+	 * @param dormaid
+	 * @param changDormId
+	 */
+	int changeDormByid(@Param("dormaid") String dormaid, @Param("changDormId") String changDormId);
+
 }

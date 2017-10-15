@@ -15,7 +15,7 @@
 		<input id="insType" type="text" value="${insType}" class="layui-hide">
 		<div style="float: left;padding-left: 45px;">
 			<div class="site-demo-button" id="layerDemo">
-				<button data-method="modify" data-type="t" class="layui-btn layui-btn-small layui-btn-normal">宿舍更换申请</button>
+				<!-- <button data-method="modify" data-type="t" class="layui-btn layui-btn-small layui-btn-normal">宿舍更换申请</button> -->
 				<button id="arrange" class="layui-btn layui-btn-small">一键安排宿舍</button>
 			</div>
 		</div>
@@ -50,7 +50,7 @@
 						<td>${dormArrange.dormitory.id}</td>
 						<td>
 							<div class="site-demo-button" id="layerDemo">
-								<button data-method="offset" data-type="t" class="layui-btn layui-btn-normal layui-btn layui-btn-mini">修改</button>
+								<button id="changeDormArrange" data-dormaid="${dormArrange.id}" data-stuid="${dormArrange.student.user.id}" data-dormid="${dormArrange.dormitory.id}" class="layui-btn layui-btn-normal layui-btn layui-btn-mini">更换宿舍</button>
 							</div>
 						</td>
 					</tr>
@@ -84,8 +84,24 @@
 				
 				//触发事件
 				var func = {
-						
+					changeDormArrange: function(dormaid,stuid,dormid){
+						var index = layer.open({
+							  type: 2,
+							  content: '${base}/outteacher/toChangeDormPage.do?dormaid='+dormaid+"&stuid="+stuid+"&dormid="+dormid,
+							  area: ['500px', '500px'],
+							  end: function(){
+								  window.location.reload();
+							  }
+							});
+					}
 				};
+				
+				$("#changeDormArrange").click(function(){
+					var dormaid = $(this).data("dormaid");
+					var stuid = $(this).data("stuid");
+					var dormid = $(this).data("dormid");
+					func.changeDormArrange(dormaid,stuid,dormid);
+				});
 
 				$('#arrange').on('click', function() {
 					var insType = $("#insType").val();
@@ -99,7 +115,7 @@
 							if(data == '1'){
 								setTimeout(function(){
 									window.location.reload();
-								},3000);
+								},2000);
 								layer.msg("操作成功！",{icon: 1});
 							}
 						}
