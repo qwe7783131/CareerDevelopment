@@ -156,4 +156,10 @@
         <include refid="selectUser" />
         AND TYPE = 5
     </select>
+
+    <!-- 查询所有的专业负责人(type = 6) -->
+    <select id="getAllProfessteacher" resultMap="userMap">
+        <include refid="selectUser" />
+        AND TYPE = 6
+    </select>
 </mapper>

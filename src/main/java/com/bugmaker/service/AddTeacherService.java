@@ -21,7 +21,7 @@ public interface AddTeacherService {
     int deleteTea(String id);
 
     //修改教师信息
-    String updateTea(String userString) throws IOException;
+    String updateTea(String userString,String id) throws IOException;
 
     //添加教师角色
     String addTeaRole(UserRole userRole);

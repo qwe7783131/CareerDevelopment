@@ -2,21 +2,21 @@
 <html lang="en">
 <head>
     <#include "html/template/head.html" />
-    <title>修改教师信息</title>
+    <title>修改专业负责人信息</title>
 </head>
 
 <body>
 <div style="margin: 15px;">
     <blockquote class="layui-elem-quote ">
-        修改教师
+        修改专业负责人
     </blockquote>
 </div>
 <div class="layui-row">
     <form class="layui-form" action="" style="padding-right : 100px">
         <!--<div class="layui-form-item">-->
-            <!--<label class="layui-form-label">教工号</label>-->
+            <!--<label class="layui-form-label">专业负责人号</label>-->
             <!--<div class="layui-input-block">-->
-                <!--<input type="text" name="id" required lay-verify="required" placeholder="请输入教工号" autocomplete="off" class="layui-input">-->
+                <!--<input type="text" name="id" required lay-verify="required" placeholder="请输入专业负责人号" autocomplete="off" class="layui-input">-->
             <!--</div>-->
         <!--</div>-->
         <div class="layui-form-item">
@@ -37,11 +37,11 @@
                 <select name="sex" lay-filter="aihao">
                     <option value=""></option>
                     <#if sex==0>
-                    <option value="0" selected>男</option>
-                    <option value="1">女</option>
-                    <#else>
-                        <option value="0" >男</option>
-                        <option value="1" selected>女</option>
+                        <option value="0" selected>男</option>
+                        <option value="1">女</option>
+                        <#else>
+                            <option value="0" >男</option>
+                            <option value="1" selected>女</option>
                     </#if>
                 </select>
             </div>
@@ -72,24 +72,14 @@
                     <option value=""></option>
                     <#list selectAllDept as dept>
                         <#if dept.deptName==dept1>
-                        <option value=${dept.id} selected>${dept.deptName}</option>
-                        <#else>
-                            <option value=${dept.id}>${dept.deptName}</option>
+                            <option value=${dept.id} selected>${dept.deptName}</option>
+                            <#else>
+                                <option value=${dept.id}>${dept.deptName}</option>
                         </#if>
                     </#list>
                 </select>
             </div>
         </div>
-        <!--<div class="layui-form-item">-->
-            <!--<label class="layui-form-label">是否可用</label>-->
-            <!--<div class="layui-input-block">-->
-                <!--<select name="enable" >-->
-                    <!--<option value=""></option>-->
-                    <!--<option value="0">不可用</option>-->
-                    <!--<option value="1">可用</option>-->
-                <!--</select>-->
-            <!--</div>-->
-        <!--</div>-->
 
         <div class="layui-form-item">
             <div class="layui-input-block">
@@ -125,14 +115,15 @@
 			//监听提交
 			form.on('submit(formDemo)', function(data) {
 				$.ajax({
-						url: '${base}/admin/modifyTeacherImpl.do?id='+${id},
+						url: '${base}/admin/modifyProfessteacherImpl.do?id='+${id},
 						contentType: "application/json",
 						data: JSON.stringify(data.field),
 						type: 'post',
 						dataType: 'json',
 						success:function(data){
 						    layer.msg("成功");
-                            parent.window.location.href = '${base}/admin/teacherManage.do';
+						    parent.window.location.href = '${base}/admin/professteacherManage.do';
+
 						 },
 						error:function(){
 						    layer.msg("失败");

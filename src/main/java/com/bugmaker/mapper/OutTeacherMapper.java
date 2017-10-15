@@ -33,4 +33,5 @@ public interface OutTeacherMapper {
 
     List<Outteacher> selectOutTeacherByParams(Outteacher outteacher);
 
+    int insertOutteacherUserRole(Outteacher outteacher);
 }

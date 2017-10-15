@@ -101,25 +101,27 @@ public class CounselorServiceImpl implements CounselorService {
 
     //修改辅导员信息
     @Override
-    public String updateCoun(String userString) throws IOException {
+    public String updateCoun(String userString,String id) throws IOException {
 //        System.out.println("执行修改controller");
-//        System.out.println(userString);
+//        System.out.println(userString+id);
         ObjectMapper mapper = new ObjectMapper();
         Map userMap = mapper.readValue(userString, Map.class);
 //        System.out.println(userMap);
         Dept dept = new Dept();
         dept.setId(userMap.get("dept").toString());
         com.bugmaker.bean.User user = new User();
-        user.setId(userMap.get("id").toString());
+        user.setId(id);
         user.setUsername(userMap.get("username").toString());
-        user.setPassword((new Md5Hash(userMap.get("id"),userMap.get("password").toString())).toString());
+        if(userMap.get("password").toString()!=null&&userMap.get("password").toString()!="") {
+            user.setPassword((new Md5Hash(id, userMap.get("password").toString())).toString());
+        }
         user.setSex(userMap.get("sex").toString());
         user.setAge(Integer.valueOf(userMap.get("age").toString()));
         user.setPhone(userMap.get("phone").toString());
         user.setEmail(userMap.get("email").toString());
         user.setDept(dept);
         user.setCreatTime(new Date());
-        user.setEnable(Integer.parseInt(userMap.get("enable").toString()));
+        user.setEnable(1);
         user.setType(4);
 //        System.out.println(user);
         return "" + userMapper.updateUserById(user);
