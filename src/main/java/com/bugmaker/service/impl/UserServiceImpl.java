@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
                 } else  if (user.getType() == 5) {
                     return new ModelAndView("leader/index");
                 } else  if (user.getType() == 6) {
-                    return new ModelAndView("professteache/indexr");
+                    return new ModelAndView("professteacher/index");
                 }
             } else {
                 map.put("message", "3");

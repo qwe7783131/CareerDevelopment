@@ -19,6 +19,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="no != null and no != ''">
 				no,
 			</if>
+			<if test="outteacScore != null and outteacScore != ''">
+				outteac_score,
+			</if>
 			<if test="teacher != null and teacher.id != null">
 				teac_id,
 				teac_score,
@@ -41,6 +44,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 			<if test="no != null and no != ''">
 				#{no},
+			</if>
+			<if test="outteacScore != null and outteacScore != ''">
+				#{outteacScore},
 			</if>
 			<if test="teacher != null and teacher.id != null">
 				#{teacher.id},

@@ -16,7 +16,7 @@ public interface InsVolunteeMapper {
      * @param outeacherId
      * @return
      */
-    InsVoluntee selectStusAndInsByOutteacId(@Param("outteacherId") String outeacherId);
+	List<InsVoluntee> selectStusAndInsByOutteacId(@Param("outteacherId") String outeacherId);
 
     /**
      * 审核改变所有项目志愿的状态

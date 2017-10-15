@@ -33,8 +33,9 @@ public class InsVolunteerMapperTest extends BaseTest {
 
     @Test
     public void selectInsVolunteerByParamTest() {
-        List<InsVoluntee> insVoluntees = insVolunteeMapper.selectInsVolunteerByParam("e2c3cc8ba07a11e7b4d800163e083221",
-                ProtocolConstant.ONJOB, "5e70bcf5a10e11e7b4d800163e083221","", 2);
-        System.out.println(insVoluntees);
+      /*  List<InsVoluntee> insVoluntees = insVolunteeMapper.selectInsVolunteerByParam("13d59d9fa01411e7b4d800163e083221",
+                ProtocolConstant.OUTJOB, "","", 1);*/
+        List<InsVoluntee> ins = insVolunteeMapper.selectStusAndInsByOutteacId("913");
+        System.out.println(ins);
     }
 }

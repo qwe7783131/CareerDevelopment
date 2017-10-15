@@ -11,7 +11,7 @@
 			
 			
 			<div class="layui-row">
-			<form class="layui-form" action="${base}/teacher/getScoreByName.do"  method="post">
+			<form class="layui-form" action="${base}/professteacher/getScoreByName.do"  method="post">
 			    <div class="layui-col-md10">
 			      <label class="layui-form-label">学生姓名</label>
 					<div class="layui-input-inline">
@@ -103,7 +103,7 @@
 					jump: function(obj,first) {
 						//console.log(obj);
 						if(first!=true){
-							 window.location.href ="${base}/teacher/selectScroeTeac.do?currentPage="+obj.curr;  
+							 window.location.href ="${base}/professteacher/selectScroeTeac.do?currentPage="+obj.curr;  
 						}
 					}
 				});
@@ -116,7 +116,7 @@
 				
 					  
 			$('#layerDemo .layui-btn').on('click', function(){
-				window.location.href="${base}/teacher/scoreExcel.do";
+				window.location.href="${base}/professteacher/scoreExcel.do";
 				});
 					  
 		});

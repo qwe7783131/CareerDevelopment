@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>教师查看成绩</title>
+		<title>教师查看跟岗成绩</title>
 		<#include "html/template/head.html" />
 	</head>
 	<body>
@@ -11,7 +11,7 @@
 			
 			
 			<div class="layui-row">
-			<form class="layui-form" action="${base}/teacher/getScoreByName.do"  method="post">
+			<form class="layui-form" action="${base}/leader/getggScoreByName.do"  method="post">
 			    <div class="layui-col-md10">
 			      <label class="layui-form-label">学生姓名</label>
 					<div class="layui-input-inline">
@@ -58,7 +58,7 @@
 						<td>#</td>
 						<td>${p.student.user.username}</td>
 						<!-- <td>${p.outteacScore}</td> -->
-						<td>${p.teacScore}</td>
+						<td>${p.outteacScore}</td>
 						
 					</tr>
 					</#list>
@@ -67,7 +67,7 @@
 						<td>#</td>
 						<td>${p.student.user.username}</td>
 						<!-- <td>${p.outteacScore}</td> -->
-						<td>${p.teacScore}</td>
+						<td>${p.outteacScore}</td>
 						
 					</tr>
 					</#list>
@@ -103,7 +103,7 @@
 					jump: function(obj,first) {
 						//console.log(obj);
 						if(first!=true){
-							 window.location.href ="${base}/teacher/selectScroeTeac.do?currentPage="+obj.curr;  
+							 window.location.href ="${base}/leader/selectggScroeLea.do?currentPage="+obj.curr;  
 						}
 					}
 				});
@@ -116,7 +116,7 @@
 				
 					  
 			$('#layerDemo .layui-btn').on('click', function(){
-				window.location.href="${base}/teacher/scoreExcel.do";
+				window.location.href="${base}/leader/ggscoreExcel.do";
 				});
 					  
 		});

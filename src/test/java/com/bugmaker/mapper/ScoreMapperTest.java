@@ -4,6 +4,8 @@ import com.bugmaker.BaseTest;
 import com.bugmaker.bean.Score;
 import com.bugmaker.bean.Student;
 import com.bugmaker.bean.User;
+import com.bugmaker.constant.ProtocolConstant;
+
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -29,8 +31,9 @@ public class ScoreMapperTest extends BaseTest {
         score.setId(UUID.randomUUID().toString().replace("-", ""));
         score.setNo(1);
         score.setTeacScore(90.4);
+        score.setOutteacScore(89.0);
         score.setStudent(student);
-        score.setTeacher(teacher);
+//        score.setTeacher(teacher);
         score.setType("跟岗");
 
         scoreMapper.insertOrUpdateScore(score);
@@ -39,7 +42,7 @@ public class ScoreMapperTest extends BaseTest {
     @Test
     public void test02(){
 
-        List<Score> scores = scoreMapper.selectScoreByParam(null, null);
+        List<Score> scores = scoreMapper.selectScoreByParam(ProtocolConstant.OUTJOB, null);
         System.out.println(scores);
     }
 }
