@@ -5,32 +5,57 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.bugmaker.mapper.SurveyMapper">
 
    <resultMap id="surveyMap" type="com.bugmaker.bean.Survey">
-	   <id column="id" property="id" />
+	   <id column="survey_id" property="id" />
 	   <result column="status" property="status" />
 	   <result column="enable" property="enable" />
-	   <result column="create_time" property="createTime" />
+	   <result column="survey_create_time" property="createTime" />
+	   <association property="dept" javaType="Dept" resultMap="com.bugmaker.mapper.DeptMapper.deptResult" />
    </resultMap>
 
 	<resultMap id="surveyResultMap" type="com.bugmaker.bean.SurveyResult">
-		<id column="id" property="id" />
+		<id column="sr_id" property="id" />
 		<result column="unit_name" property="unitName" />
 		<result column="unit_person" property="unitPerson" />
 		<result column="unit_phone" property="unitPhone" />
-		<result column="create_time" property="createTime" />
-		<association property="survey" javaType="com.bugmaker.bean.Survey">
-			<id column="id" property="id" />
-			<result column="status" property="status" />
-			<result column="enable" property="enable" />
-			<result column="create_time" property="createTime" />
-		</association>
-		<association property="student" javaType="com.bugmaker.bean.Student">
-			<id column="id" property="id" />
-		</association>
+		<result column="sr_create_time" property="createTime" />
+		<association property="survey" resultMap="com.bugmaker.mapper.SurveyMapper.surveyMap" />
+		<association  property="student" resultMap="com.bugmaker.mapper.StudentMapper.stuMap"/>
 	</resultMap>
+
+	<!--根据调查表id获取对应的调查表的结果-->
+	<select id="selectSurveyResyltById" resultMap="surveyResultMap">
+		SELECT sr.id sr_id,stu_id s_id, username, sex, phone, d.dept_name d3_name,
+		pc.class_name class_name,survey_id,unit_name,unit_person,unit_phone,
+		sr.create_time sr_create_time
+		FROM survey_result sr,student s,user u,dept d,profession_class pc
+		WHERE survey_id = #{surveyId} AND u.id = sr.stu_id AND u.dept_id = d.id
+		AND s.id = u.id AND s.class_id = pc.id
+	</select>
+
+	<!-- 改变调查表的结束发布状态 -->
+	<update id="surveyEnable">
+		update survey set enable =#{enable} where id = #{surveyid}
+	</update>
+
+	<!-- 改变调查表的公私有状态 -->
+	<update id="surveyStatus">
+		update survey set status =#{status} where id = #{surveyid}
+	</update>
+
+	<!--插入调查表-->
+	<insert id="addSurvey">
+		insert into survey (id, status, dept_id, enable, create_time)
+		values (replace(UUID(),"-",""), 0, #{deptId}, 2, #{createTime})
+	</insert>
+
+	<!--通过学院获取所有的调查表-->
+	<select id="selectAllSurveyByDeptId" resultMap="surveyMap">
+		SELECT id survey_id,status,enable,create_time survey_create_time,dept_id FROM survey WHERE dept_id = #{deptId}
+	</select>
 
 	<!-- 判断调查表是否可用，查找最新的那一个调查表 -->
 	<select id="isUseForSurvey" resultMap="surveyMap">
-		SELECT * FROM survey ORDER BY create_time DESC LIMIT 1
+		SELECT id survey_id,status,enable,create_time survey_create_time,dept_id FROM survey ORDER BY create_time DESC LIMIT 1
 	</select>
 
 	<!--插入一条调查结果-->
@@ -41,10 +66,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!--如果学生已经填写了调查表，根据学生id查询他已填写的调查表。-->
 	<select id="selectSurveyByStuId" parameterType="student" resultMap="surveyResultMap">
-		SELECT * FROM survey_result sr,
-		(SELECT id FROM survey_result WHERE stu_id = #{id}) stuSurveyResult
-		WHERE stuSurveyResult.id = sr.id
+		SELECT id sr_id,survey_id,unit_name,unit_person,unit_phone,create_time sr_create_time FROM survey_result sr,
+		(SELECT id sr_id FROM survey_result WHERE stu_id = #{id}) stuSurveyResult
+		WHERE stuSurveyResult.sr_id = sr.id
 	</select>
-
-	
+	<!--根据学生id判断对应学院的系领导对应的调查表状态-->
+	<select id="selectSurveyStatusAndEnableByStuId" resultMap="surveyMap">
+		SELECT s.id survey_id, s.status, s.enable,s.create_time FROM survey s,user u, dept d
+		WHERE s.dept_id = u.dept_id AND u.dept_id = d.id
+		AND u.id = #{studentId} ORDER BY create_time DESC LIMIT 1
+	</select>
 </mapper>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>查看顶岗项目</title>
+		<#include "html/template/head.html" />
+	</head>
+	<body>
+       <fieldset class="layui-elem-field " style="margin-top: 20px;">
+			<legend>操作</legend>
+			
+			
+			<div class="layui-row style="padding-bottom:10px;"">
+			<form class="layui-form" action="${base}/teacher/getInternshipByName.do"  method="post">
+			    <div class="layui-col-md10">
+			       <label class="layui-form-label">项目名称</label>
+					<div class="layui-input-inline">
+						<input type="text" name="name" lay-verify="required" placeholder="支持模糊查询" autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-input-inline">
+						<button class="layui-btn" lay-submit lay-filter="formDemo"><i class="layui-icon">&#xe615;</i>查询</button>
+								      
+					</div> 
+					
+			    </div>
+			 </form>
+			</div>
+			
+		</fieldset>
+		
+		<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+			<legend>资料信息</legend>
+		</fieldset>
+
+		<div style="padding-left: 50px;padding-right: 50px;">
+		
+			<table class="layui-table">
+				
+				<thead>
+					<tr>
+						<th>序号</th>
+						<th lay-data="{field:'internshipName'}">项目名称</th>
+						<th>学院</th>
+						<th>项目类型</th>
+						<th>公司名称</th>
+						<th>公司地址</th>
+						<th>公司电话</th>
+						<th>公司顾问</th>
+						<th>岗位名称</th>
+						<th>薪水</th>
+						<th>是否可用</th>
+					</tr>
+				</thead>
+				<tbody>
+				<#list page.list as p>
+				   <#if p.type == "顶岗">
+					<tr>					
+						<td>#</td>						
+						<td>${p.name}</td>
+						<td>${p.dept.deptName}</td>
+						<td>${p.type}</td>
+						<td>${p.job.company.name}</td>
+						<td>${p.job.company.address}</td>
+						<td>${p.job.company.phone}</td>
+						<td>${p.job.company.advisor}</td>
+						<td>${p.job.name}</td>
+						
+						<td>${p.job.salary}</td>
+						<#if p.enable==1>
+						<td>可用</td>
+						<#else>
+						<td>否</td>
+						</#if>
+
+					</tr>
+					</#if>
+					</#list>
+					<#list ship as p>
+					 <#if p.type == "顶岗">
+					<tr>					
+						<td>#</td>						
+						<td>${p.name}</td>
+						<td>${p.dept.deptName}</td>
+						<td>${p.type}</td>
+						<td>${p.job.company.name}</td>
+						<td>${p.job.company.address}</td>
+						<td>${p.job.company.phone}</td>
+						<td>${p.job.company.advisor}</td>
+						<td>${p.job.name}</td>
+						<td>${p.job.salary}</td>
+						<#if p.enable==1>
+						<td>可用</td>
+						<#else>
+						<td>否</td>
+						</#if>
+					</tr>
+					</#if>
+					</#list>
+				</tbody>
+			</table>
+		</div>
+		<div id="demo1" style='padding-left:50px;width: 100%;height: 50px;'></div>
+		
+		<#include "html/template/common_js.html" />
+		<script src="${base}/resources/js/jquery-2.1.4.js"></script>
+		<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+		<script>
+			layui.use('layer', function() { 
+				//独立版的layer无需执行这一句
+				var layer = layui.layer; //独立版的layer无需执行这一句
+                 
+			});
+
+			layui.use(['laypage', 'layer'], function() {
+				var laypage = layui.laypage,
+					layer = layui.layer;
+
+				//总页数大于页码总数
+				laypage.render({
+					elem: 'demo1',
+					count: ${page.total} ,//数据总数
+				    curr: ${page.pageNum},
+				    limit:${page.pageSize},
+					jump: function(obj,first) {
+						//console.log(obj);
+						if(first!=true){
+							 window.location.href ="${base}/teacher/selectinternship.do?currentPage="+obj.curr;
+						}
+					}
+				});
+			});
+		</script>
+	</body>
+</html>

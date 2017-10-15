@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<#include "html/template/head.html" />
-	<#assign urlbase=base + "/leader" />
+	<#assign urlbase=base + "/outteacher" />
 <title>顶岗发布任务书</title>
 </head>
 
@@ -234,7 +234,7 @@
 				layout:['first','prev','page','next','last','count'],
 				jump : function(obj,first) {
 					if(!first){
-						window.location.href="${base}/toIssueTaskBookPage.do?curr="+obj.curr+"&status="+$("#statusId").val();
+						window.location.href="${urlbase}/toIssueTaskBookPage.do?curr="+obj.curr+"&status="+$("#statusId").val();
 					}
 				}
 			});

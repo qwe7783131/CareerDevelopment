@@ -264,23 +264,6 @@ public class TeacherController {
         ouputStream.close();  
     	
     }
-    /**
-     * 查看学生志愿填报的页面
-     * @return
-     */
-    @RequestMapping("selectVoluntaryReport.do")
-    public String selectVoluntaryReportView(){
-        return "teacher/selectVoluntaryReport";
-    }
-
-    /**
-     * 查看分班名单
-     * @return
-     */
-    @RequestMapping("selectClassDivide.do")
-    public String selectClassDivideView(){
-        return "teacher/selectClassDivide";
-    }
 
     /**
      * 查看和完成跟岗实习手册

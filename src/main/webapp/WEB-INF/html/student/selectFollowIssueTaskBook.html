@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<#include "html/template/head.html" />
+	<#assign urlbase=base + "/leader" />
+<title>查看跟岗任务书</title>
+</head>
+
+<body>
+	<div style="padding-left: 10px; padding-right: 50px;"
+		class="layui-form-item layui-form-text">
+		</br> </br>
+		<blockquote class="layui-elem-quote layui-text">跟岗已发布的任务书
+		</blockquote>
+
+		<table class="layui-table">
+			<thead>
+				<tr>
+					<th>序号</th>
+					<th width="150">标题</th>
+					<th>岗位</th>
+					<th>开始时间</th>
+					<th>结束时间</th>
+					<th>创建时间</th>
+					<th>操作</th>
+
+				</tr>
+			</thead>
+			<tbody>
+			<#list page.list as issueTask>
+				<tr>
+					<td>#</td>
+					<td>${issueTask.title}</td>
+					<td>${issueTask.job.name}</td>
+					<td>${issueTask.startTime?date}</td>
+					<td>${issueTask.endTime?date}</td>
+					<td>${issueTask.createTime?datetime}</td>
+					<td>
+						<div class="site-demo-button"
+							style="margin-bottom: 0;">
+							<button data-issuetasktitle="${issueTask.title}"
+									data-issuetaskcontent="${issueTask.content}"
+									class="layui-btn layui-btn-warm layui-btn-mini"
+									id="look-${issueTask.id}">任务详情</button>
+						</div>
+					</td>
+				</tr>
+			</#list>
+			</tbody>
+		</table>
+
+		<div id="demo1"
+			style="width: 100%; height: 50px; position: fixed;" />
+	</div>
+
+	<#include "html/template/common_js.html" />
+
+	<script>
+		layui.use([ 'laypage', 'layer', 'form', 'jquery'], function() {
+			var form = layui.form, laypage = layui.laypage, 
+			layer = layui.layer, $ = layui.jquery;
+
+			//触发事件
+			var active = {
+				look : function(issuetasktitle,issuetaskcontent) {
+					layer.open({
+						title: '任务详情',
+						area : [ '500px', '400px' ],
+						closeBtn : 2,
+						content: '<div class="layui-form">'+
+						    '<div class="layui-form-item">'+
+							'<label class="layui-form-label">标题</label>'+
+							'<div class="layui-input-block">'+
+							'<div class="layui-colla-content layui-show" style="width:65%">'+issuetasktitle+'</div>'+
+							'</div>'+
+						    '</div>'+
+						    '<div class="layui-form-item">'+
+							'<label class="layui-form-label">内容</label>'+
+							'<div class="layui-input-block">'+
+							'<div class="layui-colla-content layui-show" style="width:65%">'+issuetaskcontent+'</div>'+
+							'</div>'+
+						    '</div></div>'
+					});
+				},
+			};
+			$('#layerDemo .layui-btn').on('click', function() {
+				var othis = $(this), method = othis.data('method');
+				active[method] ? active[method].call(this, othis) : '';
+			});
+			
+			$("[id^='look-']").click(function() {
+				var issuetasktitle = $(this).data('issuetasktitle');
+				var issuetaskcontent = $(this).data('issuetaskcontent');
+				active.look(issuetasktitle,issuetaskcontent);
+			});
+
+			laypage.render({
+				elem: 'demo1',
+				count: ${page.total}, //数据总数
+                limit: ${page.pageSize},
+                first: '<<',
+                last: '>>',
+                curr: ${page.pageNum},
+				layout:['first','prev','page','next','last','count'],
+				jump : function(obj,first) {
+					if(!first){
+						window.location.href="${urlbase}/selectFollowIssueTaskBook.do?curr="+obj.curr+"&status=1";
+					}
+				}
+			});
+		});
+	</script>
+</body>
+
+</html>

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title>顶岗填报项目</title>
+	<title>跟岗填报项目</title>
 	<#include "html/template/head.html" />
 </head>
 <body>
@@ -157,7 +157,7 @@
 						//首次不执行
 						if(!first){
 						<!--alert("不是第一次");-->
-						  window.location.href="${base}/student/voluntoryReport.do?curr="+obj.curr+"&name="+$("#name").val();
+						  window.location.href="${base}/student/followVoluntoryReport.do?curr="+obj.curr+"&name="+$("#name").val();
 						}
 					  }
 				});

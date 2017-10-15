@@ -1,6 +1,7 @@
 package com.bugmaker.controller.student;
 
 import com.bugmaker.bean.*;
+import com.bugmaker.constant.ProtocolConstant;
 import com.bugmaker.service.StudentService;
 import com.bugmaker.service.StudentServiceXuxu;
 import com.bugmaker.service.impl.StudentServiceImplXuxu;
@@ -31,7 +32,12 @@ public class StudentControllerXuxu {
     //跳转到填报项目界面，获取所有志愿, 包括模糊查询
     @RequestMapping("student/voluntoryReport.do")
     public ModelAndView voluntoryReport(@RequestParam(defaultValue = "")String name, @RequestParam(defaultValue = "1") String curr){
-        return studentServiceXuxu.selectAllInternshipList(name, curr);
+        return studentServiceXuxu.selectAllInternshipList(ProtocolConstant.OUTJOB,name, curr);
+    }
+    //跳转到填报项目界面，获取所有志愿, 包括模糊查询
+    @RequestMapping("student/followVoluntoryReport.do")
+    public ModelAndView followVoluntoryReport(@RequestParam(defaultValue = "")String name, @RequestParam(defaultValue = "1") String curr){
+        return studentServiceXuxu.selectAllInternshipList(ProtocolConstant.ONJOB,name, curr);
     }
 
     @ResponseBody

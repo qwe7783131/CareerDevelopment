@@ -82,11 +82,6 @@ public class LeaderController {
 	@RequestMapping("toSetProfessState.do")
 	public String setProfessStateView() { return "leader/setProfessState"; }
 	/**
-	 * 跳转到就业调查页面
-     */
-	@RequestMapping("toSurvey.do")
-	public String surveyView() { return "leader/survey"; }
-	/**
 	 * 跳转到调查结果页面
 	 */
 	@RequestMapping("toSurveyResult.do")
@@ -102,26 +97,43 @@ public class LeaderController {
 	/*@RequestMapping("todocumentDownload.do")
 	public String documentDownloadView() { return "leader/documentDownload"; }*/
 	/**
-     * 系领导管理顶岗项目页面
-     * @return
-     */
+	 * 系领导管理顶岗项目页面
+	 * @return
+	 */
 	@RequestMapping("internshipCRUD.do")
 	public String internshipCRUD(Model model,
-			@RequestParam(defaultValue="1") String currentPage){
-		
+								 @RequestParam(defaultValue="1") String currentPage){
+
 		Integer currPage = Integer.valueOf(currentPage);
-		PageHelper.startPage(currPage, 5);		
-		List<Internship> internships = internshipService.getAllInternship();		
+		PageHelper.startPage(currPage, 5);
+		List<Internship> internships = internshipService.getAllInternship();
 		PageInfo page = new PageInfo(internships, 5);
 		page.getNavigatePages();
 		model.addAttribute("page",page);
-		return "leader/InternshipCRUD";
+		return "leader/internshipCRUD";
 	}
-	
-	 /**
-     * 添加项目页面
-     * @return
-     */
+
+	/**
+	 * 系领导管理顶岗项目页面
+	 * @return
+	 */
+	@RequestMapping("followInternshipCRUD.do")
+	public String followInternshipCRUD(Model model,
+									   @RequestParam(defaultValue="1") String currentPage){
+
+		Integer currPage = Integer.valueOf(currentPage);
+		PageHelper.startPage(currPage, 5);
+		List<Internship> internships = internshipService.getAllInternship();
+		PageInfo page = new PageInfo(internships, 5);
+		page.getNavigatePages();
+		model.addAttribute("page",page);
+		return "leader/followInternshipCRUD";
+	}
+
+	/**
+	 * 添加项目页面
+	 * @return
+	 */
 	@RequestMapping("addInternship.do")
 	public ModelAndView addInternship(){
 		Map<String,Object>  map = new HashMap<String,Object>();

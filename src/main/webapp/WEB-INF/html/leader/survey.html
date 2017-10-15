@@ -6,6 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<title>就业调查</title>
 		<#include "html/template/head.html" />
+		<#assign urlbase=base + "/leader" />
 
 	</head>
 
@@ -15,8 +16,11 @@
 		</fieldset>
 		<div class="layui-container">
 			<div class="layui-row">
-				<div class="layui-col-xs6 layui-col-xs-offset3 layui-col-sm6 layui-col-sm-offset3 layui-col-md4 layui-col-md-offset4">
-					<button class="layui-btn layui-btn-big layui-btn-radius">
+			</div>
+			<div class="layui-row">
+				<div class="layui-col-xs6 layui-col-xs-offset2">查询学生的专业，姓名，性别，联系电话，实习单位，单位联系人，单位联系电话</div>
+				<div class="layui-col-xs4 layui-col-xs-offset3 layui-col-sm6 layui-col-sm-offset3 layui-col-md4 layui-col-md-offset4">
+					<button id="add" class="layui-btn layui-btn-big layui-btn-radius">
   						<i class="layui-icon">&#xe608;</i> 添加
 					</button>
 				</div>
@@ -34,7 +38,7 @@
 			</colgroup>
 			<thead>
 				<tr>
-					<th>序号</th>
+					<th>编号</th>
 					<th>创建日期</th>
 					<th>私有/公开</th>
 					<th>状态</th>
@@ -42,58 +46,52 @@
 				</tr>
 			</thead>
 			<tbody>
+				<#list page.list as survey>
 				<tr>
-					<td>1</td>
-					<td>2017-9-1</td>
-					<th>公开</th>
-					<td>进行中</td>
+					<td>${survey.id}</td>
+					<td>${survey.createTime?datetime}</td>
+					<#if survey.status == 1>
+						<th>公开</th>
+					</#if>
+					<#if survey.status == 0>
+						<th>私有</th>
+					</#if>
+					<#if survey.enable == 0>
+						<th>已结束</th>
+					</#if>
+					<#if survey.enable == 1>
+						<td>进行中</td>
+					</#if>
+					<#if survey.enable == 2>
+						<td>未发布</td>
+					</#if>
 					<td>
-						<button class="layui-btn layui-btn-danger layui-btn-small">设为私有</button>
-						<button class="layui-btn layui-btn-warm layui-btn-small">结束</button>
-						<button class="layui-btn layui-btn-normal layui-btn-small">调查结果</button>
-						<button class="layui-btn layui-btn-primary layui-btn-small"><i class="layui-icon">&#xe641;</i> <img src="${base}/images/QQ.jpg"/></button>
-						<button class="layui-btn layui-btn-primary layui-btn-small"><i class="layui-icon">&#xe641;</i> <img src="${base}/images/weixin.jpg"/></button>
+						<#if survey.status == 0>
+							<button class="layui-btn layui-btn-danger layui-btn-small" data-surveyid="${survey.id}" id="public-${survey.id}">设为共有</button>
+						</#if>
+						<#if survey.status == 1>
+							<button class="layui-btn layui-btn-danger layui-btn-small" data-surveyid="${survey.id}" id="private-${survey.id}">设为私有</button>
+						</#if>
+						<#if survey.enable == 1>
+							<button class="layui-btn layui-btn-warm layui-btn-small" data-surveyid="${survey.id}" id="end-${survey.id}">结束</button>
+						</#if>
+						<#if survey.enable == 2>
+							<button class="layui-btn layui-btn-warm layui-btn-small" data-surveyid="${survey.id}" id="issue-${survey.id}">发布</button>
+						</#if>
+						<#if survey.enable == 0>
+							<button class="layui-btn layui-btn-warm layui-btn-small layui-btn-disabled">结束</button>
+						</#if>
+						<#if survey.enable == 2>
+							<button class="layui-btn layui-btn-normal layui-btn-small layui-btn-disabled" >调查结果</button>
+						</#if>
+						<#if survey.enable != 2>
+							<button class="layui-btn layui-btn-normal layui-btn-small" data-surveyid="${survey.id}" id="surveyresult-${survey.id}">调查结果</button>
+						</#if>
+						<button class="layui-btn layui-btn-primary layui-btn-small" data-surveyid="${survey.id}" id="qq-${survey.id}"><i class="layui-icon">&#xe641;</i> <img src="${base}/images/QQ.jpg"/></button>
+						<button class="layui-btn layui-btn-primary layui-btn-small" data-surveyid="${survey.id}" id="weixin-${survey.id}"><i class="layui-icon">&#xe641;</i> <img src="${base}/images/weixin.jpg"/></button>
 					</td>
 				</tr>
-				<tr>
-					<td>2</td>
-					<td>2017-9-1</td>
-					<th>私有</th>
-					<td>已结束</td>
-					<td>
-						<button class="layui-btn layui-btn-danger layui-btn-small">设为公开</button>
-						<button class="layui-btn layui-btn-warm layui-btn-small layui-btn-disabled">结束</button>
-						<button class="layui-btn layui-btn-normal layui-btn-small">调查结果</button>
-						<button class="layui-btn layui-btn-primary layui-btn-small layui-btn-disabled"><i class="layui-icon">&#xe641;</i> <img src="${base}/images/QQ.jpg"/></button>
-						<button class="layui-btn layui-btn-primary layui-btn-small layui-btn-disabled"><i class="layui-icon">&#xe641;</i> <img src="${base}/images/weixin.jpg"/></button>
-					</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>2017-9-1</td>
-					<th>公开</th>
-					<td>未发布</td>
-					<td>
-						<button class="layui-btn layui-btn-danger layui-btn-small">设为私有</button>
-						<button class="layui-btn layui-btn-warm layui-btn-small">发布</button>
-						<button class="layui-btn layui-btn-normal layui-btn-small layui-btn-disabled">调查结果</button>
-						<button class="layui-btn layui-btn-primary layui-btn-small"><i class="layui-icon">&#xe641;</i> <img src="${base}/images/QQ.jpg"/></button>
-						<button class="layui-btn layui-btn-primary layui-btn-small"><i class="layui-icon">&#xe641;</i> <img src="${base}/images/weixin.jpg"/></button>
-					</td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>2017-9-1</td>
-					<th>公开</th>
-					<td>进行中</td>
-					<td>
-						<button class="layui-btn layui-btn-danger layui-btn-small">设为私有</button>
-						<button class="layui-btn layui-btn-warm layui-btn-small">结束</button>
-						<button class="layui-btn layui-btn-normal layui-btn-small">调查结果</button>
-						<button class="layui-btn layui-btn-primary layui-btn-small"><i class="layui-icon">&#xe641;</i> <img src="${base}/images/QQ.jpg"/></button>
-						<button class="layui-btn layui-btn-primary layui-btn-small"><i class="layui-icon">&#xe641;</i> <img src="${base}/images/weixin.jpg"/></button>
-					</td>
-				</tr>
+				</#list>
 			</tbody>
 		</table>
 		<div class="layui-row">
@@ -104,14 +102,175 @@
 
 		<#include "html/template/common_js.html" />
 		<script>
-			layui.use('laypage',function(){
-				var laypage = layui.laypage;
+			layui.use(['laypage','jquery', 'layer'],function(){
+				var laypage = layui.laypage,$ = layui.jquery,layer = layui.layer;
+
+				//触发事件
+			var active = {
+				public : function(surveyid) {
+					layer.msg('确定设置为公有？', {
+						btn: ['确定', '取消'],
+						yes: function(){
+							$.ajax({
+								url: '${urlbase}/publicSurvey.do',
+								data: {surveyid : surveyid, status : 1},
+								type: 'POST',
+								success: function(data){
+									if(data == '1'){
+										setTimeout("window.location.reload()",3000);
+										layer.msg("设置成功！3秒后刷新页面！",{icon: 1});
+									}else{
+										layer.msg("设置失败！3秒后刷新页面！",{icon: 2});
+									}
+								}
+							});
+						}
+					});
+				},
+				private : function(surveyid) {
+					layer.msg('确定设置为私有？', {
+						btn: ['确定', '取消'],
+						yes: function(){
+							$.ajax({
+								url: '${urlbase}/privateSurvey.do',
+								data: {surveyid : surveyid, status : 0},
+								type: 'POST',
+								success: function(data){
+									if(data == '1'){
+										setTimeout("window.location.reload()",3000);
+										layer.msg("设置成功！3秒后刷新页面！",{icon: 1});
+									}else{
+										layer.msg("设置失败！3秒后刷新页面！",{icon: 2});
+									}
+								}
+							});
+						}
+					});
+				},
+				end : function(surveyid) {
+					layer.msg('确定结束统计该调查表？', {
+						btn: ['确定', '取消'],
+						yes: function(){
+							$.ajax({
+								url: '${urlbase}/endSurvey.do',
+								data: {surveyid : surveyid, enable : 0},
+								type: 'POST',
+								success: function(data){
+									if(data == '1'){
+										setTimeout("window.location.reload()",3000);
+										layer.msg("设置成功！3秒后刷新页面！",{icon: 1});
+									}else{
+										layer.msg("设置失败！3秒后刷新页面！",{icon: 2});
+									}
+								}
+							});
+						}
+					});
+				},
+				issue: function(surveyid){
+					layer.msg('确定发布？', {
+						btn: ['确定', '取消'],
+						yes: function(){
+							$.ajax({
+								url: '${urlbase}/issueSurvey.do',
+								data: {surveyid : surveyid, enable : 1},
+								type: 'POST',
+								success: function(data){
+									if(data == '1'){
+										setTimeout("window.location.reload()",3000);
+										layer.msg("发布成功！3秒后刷新页面！",{icon: 1});
+									}else{
+										layer.msg("发布失败！3秒后刷新页面！",{icon: 2});
+									}
+								}
+							});
+						}
+					});
+				},
+				surveyresult: function(surveyid) {
+					layer.open({
+						type: 2,
+						title: '查询调查结果信息',
+						shadeClose: true,
+						shade: false,
+						maxmin: true, //开启最大化最小化按钮
+						area: ['1300px', '600px'],
+						content: '${base}/leader/selectSurveyResyltById.do?surveyId='+surveyid,
+						end:function(){
+							setTimeout("window.location.reload()",2000);
+						}
+					});
+				},
+				qq: function(surveyid){
+					window.location.href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=127.0.0.1:8080${base}/leader/selectSurveyResyltById.do?surveyId="+surveyid;
+				},
+				weixin: function(surveyid){
+					window.location.href="http://s.jiathis.com/qrcode.php?url=127.0.0.1:8080${base}/leader/selectSurveyResyltById.do?surveyId="+surveyid;
+				}
+
+			};
+			$("[id^='public-']").click(function() {
+				var surveyid = $(this).data('surveyid');
+				active.public(surveyid);
+			});
+			$("[id^='private-']").click(function() {
+				var surveyid = $(this).data('surveyid');
+				active.private(surveyid);
+			});
+			$("[id^='end-']").click(function() {
+				var surveyid = $(this).data('surveyid');
+				active.end(surveyid);
+			});
+			$("[id^='issue-']").click(function() {
+				var surveyid = $(this).data('surveyid');
+				active.issue(surveyid);
+			});
+			$("[id^='surveyresult-']").click(function() {
+				var surveyid = $(this).data('surveyid');
+				active.surveyresult(surveyid);
+			});
+			$("[id^='qq-']").click(function() {
+				var surveyid = $(this).data('surveyid');
+				active.qq(surveyid);
+			});
+			$("[id^='weixin-']").click(function() {
+				var surveyid = $(this).data('surveyid');
+				active.weixin(surveyid);
+			});
+			$("#add").click(function() {
+				layer.msg('你确定要添加吗？', {
+					btn: ['确定', '取消'],
+					yes: function(){
+						$.ajax({
+							url: '${base}/leader/addSurvey.do',
+							data: {},
+							type: 'POST',
+							success: function(data){
+								if(data == '1'){
+									setTimeout("window.location.reload()",3000);
+									layer.msg("添加成功！3秒后刷新页面！",{icon: 1});
+								}else{
+									layer.msg("添加失败！3秒后刷新页面！",{icon: 2});
+								}
+							}
+						});
+					}
+				});
+			});
+
 				laypage.render({
-					elem: 'layPage', //注意，这里的 test1 是 ID，不用加 # 号
-					count: 100, //数据总数，从服务端得到
-					limit: 6, //每页条数
-					groups: 5,
-					layout: ['prev', 'page', 'next', 'count']
+					elem: 'layPage',
+					count: ${page.total}, //数据总数
+					limit: ${page.pageSize},
+					first: '<<',
+					last: '>>',
+					curr: ${page.pageNum},
+					layout:['first','prev','page','next','last','count'],
+					jump : function(obj,first) {
+						if(!first){
+							window.location.href="${base}/leader/toSurvey.do?curr="+obj.curr;
+						}
+					}
 				});
 			});
 		</script>

@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.bugmaker.bean.User;
+import com.bugmaker.utils.RequestUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,8 +27,9 @@ public class DirectionManageServiceImpl implements DirectionManageService {
 	@Override
 	public ModelAndView toDirectionManagePage(String curr) {
 		int nowPage = Integer.valueOf(curr);
-		Dept dept = new Dept();//dept应该从session获取
-		dept.setId("13d59d9fa01411e7b4d800163e083221");
+		User user = RequestUtil.getCurrentUser();
+		Dept dept = new Dept();
+		dept.setId(user.getDept().getId());
 		PageHelper.startPage(nowPage, 5);
 		List<Direction> directions = directionMapper.selectDirectionByDept(dept); //调用mapper接口，通过学院id查询专业方向
 		System.out.println(directions);
@@ -40,8 +43,9 @@ public class DirectionManageServiceImpl implements DirectionManageService {
 	 */
 	@Override
 	public int addDirection(Direction direction) {
-		Dept dept = new Dept();//dept应该从session获取
-		dept.setId("13d59d9fa01411e7b4d800163e083221");//需从session获取
+		User user = RequestUtil.getCurrentUser();
+		Dept dept = new Dept();
+		dept.setId(user.getDept().getId());
 		direction.setDept(dept);
 		direction.setEnable(1); //首次发布必须置为有效
 		direction.setStatus(0);//发布时暂不开通学生填报权限
@@ -84,8 +88,9 @@ public class DirectionManageServiceImpl implements DirectionManageService {
 		
 		System.out.println(directId);
 		int nowPage = Integer.valueOf(curr);
+		User user = RequestUtil.getCurrentUser();
 		Dept dept = new Dept();//dept应该从session获取
-		dept.setId("13d59d9fa01411e7b4d800163e083221");//需从session获取
+		dept.setId(user.getDept().getId());//需从session获取
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Direction> directions1 = directionMapper.selectDirectionByDept(dept);
 		PageInfo<Direction> page = null;
@@ -133,8 +138,9 @@ public class DirectionManageServiceImpl implements DirectionManageService {
 		}else{
 			status = 0;
 		}
+		User user = RequestUtil.getCurrentUser();
 		Dept dept = new Dept();//dept应该从session获取
-		dept.setId("13d59d9fa01411e7b4d800163e083221");//需从session获取
+		dept.setId(user.getDept().getId());//需从session获取
 		
 		return directionMapper.updateSomeDirectionsStatusByDept(dept.getId(),status);
 	}

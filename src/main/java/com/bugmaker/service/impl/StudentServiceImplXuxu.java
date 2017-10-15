@@ -1,6 +1,7 @@
 package com.bugmaker.service.impl;
 
 import com.bugmaker.bean.*;
+import com.bugmaker.constant.ProtocolConstant;
 import com.bugmaker.mapper.InsVolunteeMapper;
 import com.bugmaker.mapper.InternshipMapper;
 import com.bugmaker.mapper.SurveyMapper;
@@ -36,12 +37,18 @@ public class StudentServiceImplXuxu implements StudentServiceXuxu{
     @Qualifier("studentServiceXuxu")
     StudentServiceXuxu studentServiceXuxu;
 
+    //根据学生id判断对应学院的系领导对应的调查表状态
+    public Survey selectSurveyStatusAndEnableByStuId(String studentId) {
+        return surveyMapper.selectSurveyStatusAndEnableByStuId(studentId);
+    }
+
     //查询所有志愿（选择志愿列表用）,包括模糊查询
     @Override
-    public ModelAndView selectAllInternshipList(String name,String curr) {
+    public ModelAndView selectAllInternshipList(int type,String name, String curr) {
+        String strtype = String.valueOf(type);
         int nowPage = Integer.valueOf(curr);
         ModelAndView modelAndView = new ModelAndView();
-        List<Internship> internshipList = internshipMapper.selectAllInternshipAndTeac("");
+        List<Internship> internshipList = internshipMapper.selectAllInternshipAndTeac(strtype,"");
         modelAndView.addObject("internshipList",internshipList);
         modelAndView.addObject("name",name);
 
@@ -67,7 +74,7 @@ public class StudentServiceImplXuxu implements StudentServiceXuxu{
         //5条一页
         PageHelper.startPage(nowPage, 5);
         //查询，包括模糊查询
-        List<Internship> voluntaryList = internshipMapper.selectAllInternshipAndTeac(name.trim());
+        List<Internship> voluntaryList = internshipMapper.selectAllInternshipAndTeac(strtype,name.trim());
         PageInfo<Internship> page = new PageInfo<>(voluntaryList);
         modelAndView.addObject("page",page);
 //        System.out.println(page);

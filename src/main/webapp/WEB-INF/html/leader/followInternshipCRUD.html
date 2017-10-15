@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>顶岗项目crud</title>
+		<title>跟岗项目crud</title>
 		<#include "html/template/head.html" />
 	</head>
 	<body>
@@ -61,7 +61,7 @@
 				</thead>
 				<tbody>
 				<#list page.list as p>
-				   <#if p.type == "顶岗">
+				   <#if p.type == "跟岗">
 					<tr>					
 						<td>#</td>						
 						<td>${p.name}</td>
@@ -96,7 +96,7 @@
 					</#if>
 					</#list>
 					<#list ship as p>
-					 <#if p.type == "顶岗">
+					 <#if p.type == "跟岗">
 					<tr>					
 						<td>#</td>						
 						<td>${p.name}</td>
@@ -140,7 +140,6 @@
 		
 		<#include "html/template/common_js.html" />
 		<script src="${base}/resources/js/jquery-2.1.4.js"></script>
-		<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 		<script>
 			layui.use('layer', function() { 
 				//独立版的layer无需执行这一句
@@ -171,7 +170,7 @@
 					jump: function(obj,first) {
 						//console.log(obj);
 						if(first!=true){
-							 window.location.href ="${base}/leader/internshipCRUD.do?currentPage="+obj.curr;  
+							 window.location.href ="${base}/leader/followInternshipCRUD.do?currentPage="+obj.curr;
 						}
 					}
 				});

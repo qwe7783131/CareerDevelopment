@@ -65,14 +65,27 @@
             <if test="type != null">TYPE=#{type},</if>
             <if test="dept != null and dept.id != null">dept_id=#{dept.id},</if>
         </set>
-       WHERE id = #{id}
+        WHERE id = #{id}
     </update>
+
+    <select id="getTypeByUserName" resultType="string">
+        select type from user where id = #{id}
+    </select>
 
     <!-- 根据id查询登录的用户 -->
     <select id="getUserByUserName" resultMap="userMap">
         SELECT u.id uid,username,password,sex,age,phone,email,enable,type,u.create_time ucreateTime,
-        r.id rid,role_name,role_permiss,d.id,dept_name FROM user u,role r,user_role ur,dept d
-        WHERE u.id = #{id} AND ur.user_id = u.id AND ur.role_id = r.id AND u.dept_id = d.id
+        r.id rid,role_name,role_permiss
+        <if test="type != 3">
+            ,d.id,dept_name
+        </if>FROM user u,role r,user_role ur
+        <if test="type != 3">
+            ,dept d
+        </if>
+        WHERE u.id = #{id} AND ur.user_id = u.id AND ur.role_id = r.id
+        <if test="type != 3">
+            AND u.dept_id = d.id
+        </if>
     </select>
 
     <!-- 查询所有的专业负责人信息(type = 6) -->

@@ -1,10 +1,14 @@
 package com.bugmaker.service.impl;
 
+import com.bugmaker.bean.InsVoluntee;
 import com.bugmaker.bean.Job;
 import com.bugmaker.bean.Task;
+import com.bugmaker.bean.User;
+import com.bugmaker.mapper.InsVolunteeMapper;
 import com.bugmaker.mapper.IssueTaskBookMapper;
 import com.bugmaker.mapper.JobMapper;
 import com.bugmaker.service.IssueTaskBookService;
+import com.bugmaker.utils.RequestUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
@@ -23,6 +27,8 @@ public class IssueTaskBookServiceImpl implements IssueTaskBookService{
     IssueTaskBookMapper issueTaskBookMapper;
     @Resource
     JobMapper jobMapper;
+    @Resource
+    InsVolunteeMapper insVolunteeMapper;
 
     /**
      * 根据id修改任务书
@@ -69,7 +75,8 @@ public class IssueTaskBookServiceImpl implements IssueTaskBookService{
      * @return
      */
     public int addIssueTaskBook(Task task) {
-        Job job = jobMapper.selectJobByOutTeacherId("912");//这里先写死，正常是从session中获取
+        User user = RequestUtil.getCurrentUser();
+        Job job = jobMapper.selectJobByOutTeacherId(user.getId());
         task.setJob(job);
         task.setCreateTime(new Date());
 //        System.out.println(task);
@@ -90,8 +97,18 @@ public class IssueTaskBookServiceImpl implements IssueTaskBookService{
         modelAndView.addObject("status",statusId);
         PageHelper.startPage(nowPage,5);
         //根据企业教师id查询出他发布的所有状态的任务书
-        //这里模拟企业教师的id，实际上在session中取出
-        List<Task> tasks = issueTaskBookMapper.selectAllIssueTaskByOutTeacher(jobType, "911", statusId);
+        List<Task> tasks;
+        User user = RequestUtil.getCurrentUser();
+        if(user.getType() != 3) {
+            //TODO 不是企业教师的时候，根据用户id获取该用户的企业教师id
+            //先获取该学生的项目志愿
+            InsVoluntee insVoluntee = insVolunteeMapper.selectInsVolunteerByStuId(user.getId());
+
+            tasks = issueTaskBookMapper.selectAllIssueTaskByOutTeacher(jobType,user.getId(),statusId);
+        } else {
+            // 企业教师的时候直接传id进去，不是企业教师的时候就要获取他的企业教师
+            tasks = issueTaskBookMapper.selectAllIssueTaskByOutTeacher(jobType, user.getId(), statusId);
+        }
         //分页
         PageInfo<Task> page = new PageInfo<>(tasks);
 //        System.out.println(page);

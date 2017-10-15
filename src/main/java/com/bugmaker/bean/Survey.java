@@ -8,12 +8,21 @@ import java.util.Date;
 public class Survey {
     private String id;
 
-
     private String status;
 
     private String enable;
 
+    private Dept dept;
+
     private Date createTime;
+
+    public Dept getDept() {
+        return dept;
+    }
+
+    public void setDept(Dept dept) {
+        this.dept = dept;
+    }
 
     public String getId() {
         return id;

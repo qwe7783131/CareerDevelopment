@@ -83,7 +83,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		j.name jname, j.salary jsalary, j.outteac_id joutteacherid,
 		i.name iname
 		FROM internship i, company c, job j
-		WHERE i.type = "顶岗" AND i.job_id = j.id AND j.company_id = c.id
+		WHERE i.type = "跟岗" AND i.job_id = j.id AND j.company_id = c.id
 		AND i.status = 2 AND i.enable = 1 AND i.name LIKE '%' #{name} '%' ) internships
 		LEFT JOIN
 		(SELECT u.id uid,u.username username, ins_id FROM teac_ins ti, user u, internship i WHERE

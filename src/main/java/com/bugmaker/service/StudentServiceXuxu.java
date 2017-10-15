@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface StudentServiceXuxu {
     //查询所有志愿（选择志愿列表用）
-    ModelAndView selectAllInternshipList(String name, String curr);
+    ModelAndView selectAllInternshipList(int type,String name, String curr);
 
     //添加志愿填报
     String addInternship(String internshipId);
@@ -25,4 +25,7 @@ public interface StudentServiceXuxu {
 
     //如果学生已经填写了调查表，根据学生id查询他已填写的调查表。
     SurveyResult selectSurveyByStuId(Student student);
+
+    //根据学生id判断对应学院的系领导对应的调查表状态
+    Survey selectSurveyStatusAndEnableByStuId(String studentId);
 }

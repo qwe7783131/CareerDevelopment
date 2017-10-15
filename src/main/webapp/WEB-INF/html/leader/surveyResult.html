@@ -28,7 +28,7 @@
 					<th>序号</th>
 					<th>姓名</th>
 					<th>性别</th>
-					<th>专业</th>
+					<th>学院</th>
 					<th>联系电话</th>
 					<th>单位</th>
 					<th>单位联系人</th>
@@ -37,116 +37,19 @@
 				</tr>
 			</thead>
 			<tbody>
+				<#list page.list as surveyResult>
 				<tr>
-					<td>1</td>
-					<td>郭伟强</td>
-					<td>男</td>
-					<td>软件工程</td>
-					<td>15302386616</td>
-					<td>东软睿道</td>
-					<td>罗婷</td>
-					<td>202-88793614</td>
-					<td>2017-9-1</td>
+					<td>#</td>
+					<td>${surveyResult.student.user.username}</td>
+					<td>${surveyResult.student.user.sex}</td>
+					<td>${surveyResult.student.user.dept.deptName}</td>
+					<td>${surveyResult.student.user.phone}</td>
+					<td>${surveyResult.unitName}</td>
+					<td>${surveyResult.unitPerson}</td>
+					<td>${surveyResult.unitPhone}</td>
+					<td>${surveyResult.createTime?datetime}</td>
 				</tr>
-				<tr>
-					<td>2</td>
-					<td>郭伟强</td>
-					<td>男</td>
-					<td>软件工程</td>
-					<td>15302386616</td>
-					<td>东软睿道</td>
-					<td>罗婷</td>
-					<td>202-88793614</td>
-					<td>2017-9-1</td>
-				</tr>
-				<tr>
-					<td>3</td>
-					<td>郭伟强</td>
-					<td>男</td>
-					<td>软件工程</td>
-					<td>15302386616</td>
-					<td>东软睿道</td>
-					<td>罗婷</td>
-					<td>202-88793614</td>
-					<td>2017-9-1</td>
-				</tr>
-				<tr>
-					<td>4</td>
-					<td>郭伟强</td>
-					<td>男</td>
-					<td>软件工程</td>
-					<td>15302386616</td>
-					<td>东软睿道</td>
-					<td>罗婷</td>
-					<td>202-88793614</td>
-					<td>2017-9-1</td>
-				</tr>
-				<tr>
-					<td>5</td>
-					<td>郭伟强</td>
-					<td>男</td>
-					<td>软件工程</td>
-					<td>15302386616</td>
-					<td>东软睿道</td>
-					<td>罗婷</td>
-					<td>202-88793614</td>
-					<td>2017-9-1</td>
-				</tr>
-				<tr>
-					<td>6</td>
-					<td>郭伟强</td>
-					<td>男</td>
-					<td>软件工程</td>
-					<td>15302386616</td>
-					<td>东软睿道</td>
-					<td>罗婷</td>
-					<td>202-88793614</td>
-					<td>2017-9-1</td>
-				</tr>
-				<tr>
-					<td>7</td>
-					<td>郭伟强</td>
-					<td>男</td>
-					<td>软件工程</td>
-					<td>15302386616</td>
-					<td>东软睿道</td>
-					<td>罗婷</td>
-					<td>202-88793614</td>
-					<td>2017-9-1</td>
-				</tr>
-				<tr>
-					<td>8</td>
-					<td>郭伟强</td>
-					<td>男</td>
-					<td>软件工程</td>
-					<td>15302386616</td>
-					<td>东软睿道</td>
-					<td>罗婷</td>
-					<td>202-88793614</td>
-					<td>2017-9-1</td>
-				</tr>
-				<tr>
-					<td>9</td>
-					<td>郭伟强</td>
-					<td>男</td>
-					<td>软件工程</td>
-					<td>15302386616</td>
-					<td>东软睿道</td>
-					<td>罗婷</td>
-					<td>202-88793614</td>
-					<td>2017-9-1</td>
-				</tr>
-				<tr>
-					<td>10</td>
-					<td>郭伟强</td>
-					<td>男</td>
-					<td>软件工程</td>
-					<td>15302386616</td>
-					<td>东软睿道</td>
-					<td>罗婷</td>
-					<td>202-88793614</td>
-					<td>2017-9-1</td>
-				</tr>
+				</#list>
 			</tbody>
 		</table>
 		<div class="layui-row">
@@ -161,11 +64,18 @@
 				var laypage = layui.laypage;
 				//执行一个分页
 				laypage.render({
-					elem: 'layPage', //注意，这里的 test1 是 ID，不用加 # 号
-					count: 100, //数据总数，从服务端得到
-					limit: 10, //每页条数
-					groups: 5,
-					layout: ['prev', 'page', 'next', 'count']
+					elem: 'layPage',
+					count: ${page.total}, //数据总数
+					limit: ${page.pageSize},
+					first: '<<',
+					last: '>>',
+					curr: ${page.pageNum},
+					layout:['first','prev','page','next','last','count'],
+					jump : function(obj,first) {
+						if(!first){
+							window.location.href="${base}/leader/selectSurveyResyltById.do?curr="+obj.curr;
+						}
+					}
 				});
 			});
 		</script>

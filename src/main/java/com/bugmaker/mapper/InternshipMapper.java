@@ -36,7 +36,7 @@ public interface InternshipMapper {
      * 查询所有的项目（包含所有的指导教师）
      * @return
      */
-    List<Internship> selectAllInternshipAndTeac(@Param("name") String name);
+    List<Internship> selectAllInternshipAndTeac(@Param("type")String type,@Param("name") String name);
     /**
      * 通过项目名称模糊查询项目
      * @param name

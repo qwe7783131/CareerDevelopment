@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import com.bugmaker.utils.RequestUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -31,10 +32,10 @@ public class DivideTeacForInsServiceImpl implements DivideTeacForInsService {
 		int nowPage1 = Integer.valueOf(curr1);
 		int nowPage2 = Integer.valueOf(curr2);
 		int nowPage3 = Integer.valueOf(curr3);
-		System.out.println(insId);
-		System.out.println(status);
-		
-		String deptId = "13d59d9fa01411e7b4d800163e083221";
+//		System.out.println(insId);
+//		System.out.println(status);
+		User user = RequestUtil.getCurrentUser();
+		String deptId = user.getDept().getId();
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Internship> internships = internshipMapper.selectInternshipsByDeptId(deptId);
 		if(insId != null && !insId.equals("") && status !=null && !status.equals("")){
