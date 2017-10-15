@@ -21,6 +21,8 @@ public class StuLog {
 
     private Date schoolWritebackDate;
 
+    private Outteacher outSchoolTeacher;
+
     private String outSchoolTeacWriteback;
 
     private String outSchoolTeacSign;
@@ -66,8 +68,6 @@ public class StuLog {
     public void setWriteDate(Date writeDate) {
         this.writeDate = writeDate;
     }
-
-
 
     public String getSchoolTeacWriteback() {
         return schoolTeacWriteback;
@@ -117,6 +117,14 @@ public class StuLog {
         this.outSchoolWritebackDate = outSchoolWritebackDate;
     }
 
+    public Outteacher getOutSchoolTeacher() {
+        return outSchoolTeacher;
+    }
+
+    public void setOutSchoolTeacher(Outteacher outSchoolTeacher) {
+        this.outSchoolTeacher = outSchoolTeacher;
+    }
+
     @Override
     public String toString() {
         return "StuLog{" +
@@ -128,6 +136,7 @@ public class StuLog {
                 ", schoolTeacWriteback='" + schoolTeacWriteback + '\'' +
                 ", schoolTeacSign='" + schoolTeacSign + '\'' +
                 ", schoolWritebackDate=" + schoolWritebackDate +
+                ", outSchoolTeacher=" + outSchoolTeacher +
                 ", outSchoolTeacWriteback='" + outSchoolTeacWriteback + '\'' +
                 ", outSchoolTeacSign='" + outSchoolTeacSign + '\'' +
                 ", outSchoolWritebackDate=" + outSchoolWritebackDate +

@@ -23,47 +23,99 @@
     </resultMap>
     <insert id="insertLog" >
 
-        insert stu_log (id, stu_id, content, write_date)
-            values(#{id}, #{student.user.id}, #{content}, #{writeDate})
+        insert stu_log (id, stu_id, content, write_date, out_school_teac_id)
+            values(#{id}, #{student.user.id}, #{content}, #{writeDate}, #{outSchoolTeacher.user.id})
 
     </insert>
 
+    <select id="selectOutTeacherByStuId" resultType="String">
+
+        SELECT
+            job.outteac_id
+        FROM
+            internship_detail ,
+            internship ,
+            job
+        WHERE
+            internship_detail.ins_id = internship.id AND
+            internship.job_id = job.id AND
+            internship_detail.stu_id = #{stuId}
+
+
+    </select>
+    <!--<sql id="selectAll">-->
+        <!--SELECT-->
+            <!--*-->
+        <!--FROM-->
+            <!--stu_log-->
+        <!--LEFT JOIN (-->
+            <!--SELECT-->
+                <!--tea.id intern_id,-->
+                <!--tea.oid outteacher_id,-->
+                <!--ind.stu_id s_id,-->
+                <!--SUBSTRING_INDEX( ind.teac_id, ',', 1 ) teac1,-->
+                <!--SUBSTRING_INDEX( SUBSTRING_INDEX( ind.teac_id, ',', 2 ), ",",- 1 ) teac2,-->
+                <!--SUBSTRING_INDEX( SUBSTRING_INDEX( ind.teac_id, ',', 3 ), ",",- 1 ) teac3,-->
+                <!--u.username-->
+            <!--FROM-->
+                <!--internship_detail ind-->
+            <!--LEFT JOIN (-->
+                <!--SELECT-->
+                <!--i.id,-->
+                <!--jj.oid-->
+                <!--FROM-->
+                <!--internship i-->
+            <!--LEFT JOIN ( SELECT j.id, outteacher.id oid FROM job j LEFT JOIN outteacher ON j.outteac_id = outteacher.id ) jj ON i.job_id = jj.id-->
+            <!--) tea ON ind.ins_id = tea.id-->
+            <!--LEFT JOIN user u ON ind.stu_id = u.id-->
+        <!--) aaa ON aaa.s_id = stu_log.stu_id-->
+    <!--</sql>-->
+
     <sql id="selectAll">
         SELECT
-            *
+            stu_log.*, user.username
         FROM
-            stu_log
-        LEFT JOIN (
-            SELECT
-                tea.id intern_id,
-                tea.oid outteacher_id,
-                ind.stu_id s_id,
-                SUBSTRING_INDEX( ind.teac_id, ',', 1 ) teac1,
-                SUBSTRING_INDEX( SUBSTRING_INDEX( ind.teac_id, ',', 2 ), ",",- 1 ) teac2,
-                SUBSTRING_INDEX( SUBSTRING_INDEX( ind.teac_id, ',', 3 ), ",",- 1 ) teac3,
-                u.username
-            FROM
-                internship_detail ind
-            LEFT JOIN (
-                SELECT
-                i.id,
-                jj.oid
-                FROM
-                internship i
-            LEFT JOIN ( SELECT j.id, outteacher.id oid FROM job j LEFT JOIN outteacher ON j.outteac_id = outteacher.id ) jj ON i.job_id = jj.id
-            ) tea ON ind.ins_id = tea.id
-            LEFT JOIN user u ON ind.stu_id = u.id
-        ) aaa ON aaa.s_id = stu_log.stu_id
+            stu_log, internship_detail, user
+        WHERE stu_log.stu_id = internship_detail.stu_id
+        AND user.id = stu_log.stu_id
     </sql>
 
     <select id="selectByParam" resultMap="logMap">
         <include refid="selectAll" />
-        <where>
+
             <if test="stuId != null and stuId != ''" >
-                stu_log.stu_id = #{stuId}
+                AND stu_log.stu_id = #{stuId}
             </if>
-        </where>
 
     </select>
 
+    <select id="selectByTeaId" resultMap="logMap">
+        <include refid="selectAll" />
+
+        <if test="teacherId != null and teacherId != ''" >
+                AND ISNULL(stu_log.teac_id) AND FIND_IN_SET(#{teacherId}, internship_detail.teac_id)
+        </if>
+
+    </select>
+
+    <select id="selectByOutTeaId" resultMap="logMap">
+
+        <include refid="selectAll"/>
+
+        <if test="outId != null and outId != ''" >
+            AND ISNULL(stu_log.out_school_teac_writeback) AND stu_log.out_school_teac_id = #{outId}
+        </if>
+    </select>
+
+    <update id="addTeacherWriteBack" >
+        UPDATE stu_log
+        SET teac_id = #{teacherId}, school_teac_writeback = #{content}
+        WHERE id = #{Id}
+    </update>
+
+    <update id="addOutTeacherWriteBack" >
+        UPDATE stu_log
+        SET out_school_teac_writeback = #{content}
+        WHERE id = #{Id}
+    </update>
 </mapper>

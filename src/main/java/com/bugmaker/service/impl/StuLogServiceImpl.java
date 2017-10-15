@@ -1,5 +1,6 @@
 package com.bugmaker.service.impl;
 
+import com.bugmaker.bean.Outteacher;
 import com.bugmaker.bean.StuLog;
 import com.bugmaker.bean.Student;
 import com.bugmaker.bean.User;
@@ -31,6 +32,15 @@ public class StuLogServiceImpl implements StuLogService{
 
         stuLog.setWriteDate(new Date());
 
+        String outTeacherId = stuLogMapper.selectOutTeacherByStuId(stuId);
+        User user1 = new User();
+
+        user1.setId(outTeacherId);
+        Outteacher outteacher = new Outteacher();
+        outteacher.setUser(user1);
+
+        stuLog.setOutSchoolTeacher(outteacher);
+
         int flag = stuLogMapper.insertLog(stuLog);
 
         return flag == 1 ? true : false;
@@ -39,5 +49,28 @@ public class StuLogServiceImpl implements StuLogService{
     @Override
     public List<StuLog> getAllByParam(String stuId) {
         return stuLogMapper.selectByParam(stuId);
+    }
+
+
+    @Override
+    public List<StuLog> getAllByTeaId(String teaId) {
+        return stuLogMapper.selectByTeaId(teaId);
+    }
+
+    @Override
+    public boolean addTeacherWriteBack(String stuLogId, String teaId, String content) {
+        int flag = stuLogMapper.addTeacherWriteBack(stuLogId,teaId,content);
+        return flag == 1 ? true : false;
+    }
+
+    @Override
+    public boolean addOutTeacherWriteBack(String stuLogId, String content) {
+        int flag = stuLogMapper.addOutTeacherWriteBack(stuLogId, content);
+        return flag == 1 ? true : false;
+    }
+
+    @Override
+    public List<StuLog> getAllByOutId(String outId) {
+        return stuLogMapper.selectByOutTeaId(outId);
     }
 }

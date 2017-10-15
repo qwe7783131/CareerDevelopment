@@ -1,7 +1,6 @@
-package com.bugmaker.controller.student;
+package com.bugmaker.controller.teacher;
 
 import com.bugmaker.bean.StuLog;
-import com.bugmaker.bean.Student;
 import com.bugmaker.bean.User;
 import com.bugmaker.service.StuLogService;
 import org.springframework.stereotype.Controller;
@@ -17,29 +16,33 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/student")
-public class StudentLogController {
+@RequestMapping("/teacher")
+public class TeacherLogController {
 
     @Resource
     private StuLogService stuLogService;
+    /**
+     * 查看和完成顶岗实习手册
+     * @return
+     */
+    @RequestMapping("selectOutJobBook.do")
+    public ModelAndView selectOutJobBookView(Model model, HttpServletRequest request){
 
-    @RequestMapping("logInfo.do")
-    public ModelAndView stuLogInfoView(Model model, HttpServletRequest request){
         User user = (User)request.getSession().getAttribute("user");
-        String stuId = user.getId();
-        List<StuLog> stuLogs = stuLogService.getAllByParam(stuId);
+        String teaId = user.getId();
+        List<StuLog> stuLogs = stuLogService.getAllByTeaId(teaId);
 
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("stuLogs", stuLogs);
 
-        return new ModelAndView("student/stuLogInfo", "map", map);
+        return new ModelAndView("teacher/selectOutJobBook", "map", map);
     }
 
-    @RequestMapping("addLog.do")
     @ResponseBody
-    public boolean addLog(String content, HttpServletRequest request){
+    @RequestMapping("writeBackOutLog.do")
+    public boolean writeBackOutLog(HttpServletRequest request, String stuLogId, String content){
         User user = (User)request.getSession().getAttribute("user");
-        String stuId = user.getId();
-        return stuLogService.addLogByStudent(stuId, content);
+        String teaId = user.getId();
+        return stuLogService.addTeacherWriteBack(stuLogId, teaId, content);
     }
 }

@@ -319,10 +319,10 @@ public class TeacherController {
      * 查看和完成顶岗实习手册
      * @return
      */
-    @RequestMapping("selectOutJobBook.do")
-    public String selectOutJobBookView(){
-        return "teacher/selectOutJobBook";
-    }
+//    @RequestMapping("selectOutJobBook.do")
+//    public String selectOutJobBookView(){
+//        return "teacher/selectOutJobBook";
+//    }
 
     /**
      * 查看跟岗实习进度
