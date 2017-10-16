@@ -102,9 +102,11 @@ public class IssueTaskBookServiceImpl implements IssueTaskBookService{
         if(user.getType() != 3) {
             //TODO 不是企业教师的时候，根据用户id获取该用户的企业教师id
             //先获取该学生的项目志愿
+//            System.out.println(user.getId());
             InsVoluntee insVoluntee = insVolunteeMapper.selectInsVolunteerByStuId(user.getId());
-
-            tasks = issueTaskBookMapper.selectAllIssueTaskByOutTeacher(jobType,user.getId(),statusId);
+//            System.out.println(insVoluntee);
+//            System.out.println(insVoluntee.getInternship().getJob().getOutteacher().getId());
+            tasks = issueTaskBookMapper.selectAllIssueTaskByOutTeacher(jobType,insVoluntee.getInternship().getJob().getOutteacher().getId(),statusId);
         } else {
             // 企业教师的时候直接传id进去，不是企业教师的时候就要获取他的企业教师
             tasks = issueTaskBookMapper.selectAllIssueTaskByOutTeacher(jobType, user.getId(), statusId);

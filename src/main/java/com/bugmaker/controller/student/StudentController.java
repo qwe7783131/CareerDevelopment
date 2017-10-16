@@ -101,14 +101,6 @@ public class StudentController {
 		return modelAndView;
 	}
 	/**
-     * 学生查询个人成绩页面
-     * @return
-     */
-	@RequestMapping("selectScoreStu.do")
-	public String selectScoreStu(){
-		return "student/selectScoreStu";
-	}
-	/**
      * 学生查看指导老师页面
      * @return
      */

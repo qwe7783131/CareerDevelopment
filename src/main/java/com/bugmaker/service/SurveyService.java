@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface SurveyService {
@@ -40,4 +42,9 @@ public interface SurveyService {
      * @return
      */
    int surveyEnable(String surveyid, String enable);
+
+    /**
+     * 导出调查结果数据
+     */
+    void dataExcel(HttpServletRequest request, HttpServletResponse response, String surveyId)throws Exception;
 }

@@ -70,7 +70,7 @@ public class StudentServiceImplXuxu implements StudentServiceXuxu{
         InsVoluntee insVoluntee = insVolunteeMapper.selectInsVolunteerByStuId(currentUser.getId());
 //        System.out.println(insVoluntee);
         modelAndView.addObject("insVoluntee",insVoluntee);
-
+//        System.out.println(insVoluntee);
         //5条一页
         PageHelper.startPage(nowPage, 5);
         //查询，包括模糊查询

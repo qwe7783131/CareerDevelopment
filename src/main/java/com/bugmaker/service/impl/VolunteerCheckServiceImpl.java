@@ -68,22 +68,21 @@ public class VolunteerCheckServiceImpl implements VolunteerCheckService {
         modelAndView.addObject("internshipId",internshipId);
         modelAndView.addObject("statusId",statusId);
         int status = Integer.valueOf(statusId);
-        User currentUser = RequestUtil.getCurrentUser();
+        User user = RequestUtil.getCurrentUser();
         //根据学院获取学院里所有专业班级
-        //先写死数据，不用从登陆，session的值
-        List<ProfessionClass> professClasses = professionClassMapper.getProfessClassByDeptId("e2c3cc8ba07a11e7b4d800163e083221");
+        List<ProfessionClass> professClasses = professionClassMapper.getProfessClassByDeptId(user.getDept().getId());
         modelAndView.addObject("professClasses",professClasses);
 
         //根据学院获取所有项目
         //先写死数据，不用从登陆，session的值
-        List<Internship> internships = internshipMapper.selectInternshipsByDeptId("e2c3cc8ba07a11e7b4d800163e083221");
+        List<Internship> internships = internshipMapper.selectInternshipsByDeptId(user.getDept().getId());
         modelAndView.addObject("internships",internships);
 
         //分页，一页5条数据
         PageHelper.startPage(nowPage, 5);
         //根据学院获取所有学生填报的项目志愿
 //        System.out.println(jobType);
-        List<InsVoluntee> insVoluntees = insVolunteeMapper.selectInsVolunteerByParam("e2c3cc8ba07a11e7b4d800163e083221",
+        List<InsVoluntee> insVoluntees = insVolunteeMapper.selectInsVolunteerByParam(user.getDept().getId(),
                 jobType, professClassId,internshipId, status);
 //        System.out.println(insVoluntees);
         PageInfo<InsVoluntee> page = new PageInfo<>(insVoluntees);

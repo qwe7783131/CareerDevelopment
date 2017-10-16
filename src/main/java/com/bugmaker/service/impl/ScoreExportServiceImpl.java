@@ -17,28 +17,28 @@ public class ScoreExportServiceImpl implements ScoreExportService{
 
 	@Override
 	public HSSFWorkbook export(List<Score> score) {
-		String[] excelHeader = { "学生姓名", "成绩"}; 
-		HSSFWorkbook wb = new HSSFWorkbook();    
-        HSSFSheet sheet = wb.createSheet("scores");    
-        HSSFRow row = sheet.createRow((int) 0);    
-        HSSFCellStyle style = wb.createCellStyle();    
-        style.setAlignment(HSSFCellStyle.ALIGN_CENTER);    
-    
-        for (int i = 0; i < excelHeader.length; i++) {    
-            HSSFCell cell = row.createCell(i);    
-            cell.setCellValue(excelHeader[i]);    
-            cell.setCellStyle(style);    
-            sheet.autoSizeColumn(i);    
-        }    
-    
-        for (int i = 0; i < score.size(); i++) {    
-            row = sheet.createRow(i + 1);    
-            Score sc = score.get(i);    
-            row.createCell(0).setCellValue(sc.getStudent().getUser().getUsername());    
-            row.createCell(1).setCellValue(sc.getTeacScore());    
-               
-        }    
-        return wb;    
-	}
+        String[] excelHeader = { "学生姓名", "成绩"};
+        HSSFWorkbook wb = new HSSFWorkbook();
+        HSSFSheet sheet = wb.createSheet("scores");
+        HSSFRow row = sheet.createRow((int) 0);
+        HSSFCellStyle style = wb.createCellStyle();
+        style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+
+        for (int i = 0; i < excelHeader.length; i++) {
+            HSSFCell cell = row.createCell(i);
+            cell.setCellValue(excelHeader[i]);
+            cell.setCellStyle(style);
+            sheet.autoSizeColumn(i);
+        }
+
+        for (int i = 0; i < score.size(); i++) {
+            row = sheet.createRow(i + 1);
+            Score sc = score.get(i);
+            row.createCell(0).setCellValue(sc.getStudent().getUser().getUsername());
+            row.createCell(1).setCellValue(sc.getTeacScore());
+
+        }
+        return wb;
+    }
 
 }

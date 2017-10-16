@@ -13,8 +13,12 @@
 			<legend>调查结果</legend>
 		</fieldset>
 		<div class="layui-row">
-			<div class="layui-col-xs3 layui-col-xs-offset9 layui-col-sm2 layui-col-sm-offset10 layui-col-md1 layui-col-md-offset11">
+			<!--<div class="layui-col-xs3 layui-col-xs-offset9 layui-col-sm2 layui-col-sm-offset10 layui-col-md1 layui-col-md-offset11" id="layerDemo">
 				<button class="layui-btn layui-btn-small layui-btn-norma"><i class="layui-icon">&#xe601;</i>导出数据</button>
+			</div>-->
+			<div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+
+				<button data-method="setIfram" class="layui-btn layui-btn-normal" ><i class="layui-icon">&#xe61e;</i>导出</button>
 			</div>
 		</div>
 		<table class="layui-table">
@@ -77,8 +81,21 @@
 						}
 					}
 				});
+
 			});
 		</script>
+		<script>
+			layui.use('layer', function(){ //独立版的layer无需执行这一句
+			    var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+
+
+
+			$('#layerDemo .layui-btn').on('click', function(){
+				window.location.href="${base}/leader/dataExcel.do?surveyId=${surveyId}";
+				});
+
+		});
+	    </script>
 	</body>
 
 </html>

@@ -215,8 +215,7 @@
 									<td>${enroll.direction.name}</td>
 									<td>${enroll.direction.dept.deptName}</td>
 									<td>
-										<button class="layui-btn layui-btn-small"><i class="layui-icon">&#xe607;</i>录取原因</button>
-										<button class="layui-btn layui-btn-small"><i class="layui-icon">&#xe606;</i>提出复议</button>
+										<button class="layui-btn layui-btn-small" id="reason"><i class="layui-icon">&#xe607;</i>录取原因</button>
 									</td>
 								</tr>
 							</#if>
@@ -239,6 +238,12 @@
 						element.tabChange('retn', '2'); //切换到：用户管理
 					}
 				   };
+				   $("#reason").click(function() {
+				   		layer.open({
+						  title: '录取原因'
+						  ,content: '${enroll.reason}'
+						});
+				   });
 				  $('.site-demo-active').on('click', function(){
 					var othis = $(this), type = othis.data('type');
 					active[type] ? active[type].call(this, othis) : '';

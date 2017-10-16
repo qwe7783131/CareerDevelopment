@@ -1,6 +1,10 @@
 package com.bugmaker.controller.leader;
 
+import com.bugmaker.bean.Score;
+import com.bugmaker.bean.Student;
+import com.bugmaker.constant.ProtocolConstant;
 import com.bugmaker.service.SurveyService;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -8,6 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.OutputStream;
+import java.util.List;
 
 /**
  * Created by guan on 2017/10/15.
@@ -24,6 +32,13 @@ public class SurveyController {
     @RequestMapping("selectSurveyResyltById.do")
     public ModelAndView selectSurveyResyltById(String surveyId,@RequestParam(defaultValue = "1") String curr) {
         return surveyService.selectSurveyResyltById(surveyId,curr);
+    }
+    @RequestMapping("dataExcel.do")
+    public void dataExcel(HttpServletRequest request, HttpServletResponse response, String surveyId)throws Exception{
+
+        surveyService.dataExcel(request,response,surveyId);
+
+
     }
 
     /**
