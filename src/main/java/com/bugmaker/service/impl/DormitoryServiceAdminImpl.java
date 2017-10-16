@@ -200,7 +200,7 @@ public class DormitoryServiceAdminImpl implements DormitoryServiceAdmin {
 		}else{
 			type = "顶岗";
 		}
-		PageHelper.startPage(nowPage, 1);
+		PageHelper.startPage(nowPage, 10);
     	List<DormArrange> dormArranges = dormArrangeMapper.selectDormArrangeByOutTeacId(user.getId(),type);
 		PageInfo<DormArrange> page = new PageInfo<>(dormArranges);
     	modelAndView.addObject("page", page);
