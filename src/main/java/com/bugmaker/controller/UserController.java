@@ -34,4 +34,9 @@ public class UserController {
         userService.doLogout();
         return "redirect:/";
     }
+
+    @RequestMapping("main.do")
+    public String main(){
+        return "main";
+    }
 }

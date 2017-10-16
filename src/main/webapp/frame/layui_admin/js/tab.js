@@ -12,7 +12,7 @@ layui.define(["jquery", "element", "nprogress", "utils", "loader"], function(t) 
 		c = function() {
 			this.config = {
 				elem: void 0,
-				mainUrl: "main.html",
+				mainUrl: document.getElementById('base').href + "/main.do",
 				renderType: "iframe"
 			}, this.v = "1.0.3"
 		};
