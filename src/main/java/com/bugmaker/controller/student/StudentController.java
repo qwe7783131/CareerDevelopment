@@ -153,4 +153,14 @@ public class StudentController {
 	public String watchScore(){
 		return "student/watchScore";
 	}
+	
+	/**
+	 * 查看我的宿舍安排
+	 * @param insType
+	 * @return
+	 */
+	@RequestMapping("toWatchMyDorm.do")
+	public ModelAndView toWatchMyDorm(String insType,@RequestParam(defaultValue="1") String curr){
+		return studentService.toWatchMyDorm(insType,curr);
+	}
 }

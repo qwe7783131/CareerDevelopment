@@ -9,6 +9,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<association property="student" resultMap="com.bugmaker.mapper.StudentMapper.stuMap"/>
 		<association property="dormitory" javaType="com.bugmaker.bean.Dormitory">
 			<id property="id" column="dormid"/>
+			<association property="company" javaType="com.bugmaker.bean.Company">
+				<id property="id" column="cpid"/>
+				<result property="name" column="cpname"/>
+			</association>
 		</association>
 	</resultMap>
 
@@ -31,5 +35,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="changeDormByid">
 		update dorm_arrange set dorm_id=#{changDormId} where id=#{dormaid}
 	</update>
+	
+	<select id="getDormArrangeByStuIdAndInsType" resultMap="dormArrangeMap">
+		select dorma.id dormaid, dorm.id dormid,u.id, u.username, cp.id cpid, cp.name cpname
+		from user u, internship_detail insde, internship ins, job j, 
+		company cp, dormitory dorm, dorm_arrange dorma
+		where insde.stu_id=u.id and insde.ins_id=ins.id and ins.job_id=j.id 
+		and j.company_id=cp.id and dorm.company_id=cp.id and dorma.dorm_id=dorm.id 
+		and ins.type=#{type} and dorma.stu_id=#{id}
+	</select>
+	
+	<select id="getDormArrangeByDept" resultMap="dormArrangeMap">
+		select dorma.id dormaid, dorm.id dormid,u.id, u.username, cp.id cpid, cp.name cpname
+		from user u, internship_detail insde, internship ins, job j, 
+		company cp, dormitory dorm, dorm_arrange dorma, dept dp
+		where u.dept_id=dp.id and insde.stu_id=u.id and insde.ins_id=ins.id and ins.job_id=j.id 
+		and j.company_id=cp.id and dorm.company_id=cp.id and dorma.dorm_id=dorm.id 
+		and ins.type=#{type} and dp.id=#{id}
+	</select>
 
 </mapper>
