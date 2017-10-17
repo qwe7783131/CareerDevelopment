@@ -39,9 +39,12 @@ public class TeacherInternshipServiceImpl implements TeacherInternshipService{
 		modelAndView.addObject("page",page);
 		
 		TeacherInternship teacherInternship = teacherInternshipMapper.getTeacInsByTeacherId(currentUser.getId());
-		List<TeacIns> teacIns = teacherInternship.getTeacIns();
-		//System.out.println(teacIns);
-		modelAndView.addObject("teacIns",teacIns);
+		if (teacherInternship != null){
+			List<TeacIns> teacIns = teacherInternship.getTeacIns();
+			//System.out.println(teacIns);
+			modelAndView.addObject("teacIns",teacIns);
+		}
+
 		modelAndView.setViewName("teacher/zhidaofenpei");
 		return modelAndView;
 	}

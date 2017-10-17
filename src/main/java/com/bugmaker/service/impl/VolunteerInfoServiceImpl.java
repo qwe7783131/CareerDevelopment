@@ -3,6 +3,7 @@ package com.bugmaker.service.impl;
 import com.bugmaker.bean.*;
 import com.bugmaker.mapper.*;
 import com.bugmaker.service.VolunteerInfoService;
+import com.bugmaker.utils.RequestUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
@@ -38,8 +39,9 @@ public class VolunteerInfoServiceImpl implements VolunteerInfoService{
         System.out.println(pcClassId);
         int nowPage = Integer.valueOf(curr);
         Map<String, Object> map = new HashMap<String, Object>();
+        User user = RequestUtil.getCurrentUser();
 //        List<Dept> depts = deptMapper.selectAllDept();
-        String deptId = "e2c3cc8ba07a11e7b4d800163e083221";
+        String deptId = user.getDept().getId();
         List<ProfessionClass> professionClassList = professionClassMapper.getProfessClassByDeptId(deptId);
 
         List<Direction> directions = null;
@@ -101,7 +103,8 @@ public class VolunteerInfoServiceImpl implements VolunteerInfoService{
         Map<String, Object> map = new HashMap<String, Object>();
 //        List<Dept> depts = deptMapper.selectAllDept();
         //从session取出deptid
-        String deptId = "e2c3cc8ba07a11e7b4d800163e083221";
+        User user1 = RequestUtil.getCurrentUser();
+        String deptId = user1.getDept().getId();
         List<Direction> directions = null;
         List<DirectionClass> directionClassList = null;
         map.put("classId", classId);

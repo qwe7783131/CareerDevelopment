@@ -15,21 +15,21 @@
 <div class="layui-form-item" style="display: none;">
     <label class="layui-form-label">学生的id</label>
     <div class="layui-input-block">
-      <input type="text" name="stuid" required  lay-verify="required" value="${map.stuid}" placeholder="请输入标题" autocomplete="off" class="layui-input">
+      <input type="text" name="stuid" required  lay-verify="required" value="${map.stuid}" placeholder="请填写成绩" autocomplete="off" class="layui-input">
      
     </div>
   </div>
   <div class="layui-form-item">
     <label class="layui-form-label">成绩</label>
     <div class="layui-input-block">
-      <input type="text" name="score" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+      <input type="text" name="score" required  lay-verify="required" placeholder="请填写成绩" autocomplete="off" class="layui-input">
      
     </div>
   </div>
   <div class="layui-form-item">
-    <label class="layui-form-label">评分次</label>
+    <label class="layui-form-label">评分次数</label>
     <div class="layui-input-block">
-      <input type="text" name="no" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+      <input type="text" name="no" required  lay-verify="required" placeholder="请输入评分次数" autocomplete="off" class="layui-input">
      
     </div>
   </div>
@@ -37,7 +37,7 @@
 
   <div class="layui-form-item">
     <div class="layui-input-block">
-      <button class="layui-btn" lay-submit lay-filter="formDemo">提交</button>
+      <button onclick="func();" class="layui-btn" lay-submit lay-filter="formDemo">提交</button>
     </div>
   </div>
   
@@ -46,8 +46,13 @@
  <script src="${base}/resources/js/jquery-2.1.4.js"></script>
 <script>
 //Demo
-layui.use('form', function(){
-  var form = layui.form;
+layui.use([ 'laypage', 'layer', 'form', 'jquery'], function(){
+  var form = layui.form, $ = layui.jquery;
+
+  function func(){
+    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+	parent.layer.close(index); //再执行关闭
+  }
   
   //监听提交
   form.on('submit(formDemo)', function(data){

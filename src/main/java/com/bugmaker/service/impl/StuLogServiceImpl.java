@@ -1,9 +1,7 @@
 package com.bugmaker.service.impl;
 
-import com.bugmaker.bean.Outteacher;
-import com.bugmaker.bean.StuLog;
-import com.bugmaker.bean.Student;
-import com.bugmaker.bean.User;
+import com.bugmaker.bean.*;
+import com.bugmaker.mapper.InsVolunteeMapper;
 import com.bugmaker.mapper.StuLogMapper;
 import com.bugmaker.service.StuLogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +16,9 @@ public class StuLogServiceImpl implements StuLogService{
 
     @Autowired
     private StuLogMapper stuLogMapper;
+    @Autowired
+    private InsVolunteeMapper insVolunteeMapper;
+
     @Override
     public boolean addLogByStudent(String stuId, String content) {
         StuLog stuLog = new StuLog();
@@ -32,10 +33,11 @@ public class StuLogServiceImpl implements StuLogService{
 
         stuLog.setWriteDate(new Date());
 
-        String outTeacherId = stuLogMapper.selectOutTeacherByStuId(stuId);
+        InsVoluntee insVoluntee = insVolunteeMapper.selectInsVolunteerByStuId(stuId);
+//        String outTeacherId = stuLogMapper.selectOutTeacherByStuId(stuId);
         User user1 = new User();
 
-        user1.setId(outTeacherId);
+        user1.setId(insVoluntee.getInternship().getJob().getOutteacher().getId());
         Outteacher outteacher = new Outteacher();
         outteacher.setUser(user1);
 

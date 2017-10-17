@@ -68,7 +68,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	<!--根据企业教师id查询出他发布的所有状态的任务书 -->
-	<select id="selectAllIssueTaskByOutTeacher" resultMap="IssueTaskBookMap">
+	<select id="selectAllIssueTaskByOutTeacher"  resultMap="IssueTaskBookMap">
 		SELECT distinct j.id jid,j.name jname,j.salary jsalary, j.outteac_id outteac_id,
 		c.id cid, c.name cname, c.address caddress,
 		c.phone cphone, c.advisor cadvisor,c.enable cenable,

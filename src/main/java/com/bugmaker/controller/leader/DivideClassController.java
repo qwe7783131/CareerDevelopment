@@ -1,12 +1,10 @@
 package com.bugmaker.controller.leader;
 
-import com.bugmaker.bean.Direction;
-import com.bugmaker.bean.DirectionClass;
-import com.bugmaker.bean.Enroll;
-import com.bugmaker.bean.Student;
+import com.bugmaker.bean.*;
 import com.bugmaker.service.DirectionClassManagerService;
 import com.bugmaker.service.VolunteerInfoService;
 import com.bugmaker.utils.MyUtil;
+import com.bugmaker.utils.RequestUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.http.HttpRequest;
@@ -102,7 +100,8 @@ public class DivideClassController {
     public ModelAndView divideClassView(){
 
         Map<String, Object> map = new HashMap<String, Object>();
-        String deptId = "e2c3cc8ba07a11e7b4d800163e083221";
+        User user = RequestUtil.getCurrentUser();
+        String deptId = user.getDept().getId();
         List<Direction> directions = null;
         directions = volunteerInfoService.selectDirectionByDeptId(deptId);
         // 用到的表， enroll,direction
